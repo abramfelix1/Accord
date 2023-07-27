@@ -5,9 +5,12 @@ from datetime import datetime
 class Server(db.Model):
     __tablename__ = "servers"
 
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
     id = db.Column(db.Integer(), primary_key=True)
     owner_id = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
-    name = db.Column(db.String(), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     image_url = db.Column(db.String())
     created_at = db.Column(db.DateTime(), default=datetime.now)
     updated_at = db.Column(db.DateTime(), default=datetime.now)
@@ -29,5 +32,18 @@ class Server(db.Model):
             'name': self.name,
             "image_url": self.image_url,
             "created_at": self.created_at,
-            "updated_at": self.updated_at
+            "updated_at": self.updated_at,
+        }
+    
+    def to_dict_relationships(self):
+        return {
+            'id': self.id,
+            "owner_id": self.owner_id,
+            'name': self.name,
+            "image_url": self.image_url,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+            "users": self.users,
+            "owner": self.owner,
+            "channels": self.channels,
         }
