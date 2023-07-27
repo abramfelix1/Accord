@@ -1,0 +1,65 @@
+/* Main Container */
+.main-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    align-items: stretch;
+  }
+
+  /* ------------------------------------------------------------------------------------------------------------------------------ */
+
+  /* Server List Container */
+  .main-section-1 {
+    background-color: #1e1f22;
+    width: 4.5rem;
+  }
+
+  /* ------------------------------------------------------------------------------------------------------------------------------ */
+
+  /* Channel / Friend List Container */
+  .main-section-2 {
+    display: flex;
+    flex-direction: column;
+    background-color: #2b2d30;
+    width: 14.55rem;
+    justify-content: space-between;
+  }
+
+  .dm-channel-list-scroll-container {
+    overflow: hidden scroll;
+  }
+
+  .dm-channel-list-scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ------------------------------------------------------------------------------------------------------------------------------ */
+
+  /* ChatBox, MemberList, NavBar Container */
+  .main-section-3 {
+    flex-grow: 1;
+    overflow: hidden;
+  }
+
+  /* Chatbox and MemberList to display next to each other */
+  .chatbox-member-container {
+    display: flex;
+    width: 100%;
+  }
+
+  /* ------------------------------------------------------------------------------------------------------------------------------ */
+
+  /* Modal Container */
+  .center-modal-container {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
