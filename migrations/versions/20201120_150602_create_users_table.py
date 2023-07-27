@@ -8,6 +8,8 @@ Create Date: 2020-11-20 15:06:02.230689
 from alembic import op
 import sqlalchemy as sa
 
+
+# MAKE SURE TO ADD THIS INTO EVERY MIGRATION FILE
 import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
@@ -32,6 +34,7 @@ def upgrade():
     sa.UniqueConstraint('username')
     )
 
+# MAKE SURE TO ADD THIS INTO EVERY MIGRATION FILE
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###qqqqqqqqq

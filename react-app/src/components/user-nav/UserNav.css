@@ -1,0 +1,22 @@
+.usermenu-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    height: 55px;
+    color: white;
+    background-color: #232528;
+}
+
+.usermenu {
+    height: 55px;
+    display: flex;
+    align-items: center;
+}
+
+.usermenu-pfp {
+    border-radius: 50%;
+    height: 33px;
+    width: 33px;
+    margin: 0px 7px;
+    background-color: white;
+}

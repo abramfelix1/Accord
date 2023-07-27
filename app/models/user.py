@@ -10,11 +10,11 @@ class User(db.Model, UserMixin):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    display_name = db.Column(db.String())
+    display_name = db.Column(db.String(32))
     image_url = db.Column(db.String())
     created_at = db.Column(db.DateTime(), default=datetime.now)
     updated_at = db.Column(db.DateTime(), default=datetime.now)
@@ -48,5 +48,21 @@ class User(db.Model, UserMixin):
             "display_name": self.display_name,
             "image_url": self.image_url,
             "created_at": self.created_at,
-            "updated_at": self.updated_at
+            "updated_at": self.updated_at,
         }
+    
+    def to_dict_relationships(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            "display_name": self.display_name,
+            "image_url": self.image_url,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+            "servers": self.servers,
+            "servers_owned": self.servers_owned,
+            "channel_messages": self.channel_messages,
+        }
+
+
