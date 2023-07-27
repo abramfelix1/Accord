@@ -1,0 +1,15 @@
+.live-chat-container {
+    background-color: #323338;
+    height: 3rem;
+    color: white;
+    border-bottom: solid 2px rgba(0, 0, 0, .25);
+    display: flex;
+    align-items: center;
+}
+
+.inner-live-chat-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0px 20px;
+}
