@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import Server, Member, db
-from app.forms import ServerForm
+from app.models import Server, Member, Channel, db
+from app.forms import ServerForm, ChannelForm
 
 server_routes = Blueprint("servers", __name__)
 
@@ -115,3 +115,30 @@ def get_all_channels_of_a_server(id):
         return {}
     all_channels = {"Channels": [channels.to_dict() for channels in server.channels]}
     return all_channels
+
+
+@server_routes.route("/<int:id>/channels", methods=["POST"])
+@login_required
+def create_channel(id):
+    """
+    Create Channel by Server Id
+    """
+    form = ChannelForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    # Get Server Id
+    server = Server.query.get(id)
+
+    # Check if server owner_id matches with current user_id
+    if str(server.owner_id) != current_user.get_id():
+        return {"errors": [{"Unauthorized": "Unauthorized Action"}]}, 401
+
+    # Submit form if not error
+    if form.validate_on_submit():
+        new_channel = Channel(name=form.data["channel_name"], server_id=id)
+        db.session.add(new_channel)
+        db.session.commit()
+        return new_channel.to_dict()
+
+    # Throw error if there is any
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
