@@ -51,8 +51,23 @@ def create_a_servers():
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 
-@server_routes.route("/", methods=["PUT", "PATCH"])
+@server_routes.route("/<int:id>", methods=["PUT", "PATCH"])
 @login_required
+def edit_a_server(id):
+    """
+    Edit a server
+    """
+    form = ServerForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    server = Server.query.get(id)
+    if str(server.owner_id) != current_user.get_id():
+        return {"errors": ["Unauthorized : Unauthorized Action"]}, 403
+    if form.validate_on_submit():
+        data = form.data
+        server.name = data["server_name"]
+        db.session.commit()
+        return server.to_dict()
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 
 # Getting all the channels of a server
