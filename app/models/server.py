@@ -16,13 +16,13 @@ class Server(db.Model):
     updated_at = db.Column(db.DateTime(), default=datetime.now)
 
     # many to many with server through members table
-    users = db.relationship("User", secondary="members", back_populates="servers")
+    users = db.relationship("User", secondary="members", cascade="all,delete", back_populates="servers")
     
     # one to many with user
     owner = db.relationship("User", back_populates="servers_owned")
 
     # one to many with channels
-    channels = db.relationship("Channel", back_populates="server")
+    channels = db.relationship("Channel", back_populates="server", cascade="all,delete",)
 
 
     def to_dict(self):
