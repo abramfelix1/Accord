@@ -5,6 +5,10 @@ from app.forms import ServerForm
 
 server_routes = Blueprint("servers", __name__)
 
+@server_routes.errorhandler(404) 
+def invalid_route(e): 
+    return jsonify({'errorCode' : 404, 'message' : 'Route not found'}), 404
+
 
 def validation_errors_to_error_messages(validation_errors):
     """
