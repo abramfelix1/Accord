@@ -161,6 +161,12 @@ def get_server_members(id):
     """
     Get server members by server ID
     """
+
+    server = Server.query.get(id)
+
+    if server is None:
+        return jsonify({"message": "Server not found"}), 403
+
     members = (
         Member.query.filter(Member.server_id == id).options(joinedload("user")).all()
     )
@@ -172,15 +178,12 @@ def get_server_members(id):
 
     for member in members:
         member_info = {
-            "Member ID": member.id,
-            "User ID": member.user_id,
-            "Created At": member.created_at,
-            "Updated At": member.updated_at,
-            "User Details": {
-                "Username": member.user.username,
-                "Display Name": member.user.display_name,
-                "Image Url": member.user.image_url,
-            },
+            "created_at": member.created_at,
+            "display_name": member.user.display_name,
+            "image_url": member.user.image_url,
+            "member_id": member.id,
+            "user_id": member.user_id,
+            "username": member.user.username
         }
         members_info.append(member_info)
 
