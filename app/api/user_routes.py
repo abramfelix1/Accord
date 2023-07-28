@@ -55,6 +55,7 @@ def edit_user_profile():
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
+
 @user_routes.route("/servers")
 @login_required
 def get_user_servers():
@@ -65,6 +66,7 @@ def get_user_servers():
 
     member = Member.query.filter(Member.user_id == user['id']).all()
     servers =[server.to_dict() for server in member]
+
     list = []
     for server in servers:
        list.append(Server.query.get(server['server_id']))
