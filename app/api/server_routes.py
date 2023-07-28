@@ -1,5 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import joinedload
 from app.models import Server, Member, Channel, db
 from app.forms import ServerForm, ChannelForm
 
@@ -151,3 +153,16 @@ def create_channel(id):
 
     # Throw error if there is any
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+
+@server_routes.route("/<int:id>/members", methods=["GET"])
+@login_required
+def get_server_members(id):
+    """
+    Get server members by server ID
+    """
+    members = Member.query.filter(Member.server_id == id).join(Member.user).all()
+    if not members:
+        return {}
+
+    return [member.to_dict() for member in members]
