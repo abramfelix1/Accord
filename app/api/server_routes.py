@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from app.models import Server, db
 from app.forms import ServerForm
@@ -50,6 +50,7 @@ def create_a_servers():
         return new_server.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
+
 @server_routes.route("/<int:id>", methods=["GET"])
 @login_required
 def get_server_by_id(id):
@@ -57,11 +58,10 @@ def get_server_by_id(id):
     Gets server by ID
     """
     server = Server.query.get(id)
-
     if not server:
         return {}
-
     return server.to_dict()
+
 
 @server_routes.route("/<int:id>", methods=["PUT", "PATCH"])
 @login_required
@@ -72,14 +72,32 @@ def edit_a_server(id):
     form = ServerForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     server = Server.query.get(id)
+    if server is None:
+        return jsonify({"message": "Server not found"}), 403
     if str(server.owner_id) != current_user.get_id():
-        return {"errors": ["Unauthorized : Unauthorized Action"]}, 403
+        return {"errors": [{"Unauthorized": "Unauthorized Action"}]}, 401
     if form.validate_on_submit():
         data = form.data
         server.name = data["server_name"]
         db.session.commit()
         return server.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+
+@server_routes.route("/<int:id>", methods=["DELETE"])
+@login_required
+def delete_a_server(id):
+    """
+    Delete a server
+    """
+    server = Server.query.get(id)
+    if server is None:
+        return jsonify({"message": "Server not found"}), 403
+    if str(server.owner_id) != current_user.get_id():
+        return {"errors": [{"Unauthorized": "Unauthorized Action"}]}, 401
+    db.session.delete(server)
+    db.session.commit()
+    return jsonify({"message": "Server succesfully deleted!"}), 200
 
 
 # Getting all the channels of a server
@@ -90,9 +108,7 @@ def get_all_channels_of_a_server(id):
     Query for all the channels by a server id
     """
     server = Server.query.get(id)
-
     if server is None:
         return {}
-
     all_channels = {"Channels": [channels.to_dict() for channels in server.channels]}
     return all_channels
