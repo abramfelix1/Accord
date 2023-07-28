@@ -51,6 +51,10 @@ def create_a_servers():
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 
+@server_routes.route("/", methods=["PUT", "PATCH"])
+@login_required
+
+
 # Getting all the channels of a server
 @server_routes.route("/<int:id>/channels")
 @login_required
