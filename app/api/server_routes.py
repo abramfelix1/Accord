@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import joinedload
-from app.models import Server, Member, Channel, db
+from app.models import Server, Member, Channel,User, db
 from app.forms import ServerForm, ChannelForm
 
 server_routes = Blueprint("servers", __name__)
@@ -161,8 +161,19 @@ def get_server_members(id):
     """
     Get server members by server ID
     """
-    members = Member.query.filter(Member.server_id == id).join(Member.user).all()
-    if not members:
+    members_query = db.session.query(Member).join(User).filter(Member.server_id == id)
+    if not members_query:
         return {}
+
+    members = members_query.all()
+
+    member_details = []
+
+    for member in members:
+        print("Member ID:", member.id)
+        print("User ID:", member.user_id)
+        print("Created At:", member.created_at)
+        print("Updated At:", member.updated_at)
+        print("TEST: ", member.user)
 
     return [member.to_dict() for member in members]
