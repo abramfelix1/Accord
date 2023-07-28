@@ -37,7 +37,7 @@ def user(id):
 
 @user_routes.route("/profile", methods=['PUT', 'PATCH'])
 @login_required
-def edit_user_profile():
+def update_user():
     """
     Update current user's username, display_name, image_url and returns that user in a dictionary
     """
