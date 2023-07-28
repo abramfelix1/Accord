@@ -58,10 +58,6 @@ def seed_channels():
     db.session.add(dullsville)
     db.session.add(rock_bottom)
 
-
-
-
-
     db.session.commit()
 
 
