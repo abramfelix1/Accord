@@ -109,7 +109,6 @@ font-size: 10px;
     display: flex;
     justify-content: center;
     padding-top: 10px;
-
 }
 
 .login-button {
@@ -125,6 +124,7 @@ font-size: 10px;
 .login-button:hover {
     background-color: #4853d1;
     box-shadow: none;
+    cursor: pointer;
 }
 
 .register-container {

@@ -12,18 +12,13 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   // const [errors, setErrors] = useState({});
 
-  if (sessionUser) return <Redirect to="/app" />;
+  if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // setErrors({});
 
-    return dispatch(sessionActions.login({ email, password })).catch(
-      async (res) => {
-        const data = await res.json();
-        // if (data && data.errors) setErrors(data.errors);
-      }
-    );
+    return dispatch(sessionActions.login({ email, password }))
   };
 
   return (
