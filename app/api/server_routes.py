@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import Server, db
+from app.models import Server, Member, db
 from app.forms import ServerForm
 
 server_routes = Blueprint("servers", __name__)
@@ -44,8 +44,11 @@ def create_a_servers():
         new_server = Server(
             owner_id=current_user.get_id(), name=data["server_name"], image_url="url"
         )
-        form.populate_obj(new_server)
         db.session.add(new_server)
+        db.session.commit()
+
+        new_member = Member(user_id=current_user.get_id(), server_id=new_server.id)
+        db.session.add(new_member)
         db.session.commit()
         return new_server.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
