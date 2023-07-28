@@ -5,9 +5,10 @@ from app.forms import ServerForm, ChannelForm
 
 server_routes = Blueprint("servers", __name__)
 
-@server_routes.errorhandler(404) 
-def invalid_route(e): 
-    return jsonify({'errorCode' : 404, 'message' : 'Route not found'}), 404
+
+@server_routes.errorhandler(404)
+def invalid_route(e):
+    return jsonify({"errorCode": 404, "message": "Route not found"}), 404
 
 
 def validation_errors_to_error_messages(validation_errors):
@@ -108,7 +109,7 @@ def delete_a_server(id):
 
 
 # Getting all the channels of a server
-@server_routes.route("/<int:id>/channels")
+@server_routes.route("/<int:id>/channels", methods=["GET"])
 @login_required
 def get_all_channels_of_a_server(id):
     """
@@ -132,6 +133,10 @@ def create_channel(id):
 
     # Get Server Id
     server = Server.query.get(id)
+
+    # Return 403 error if server doesn't exist
+    if server is None:
+        return jsonify({"message": "Server not found"}), 403
 
     # Check if server owner_id matches with current user_id
     if str(server.owner_id) != current_user.get_id():
