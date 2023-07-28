@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import User, db
+from app.models import User, Member, Server, db
 from app.forms import UserSettingsForm
 
 user_routes = Blueprint('users', __name__)
@@ -54,3 +54,19 @@ def edit_user_profile():
         return current_user.to_dict()
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+@user_routes.route("/servers")
+@login_required
+def get_user_servers():
+    """
+    Get all servers user is assoicated to
+    """
+    user = current_user.to_dict()
+
+    member = Member.query.filter(Member.user_id == user['id']).all()
+    servers =[server.to_dict() for server in member]
+    list = []
+    for server in servers:
+       list.append(Server.query.get(server['server_id']))
+
+    return [d.to_dict() for d in list]
