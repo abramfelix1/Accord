@@ -69,6 +69,6 @@ def get_user_servers():
 
     list = []
     for server in servers:
-       list.append(Server.query.get(server['server_id']))
+        list.append(Server.query.get(server['server_id']))
 
     return [d.to_dict() for d in list]

@@ -81,3 +81,12 @@ def unauthorized():
     Returns unauthorized JSON when flask-login authentication fails
     """
     return {'errors': ['Unauthorized']}, 401
+
+
+
+@auth_routes.route('/forbidden')
+def forbidden():
+    """
+    Returns unauthorized JSON when a user is forbidden to make action
+    """
+    return {'errors': ['Forbidden']}, 403
