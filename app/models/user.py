@@ -23,10 +23,10 @@ class User(db.Model, UserMixin):
     servers = db.relationship("Server", secondary="members", back_populates="users")
     
     # one to many with server
-    servers_owned = db.relationship("Server", back_populates="owner")
+    servers_owned = db.relationship("Server", cascade="all,delete-orphan", back_populates="owner")
 
     # many to many with channels through channel messages table
-    channel_messages = db.relationship("Channel", secondary="channel_messages", back_populates="users")
+    channel_messages = db.relationship("Channel", secondary="channel_messages", cascade="all,delete", back_populates="users")
 
 
     @property
