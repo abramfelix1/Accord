@@ -50,6 +50,18 @@ def create_a_servers():
         return new_server.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
+@server_routes.route("/<int:id>", methods=["GET"])
+@login_required
+def get_server_by_id(id):
+    """
+    Gets server by ID
+    """
+    server = Server.query.get(id)
+
+    if not server:
+        return {}
+
+    return server.to_dict()
 
 @server_routes.route("/<int:id>", methods=["PUT", "PATCH"])
 @login_required
