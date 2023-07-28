@@ -24,4 +24,4 @@ def get_channel_detail(id):
         return invalid_route("error")
     
     # return the channel details in json format
-    return channel.to_dict()
+    return channel.to_dict_relationships()
