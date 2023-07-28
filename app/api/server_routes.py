@@ -24,6 +24,10 @@ def get_all_servers():
     Gets all public servers
     """
     servers = Server.query.all()
+
+    if not servers:
+        return {}
+
     return [server.to_dict() for server in servers]
 
 
@@ -44,4 +48,4 @@ def create_a_servers():
         db.session.add(new_server)
         db.session.commit()
         return new_server.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
