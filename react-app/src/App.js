@@ -3,6 +3,9 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import { authenticate } from "./store/session";
 import Main from "./components/Main";
+import LoginPage from './components/login-signup/login/Login'
+import SignupPage from "./components/login-signup/signup/Signup";
+
 
 function App() {
   // const dispatch = useDispatch();
@@ -14,6 +17,8 @@ function App() {
   return (
     <>
         <Switch>
+          <Route path='/login' component={LoginPage}/>
+          <Route path='/signup' component={SignupPage}/>
           <Route path='/app' component={Main}/>
         </Switch>
     </>
