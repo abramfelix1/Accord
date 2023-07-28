@@ -45,5 +45,5 @@ class Server(db.Model):
             "updated_at": self.updated_at,
             "users": self.users,
             "owner": self.owner,
-            "channels": self.channels,
+            "channels": self.channels.to_dict(),
         }
