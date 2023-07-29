@@ -25,7 +25,7 @@ def validation_errors_to_error_messages(validation_errors):
 
 
 @server_routes.route("/", methods=["GET"])
-@login_required
+# @login_required
 def get_all_servers():
     """
     Gets all public servers

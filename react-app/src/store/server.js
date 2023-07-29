@@ -14,6 +14,7 @@ const DELETE_SERVER = "server/DELETE_SERVER"
 
 /*************** ACTIONS CREATOR **************************/
 export const getAllServersAction = (servers) => {
+    console.log("hello")
     return {
         type: GET_ALL_SERVERS,
         payload: servers
@@ -77,17 +78,12 @@ export const deleteServerAction = (server) => {
 
 /*************** THUNK ACTIONS CREATOR **************************/
 
-export const getAllServersThunk = () => async (dispatchEvent) => {
+export const getAllServersThunk = () => async (dispatch) => {
     const res = await fetch("/api/servers");
-
     if (res.ok) {
-        const data = await res.json();
-        
-        if (data.errors) {
-            return;
-        }
-
-        dispatchEvent(getAllServersAction(data));
+        const servers = await res.json();
+        dispatch(getAllServersAction(servers));
+        return servers;
     }
 }
 
@@ -100,15 +96,18 @@ export const getAllServersThunk = () => async (dispatchEvent) => {
 
 
 // REDUCER
-const initialState = {};
+// const initialState = {};
 
-export default function serverReducer(state = initialState, action) {
+export default function serverReducer(state = {}, action) {
     let newState;
 
 	switch (action.type) {
-		case GET_SERVER:
+		case GET_ALL_SERVERS:
             newState = {};
-            newState[action.payload.id] = action.payload;
+            const allServers = action.payload;
+            allServers.forEach((server) => {
+                newState[server.id] = server
+            })
 			return newState;
 		// case REMOVE_USER:
 		// 	return { user: null };
