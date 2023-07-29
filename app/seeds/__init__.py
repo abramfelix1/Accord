@@ -53,5 +53,6 @@ def undo():
     undo_servers()
     undo_members()
     undo_channels()
+    undo_messages()
 
     # Add other undo functions here

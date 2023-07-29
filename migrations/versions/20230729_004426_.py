@@ -1,12 +1,13 @@
-"""create models
+"""empty message
 
-Revision ID: 4f92f8495d3f
+Revision ID: 596e13482a20
 Revises:
-Create Date: 2023-07-28 03:25:39.834360
+Create Date: 2023-07-29 00:44:26.108546
 
 """
 from alembic import op
 import sqlalchemy as sa
+
 
 # MAKE SURE TO ADD THIS INTO EVERY MIGRATION FILE
 import os
@@ -15,7 +16,7 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = "4f92f8495d3f"
+revision = "596e13482a20"
 down_revision = None
 branch_labels = None
 depends_on = None

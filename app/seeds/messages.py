@@ -1,42 +1,18 @@
-from app.models import db, Message, environment, SCHEMA
+from app.models import db, ChannelMessage, environment, SCHEMA
 from sqlalchemy.sql import text
 
 
 def seed_messages():
-    # Demo Server Channels
-    music = Channel(name="music", server_id=1)
-    random = Channel(name="random", server_id=1)
-    memes = Channel(name="memes", server_id=1)
-    leet_code = Channel(name="leet codes", server_id=1)
+    # Demo Channel Messages
+    message1 = ChannelMessage(message="asdfg", channel_id=1, user_id=2)
+    message2 = ChannelMessage(message="gfdsa", channel_id=1, user_id=4)
+    message3 = ChannelMessage(message="qwers", channel_id=1, user_id=5)
+    message4 = ChannelMessage(message="rewq", channel_id=1, user_id=6)
 
-    # Krusty Krab Channels
-    krusty_kitchen = Channel(name="The Krusty Kitchen", server_id=2)
-    mr_krab_office = Channel(name="Mr.Krab's Office", server_id=2)
-    krusty_menu = Channel(name="Krusty Menu and Updates", server_id=2)
-
-    # Chum Bucket Channels
-    bucket_list = Channel(name="The Bucket List", server_id=3)
-    chum_cafeteria = Channel(name="Chum Cafeteria", server_id=3)
-    laboratory = Channel(name="The Laboratory", server_id=3)
-
-    # Bikini Bottom Channels
-    kelp_forest = Channel(name="Kelp Forest", server_id=4)
-    dullsville = Channel(name="Dullsville", server_id=4)
-    rock_bottom = Channel(name="rock_bottom", server_id=4)
-
-    db.session.add(music)
-    db.session.add(random)
-    db.session.add(memes)
-    db.session.add(leet_code)
-    db.session.add(krusty_kitchen)
-    db.session.add(mr_krab_office)
-    db.session.add(krusty_menu)
-    db.session.add(bucket_list)
-    db.session.add(chum_cafeteria)
-    db.session.add(laboratory)
-    db.session.add(kelp_forest)
-    db.session.add(dullsville)
-    db.session.add(rock_bottom)
+    db.session.add(message1)
+    db.session.add(message2)
+    db.session.add(message3)
+    db.session.add(message4)
 
     db.session.commit()
 
