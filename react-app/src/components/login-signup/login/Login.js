@@ -8,17 +8,23 @@ function LoginPage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
 
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
 
   if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setErrors({});
+    setErrors({});
 
-    return dispatch(sessionActions.login({ email, password }))
+    console.log(username,email, password)
+    return dispatch(sessionActions.login({ username, email, password })).catch(
+      async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      });
   };
 
   return (
@@ -44,16 +50,25 @@ function LoginPage() {
                     type="text"
                     className="form-input-field"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setUsername(e.target.value);
+                    }}
                   />
                   <p className="form-input-label">
                     Password <span>*</span>
                   </p>
-                  <input type="password" className="form-input-field" value={password}
-                    onChange={(e) => setPassword(e.target.value)}/>{" "}
-                  <Link className="forgot-password">Forgot your password?</Link>
+                  <input
+                    type="password"
+                    className="form-input-field"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />{" "}
+                  <Link to="/" className="forgot-password">Forgot your password?</Link>
                   <div className="login-button-container">
-                    <button type='submit' className="login-button">Log in</button>
+                    <button type="submit" className="login-button">
+                      Log in
+                    </button>
                   </div>
                   <p className="register-container">
                     Need an account?

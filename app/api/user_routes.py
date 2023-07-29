@@ -37,7 +37,7 @@ def user(id):
 
 @user_routes.route("/profile", methods=['PUT', 'PATCH'])
 @login_required
-def edit_user_profile():
+def update_user():
     """
     Update current user's username, display_name, image_url and returns that user in a dictionary
     """
@@ -64,11 +64,11 @@ def get_user_servers():
     """
     user = current_user.to_dict()
 
-    member = Member.query.filter(Member.user_id == user['id']).all()
-    servers =[server.to_dict() for server in member]
+    members = Member.query.filter(Member.user_id == user['id']).all()
 
-    list = []
-    for server in servers:
-       list.append(Server.query.get(server['server_id']))
+    server_ids = []
+    for member in members:
+        server_ids.append(member.to_dict()["server_id"])
 
-    return [d.to_dict() for d in list]
+    servers = [server.to_dict() for server in Server.query.filter(Server.id.in_(server_ids)).all()]
+    return servers

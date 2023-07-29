@@ -14,16 +14,16 @@ function SignupPage() {
             <div className="signup-container-5">
               <div className="signup-container-6">
                 {/* FORM SECTION */}
-                <form autocomplete="o">
+                <form autoComplete="o">
                   <div>
                     <p className="form-input-label">Email</p>
-                    <input type="text" className="form-input-field" autocomplete="o"/>
+                    <input type="text" className="form-input-field" autoComplete="o"/>
                     <p className="form-input-label">Username</p>
-                    <input type="text" className="form-input-field" autocomplete="o"/>
+                    <input type="text" className="form-input-field" autoComplete="o"/>
                     <p className="form-input-label">Password</p>
-                    <input type="password" className="form-input-field" autocomplete="o"/>{" "}
+                    <input type="password" className="form-input-field" autoComplete="o"/>{" "}
                     <p className="form-input-label">Confirm Password</p>
-                    <input type="password" className="form-input-field" autocomplete="o"/>{" "}
+                    <input type="password" className="form-input-field" autoComplete="o"/>{" "}
                   </div>
 
                   <div className="signup-button-container">
