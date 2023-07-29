@@ -3,8 +3,9 @@ from flask import Flask, render_template, request, session, redirect, jsonify
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
-from flask_login import LoginManager
-from .models import db, User
+from flask_login import LoginManager, login_required, current_user
+from sqlalchemy.orm import joinedload
+from .models import db, User, Server, Member
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.server_routes import server_routes
@@ -99,10 +100,62 @@ def react_root(path):
     return app.send_static_file("index.html")
 
 
+
+@app.errorhandler(404)
+def invalid_route(e):
+    return jsonify({'errorCode' : 404, 'message' : 'Route not found'}), 404
+
+
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f"{field} : {error}")
+    return errorMessages
+
+
+
+@app.route('/api/server/<int:id>/join', methods=["POST"])
+@login_required
+def join_server(id):
+    """
+    User join server.
+    If User is already a member of server, throw error.
+    If Server does not exist, throw 404
+    """
+
+    # Get Server Id
+    server = Server.query.get(id)
+    # Get current user Id
+    user_id = current_user.get_id()
+    # If server not does exist, throw 404 error
+    if server is None:
+        return invalid_route("error")
+    # Query if user is a member of server or not
+    member = (
+        Member.query.filter(Member.server_id.like(id), Member.user_id.like(user_id)).first()
+    )
+    # If Member is a member, throw error
+    if member is not None:
+        return jsonify({"message": "User is already a member"}), 403
+
+    # Create member if they are not a member
+    member = Member(
+        user_id=user_id,
+        server_id=server.id
+    )
+    db.session.add(member)
+    db.session.commit()
+    return member.to_dict()
+
+
+
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
 
 if __name__ == "__main__":
     socketio.run(app)
-
