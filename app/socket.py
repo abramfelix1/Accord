@@ -23,10 +23,10 @@ def handle_chat(data):
     message = data["message"]
     user_id = data["user_id"]
     channel_id = data["channel_id"]
-    timestamp = datetime.utcnow()
 
-    message = ChannelMessage()
-    db.session.add(message=message, user_id=user_id, channel_id=channel_id)
+    message = ChannelMessage(message=message, user_id=user_id, channel_id=channel_id)
+    db.session.add(message)
+    db.session.commit()
 
     emit(
         "new_message",

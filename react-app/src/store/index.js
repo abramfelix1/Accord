@@ -5,7 +5,7 @@ import messageReducer from "./message";
 
 const rootReducer = combineReducers({
   session,
-  message: messageReducer,
+  messages: messageReducer,
 });
 
 let enhancer;

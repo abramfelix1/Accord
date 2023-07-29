@@ -153,13 +153,13 @@ def join_server(id):
     db.session.commit()
     return member.to_dict()
 
-@app.route("/api/channels/<int:id>/messages")
+
+@app.route("/api/channels/<int:id>/messages", methods=["GET","POST"])
 @login_required
 def get_channel_messages(id):
     """
     Get all messages for a channel
     """
-
     channel = Channel.query.get(id)
 
     if channel is None:
@@ -178,6 +178,7 @@ def get_channel_messages(id):
 
     for message in messages:
         message_info = {
+            "id": message.id,
             "message": message.message,
             "display_name": message.user.display_name,
             "image_url": message.user.image_url,

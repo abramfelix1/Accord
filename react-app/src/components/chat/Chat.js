@@ -7,22 +7,22 @@ import { getMessages, createMessage } from "../../store/message";
 const Chat = () => {
   const [chatInput, setChatInput] = useState("");
   const user = useSelector((state) => state.session.user);
-  const messages = useSelector((state) => state.messages);
+  const messages = useSelector((state) => Object.values(state.messages));
   // const channelID = useSelector((state) => state.channelID)
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getMessages(1));
+
     socket.on("new_message", (message) => {
       dispatch(createMessage(message));
     });
 
-    dispatch(getMessages(1));
     // when component unmounts, disconnect
     return () => {
       socket.disconnect();
     };
   }, [dispatch]);
-
   const updateChatInput = (e) => {
     setChatInput(e.target.value);
   };
@@ -41,11 +41,11 @@ const Chat = () => {
   return (
     user && (
       <div>
-        {/* <div>
-          {messages.map((message, ind) => (
-            <div key={ind}>{`${message.user}: ${message.msg}`}</div>
+        <div>
+          {messages.map((message, idx) => (
+            <div key={idx}>{`${message.username}: ${message.message}`}</div>
           ))}
-        </div> */}
+        </div>
         <ChatInputField
           sendChat={sendChat}
           chatInput={chatInput}
