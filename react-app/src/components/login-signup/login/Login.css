@@ -1,0 +1,144 @@
+.login-container {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: #4764ce;
+    background-image: url("../../../images/discord-signup-login.png");
+}
+
+.login-container-2 {
+    box-shadow:1px 1px 10px#1f2124;
+    padding: 0px 10px;
+    display: flex;
+    flex-direction: row;
+    background-color: #35393e;
+    width: 450px;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.login-container-3 {
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+    overflow: visible;
+    height: 366px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-container-4 {
+    display: flex;
+    justify-content: center;
+    width: inherit;
+    max-width: 960px;
+    /* margin-right: 18px; */
+}
+
+.login-container-5 {
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-container-6 {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+/*  ---------------------------------------- Form Section ---------------------------------------------*/
+
+.form-login-header {
+    font-size: 24px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.form-login-message {
+    color: #99aab5;
+    font-size: 15px;
+}
+
+.form-input-label {
+    color: #99aab5;
+    text-align: left;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+}
+
+.form-input-label > span {
+color: red;
+font-size: 10px;
+}
+
+.form-input-field {
+    width: 95%;
+    height: 20px;
+    outline: none;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 2px;
+    border: none;
+    background-color: #1f2124;
+    color: white;
+}
+
+.forgot-password {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 6px;
+    color: #00A8FC;
+    text-decoration: none;
+    font-size: 14px;
+    width: fit-content;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.login-button-container {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.login-button {
+    border: none;
+    width: 100%;
+    border-radius: 3px;
+    background-color: #5865FC;
+    color: white;
+    font-size: 16px;
+    padding: 12px;
+}
+
+.login-button:hover {
+    background-color: #4853d1;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+.register-container {
+    display: flex;
+    justify-items: flex-start;
+    font-size: 14px;
+    color: #949BA4;
+}
+.register-link {
+    text-decoration: none;
+    color: #00A8FC;
+    margin-left: 10px;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
