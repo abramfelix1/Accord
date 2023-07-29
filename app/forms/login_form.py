@@ -7,7 +7,6 @@ def user_exists(form, field):
     # Checking if user exists
     data = field.data
     user = User.query.filter((User.username == data) | (User.email == data)).first()
-    print('--------------------------------------------', user.to_dict(), 'user name')
     if not user:
         raise ValidationError('Email or Username provided not found.')
 

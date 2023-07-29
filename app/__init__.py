@@ -138,6 +138,7 @@ def join_server(id):
     member = (
         Member.query.filter(Member.server_id.like(id), Member.user_id.like(user_id)).first()
     )
+
     # If Member is a member, throw error
     if member is not None:
         return jsonify({"message": "User is already a member"}), 403
@@ -147,6 +148,7 @@ def join_server(id):
         user_id=user_id,
         server_id=server.id
     )
+
     db.session.add(member)
     db.session.commit()
     return member.to_dict()
