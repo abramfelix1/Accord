@@ -5,7 +5,6 @@ import { authenticate } from "./store/session";
 import Main from "./components/Main";
 import LoginPage from "./components/login-signup/login/Login";
 import SignupPage from "./components/login-signup/signup/Signup";
-import ServerForm from "./components/servers/ServerList";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,7 +20,6 @@ function App() {
           <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignupPage} />
           <Route path="/app" component={Main} />
-          <Route path="/new-server" component={ServerForm}/>
         </Switch>
       )}
     </>
