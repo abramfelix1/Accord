@@ -8,8 +8,7 @@ function LoginPage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
 
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [credentials, setCredentials] = useState('')
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
 
@@ -19,8 +18,8 @@ function LoginPage() {
     e.preventDefault();
     setErrors({});
 
-    console.log(username,email, password)
-    return dispatch(sessionActions.login({ username, email, password })).catch(
+    console.log(credentials, password)
+    return dispatch(sessionActions.login({ credentials, password })).catch(
       async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
@@ -49,10 +48,9 @@ function LoginPage() {
                   <input
                     type="text"
                     className="form-input-field"
-                    value={email}
+                    value={credentials}
                     onChange={(e) => {
-                      setEmail(e.target.value);
-                      setUsername(e.target.value);
+                      setCredentials(e.target.value);
                     }}
                   />
                   <p className="form-input-label">
