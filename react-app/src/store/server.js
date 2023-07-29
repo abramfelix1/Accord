@@ -3,7 +3,7 @@
 
 /*************** TYPES **************************/
 const GET_ALL_SERVERS = "server/GET_ALL_SERVERS"
-const GET_USER_SERVERS = "server/GET_USER_SERVERS"
+// const GET_USER_SERVERS = "server/GET_USER_SERVERS"
 const GET_SERVER = "server/GET_SERVER"
 const CREATE_SERVER = "server/CREATE_SERVER"
 const UPDATE_SERVER = "server/UPDATE_SERVER"
@@ -14,7 +14,6 @@ const DELETE_SERVER = "server/DELETE_SERVER"
 
 /*************** ACTIONS CREATOR **************************/
 export const getAllServersAction = (servers) => {
-    console.log("hello")
     return {
         type: GET_ALL_SERVERS,
         payload: servers
@@ -36,12 +35,12 @@ export const getServerAction = (server) => {
 /******/
 
 
-export const getUserServersAction = (servers) => {
-    return {
-        type: GET_USER_SERVERS,
-        payload: servers
-    };
-};
+// export const getUserServersAction = (servers) => {
+//     return {
+//         type: GET_USER_SERVERS,
+//         payload: servers
+//     };
+// };
 
 
 /******/
@@ -68,10 +67,10 @@ export const updateServerAction = (server) => {
 /******/
 
 
-export const deleteServerAction = (server) => {
+export const deleteServerAction = (server_id) => {
     return {
         type: DELETE_SERVER,
-        payload: server
+        payload: server_id
     };
 };
 
@@ -80,6 +79,7 @@ export const deleteServerAction = (server) => {
 
 export const getAllServersThunk = () => async (dispatch) => {
     const res = await fetch("/api/servers");
+
     if (res.ok) {
         const servers = await res.json();
         dispatch(getAllServersAction(servers));
@@ -88,15 +88,92 @@ export const getAllServersThunk = () => async (dispatch) => {
 }
 
 
-
 /******/
 
 
+export const getServerThunk = (server_id) => async (dispatch) => {
+    const res = await fetch(`/api/servers/${server_id}`);
+
+    if(res.ok) {
+        const server = await res.json();
+        dispatch(getServerAction(server));
+        return server;
+    }
+}
+
+export const createServerThunk = (server_name) => async (dispatch) => {
+    const reqBody = JSON.stringify({
+        server_name,
+    })
+
+    const res = await fetch("/api/servers/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: reqBody,
+    });
+    
+    // if the response is good. recall the get all servers thunk 
+    // to get the redux updated with all the servers again to 
+    // prevent loading issues
+    if (res.ok) {
+        const newServer = await res.json();
+        await dispatch(getAllServersThunk());
+        return newServer
+    } else {
+        const error = await res.json();
+        return error;
+    }
+}
+
+
+export const updateServerThunk = (server_id, server_name) => async (dispatch) => {
+    const reqBody = JSON.stringify({
+        server_name,
+    })
+
+    const res = await fetch(`/api/servers/${server_id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: reqBody,
+    });
+    
+    // if the response is good. recall the get all servers thunk 
+    // to get the redux updated with all the servers again to 
+    // prevent loading issues
+    if (res.ok) {
+        const updatedServer = await res.json();
+        await dispatch(getAllServersThunk());
+        return updatedServer
+    } else {
+        const error = await res.json();
+        return error;
+    }
+}
+
+export const deleterServerThunk = (server_id) => async (dispatch) => {
+    const res = await fetch(`/api/servers/${server_id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    
+    // if the response is good. recall the get all servers thunk 
+    // to get the redux updated with all the servers again to 
+    // prevent loading issues
+    if (res.ok) {
+        console.log("hello deleted")
+        dispatch(deleteServerAction(server_id))
+    }
+}
 
 
 
 // REDUCER
-// const initialState = {};
 
 export default function serverReducer(state = {}, action) {
     let newState;
@@ -109,8 +186,14 @@ export default function serverReducer(state = {}, action) {
                 newState[server.id] = server
             })
 			return newState;
-		// case REMOVE_USER:
-		// 	return { user: null };
+		case GET_SERVER:
+            newState = {}
+            newState[action.payload.id] = action.payload
+			return newState;
+        case DELETE_SERVER:
+            newState = state;
+            delete newState[action.payload];
+            return newState;
 		default:
 			return state;
 	}
@@ -119,3 +202,4 @@ export default function serverReducer(state = {}, action) {
 
 
 // window.store.dispatch(window.serverActions.getAllServersThunk());
+// window.store.dispatch(window.serverActions.createServerThunk("1", "NEWNAME"));
