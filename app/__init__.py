@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager, login_required, current_user
 from sqlalchemy.orm import joinedload
-from .models import db, User, Server, Member
+from .models import db, User, Server, Member,Channel,ChannelMessage
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.server_routes import server_routes
@@ -153,7 +153,38 @@ def join_server(id):
     db.session.commit()
     return member.to_dict()
 
+@app.route("/api/channel/<int:id>/messages")
+@login_required
+def get_channel_messages(id):
+    channel = Channel.query.get(id)
 
+    if channel is None:
+        return jsonify({"message": "Channel not found"}), 403
+
+    messages = (
+        ChannelMessage.query.filter(ChannelMessage.channel_id == id)
+        .options(joinedload("user"))
+        .all()
+    )
+
+    if not messages:
+        return {}
+
+    messages_info = []
+
+    for message in messages:
+        message_info = {
+            "message": message.message,
+            "display_name": message.user.display_name,
+            "image_url": message.user.image_url,
+            "user_id": message.user_id,
+            "username": message.user.username,
+            "created_at": message.created_at,
+            "updated_at": message.created_at,
+        }
+        messages_info.append(message_info)
+
+    return messages_info
 
 @app.errorhandler(404)
 def not_found(e):
