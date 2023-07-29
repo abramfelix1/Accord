@@ -1,12 +1,14 @@
 from flask_socketio import SocketIO, emit
+from .models import db, ChannelMessage
 import os
+import datetime
 
 
 # configure cors_allowed_origins
 if os.environ.get("FLASK_ENV") == "production":
     origins = [
-        "http://actual-app-url.herokuapp.com",
-        "https://actual-app-url.herokuapp.com",
+        "https://accord-w9kc.onrender.com",
+        "https://accord-w9kc.onrender.com",
     ]
 else:
     origins = "*"
@@ -15,7 +17,23 @@ else:
 socketio = SocketIO(cors_allowed_origins=origins)
 
 
-# handle chat messages
-@socketio.on("chat")
+# handle sending chat messages
+@socketio.on("send_message")
 def handle_chat(data):
-    emit("chat", data, broadcast=True)
+    message = data["message"]
+    user_id = data["user_id"]
+    channel_id = data["channel_id"]
+
+    message = ChannelMessage(message=message, user_id=user_id, channel_id=channel_id)
+    db.session.add(message)
+    db.session.commit()
+
+    emit(
+        "new_message",
+        {
+            "message": data["message"],
+            "user_id": data["user_id"],
+            "channel_id": data["channel_id"],
+        },
+        broadcast=True,
+    )
