@@ -34,7 +34,6 @@ def handle_chat(data):
             "message": data["message"],
             "user_id": data["user_id"],
             "channel_id": data["channel_id"],
-            "timestamp": timestamp.strftime("%Y-%m-%d %H:%M:%S"),
         },
         broadcast=True,
     )

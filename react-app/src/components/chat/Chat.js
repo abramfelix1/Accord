@@ -2,18 +2,21 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import socket from "../utils/Socket";
 import ChatInputField from "./ChatInputField";
+import { getMessages, createMessage } from "../../store/message";
 
 const Chat = () => {
   const [chatInput, setChatInput] = useState("");
   const user = useSelector((state) => state.session.user);
-  // const messages = useSelector((state) => state.message)
+  const messages = useSelector((state) => state.messages);
+  // const channelID = useSelector((state) => state.channelID)
   const dispatch = useDispatch();
 
   useEffect(() => {
     socket.on("new_message", (message) => {
-      // dispatch() thunk for setting new messages;
+      dispatch(createMessage(message));
     });
 
+    dispatch(getMessages(1));
     // when component unmounts, disconnect
     return () => {
       socket.disconnect();
