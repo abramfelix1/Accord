@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import * as sessionActions from "../../../store/session";
+import { login } from "../../../store/session";
 import "./Login.css";
 
 function LoginPage() {
@@ -10,20 +10,16 @@ function LoginPage() {
 
   const [credentials, setCredentials] = useState('')
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState([]);
 
-  if (sessionUser) return <Redirect to="/" />;
+  if (sessionUser) return <Redirect to="/app" />;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors({});
-
-    console.log(credentials, password)
-    return dispatch(sessionActions.login({ credentials, password })).catch(
-      async (res) => {
-        const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
-      });
+    const data = await dispatch(login(credentials, password));
+    if (data) {
+      setErrors(data);
+    }
   };
 
   return (
