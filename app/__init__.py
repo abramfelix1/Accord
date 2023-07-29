@@ -153,9 +153,13 @@ def join_server(id):
     db.session.commit()
     return member.to_dict()
 
-@app.route("/api/channel/<int:id>/messages")
+@app.route("/api/channels/<int:id>/messages")
 @login_required
 def get_channel_messages(id):
+    """
+    Get all messages for a channel
+    """
+
     channel = Channel.query.get(id)
 
     if channel is None:
