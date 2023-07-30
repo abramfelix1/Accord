@@ -16,7 +16,8 @@ class Server(db.Model):
     updated_at = db.Column(db.DateTime(), default=datetime.now)
 
     # many to many with server through members table
-    users = db.relationship("User", secondary="members", cascade="all,delete", back_populates="servers")
+    # users = db.relationship("User", secondary="members", cascade="all,delete", back_populates="servers")
+    members = db.relationship("Member", cascade="all,delete", back_populates="server")
     
     # one to many with user
     owner = db.relationship("User", back_populates="servers_owned")
@@ -34,7 +35,7 @@ class Server(db.Model):
             "created_at": self.created_at,
             "updated_at": self.updated_at,
         }
-    
+
     def to_dict_relationships(self):
         return {
             'id': self.id,
