@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import configureStore from "./store";
 import * as sessionActions from "./store/session";
+import * as serverActions from "./store/server";
 import * as userActions from "./store/user";
 import App from "./App";
 
@@ -15,6 +16,7 @@ const store = configureStore();
 if (process.env.NODE_ENV !== "production") {
   window.store = store;
   window.sessionActions = sessionActions;
+  window.serverActions = serverActions;
   window.userActions = userActions
 
 }
