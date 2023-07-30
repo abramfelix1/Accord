@@ -20,7 +20,8 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime(), default=datetime.now)
 
     # many to many with server through members table
-    servers = db.relationship("Server", secondary="members", back_populates="users")
+    # servers = db.relationship("Server", secondary="members", back_populates="users")
+    memberships = db.relationship("Member", cascade="all,delete", back_populates="user")
     
     # one to many with server
     servers_owned = db.relationship("Server", cascade="all,delete-orphan", back_populates="owner")
