@@ -140,3 +140,9 @@ font-size: 10px;
     font-size: 12px;
     text-align: left;
 }
+
+.display-name-message {
+    font-size: 12px;
+    text-align: left;
+    color: white;
+}

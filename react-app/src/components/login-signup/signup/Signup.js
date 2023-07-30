@@ -1,5 +1,5 @@
 import { Link, Redirect } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../../../store/session";
 import "./Signup.css";
@@ -9,10 +9,14 @@ function SignupPage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
 
+  // const []
   const [username, setUsername] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [displayNameMessage, setDisplayNameMessage] = useState(false)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([])
+
 
   if (sessionUser) return <Redirect to="/app" />;
 
@@ -24,6 +28,7 @@ function SignupPage() {
     }
   };
 
+  console.log(errors)
   return (
     <div className="signup-container">
       <div className="signup-container-2">
@@ -38,29 +43,42 @@ function SignupPage() {
                 {/* FORM SECTION */}
                 <form autoComplete="o" onSubmit={handleSubmit}>
                   <div>
-                    <p className="form-input-label">Email</p>
+                    <p className="form-input-label">Email <span>*</span></p>
                     <input
                       type="text"
                       className="form-input-field"
                       autoComplete="o"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      required
                     />
-                    <p className="form-input-label">Username</p>
+                    <p className="form-input-label">Display Name</p>
+                    <input
+                      type="text"
+                      className="form-input-field"
+                      autoComplete="o"
+                      value={displayName}
+                      onChange={(e) => setDisplayName(e.target.value)}
+                      onClick={e => setDisplayNameMessage(!false)}
+                    />
+                    {displayNameMessage && <p className="display-name-message">This is how other people will see you instead of username.</p>}
+                    <p className="form-input-label">Username <span>*</span></p>
                     <input
                       type="text"
                       className="form-input-field"
                       autoComplete="o"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
+                      required
                     />
-                    <p className="form-input-label">Password</p>
+                    <p className="form-input-label">Password <span>*</span></p>
                     <input
                       type="password"
                       className="form-input-field"
                       autoComplete="o"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      required
                     />{" "}
                   </div>
 
