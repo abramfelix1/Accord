@@ -10,7 +10,7 @@ import serverReducer from './server';
 
 const rootReducer = combineReducers({
   session,
-  user: userReducer
+  user: userReducer,
   messages: messageReducer,
   server: serverReducer,
 });
