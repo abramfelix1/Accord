@@ -1,6 +1,3 @@
-
-
-
 /*************** TYPES **************************/
 const GET_ALL_SERVERS = "server/GET_ALL_SERVERS"
 // const GET_USER_SERVERS = "server/GET_USER_SERVERS"
@@ -113,9 +110,9 @@ export const createServerThunk = (server_name) => async (dispatch) => {
         },
         body: reqBody,
     });
-    
-    // if the response is good. recall the get all servers thunk 
-    // to get the redux updated with all the servers again to 
+
+    // if the response is good. recall the get all servers thunk
+    // to get the redux updated with all the servers again to
     // prevent loading issues
     if (res.ok) {
         const newServer = await res.json();
@@ -140,9 +137,9 @@ export const updateServerThunk = (server_id, server_name) => async (dispatch) =>
         },
         body: reqBody,
     });
-    
-    // if the response is good. recall the get all servers thunk 
-    // to get the redux updated with all the servers again to 
+
+    // if the response is good. recall the get all servers thunk
+    // to get the redux updated with all the servers again to
     // prevent loading issues
     if (res.ok) {
         const updatedServer = await res.json();
@@ -161,9 +158,9 @@ export const deleterServerThunk = (server_id) => async (dispatch) => {
             "Content-Type": "application/json",
         },
     });
-    
-    // if the response is good. recall the get all servers thunk 
-    // to get the redux updated with all the servers again to 
+
+    // if the response is good. recall the get all servers thunk
+    // to get the redux updated with all the servers again to
     // prevent loading issues
     if (res.ok) {
         dispatch(deleteServerAction(server_id))
