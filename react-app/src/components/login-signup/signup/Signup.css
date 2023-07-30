@@ -6,6 +6,7 @@
     height: 100%;
     background-color: #4764ce;
     background-image: url("../../../images/discord-signup-login.png");
+
 }
 
 .signup-container-2 {
@@ -145,4 +146,7 @@ font-size: 10px;
     font-size: 12px;
     text-align: left;
     color: white;
+    user-select: none;
+    margin-top: 6px;
+    margin-bottom: 20px;
 }
