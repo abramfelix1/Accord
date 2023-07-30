@@ -1,7 +1,20 @@
 const UPDATE_USER = 'user/UPDATE_USER'
 const GET_USER_SERVERS = 'user/GET_USER_SERVERS'
+const GET_ALL_USERS = 'user/GET_ALL_USERS'
+const GET_USER = 'user/GET_USER'
 
 // -------------------------------- Action Creators --------------------------------
+const getAllUsers = (users) => ({
+	type: GET_ALL_USERS,
+	payload: users,
+});
+
+const getUser = (user) => ({
+  type: GET_USER,
+  payload: user
+})
+
+
 const updateUser = (user) => ({
 	type: UPDATE_USER,
 	payload: user,
@@ -13,6 +26,31 @@ const getUserServers = (server) => ({
 })
 
 // -------------------------------- Thunk Creators --------------------------------
+
+export const getAllUsersThunk = () => async dispatch => {
+  const res = await fetch(`/api/users/`, {
+    method: "GET"
+  })
+
+  if (res.ok) {
+    const users = await res.json()
+    dispatch(getAllUsers(users))
+    return users
+  }
+}
+
+export const getUserThunk= (id) => async dispatch => {
+  const res = await fetch(`/api/users/${id}`, {
+    method: "GET"
+  })
+
+  if (res.ok) {
+    const user = await res.json()
+    dispatch(getUser(user))
+    return user
+  }
+}
+
 export const updateUserThunk = (user) => async dispatch => {
     const response = await fetch(`/api/users/profile`, {
       method: "PUT",
@@ -48,6 +86,15 @@ export const getUserServersThunk = () => async dispatch => {
 export default function userReducer(state = {}, action) {
   let newState;
 	switch (action.type) {
+    case GET_ALL_USERS:
+      newState = {}
+      action.payload.users.forEach(user => newState[user.id] = user)
+      return newState
+
+    case GET_USER:
+      console.log(action)
+			return { user: action.payload };
+
 		case UPDATE_USER:
 			return { user: action.payload };
 
