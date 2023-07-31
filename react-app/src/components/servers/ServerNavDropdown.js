@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
-
+import {RxCross2} from 'react-icons/rx'
+import { IoIosArrowDown } from 'react-icons/io'
 import './server-css/ServerNav.css'
 
 function ServerNavDropDown(props) {
@@ -28,8 +29,8 @@ function ServerNavDropDown(props) {
     return (
         <div class="inner-server-nav" >
         <div className="server-nav-title">
-          <div>Server Navigation</div>
-          {!openDropdown ? <div>V</div> : <div>X</div>}
+          <div style={{alignItems: 'center', display: 'flex'}}>Server Navigation</div>
+          {!openDropdown ? <IoIosArrowDown className='server-nav-icons'/> : <RxCross2 className='server-nav-icons'/>}
         </div>
         {!openDropdown ? null : (
           <div id='server-nav-dropdown' className="server-nav-dropdown" ref={dropdownRef} onClick={(e) => e.stopPropagation()}>
