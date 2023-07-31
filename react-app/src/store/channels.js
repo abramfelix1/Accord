@@ -46,42 +46,45 @@ export const getChannel = (channelId) => async (dispatch) => {
   }
 };
 
-export const createChannel = (serverId, payload) => async (dispatch) => {
-  const response = await fetch(`api/servers/${serverId}/channels`, {
+export const createChannel = (serverId, channel_name) => async (dispatch) => {
+  const response = await fetch(`/api/servers/${serverId}/channels`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({
+      channel_name,
+    }),
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(addChannel(data));
+    dispatch(getChannels(serverId));
     return serverId;
   }
 };
 
-export const editChannel = (channelId, payload) => async (dispatch) => {
-  const response = await fetch(`/api/channels/${channelId}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(updateChannel(data));
-    return channelId;
-  }
-};
+export const editChannel =
+  (serverId, channelId, channel_name) => async (dispatch) => {
+    const response = await fetch(`/api/channels/${channelId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ channel_name }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(getChannels(serverId));
+      return channelId;
+    }
+  };
 
-export const removeChannel = (channelId) => async (dispatch) => {
+export const removeChannel = (serverId, channelId) => async (dispatch) => {
   const response = await fetch(`/api/channels/${channelId}`, {
     method: "DELETE",
   });
   if (response.ok) {
-    dispatch(deleteChannel(channelId));
+    dispatch(getChannels(serverId));
   }
 };
 
@@ -91,7 +94,7 @@ const channelsReducer = (state = initialState, action) => {
   const newState = { ...state };
   switch (action.type) {
     case POPULATE_CHANNELS:
-      return action.payload.reduce((channels, channel) => {
+      return action.payload.Channels.reduce((channels, channel) => {
         channels[channel.id] = channel;
         return channels;
       }, {});
