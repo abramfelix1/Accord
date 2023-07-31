@@ -66,7 +66,7 @@
 } 
 
 .fl > h5 {
-    color: rgb(70, 38, 228);
+    color: #5865FC;
     margin-bottom: 2.063rem;
 }
 
@@ -90,7 +90,7 @@
     width: 12.5rem;
     height: 2.313rem;
     border-radius: 1.875rem;
-    background-color: rgb(70, 38, 228);
+    background-color: #5865FC;
     border-style: none;
     font-size: 0.938rem;
     color: white;

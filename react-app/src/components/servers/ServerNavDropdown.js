@@ -27,7 +27,7 @@ function ServerNavDropDown(props) {
       }, [openDropdown, toggleDropdown]);
 
     return (
-        <div class="inner-server-nav" >
+        <div className="inner-server-nav" >
         <div className="server-nav-title">
           <div style={{alignItems: 'center', display: 'flex'}}>Server Navigation</div>
           {!openDropdown ? <IoIosArrowDown className='server-nav-icons'/> : <RxCross2 className='server-nav-icons'/>}

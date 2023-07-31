@@ -8,7 +8,6 @@ const DELETE_SERVER = "server/DELETE_SERVER"
 
 
 
-
 /*************** ACTIONS CREATOR **************************/
 export const getAllServersAction = (servers) => {
     return {
@@ -70,6 +69,9 @@ export const deleteServerAction = (server_id) => {
         payload: server_id
     };
 };
+
+
+
 
 
 /*************** THUNK ACTIONS CREATOR **************************/

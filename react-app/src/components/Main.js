@@ -5,7 +5,8 @@ import UserNav from "./user-nav/UserNav";
 import ChatNav from "./chat/ChatNav";
 import ChatBox from "./chat/ChatBox";
 import ServerMemberList from "./servers/ServerMemberList";
-
+import { InfoContext } from "../context/infoContext";
+import { useContext } from "react"
 
 import "./Main.css";
 // import { useContext } from "react";
@@ -13,6 +14,8 @@ import "./Main.css";
 function Main() {
 //   const { isServerView, isDMView, toggleView } = useContext(ViewContext);
 //   const { toggleTestModal } = useContext(ModalContext);
+  const {server, setServer} = useContext(InfoContext)
+
 
   return (
     <div className="main-container">
@@ -35,7 +38,7 @@ function Main() {
         <ChatNav />
         <div className="chatbox-member-container">
           <ChatBox />
-          <ServerMemberList />
+          <ServerMemberList server={server}/>
         </div>
       </section>
     </div>
