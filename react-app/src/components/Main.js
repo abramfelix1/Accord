@@ -15,8 +15,7 @@ function Main() {
 //   const { isServerView, isDMView, toggleView } = useContext(ViewContext);
 //   const { toggleTestModal } = useContext(ModalContext);
   const {server, setServer} = useContext(InfoContext)
-
-
+  console.log(server)
   return (
     <div className="main-container">
       {/* Server Section */}
@@ -28,7 +27,7 @@ function Main() {
       <section className="main-section-2">
         <div>
           <ServerNav server={server}/>
-          <Channel />
+          <Channel server={server}/>
         </div>
         <UserNav />
       </section>

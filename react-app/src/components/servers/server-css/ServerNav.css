@@ -35,8 +35,8 @@
     z-index: 1;
     border-radius: 5px;
     top: 55px;
-    left: 80px;
-    width: 225px;
+    left: 75px;
+    width: 232px;
     height: fit-content;
     color:#F2F3EA;
     padding: 10px 0px;
@@ -60,7 +60,6 @@
 .server-dropdown-options:hover {
     background-color: #4752C4;
     color: white;
-
 }
 
 .server-nav-seperator {

@@ -53,6 +53,10 @@
     scrollbar-width: thin;
 }
 
+.channel-name {
+    margin-left: 5px;
+}
+
 .channel-flex::-webkit-scrollbar {
     display: none;
 }
