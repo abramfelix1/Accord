@@ -5,7 +5,7 @@ const GET_SERVER = "server/GET_SERVER"
 const CREATE_SERVER = "server/CREATE_SERVER"
 const UPDATE_SERVER = "server/UPDATE_SERVER"
 const DELETE_SERVER = "server/DELETE_SERVER"
-
+const GET_SERVER_MEMBERS = "server/GET_SERVER_MEMBERS"
 
 
 
@@ -65,6 +65,17 @@ export const updateServerAction = (server) => {
 
 
 export const deleteServerAction = (server_id) => {
+    return {
+        type: DELETE_SERVER,
+        payload: server_id
+    };
+};
+
+
+/******/
+
+
+export const getServerMembersAction = (server_id) => {
     return {
         type: DELETE_SERVER,
         payload: server_id
