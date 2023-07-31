@@ -27,7 +27,7 @@ function Main() {
       {/* Channel Section */}
       <section className="main-section-2">
         <div>
-          <ServerNav />
+          <ServerNav server={server}/>
           <Channel />
         </div>
         <UserNav />
