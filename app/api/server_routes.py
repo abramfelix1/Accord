@@ -55,7 +55,7 @@ def create_a_servers():
         db.session.commit()
 
         new_member = Member(user_id=current_user.get_id(), server_id=new_server.id)
-        new_channel = Channel(name="General", server_id = new_server.id)
+        new_channel = Channel(name="General", server_id=new_server.id)
         db.session.add(new_channel)
         db.session.add(new_member)
         db.session.commit()
@@ -104,7 +104,7 @@ def delete_a_server(id):
     """
     server = Server.query.get(id)
     if server is None:
-        return jsonify({"message": "Server not found"}), 403
+        return jsonify({"message": "Server not found"}), 404
     if str(server.owner_id) != current_user.get_id():
         return {"errors": [{"Unauthorized": "Unauthorized Action"}]}, 401
     db.session.delete(server)
@@ -185,7 +185,7 @@ def get_server_members(id):
             "image_url": member.user.image_url,
             "member_id": member.id,
             "user_id": member.user_id,
-            "username": member.user.username
+            "username": member.user.username,
         }
         members_info.append(member_info)
 

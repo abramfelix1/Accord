@@ -44,3 +44,19 @@ def edit_message(id):
         db.session.comit()
         return message.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+
+@message_routes.route("/<int:id>", methods=["DELETE"])
+@login_required
+def delete_a_message(id):
+    """
+    Delete a server
+    """
+    message = ChannelMessage.query.get(id)
+    if message is None:
+        return jsonify({"message": "Message not found"}), 404
+    if str(message.user_id) != current_user.get_id():
+        return {"errors": [{"Unauthorized": "Unauthorized Action"}]}, 401
+    db.session.delete(message)
+    db.session.commit()
+    return jsonify({"message": "Message succesfully deleted!"}), 200
