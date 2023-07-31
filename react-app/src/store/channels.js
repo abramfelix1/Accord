@@ -74,7 +74,7 @@ export const editChannel =
     });
     if (response.ok) {
       const data = await response.json();
-      dispatch(getChannels(serverId));
+      dispatch(updateChannel(data));
       return channelId;
     }
   };

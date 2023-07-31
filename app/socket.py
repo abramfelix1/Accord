@@ -24,7 +24,6 @@ def handle_chat(data):
     user_id = data["user_id"]
     channel_id = data["channel_id"]
 
-    print("AAAAAAAAAAAAAA")
     # adds message to the DB
     # message = ChannelMessage(message=message, user_id=user_id, channel_id=channel_id)
     # db.session.add(message)
