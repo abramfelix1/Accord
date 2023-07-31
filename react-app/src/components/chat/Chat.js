@@ -69,7 +69,7 @@ const Chat = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            dispatch(removeMessage(1, 56));
+            dispatch(createMessage(1, "BBB"));
           }}
         >
           <button>ABfss</button>

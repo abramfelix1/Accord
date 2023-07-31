@@ -38,11 +38,11 @@ export const createMessage = (channel_id, message) => async (dispatch) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(message),
+    body: JSON.stringify({ message }),
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(getMessages(channel_id));
+    dispatch(addMessage(data));
   }
 };
 
@@ -87,7 +87,6 @@ const messageReducer = (state = initialState, action) => {
       newState[action.payload.id] = action.payload;
       return newState;
     case DELETE_MESSAGE:
-      console.log(action.payload);
       delete newState[action.payload];
       return newState;
     default:
