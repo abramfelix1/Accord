@@ -38,5 +38,4 @@ class Channel(db.Model):
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "server": self.server.to_dict(),
-            "users": self.users,
         }

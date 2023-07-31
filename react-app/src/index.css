@@ -8,6 +8,10 @@ html, body {
     overflow: hidden scroll;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 :root {
     --main-bg-color: brown;
     --width-100: 100%;
