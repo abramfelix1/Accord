@@ -1,7 +1,7 @@
 .usermenu-container {
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: flex-end;
     height: 55px;
     color: white;
     background-color: #232528;
@@ -9,6 +9,12 @@
 
 .usermenu {
     height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.usermen-left-section {
     display: flex;
     align-items: center;
 }
@@ -19,4 +25,42 @@
     width: 33px;
     margin: 0px 7px;
     background-color: white;
+}
+
+.usermenu-username {
+    font-size: 14px;
+    color: #F2F3EA;
+}
+
+.usermenu-icons-container {
+    display: flex;
+}
+
+.usermenu-icons {
+    display: flex;
+    color: #ADADAD;
+    font-size: 20px;
+    padding: 6px;
+    margin-left: 0px;
+}
+
+.usermenu-icons:hover {
+    color: #c8c8c8;
+    background-color: #3b3b3b;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.mic-off-icon {
+    color: rgb(229, 116, 116);
+    font-size: 20px;
+    padding: 6px;
+    margin-left: 0px;
+    display: flex;
+}
+
+.mic-off-icon:hover {
+    background-color: #3b3b3b;
+    border-radius: 5px;
+    cursor: pointer;
 }

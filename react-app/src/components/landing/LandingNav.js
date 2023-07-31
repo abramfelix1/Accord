@@ -24,7 +24,7 @@ function LandingNavBar() {
           {/* ends here for random links that goes to home with a tag */}
         </nav>
         <div className="nav-login-wrapper">
-          <a className="login-button" href="/login">
+          <a className="landing-login-button" href="/login">
             Log in
           </a>
         </div>

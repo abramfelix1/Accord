@@ -12,8 +12,10 @@ const Chat = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    //updates the message state every render
     dispatch(getMessages(1));
 
+    //listens for new_message event from the backend and rerender component when state updates
     socket.on("new_message", (message) => {
       dispatch(createMessage(message));
     });
@@ -23,12 +25,14 @@ const Chat = () => {
       socket.disconnect();
     };
   }, [dispatch]);
+
   const updateChatInput = (e) => {
     setChatInput(e.target.value);
   };
 
   const sendChat = (e) => {
     e.preventDefault();
+    //emits send_message event for the backend
     socket.emit("send_message", {
       user_id: user.id,
       channel_id: 1, //set to state of channel id once its available
@@ -43,7 +47,10 @@ const Chat = () => {
       <div>
         <div>
           {messages.map((message, idx) => (
-            <div key={idx}>{`${message.username}: ${message.message}`}</div>
+            <div key={idx}>
+              <div>{`${message.username} ${message.updated_at}`}</div>
+              <div>${message.message}</div>
+            </div>
           ))}
         </div>
         <ChatInputField
