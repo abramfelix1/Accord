@@ -8,8 +8,6 @@ import './channel-css/Channel.css'
 
 function Channel() {
 
-
-
   return (
     <div className="channel-container">
       <div>
