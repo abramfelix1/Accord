@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import socket from "../utils/Socket";
 import ChatInputField from "./ChatInputField";
-import { getMessages, createMessage } from "../../store/message";
+import {
+  getMessages,
+  createMessage,
+  editMessage,
+  removeMessage,
+} from "../../store/message";
+import "./chat-css/ChatBox.css";
 
 const Chat = () => {
   const [chatInput, setChatInput] = useState("");
@@ -16,7 +22,9 @@ const Chat = () => {
     dispatch(getMessages(1));
 
     //listens for new_message event from the backend and rerender component when state updates
+    console.log("AA");
     socket.on("new_message", (message) => {
+      console.log("NEW MESSAGE");
       dispatch(createMessage(message));
     });
 
@@ -45,11 +53,11 @@ const Chat = () => {
   return (
     user && (
       <div>
-        <div>
+        <div className="chat-container">
           {messages.map((message, idx) => (
             <div key={idx}>
               <div>{`${message.username} ${message.updated_at}`}</div>
-              <div>${message.message}</div>
+              <div>{message.message}</div>
             </div>
           ))}
         </div>
@@ -58,6 +66,14 @@ const Chat = () => {
           chatInput={chatInput}
           updateChatInput={updateChatInput}
         />
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            dispatch(createMessage(1, "BBB"));
+          }}
+        >
+          <button>ABfss</button>
+        </form>
       </div>
     )
   );

@@ -120,7 +120,8 @@ def get_channel_messages(id):
     if request.method == "POST":
         form = MessageForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
-
+        print("**************************************************************")
+        print(form.data)
         if form.validate_on_submit():
             new_message = ChannelMessage(
                 message=form.data["message"], channel_id=id, user_id=current_user.id
