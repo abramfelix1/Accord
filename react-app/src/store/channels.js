@@ -84,7 +84,7 @@ export const removeChannel = (serverId, channelId) => async (dispatch) => {
     method: "DELETE",
   });
   if (response.ok) {
-    dispatch(getChannels(serverId));
+    dispatch(deleteChannel(channelId));
   }
 };
 
@@ -107,7 +107,7 @@ const channelsReducer = (state = initialState, action) => {
       newState[action.payload.id] = action.payload;
       return newState;
     case DELETE_CHANNEL:
-      delete newState[action.payload.id];
+      delete newState[action.payload];
       return newState;
     default:
       return state;

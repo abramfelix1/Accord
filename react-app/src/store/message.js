@@ -1,6 +1,7 @@
 const POPULATE_MESSAGES = "chat/setMessages";
 const ADD_MESSAGE = "chat/addMessage";
 const UPDATE_MESSAGE = "chat/updateMessage";
+const DELETE_MESSAGE = "channel/deleteChannel";
 
 const populateMessages = (payload) => ({
   type: POPULATE_MESSAGES,
@@ -14,6 +15,11 @@ const addMessage = (payload) => ({
 
 const updateMessage = (payload) => ({
   type: UPDATE_MESSAGE,
+  payload,
+});
+
+const deleteMessage = (payload) => ({
+  type: DELETE_MESSAGE,
   payload,
 });
 
@@ -55,6 +61,15 @@ export const editMessage =
     }
   };
 
+export const removeMessage = (channel_id, message_id) => async (dispatch) => {
+  const response = await fetch(`/api/messages/${message_id}`, {
+    method: "DELETE",
+  });
+  if (response.ok) {
+    dispatch(deleteMessage(message_id));
+  }
+};
+
 const initialState = {};
 
 const messageReducer = (state = initialState, action) => {
@@ -70,6 +85,10 @@ const messageReducer = (state = initialState, action) => {
       return newState;
     case UPDATE_MESSAGE:
       newState[action.payload.id] = action.payload;
+      return newState;
+    case DELETE_MESSAGE:
+      console.log(action.payload);
+      delete newState[action.payload];
       return newState;
     default:
       return state;

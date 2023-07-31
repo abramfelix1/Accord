@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import socket from "../utils/Socket";
 import ChatInputField from "./ChatInputField";
-import { getMessages, createMessage, editMessage } from "../../store/message";
+import {
+  getMessages,
+  createMessage,
+  editMessage,
+  removeMessage,
+} from "../../store/message";
 import "./chat-css/ChatBox.css";
 
 const Chat = () => {
@@ -64,7 +69,7 @@ const Chat = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            dispatch(editMessage(1, 61, "AAAA"));
+            dispatch(removeMessage(1, 56));
           }}
         >
           <button>ABfss</button>
