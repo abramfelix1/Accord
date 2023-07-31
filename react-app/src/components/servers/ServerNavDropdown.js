@@ -6,7 +6,7 @@ import './server-css/ServerNav.css'
 function ServerNavDropDown(props) {
 
     const dropdownRef = useRef(null);
-    const { openDropdown, toggleDropdown,setToggleDropdown, navRef } = props;
+    const { openDropdown, toggleDropdown,setToggleDropdown, navRef, server } = props;
 
     const handleClickOutside = (event) => {
         if (navRef.current && navRef.current.contains(event.target)) {
@@ -29,7 +29,7 @@ function ServerNavDropDown(props) {
     return (
         <div className="inner-server-nav" >
         <div className="server-nav-title">
-          <div style={{alignItems: 'center', display: 'flex'}}>Server Navigation</div>
+          <div style={{alignItems: 'center', display: 'flex'}}>{server.name}</div>
           {!openDropdown ? <IoIosArrowDown className='server-nav-icons'/> : <RxCross2 className='server-nav-icons'/>}
         </div>
         {!openDropdown ? null : (
