@@ -5,11 +5,11 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager, login_required, current_user
 from sqlalchemy.orm import joinedload
-from .models import db, User, Server, Member,Channel,ChannelMessage
+from .models import db, User, Server, Member, Channel, ChannelMessage
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.server_routes import server_routes
-from .api.direct_message_routes import message_routes
+from .api.message_routes import message_routes
 from .api.channel_routes import channel_routes
 from .seeds import seed_commands
 from .config import Config
@@ -100,10 +100,9 @@ def react_root(path):
     return app.send_static_file("index.html")
 
 
-
 @app.errorhandler(404)
 def invalid_route(e):
-    return jsonify({'errorCode' : 404, 'message' : 'Route not found'}), 404
+    return jsonify({"errorCode": 404, "message": "Route not found"}), 404
 
 
 def validation_errors_to_error_messages(validation_errors):
@@ -117,8 +116,7 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 
-
-@app.route('/api/server/<int:id>/join', methods=["POST"])
+@app.route("/api/server/<int:id>/join", methods=["POST"])
 @login_required
 def join_server(id):
     """
@@ -135,26 +133,24 @@ def join_server(id):
     if server is None:
         return invalid_route("error")
     # Query if user is a member of server or not
-    member = (
-        Member.query.filter(Member.server_id.like(id), Member.user_id.like(user_id)).first()
-    )
+    member = Member.query.filter(
+        Member.server_id.like(id), Member.user_id.like(user_id)
+    ).first()
 
     # If Member is a member, throw error
     if member is not None:
         return jsonify({"message": "User is already a member"}), 403
 
     # Create member if they are not a member
-    member = Member(
-        user_id=user_id,
-        server_id=server.id
-    )
+    member = Member(user_id=user_id, server_id=server.id)
 
     db.session.add(member)
     db.session.commit()
     return member.to_dict()
 
+# -------------------- Message Routes --------------------------
 
-@app.route("/api/channels/<int:id>/messages", methods=["GET","POST"])
+@app.route("/api/channels/<int:id>/messages", methods=["GET", "POST"])
 @login_required
 def get_channel_messages(id):
     """
@@ -191,9 +187,11 @@ def get_channel_messages(id):
 
     return messages_info
 
+
 @app.errorhandler(404)
 def not_found(e):
-    return app.send_static_file('index.html')
+    return app.send_static_file("index.html")
+
 
 if __name__ == "__main__":
     socketio.run(app)
