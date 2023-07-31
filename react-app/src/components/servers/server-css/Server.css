@@ -109,7 +109,7 @@
     padding: 0px;
     margin-top: 5px;
     overflow: hidden scroll;
-    height: calc(100vh - 160px);
+    height: calc(100vh - 100px);
     max-height: 100vh;
 }
 

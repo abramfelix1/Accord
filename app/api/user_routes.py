@@ -62,9 +62,9 @@ def get_user_servers():
     """
     Get all servers user is assoicated to
     """
-    user = current_user.to_dict()
+    user_id = current_user.get_id()
 
-    members = Member.query.filter(Member.user_id == user['id']).all()
+    members = Member.query.filter(Member.user_id == user_id).all()
 
     server_ids = []
     for member in members:
