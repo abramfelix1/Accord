@@ -6,9 +6,9 @@ const populateMessages = (messages) => ({
   payload: messages,
 });
 
-const addMessage = (message) => ({
+const addMessage = (payload) => ({
   type: ADD_MESSAGE,
-  payload: message,
+  payload,
 });
 
 export const getMessages = (channelId) => async (dispatch) => {

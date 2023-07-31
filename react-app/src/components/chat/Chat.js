@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import socket from "../utils/Socket";
 import ChatInputField from "./ChatInputField";
 import { getMessages, createMessage } from "../../store/message";
+import "./chat-css/ChatBox.css";
 
 const Chat = () => {
   const [chatInput, setChatInput] = useState("");
@@ -45,7 +46,7 @@ const Chat = () => {
   return (
     user && (
       <div>
-        <div>
+        <div className="chat-container">
           {messages.map((message, idx) => (
             <div key={idx}>
               <div>{`${message.username} ${message.updated_at}`}</div>
