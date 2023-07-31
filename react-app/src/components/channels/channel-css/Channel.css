@@ -2,6 +2,7 @@
     position: relative;
     overflow: hidden scroll;
     height: calc(100vh - 130px);
+    color: #ADADAD;
 }
 
 .channel-container::-webkit-scrollbar {
@@ -11,10 +12,10 @@
 
 .channel-list {
     color: #949BA4;
-    padding-top: 6px;
+    padding-top: 15px;
     list-style: none;
-    padding-left: 10px;
-    padding-right: 15px;
+    padding-left: 3px;
+    padding-right: 10px;
     /* padding-bottom: 80px; */
     margin: 0px;
     font-size: 12px;
@@ -27,11 +28,16 @@
     display: none;
 }
 
-.channel-list-title {
+.channel-list-title-container {
     display: flex;
     justify-content: space-between;
     text-transform: uppercase;
-    margin-bottom: 10px;
+    align-items: center;
+}
+
+.channel-list-title {
+    font-weight: bold;
+    margin: 0px 0px  0px 3px;
 }
 
 .channel-flex {
@@ -58,4 +64,14 @@
 #active-channel {
     border-radius: 20px;
     background-color: rgb(96, 83, 240);
+}
+
+/* Icons */
+
+.text-channel-drop-down-icon {
+    font-size: 10px;
+}
+
+.text-channel-add-icon {
+    font-size: 22px;
 }

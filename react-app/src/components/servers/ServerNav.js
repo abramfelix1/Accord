@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import ServerNavDropDown from "./ServerNavDropdown";
 import "./server-css/ServerNav.css";
 
-function ServerNav() {
+function ServerNav({ server }) {
   const [openDropdown, setToggleDropdown] = useState(false);
   const navRef = useRef();
 
@@ -29,6 +29,7 @@ function ServerNav() {
         toggleDropdown={toggleDropdown}
         setToggleDropdown={setToggleDropdown}
         navRef={navRef}
+        server={server}
       />
     </div>
   );
