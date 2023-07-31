@@ -178,6 +178,7 @@ def get_server_members(id):
 
     for member in members:
         member_info = {
+            "id": member.id,
             "created_at": member.created_at,
             "display_name": member.user.display_name,
             "image_url": member.user.image_url,

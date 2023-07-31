@@ -2,12 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { InfoProvider } from "./context/infoContext";
 
 import configureStore from "./store";
 import * as sessionActions from "./store/session";
 import * as serverActions from "./store/server";
 import * as userActions from "./store/user";
-import * as memberActions from "./store/members"
+import * as memberActions from "./store/members";
 
 import App from "./App";
 
@@ -29,9 +30,11 @@ if (process.env.NODE_ENV !== "production") {
 function Root() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <InfoProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </InfoProvider>
     </Provider>
   );
 }

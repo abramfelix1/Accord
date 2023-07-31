@@ -40,8 +40,8 @@ export default function memberReducer(state = {}, action) {
 		case GET_SERVER_MEMBERS:
             newState = {};
             const serverMembers = action.payload;
-            serverMembers.forEach((server) => {
-                newState[server.id] = server
+            serverMembers.forEach((member) => {
+                newState[member.id] = member
             })
 			return newState;
 		default:

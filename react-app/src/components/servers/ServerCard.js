@@ -1,4 +1,4 @@
-
+import ServerMemberList from "./ServerMemberList";
 
 
 function ServerCard({ server, handleActiveButton, toolTip, setToolTip }){
@@ -36,6 +36,7 @@ function ServerCard({ server, handleActiveButton, toolTip, setToolTip }){
             </div>}
 
             {toolTip && <span className="tooltiptext">{server.name}</span>}
+            {/* <ServerMemberList /> */}
         </>
     )
 }

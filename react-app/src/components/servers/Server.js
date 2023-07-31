@@ -5,7 +5,6 @@ function Servers() {
     return (
         <div>
             <ServerList />
-            
         </div>
     )
 }

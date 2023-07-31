@@ -6,10 +6,13 @@ import { useEffect, useState } from "react"
 // import { useContext } from "react"
 import { useSelector, useDispatch } from "react-redux";
 import * as userActions from "../../store/user";
+import { InfoContext } from "../../context/infoContext";
+import { useContext } from "react"
 
 
 function ServerList() {
     const dispatch = useDispatch()
+    const { setServer } = useContext(InfoContext)
     const [toolTip, setToolTip] = useState(false);
     // const {createServerModal, isModalOpen} = useContext(ModalContext);
 
@@ -55,7 +58,7 @@ function ServerList() {
             <div className="border-between-layer"></div>
             <ul className="server-bottom-layer">
                 {userServers.map(server => (
-                    <li key={server.id}>
+                    <li key={server.id} onClick={e => setServer(server)}>
                 {/* need to set proper link to where to navigate too */}
                         <NavLink to={`/app`}>
                             <ServerCard server={server} handleActiveButton={handleActiveButton} toolTip={toolTip} setToolTip={setToolTip}/>
