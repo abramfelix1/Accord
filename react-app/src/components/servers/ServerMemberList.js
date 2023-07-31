@@ -22,7 +22,7 @@ function ServerMemberList({ server }) {
             <ul>
                 {serverMembers.map((member) => (
                     <li key={member.id}>
-                        <p>{member.display_name}</p>
+                        <p>{member.display_name ? member.display_name : member.username}</p>
                     </li>
                 ))}
             </ul>
