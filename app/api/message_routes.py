@@ -23,6 +23,18 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 
+@message_routes.route("/<int:id>", methods=["GET"])
+@login_required
+def get_message_by_id(id):
+    """
+    Gets server by ID
+    """
+    message = ChannelMessage.query.get(id)
+    if not message:
+        return jsonify({"message": "Server not found"}), 403
+    return message.to_dict()
+
+
 @message_routes.route("/<int:id>", methods=["PUT", "PATCH"])
 @login_required
 def edit_message(id):
@@ -50,7 +62,7 @@ def edit_message(id):
 @login_required
 def delete_a_message(id):
     """
-    Delete a server
+    Delete a message
     """
     message = ChannelMessage.query.get(id)
     if message is None:

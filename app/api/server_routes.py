@@ -71,7 +71,7 @@ def get_server_by_id(id):
     """
     server = Server.query.get(id)
     if not server:
-        return {}
+        return jsonify({"message": "Server not found"}), 403
     return server.to_dict()
 
 
