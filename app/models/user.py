@@ -5,10 +5,10 @@ from datetime import datetime
 
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
+        __table_args__ = {"schema": SCHEMA}
 
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
@@ -22,13 +22,19 @@ class User(db.Model, UserMixin):
     # many to many with server through members table
     # servers = db.relationship("Server", secondary="members", back_populates="users")
     memberships = db.relationship("Member", cascade="all,delete", back_populates="user")
-    
+
     # one to many with server
-    servers_owned = db.relationship("Server", cascade="all,delete-orphan", back_populates="owner")
+    servers_owned = db.relationship(
+        "Server", cascade="all,delete-orphan", back_populates="owner"
+    )
 
     # many to many with channels through channel messages table
-    channel_messages = db.relationship("Channel", secondary="channel_messages", cascade="all,delete", back_populates="users")
-
+    channel_messages = db.relationship(
+        "Channel",
+        secondary="channel_messages",
+        cascade="all,delete",
+        back_populates="users",
+    )
 
     @property
     def password(self):
@@ -43,20 +49,20 @@ class User(db.Model, UserMixin):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'username': self.username,
-            'email': self.email,
+            "id": self.id,
+            "username": self.username,
+            "email": self.email,
             "display_name": self.display_name,
             "image_url": self.image_url,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
         }
-    
+
     def to_dict_relationships(self):
         return {
-            'id': self.id,
-            'username': self.username,
-            'email': self.email,
+            "id": self.id,
+            "username": self.username,
+            "email": self.email,
             "display_name": self.display_name,
             "image_url": self.image_url,
             "created_at": self.created_at,
@@ -65,5 +71,3 @@ class User(db.Model, UserMixin):
             "servers_owned": self.servers_owned,
             "channel_messages": self.channel_messages,
         }
-
-
