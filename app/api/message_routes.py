@@ -41,7 +41,7 @@ def edit_message(id):
     if form.validate_on_submit():
         data = form.data
         message.message = data["message"]
-        db.session.comit()
+        db.session.commit()
         return message.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
