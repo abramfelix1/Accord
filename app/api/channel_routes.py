@@ -1,15 +1,18 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Channel, Server
-from app.forms import ChannelForm
+from sqlalchemy.orm import joinedload
+from app.models import Channel, Server, ChannelMessage
+from app.forms import ChannelForm, MessageForm
 from .auth_routes import forbidden
 from ..models import db
 
-channel_routes = Blueprint('channels', __name__)
+channel_routes = Blueprint("channels", __name__)
+
 
 @channel_routes.errorhandler(404)
 def invalid_route(e):
-    return jsonify({'errorCode' : 404, 'message' : 'Route not found'}), 404
+    return jsonify({"errorCode": 404, "message": "Route not found"}), 404
+
 
 def validation_errors_to_error_messages(validation_errors):
     """
@@ -20,7 +23,6 @@ def validation_errors_to_error_messages(validation_errors):
         for error in validation_errors[field]:
             errorMessages.append(f"{field} : {error}")
     return errorMessages
-
 
 
 @channel_routes.route("/<int:id>")
@@ -38,7 +40,6 @@ def get_channel_detail(id):
 
     # return the channel details in json format
     return channel.to_dict_relationships()
-
 
 
 @channel_routes.route("/<int:id>", methods=["DELETE"])
@@ -70,7 +71,6 @@ def delete_channel(id):
     return jsonify({"message": "Channel succesfully deleted!"})
 
 
-
 @channel_routes.route("/<int:id>", methods=["PUT", "PATCH"])
 @login_required
 def update_channel(id):
@@ -91,13 +91,68 @@ def update_channel(id):
 
     # Check if server owner_id matches with current user_id
     if str(server_owner_id) != current_user.get_id():
-        return {"errors": [{"Unauthorized" : "Unauthorized Action"}]}, 401
+        return {"errors": [{"Unauthorized": "Unauthorized Action"}]}, 401
 
     # Update name of channel if no error
     if form.validate_on_submit():
-        channel.name = form.data['channel_name']
+        channel.name = form.data["channel_name"]
         db.session.commit()
         return channel.to_dict()
 
     # return error is fails
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
+# -------------------- Message Routes --------------------------
+
+
+@channel_routes.route("/<int:id>/messages", methods=["GET", "POST"])
+@login_required
+def get_channel_messages(id):
+    """
+    Get all messages for a channel
+    """
+    channel = Channel.query.get(id)
+
+    if channel is None:
+        return jsonify({"message": "Channel not found"}), 403
+
+    if request.method == "POST":
+        form = MessageForm()
+        form["csrf_token"].data = request.cookies["csrf_token"]
+
+        if form.validate_on_submit():
+            new_message = ChannelMessage(
+                message=form.data["message"], channel_id=id, user_id=current_user.id
+            )
+            db.session.add(new_message)
+            db.session.commit()
+            return new_message.to_dict()
+
+        return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+    messages = (
+        ChannelMessage.query.filter(ChannelMessage.channel_id == id)
+        .options(joinedload("user"))
+        .all()
+    )
+
+    if not messages:
+        return {}
+
+    messages_info = []
+
+    for message in messages:
+        message_info = {
+            "id": message.id,
+            "message": message.message,
+            "display_name": message.user.display_name,
+            "image_url": message.user.image_url,
+            "user_id": message.user_id,
+            "username": message.user.username,
+            "created_at": message.created_at,
+            "updated_at": message.created_at,
+        }
+        messages_info.append(message_info)
+
+    return messages_info
