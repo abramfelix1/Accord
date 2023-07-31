@@ -68,6 +68,7 @@ def get_user_servers():
 
     server_ids = []
     for member in members:
+        print(member)
         server_ids.append(member.to_dict()["server_id"])
 
     servers = [server.to_dict() for server in Server.query.filter(Server.id.in_(server_ids)).all()]
