@@ -1,11 +1,13 @@
 import './server-css/Server.css'
+import ServerList from './ServerList'
 
-function ServerList() {
+function Servers() {
     return (
         <div>
-            dasdasd
+            <ServerList />
+            
         </div>
     )
 }
 
-export default ServerList
+export default Servers

@@ -26,7 +26,7 @@ function ServerNavDropDown(props) {
       }, [openDropdown, toggleDropdown]);
 
     return (
-        <div class="inner-server-nav" >
+        <div className="inner-server-nav" >
         <div className="server-nav-title">
           <div>Server Navigation</div>
           {!openDropdown ? <div>V</div> : <div>X</div>}
