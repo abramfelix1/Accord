@@ -49,7 +49,7 @@ def create_a_servers():
     if form.validate_on_submit():
         data = form.data
         new_server = Server(
-            owner_id=current_user.get_id(), name=data["server_name"], image_url="url"
+            owner_id=current_user.get_id(), name=data["server_name"], image_url=data["server_image"] or None
         )
         db.session.add(new_server)
         db.session.commit()
