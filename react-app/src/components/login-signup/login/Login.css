@@ -142,3 +142,20 @@ font-size: 10px;
 .register-link:hover {
     text-decoration: underline;
 }
+
+/* ERRORS */
+
+.form-input-label-error {
+    color: #FA777C;
+    text-align: left;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+}
+
+.form-input-label-error-span {
+    font-size: 10px;
+    font-style: italic;
+}
