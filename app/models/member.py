@@ -19,9 +19,8 @@ class Member(db.Model):
     created_at = db.Column(db.DateTime(), default=datetime.now)
     updated_at = db.Column(db.DateTime(), default=datetime.now)
 
-    user = db.relationship("User", back_populates="memberships")
-
-    server = db.relationship("Server", back_populates="members")
+    user = db.relationship("User", backref="memberships")
+    server = db.relationship("Server", backref="memberships")
 
     def to_dict(self):
         return {
