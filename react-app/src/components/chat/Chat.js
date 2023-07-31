@@ -66,14 +66,6 @@ const Chat = () => {
           chatInput={chatInput}
           updateChatInput={updateChatInput}
         />
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            dispatch(createMessage(1, "BBB"));
-          }}
-        >
-          <button>ABfss</button>
-        </form>
       </div>
     )
   );

@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { InfoProvider } from "./context/infoContext";
 import { ChannelProvider } from "./context/channelContext";
+import { ModalProvider } from "./context/modalContext";
 
 import configureStore from "./store";
 import * as sessionActions from "./store/session";
@@ -33,9 +34,11 @@ function Root() {
     <Provider store={store}>
       <ChannelProvider>
         <InfoProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <ModalProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </ModalProvider>
         </InfoProvider>
       </ChannelProvider>
     </Provider>
