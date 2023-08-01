@@ -2,12 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import socket from "../utils/Socket";
 import ChatInputField from "./ChatInputField";
-import {
-  getMessages,
-  createMessage,
-  editMessage,
-  removeMessage,
-} from "../../store/message";
+import { getMessages, createMessage } from "../../store/message";
+import { handleNewMessages } from "../utils/Socket";
 import "./chat-css/ChatBox.css";
 
 const Chat = () => {
@@ -22,10 +18,8 @@ const Chat = () => {
     dispatch(getMessages(1));
 
     //listens for new_message event from the backend and rerender component when state updates
-    console.log("AA");
-    socket.on("new_message", (message) => {
-      console.log("NEW MESSAGE");
-      dispatch(createMessage(message));
+    handleNewMessages((channel_id) => {
+      dispatch(getMessages(channel_id));
     });
 
     // when component unmounts, disconnect
@@ -40,13 +34,9 @@ const Chat = () => {
 
   const sendChat = (e) => {
     e.preventDefault();
+    dispatch(createMessage(1, chatInput));
     //emits send_message event for the backend
-    socket.emit("send_message", {
-      user_id: user.id,
-      channel_id: 1, //set to state of channel id once its available
-      username: user.username,
-      message: chatInput,
-    });
+    socket.emit("send_message", { channel_id: 1 });
     setChatInput("");
   };
 

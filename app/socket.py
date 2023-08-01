@@ -20,21 +20,15 @@ socketio = SocketIO(cors_allowed_origins=origins)
 # handle sending chat messages when send_message event is emitted from the frontend
 @socketio.on("send_message")
 def handle_chat(data):
-    message = data["message"]
-    user_id = data["user_id"]
-    channel_id = data["channel_id"]
-
-    # adds message to the DB
-    # message = ChannelMessage(message=message, user_id=user_id, channel_id=channel_id)
-    # db.session.add(message)
-    # db.session.commit()
-
     # emits new_message event for the frontend
+    print("********SEND_MESSAGE DATA**********")
+    print(data)
+    print("********SEND_MESSAGE DATA**********")
     emit(
         "new_message",
         {
-            "message": data["message"],
-            "user_id": data["user_id"],
+            # "message": data["message"],
+            # "user_id": data["user_id"],
             "channel_id": data["channel_id"],
         },
         broadcast=True,
