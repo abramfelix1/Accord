@@ -86,19 +86,6 @@ def api_help():
     return route_list
 
 
-@app.route("/", defaults={"path": ""})
-@app.route("/<path:path>")
-def react_root(path):
-    """
-    This route will direct to the public directory in our
-    react builds in the production environment for favicon
-    or index.html requests
-    """
-    if path == "favicon.ico":
-        return app.send_from_directory("public", "favicon.ico")
-    return app.send_static_file("index.html")
-
-
 @app.errorhandler(404)
 def invalid_route(e):
     return jsonify({"errorCode": 404, "message": "Route not found"}), 404
@@ -158,3 +145,16 @@ def not_found(e):
 
 if __name__ == "__main__":
     socketio.run(app)
+
+
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def react_root(path):
+    """
+    This route will direct to the public directory in our
+    react builds in the production environment for favicon
+    or index.html requests
+    """
+    if path == "favicon.ico":
+        return app.send_from_directory("public", "favicon.ico")
+    return app.send_static_file("index.html")
