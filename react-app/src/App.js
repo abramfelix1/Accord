@@ -8,6 +8,8 @@ import SignupPage from "./components/login-signup/signup/Signup";
 import LandingPage from "./components/landing/LandingPage";
 import Modal from "./components/utils/Modal";
 
+import ServerSetting from "./components/servers/server-settings/ServerSetting";
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -23,6 +25,7 @@ function App() {
           <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignupPage} />
           <Route path="/app" component={Main} />
+          <Route path='/settings' component={ServerSetting}/>
         </Switch>
       )}
     </>
