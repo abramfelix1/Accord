@@ -4,4 +4,4 @@ from wtforms.validators import DataRequired
 
 
 class MessageForm(FlaskForm):
-    message = StringField("Message")
+    message = StringField("Message", validators=[DataRequired()])

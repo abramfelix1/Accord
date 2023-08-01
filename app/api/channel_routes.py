@@ -139,7 +139,7 @@ def get_channel_messages(id):
     )
 
     if not messages:
-        return {}
+        return []
 
     messages_info = []
 
