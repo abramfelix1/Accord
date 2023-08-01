@@ -58,7 +58,7 @@ export const createChannel = (serverId, channel_name) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(getChannels(serverId));
+    dispatch(addChannel(data));
     return serverId;
   }
 };
@@ -74,7 +74,7 @@ export const editChannel =
     });
     if (response.ok) {
       const data = await response.json();
-      dispatch(getChannels(serverId));
+      dispatch(updateChannel(data));
       return channelId;
     }
   };
@@ -84,7 +84,7 @@ export const removeChannel = (serverId, channelId) => async (dispatch) => {
     method: "DELETE",
   });
   if (response.ok) {
-    dispatch(getChannels(serverId));
+    dispatch(deleteChannel(channelId));
   }
 };
 
@@ -107,7 +107,7 @@ const channelsReducer = (state = initialState, action) => {
       newState[action.payload.id] = action.payload;
       return newState;
     case DELETE_CHANNEL:
-      delete newState[action.payload.id];
+      delete newState[action.payload];
       return newState;
     default:
       return state;

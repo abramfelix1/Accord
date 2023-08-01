@@ -1,14 +1,26 @@
 const POPULATE_MESSAGES = "chat/setMessages";
 const ADD_MESSAGE = "chat/addMessage";
+const UPDATE_MESSAGE = "chat/updateMessage";
+const DELETE_MESSAGE = "channel/deleteChannel";
 
-const populateMessages = (messages) => ({
+const populateMessages = (payload) => ({
   type: POPULATE_MESSAGES,
-  payload: messages,
+  payload,
 });
 
-const addMessage = (message) => ({
+const addMessage = (payload) => ({
   type: ADD_MESSAGE,
-  payload: message,
+  payload,
+});
+
+const updateMessage = (payload) => ({
+  type: UPDATE_MESSAGE,
+  payload,
+});
+
+const deleteMessage = (payload) => ({
+  type: DELETE_MESSAGE,
+  payload,
 });
 
 export const getMessages = (channelId) => async (dispatch) => {
@@ -20,15 +32,41 @@ export const getMessages = (channelId) => async (dispatch) => {
   return response;
 };
 
-export const createMessage = (payload) => async (dispatch) => {
-  const { channel_id } = payload;
+export const createMessage = (channel_id, message) => async (dispatch) => {
   const response = await fetch(`/api/channels/${channel_id}/messages`, {
     method: "POST",
-    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ message }),
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(getMessages(channel_id));
+    dispatch(addMessage(data));
+  }
+};
+
+export const editMessage =
+  (channel_id, message_id, message) => async (dispatch) => {
+    const response = await fetch(`/api/messages/${message_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(updateMessage(data));
+    }
+  };
+
+export const removeMessage = (channel_id, message_id) => async (dispatch) => {
+  const response = await fetch(`/api/messages/${message_id}`, {
+    method: "DELETE",
+  });
+  if (response.ok) {
+    dispatch(deleteMessage(message_id));
   }
 };
 
@@ -44,6 +82,12 @@ const messageReducer = (state = initialState, action) => {
       }, {});
     case ADD_MESSAGE:
       newState[action.payload.id] = action.payload;
+      return newState;
+    case UPDATE_MESSAGE:
+      newState[action.payload.id] = action.payload;
+      return newState;
+    case DELETE_MESSAGE:
+      delete newState[action.payload];
       return newState;
     default:
       return state;
