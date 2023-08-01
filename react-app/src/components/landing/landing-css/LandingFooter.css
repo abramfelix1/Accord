@@ -1,0 +1,97 @@
+.footer-container {
+    background-color: rgb(28, 27, 27);
+    height: 38.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+}
+
+.top-box {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 1fr 1fr;
+    height: 28.125rem;
+    padding: 2.5rem 0.938rem 0px;
+    grid-column-gap: 1.25rem;
+    border-bottom: 0.063rem solid rgb(70, 38, 228);
+    margin: 0px 3.125rem;
+    max-width: 78.75rem;
+}
+
+.footer-logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.125rem;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+.footer-logo-wrapper > a > img {
+    border: 0.313rem solid white;
+    width:92%;
+    padding-right: 0.225rem;
+    padding-left: 0.188rem;
+    margin-left: 0.625rem;
+    margin-right: 0.188rem;
+    margin-top: 0.313rem;
+}
+
+.fl-1 {
+    grid-column-start: 5;
+    grid-column-end: 7;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+.fl-2 {
+    grid-column-start: 7;
+    grid-column-end: 9;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+.fl-3 {
+    grid-column-start: 9;
+    grid-column-end: 11;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+.fl-4 {
+    grid-column-start: 11;
+    grid-column-end: 13;
+    grid-row-start: 1;
+    grid-row-end: 3;
+} 
+
+.fl > h5 {
+    color: #5865FC;
+    margin-bottom: 2.063rem;
+}
+
+.fl > p {
+    color: white;
+}
+
+.fl {
+    margin: 0px auto;
+}
+
+.bottom-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.625rem 2.813rem;
+    padding: 0px 0.625rem;
+}
+
+.footer-button {
+    width: 12.5rem;
+    height: 2.313rem;
+    border-radius: 1.875rem;
+    background-color: #5865FC;
+    border-style: none;
+    font-size: 0.938rem;
+    color: white;
+}
