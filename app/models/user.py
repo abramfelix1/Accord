@@ -30,7 +30,7 @@ class User(db.Model, UserMixin):
 
     # one to many with channels through channel messages table
     messages = db.relationship(
-        "Channel",
+        "ChannelMessage",
         cascade="all,delete",
         back_populates="user",
     )
