@@ -2,11 +2,10 @@ import { NavLink} from "react-router-dom"
 import ServerCard from "./ServerCard"
 import logo from "../../images/accord-logo.png"
 import { useEffect, useState } from "react"
-// import { ModalContext } from "../../context/modalContext"
-// import { useContext } from "react"
 import { useSelector, useDispatch } from "react-redux";
 import * as userActions from "../../store/user";
 import { InfoContext } from "../../context/infoContext";
+import { ModalContext } from "../../context/modalContext"
 import { useContext } from "react"
 
 
@@ -14,7 +13,7 @@ function ServerList() {
     const dispatch = useDispatch()
     const { setServer } = useContext(InfoContext)
     const [toolTip, setToolTip] = useState(false);
-    // const {createServerModal, isModalOpen} = useContext(ModalContext);
+    const {createServerModal, isModalOpen} = useContext(ModalContext);
 
     // selecting the users state to get users servers
     const userServers = Object.values(useSelector((state) => state.user));
@@ -63,12 +62,11 @@ function ServerList() {
                         </NavLink>
                     </li>
                 ))}
-                {/* will add this div back in when a model is used to create a new server */}
-                {/* <li id={isModalOpen ? "active-plus" : ""} className={`plus`} onClick={e => { 
+                <li id={isModalOpen ? "active-plus" : ""} className={`plus`} onClick={e => { 
                     createServerModal()
                     }}>
                     +
-                </li> */}
+                </li>
             </ul>
         </div>
     )

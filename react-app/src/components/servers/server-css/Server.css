@@ -52,7 +52,7 @@
     font-size: 40px;
     transition: border-radius 0.5s;
     transition: background-color 0.3s;
-
+    cursor: pointer;
 }
 
 .plus:hover {
