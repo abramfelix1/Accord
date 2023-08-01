@@ -32,7 +32,7 @@ class User(db.Model, UserMixin):
     messages = db.relationship(
         "ChannelMessage",
         cascade="all,delete",
-        back_populates="user",
+        back_populates="users",
     )
 
     @property
