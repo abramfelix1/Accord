@@ -28,12 +28,11 @@ class User(db.Model, UserMixin):
         "Server", cascade="all,delete-orphan", back_populates="owner"
     )
 
-    # many to many with channels through channel messages table
-    channel_messages = db.relationship(
+    # one to many with channels through channel messages table
+    messages = db.relationship(
         "Channel",
-        secondary="channel_messages",
         cascade="all,delete",
-        back_populates="users",
+        back_populates="user",
     )
 
     @property
