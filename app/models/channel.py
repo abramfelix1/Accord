@@ -23,7 +23,7 @@ class Channel(db.Model):
     messages = db.relationship(
         "ChannelMessage",
         cascade="all,delete",
-        back_populates="channel",
+        back_populates="channels",
     )
 
     def to_dict(self):
