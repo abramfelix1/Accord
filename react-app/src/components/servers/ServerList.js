@@ -45,13 +45,11 @@ function ServerList() {
             <div style={{color: 'white', marginTop: "4px", fontSize: "13px"}}>Accord</div>
             <div className="server-top-layer">
                 {/* not sure what to url for direct messages list is yet */}
-                <NavLink to="/app">
-                    <div id="active-server" className="servers" onClick={e => handleActiveButton(e)}>
+                <NavLink to="/app" id="active-server" className="servers" onClick={e => handleActiveButton(e)}>
                         <img id="server-logo" src={logo} alt="logo" onClick={e => {
                             e.preventDefault();
                             e.stopPropagation();
                         }}/>
-                    </div>
                 </NavLink>
                 {/* <div className="servers" onClick={e => handleActiveButton(e)}>Private Call</div> */}
             </div>
