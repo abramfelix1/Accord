@@ -35,7 +35,7 @@
     padding: 7px;
     display: flex;
     align-items: center;
-    border-radius: 5px;
+    border-radius: 7px;
 }
 
 .member-wrapper:hover {
@@ -47,6 +47,7 @@
     font-size: 18px;
     color: #949ba4;
     margin-left: 10px;
+    font-weight: 100;
 }
 
 

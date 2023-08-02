@@ -30,12 +30,23 @@ function ServerList() {
         event.preventDefault()
         // gets the tag with the current button that is pressed to see the server
         const current = document.getElementById("active-server")
-        // gets the current tag id to nothing
+        // gets the img tag with the server logo
+        const serverLogo = document.getElementsByClassName("server-logo")[0]
+        // gets the div tag wrapped around the server logo
+        let serverFriendButton = document.getElementsByClassName("servers-friend-button")[0]
+        
+        // gets the current tag and sets the id to nothing
         if (current) {
             current.id = ""
         }
-        // sets the new targeted server to show that it is on that server
-        event.target.id = "active-server"
+        // compares the server logo to the current event clicked
+        if(serverLogo === event.target) {
+            // sets the outer div wrapped around the server logo to proper css styling
+            serverFriendButton.id = "active-server"
+        } else{
+            // sets the new targeted server to show that it is on that server
+            event.target.id = "active-server"
+        }
     }
 
 
@@ -44,11 +55,8 @@ function ServerList() {
             <div style={{color: 'white', marginTop: "4px", fontSize: "13px"}}>Accord</div>
             <div className="server-top-layer">
                 {/* not sure what to url for direct messages list is yet */}
-                <NavLink to="/app" id="active-server" className="servers" onClick={e => handleActiveButton(e)}>
-                        <img id="server-logo" src={logo} alt="logo" onClick={e => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                        }}/>
+                <NavLink to="/app" id="active-server" className="servers servers-friend-button" onClick={e => handleActiveButton(e)}>
+                        <img className="server-logo" src={logo} alt="logo" />
                 </NavLink>
                 {/* <div className="servers" onClick={e => handleActiveButton(e)}>Private Call</div> */}
             </div>
@@ -57,7 +65,7 @@ function ServerList() {
                 {userServers.map(server => (
                     <li key={server.id} onClick={e => setServer(server)}>
                 {/* need to set proper link to where to navigate too */}
-                        <NavLink to={`/app`}>
+                        <NavLink to={`/app`} >
                             <ServerCard server={server} handleActiveButton={handleActiveButton} toolTip={toolTip} setToolTip={setToolTip}/>
                         </NavLink>
                     </li>
