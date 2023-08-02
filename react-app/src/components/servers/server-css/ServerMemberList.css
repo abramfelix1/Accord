@@ -30,9 +30,9 @@
 /* css for each member card */
 .member-wrapper {
     padding-right: 5px;
-    margin-right: 5px;
+    margin-right: 7px;
     cursor: pointer;
-    padding: 7px;
+    padding: 7px 7px 7px 10px;
     display: flex;
     align-items: center;
     border-radius: 7px;
