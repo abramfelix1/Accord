@@ -36,13 +36,14 @@ def password_check(form, field):
 def display_name_check(form, field):
     display_name = field.data
 
+    print(display_name, len(display_name))
     if len(display_name) > 32:
-        raise ValidationError('Display name must be 2-32 characters.')
+        raise ValidationError('Display name must be 32 characters or less.')
 
 
 class SignUpForm(FlaskForm):
+    display_name = StringField('display_name', validators=[display_name_check])
     username = StringField(
         'username', validators=[DataRequired(), Regexp('^\w+$'),username_exists])
     email = EmailField('email', validators=[DataRequired(), user_exists])
-    display_name = StringField('display name', validators=[display_name_check])
     password = StringField('password', validators=[DataRequired(), password_check])
