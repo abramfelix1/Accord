@@ -27,12 +27,12 @@
 
 .servers:hover {
     border-radius: 15px;
-    background-color: rgb(96, 83, 240);
+    background-color: #4752C4;
 }
 
 #active-server {
     border-radius: 15px;
-    background-color: rgb(96, 83, 240);
+    background-color: #4752C4;
 }
 
 /* -------------------------------------------- */
