@@ -19,8 +19,8 @@ class ChannelMessage(db.Model):
     created_at = db.Column(db.DateTime(), default=datetime.now)
     updated_at = db.Column(db.DateTime(), default=datetime.now)
 
-    user = db.relationship("User", backref="message")
-    channel = db.relationship("Channel", backref="message")
+    users = db.relationship("User", back_populates="messages")
+    channels = db.relationship("Channel", back_populates="messages")
 
     def to_dict(self):
         return {

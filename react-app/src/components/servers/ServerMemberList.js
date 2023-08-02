@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import * as memberActions from "../../store/members"
 import { useEffect, useState } from "react";
+import ServerMemberCard from "./ServerMemberCard";
+import "./server-css/ServerMemberList.css"
 
 function ServerMemberList({ server }) {
     const dispatch = useDispatch()
@@ -17,12 +19,12 @@ function ServerMemberList({ server }) {
 
 
     return (
-        <div style={{backgroundColor: '#2B2D30', width: '14.938rem', color: 'white'}}>
-            MemberList
+        <div className="member-container" style={{backgroundColor: '#2B2D30', width: '14.938rem', color: 'white'}}>
+            <p className="member-total" >MEMBERS - {serverMembers ? serverMembers.length : 0}</p>
             <ul>
                 {serverMembers.map((member) => (
-                    <li key={member.id}>
-                        <p>{member.display_name ? member.display_name : member.username}</p>
+                    <li key={member.id} >
+                        <ServerMemberCard member={member}/>
                     </li>
                 ))}
             </ul>

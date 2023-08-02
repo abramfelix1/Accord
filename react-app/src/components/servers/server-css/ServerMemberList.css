@@ -1,0 +1,70 @@
+/* css for the whole member container */
+.member-container {
+    overflow: hidden scroll;
+    height: calc(100vh - 50px);
+    max-height: 100vh;
+}
+
+.member-container::-webkit-scrollbar {
+    display: none;
+}
+
+.member-container > ul {
+    padding-left: 10px;
+    margin-top: 0px;
+}
+
+.member-container > ul > li{
+    list-style: none;
+}
+
+/* css for members total */
+.member-total {
+    padding-left: 20px;
+    color: #949ba4;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+
+/* css for each member card */
+.member-wrapper {
+    padding-right: 5px;
+    margin-right: 7px;
+    cursor: pointer;
+    padding: 7px 7px 7px 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 7px;
+}
+
+.member-wrapper:hover {
+    background-color: rgb(50, 51, 56);
+}
+
+.member-name {
+    margin: 0px;
+    font-size: 18px;
+    color: #949ba4;
+    margin-left: 10px;
+    font-weight: 100;
+}
+
+
+
+/* css for the image of each member */
+.member-logo-wrapper,
+.member-image {
+    width: 34px;
+    height: 34px;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+}
+
+.member-logo {
+    width: 20px;
+    height: 20px;
+}

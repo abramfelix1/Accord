@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, EmailField
-from wtforms.validators import DataRequired, Email, ValidationError, Regexp
+from wtforms.validators import DataRequired, ValidationError, Regexp
 from app.models import User
 
 
@@ -35,5 +35,5 @@ def password_check(form, field):
 class SignUpForm(FlaskForm):
     username = StringField(
         'username', validators=[DataRequired(), Regexp('^\w+$'),username_exists])
-    email = EmailField('email', validators=[DataRequired(), Email(), user_exists])
+    email = EmailField('email', validators=[DataRequired(), user_exists])
     password = StringField('password', validators=[DataRequired(), password_check])

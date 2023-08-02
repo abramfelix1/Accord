@@ -19,12 +19,11 @@ class Channel(db.Model):
     # one to many with servers
     server = db.relationship("Server", back_populates="channels")
 
-    # many to many with users through channel messages tables
-    users = db.relationship(
-        "User",
-        secondary="channel_messages",
+    # one to many with users through channel messages tables
+    messages = db.relationship(
+        "ChannelMessage",
         cascade="all,delete",
-        back_populates="channel_messages",
+        back_populates="channels",
     )
 
     def to_dict(self):
