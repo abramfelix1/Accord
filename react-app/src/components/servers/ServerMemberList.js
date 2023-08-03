@@ -33,7 +33,7 @@ function ServerMemberList({ server }) {
             <div>
                 {serverMembers.map((member) => (
                     <div key={member.id} onClick={e => setSelectedMember(member.id)}>
-                        <ServerMemberCard member={member} selectedMember={selectedMember} setShowProfile={setShowProfile} showProfile={showProfile} />
+                        <ServerMemberCard member={member} server={server} selectedMember={selectedMember} setShowProfile={setShowProfile} showProfile={showProfile} />
                         <div>
                             {selectedMember == member.id && showProfile && <MemberProfile member={member} setShowProfile={setShowProfile} />}
                         </div>

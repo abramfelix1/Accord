@@ -218,3 +218,10 @@
 .profile-date {
     margin: 5px;
 }
+
+.members-crown {
+    color: rgb(228, 166, 68);
+    margin-left: 6px;
+    padding-top: 3px;
+    font-size: 13px;
+}
