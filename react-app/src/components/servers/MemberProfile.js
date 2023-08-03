@@ -6,8 +6,11 @@ function MemberProfile({ member, setShowProfile }) {
 
     // switches the the background color of each profile to something different
     const generateColor = () => {
+        // gets a random number
         const randomNum = Math.floor(Math.random() * 16777215)
+            // converts it into a hexadecimal
             .toString(16)
+            // pads with "0" until length of 6
             .padStart(6, '0');
         return `#${randomNum}`;
     };
