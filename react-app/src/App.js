@@ -16,6 +16,7 @@ function App() {
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
+
   return (
     <>
       <Modal />

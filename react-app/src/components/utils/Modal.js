@@ -4,6 +4,7 @@ import "./modal.css";
 import TestPage from "../modal-pages/TestPage";
 import CreateServerPage from "../modal-pages/CreateServerPage";
 import ServerSetting from '../../components/modal-pages/ServerSetting'
+import ServerProfileSetting from "../modal-pages/ServerProfileSetting";
 
 export default function Modal(props) {
   const { type, setType } = useContext(ModalContext);
@@ -35,6 +36,7 @@ export default function Modal(props) {
           {type === "TEST" && <TestPage />}
           {type === "Create Server" && <CreateServerPage />}
           {type === "Server Settings" && <ServerSetting />}
+          {type === "Server Profile Settings" && <ServerProfileSetting/>}
         </div>
         <div className="modalBackdrop" onClick={handleContent} />
       </div>

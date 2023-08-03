@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import * as channelActions from "../../store/channels";
 import { IoIosArrowDown } from "react-icons/io";
 import { RiHashtag } from "react-icons/ri";
@@ -10,13 +10,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { ChannelContext } from "../../context/channelContext";
 import { useContext } from "react"
 
+import { logout } from "../../store/session";
+
 import "./channel-css/Channel.css";
+
 
 function Channel({ server }) {
   const dispatch = useDispatch();
   const { setChannel } = useContext(ChannelContext)
-
+  const user = useSelector(state => state.session.user)
   const channels = Object.values(useSelector((state) => state.channels));
+
 
   useEffect(() => {
     (async () => {
@@ -24,6 +28,12 @@ function Channel({ server }) {
     })()
   }, [dispatch, server]);
 
+  const logoutHandler = async () => {
+
+    await dispatch(logout())
+  }
+
+  console.log(server.owner_id, user.id)
   return (
     channels && (
       <div className="channel-container">
@@ -34,7 +44,9 @@ function Channel({ server }) {
                 <IoIosArrowDown className=".text-channel-drop-down-icon" />
                 <p className="channel-list-title">Text Channels</p>
               </div>
+              {user.id === server.owner_id &&
               <BiPlus className="text-channel-add-icon" />
+              }
             </li>
             <li>
               <div>
@@ -52,6 +64,7 @@ function Channel({ server }) {
                 })}
               </div>
             </li>
+            <button onClick={e => logoutHandler()}> logout </button>
           </ul>
         </div>
       </div>

@@ -3,8 +3,8 @@ import { useContext } from "react";
 import { ModalContext } from "../../context/modalContext";
 import { BiSolidTrash } from "react-icons/bi";
 
-function ServerSetting() {
-  const { serverProfileSettingModal } = useContext(ModalContext);
+function ServerProfileSetting() {
+  const { serverSettingModal } = useContext(ModalContext);
 
   return (
     <div className="server-setting-container">
@@ -12,10 +12,10 @@ function ServerSetting() {
         <div className="settings-navigation">
           <p className="setting-navigation-title">name</p>
           <div>
-            <div>
+            <div onClick={e => serverSettingModal() }>
               <p className="setting-navigation-section-name">Server Settings</p>
             </div>
-            <div onClick={(e) => serverProfileSettingModal()}>
+            <div>
               <p className="setting-navigation-section-name">Server Profile</p>
             </div>
           </div>
@@ -33,7 +33,7 @@ function ServerSetting() {
 
         <div className="server-inner-2">
           <form onSubmit={""} className="server-setting-form">
-            <h3 className="server-setting-header">Server Overview</h3>
+            <h3 className="server-setting-header">Server Profile</h3>
 
             <div className="server-setting-form-main">
               <div className="server-setting-image-container">
@@ -89,4 +89,4 @@ function ServerSetting() {
   );
 }
 
-export default ServerSetting;
+export default ServerProfileSetting;
