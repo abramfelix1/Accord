@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import ServerMemberList from "./ServerMemberList";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function ServerCard({
   server,
@@ -10,6 +12,13 @@ function ServerCard({
   linkID,
 }) {
   const { id } = useParams();
+  let firstChannel = Object.values(
+    useSelector((state) => state.channels.channels)
+  );
+  let firstChannelID;
+  if (firstChannel.length > 0) {
+    console.log(firstChannel[0].id);
+  }
 
   // gets the initals of the server name and return them capitalize
   const initals = (serverName) => {
@@ -36,7 +45,7 @@ function ServerCard({
         </div>
       ) : (
         <NavLink
-          to={`/channels/${server.id}`}
+          to={`/channels/${firstChannelID}`}
           className={`servers tooltip server-pointer`}
           onClick={(e) => handleActiveButton(e, server)}
         >
