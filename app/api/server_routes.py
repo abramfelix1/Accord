@@ -49,7 +49,9 @@ def create_a_servers():
     if form.validate_on_submit():
         data = form.data
         new_server = Server(
-            owner_id=current_user.get_id(), name=data["server_name"], image_url=data["server_image"] or None
+            owner_id=current_user.get_id(),
+            name=data["server_name"],
+            image_url=data["server_image"] or None,
         )
         db.session.add(new_server)
         db.session.commit()
@@ -169,25 +171,9 @@ def get_server_members(id):
     if server is None:
         return jsonify({"message": "Server not found"}), 403
 
-    members = (
-        Member.query.filter(Member.server_id == id).options(joinedload("user")).all()
-    )
+    members = Member.query.filter(Member.server_id == id)
 
     if not members:
         return {}
 
-    members_info = []
-
-    for member in members:
-        member_info = {
-            "id": member.id,
-            "created_at": member.created_at,
-            "display_name": member.user.display_name,
-            "image_url": member.user.image_url,
-            "member_id": member.id,
-            "user_id": member.user_id,
-            "username": member.user.username,
-        }
-        members_info.append(member_info)
-
-    return members_info
+    return [member.to_dict() for member in members]

@@ -132,28 +132,6 @@ def get_channel_messages(id):
 
         return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
-    messages = (
-        ChannelMessage.query.filter(ChannelMessage.channel_id == id)
-        .options(joinedload("user"))
-        .all()
-    )
+    messages = ChannelMessage.query.filter(ChannelMessage.channel_id == id)
 
-    if not messages:
-        return []
-
-    messages_info = []
-
-    for message in messages:
-        message_info = {
-            "id": message.id,
-            "message": message.message,
-            "display_name": message.user.display_name,
-            "image_url": message.user.image_url,
-            "user_id": message.user_id,
-            "username": message.user.username,
-            "created_at": message.created_at,
-            "updated_at": message.created_at,
-        }
-        messages_info.append(message_info)
-
-    return messages_info
+    return [message.to_dict() for message in messages]

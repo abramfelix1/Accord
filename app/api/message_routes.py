@@ -31,7 +31,7 @@ def get_message_by_id(id):
     """
     message = ChannelMessage.query.get(id)
     if not message:
-        return jsonify({"message": "Server not found"}), 403
+        return jsonify({"message": "Message not found"}), 403
     return message.to_dict()
 
 
