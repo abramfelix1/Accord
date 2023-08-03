@@ -44,7 +44,15 @@ function ServerCard({
           />
         </div>
       ) : (
-        <p>{initals(serverInfo.name)}</p>
+        <div
+          className="server-initials"
+          onClick={(e) => {
+            // e.stopPropagation();
+            e.preventDefault();
+          }}
+        >
+          {initals(serverInfo.name)}
+        </div>
       )}
     </NavLink>
   );

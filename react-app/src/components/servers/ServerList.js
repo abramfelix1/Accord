@@ -30,7 +30,7 @@ function ServerList() {
   }, [dispatch]);
 
   const handleActiveButton = (event, server) => {
-    // event.preventDefault();
+    event.stopPropagation();
     if (event.target.id !== "active-server") dispatch(resetChannels());
     setServer(server);
     // gets the tag with the current button that is pressed to see the server
