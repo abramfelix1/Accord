@@ -17,28 +17,25 @@ function ServerMemberList({ server }) {
   }, [dispatch, server]);
 
   return (
-    <>
-      {isLoading === false && (
-        <div
-          style={{
-            backgroundColor: "#2B2D30",
-            width: "14.938rem",
-            color: "white",
-          }}
-        >
-          MemberList
-          <ul>
-            {serverMembers.map((member) => (
-              <li key={member.id}>
-                <p>
-                  {member.display_name ? member.display_name : member.username}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
+    <div
+      style={{
+        backgroundColor: "#2B2D30",
+        width: "14.938rem",
+        color: "white",
+      }}
+    >
+      {!isLoading && (
+        <ul>
+          {serverMembers.map((member) => (
+            <li key={member.id}>
+              <p>
+                {member.display_name ? member.display_name : member.username}
+              </p>
+            </li>
+          ))}
+        </ul>
       )}
-    </>
+    </div>
   );
 }
 

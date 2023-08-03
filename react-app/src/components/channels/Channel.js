@@ -32,7 +32,7 @@ function Channel({ server }) {
   }, [channels, isLoaded]);
 
   return (
-    isLoaded === false && (
+    !isLoaded && (
       <div className="channel-container">
         <div>
           <ul className="channel-list">
