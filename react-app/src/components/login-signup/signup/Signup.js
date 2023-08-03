@@ -22,13 +22,14 @@ function SignupPage() {
     e.preventDefault();
     setErrors({});
 
-    const data = await dispatch(signUp(username, email, password));
+    const data = await dispatch(signUp(username, displayName, email, password));
     if (data) {
       setErrors(data);
+      console.log(errors);
     }
   };
 
-  console.log(errors);
+  console.log(errors, displayName);
   return (
     <div className="signup-container">
       <div className="signup-container-2">
@@ -41,12 +42,15 @@ function SignupPage() {
             <div className="signup-container-5">
               <div className="signup-container-6">
                 {/* FORM SECTION */}
-                <form autoComplete="o" onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                   <div>
                     {/* ------- email ------ */}
                     {errors.email ? (
                       <p className="form-input-label-error">
-                        Email - <span className="form-input-label-error-span">{errors.email}</span>
+                        Email -{" "}
+                        <span className="form-input-label-error-span">
+                          {errors.email}
+                        </span>
                       </p>
                     ) : (
                       <p className="form-input-label">
@@ -56,18 +60,25 @@ function SignupPage() {
                     <input
                       type="email"
                       className="form-input-field"
-                      autoComplete="o"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       onClick={(e) => setDisplayNameMessage(false)}
                       required
                     />
                     {/* ------- display name ------- */}
-                    <p className="form-input-label">Display Name</p>
+                    {errors.display_name ? (
+                      <p className="form-input-label-error">
+                        Display Name{" "}
+                        <span className="form-input-label-error-span">
+                          {errors.display_name}
+                        </span>
+                      </p>
+                    ) : (
+                      <p className="form-input-label">Display Name</p>
+                    )}
                     <input
                       type="text"
                       className="form-input-field"
-                      autoComplete="o"
                       value={displayName}
                       onChange={(e) => setDisplayName(e.target.value)}
                       onClick={(e) => setDisplayNameMessage(!false)}
@@ -94,7 +105,6 @@ function SignupPage() {
                     <input
                       type="text"
                       className="form-input-field"
-                      autoComplete="o"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       onClick={(e) => setDisplayNameMessage(false)}
@@ -103,7 +113,7 @@ function SignupPage() {
                     {/* ------- password -------- */}
                     {errors.password ? (
                       <p className="form-input-label-error">
-                        Password -{' '}
+                        Password -{" "}
                         <span className="form-input-label-error-span">
                           {errors.password}
                         </span>
@@ -116,7 +126,6 @@ function SignupPage() {
                     <input
                       type="password"
                       className="form-input-field"
-                      autoComplete="o"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       onClick={(e) => setDisplayNameMessage(false)}

@@ -18,7 +18,7 @@ def username_exists(form, field):
     # Checking if username is already in use
     username = field.data
 
-    if len(username) < 2:
+    if len(username) < 2 or len(username) > 40:
         raise ValidationError('Username must be 2-40 characters.')
 
     user = User.query.filter(User.username == username).first()
@@ -32,7 +32,17 @@ def password_check(form, field):
     if len(password) < 8:
         raise ValidationError('Password must be at least 8 characters long.')
 
+
+def display_name_check(form, field):
+    display_name = field.data
+
+    print(display_name, len(display_name))
+    if len(display_name) > 32:
+        raise ValidationError('Display name must be 32 characters or less.')
+
+
 class SignUpForm(FlaskForm):
+    display_name = StringField('display_name', validators=[display_name_check])
     username = StringField(
         'username', validators=[DataRequired(), Regexp('^\w+$'),username_exists])
     email = EmailField('email', validators=[DataRequired(), user_exists])
