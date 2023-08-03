@@ -29,4 +29,7 @@ class Member(db.Model):
             "server_id": self.server_id,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
+            "display_name": self.user.display_name,
+            "image_url": self.user.image_url,
+            "username": self.user.username,
         }
