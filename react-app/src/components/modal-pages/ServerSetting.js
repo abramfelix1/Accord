@@ -1,4 +1,4 @@
-import "../server-css/ServerSetting.css";
+import "../../components/servers/server-css/ServerSetting.css";
 import { BiSolidTrash} from 'react-icons/bi'
 
 function ServerSetting() {

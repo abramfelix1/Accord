@@ -8,7 +8,7 @@ import SignupPage from "./components/login-signup/signup/Signup";
 import LandingPage from "./components/landing/LandingPage";
 import Modal from "./components/utils/Modal";
 
-import ServerSetting from "./components/servers/server-settings/ServerSetting";
+import ServerSetting from "./components/modal-pages/ServerSetting";
 
 function App() {
   const dispatch = useDispatch();

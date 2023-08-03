@@ -17,6 +17,10 @@ export const ModalProvider = ({ children }) => {
     setType("Create Server")
   }
 
+  const serverSettingModal = () => {
+    setType("Server Settings")
+  }
+
   return (
     <ModalContext.Provider
       value={{
@@ -25,6 +29,7 @@ export const ModalProvider = ({ children }) => {
         type,
         setType,
         createServerModal,
+        serverSettingModal
         // toggleLogin,
       }}
     >
