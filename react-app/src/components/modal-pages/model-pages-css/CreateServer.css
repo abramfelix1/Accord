@@ -1,0 +1,95 @@
+.create-server-container {
+    width: 450px;
+    height: 380px;
+    background-color: rgb(247, 246, 246);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* majority of the wrap which includes 
+everything except for bottom div with button */
+.c-server-top-wrap {
+    height: 100%;
+}
+
+.c-server-header,
+.c-server-description {
+    text-align: center;
+}
+.c-server-header {
+    font-size: 25px;
+    margin-top: 30px;
+}
+
+.c-server-description {
+    font-size: 15px;
+    margin: 0px 30px;
+}
+
+.c-server-image-outer-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+}
+
+.c-server-image-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed black;
+    border-radius: 50px;
+    width: 10%;
+    padding: 20px;
+}
+
+.c-server-camera {
+    font-size: 25px;
+}
+
+.c-server-upload-text {
+    margin: 0px;
+    font-weight: bolder;
+    font-size: 11px;
+}
+
+
+
+
+/* bottom wrap where back and create button is */
+.c-server-bottom-wrap {
+    background-color: rgb(236, 236, 236);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 20%;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.c-server-back {
+    margin-left: 15px;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 14px;
+}
+
+
+
+.c-server-create-button {
+    margin-right: 20px;
+    width: 20%;
+    height: 55%;
+    background-color: #5865FC;
+    color: rgb(247, 246, 246);
+    border-style: none;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.c-server-create-button:hover {
+    background-color: #4752C4;
+}

@@ -122,8 +122,8 @@
     width: 15px;
     height: 20px;
     background-color: rgb(39, 39, 40);
-    box-shadow: 0px 0px 3px black;
-    border-radius: 6px;
+    box-shadow: 0px 0px 2px black;
+    border-radius: 26px;
     color: rgb(158, 156, 156);
     cursor: pointer;
     font-size: 16px;
@@ -131,6 +131,11 @@
     justify-content: center;
     align-items: center;
     padding: 3px;
+}
+
+.profile-exit:hover {
+    background-color: rgb(41, 36, 36);
+    color: rgb(234, 232, 232);
 }
 
 .profile-logo-outer-wrapper {
