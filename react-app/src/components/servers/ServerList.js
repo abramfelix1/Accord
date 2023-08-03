@@ -21,9 +21,6 @@ function ServerList() {
 
   // selecting the users state to get users servers
   const userServers = Object.values(useSelector((state) => state.user));
-  const serverFromId = userServers.find(
-    (server) => server.id.toString() === id
-  );
 
   // calls the dispatch function to set the state up for users servers
   useEffect(() => {
@@ -33,16 +30,29 @@ function ServerList() {
   }, [dispatch]);
 
   const handleActiveButton = (event, server) => {
+    // event.preventDefault();
     if (event.target.id !== "active-server") dispatch(resetChannels());
     setServer(server);
     // gets the tag with the current button that is pressed to see the server
     const current = document.getElementById("active-server");
-    // gets the current tag id to nothing
+    // gets the img tag with the server logo
+    const serverLogo = document.getElementsByClassName("server-logo")[0];
+    // gets the div tag wrapped around the server logo
+    let serverFriendButton = document.getElementsByClassName(
+      "servers-friend-button"
+    )[0];
+    // gets the current tag and sets the id to nothing
     if (current) {
       current.id = "";
     }
-    // sets the new targeted server to show that it is on that server
-    event.target.id = "active-server";
+    // compares the server logo to the current event clicked
+    if (serverLogo === event.target) {
+      // sets the outer div wrapped around the server logo to proper css styling
+      serverFriendButton.id = "active-server";
+    } else {
+      // sets the new targeted server to show that it is on that server
+      event.target.id = "active-server";
+    }
   };
 
   return (
@@ -52,22 +62,13 @@ function ServerList() {
       </div>
       <div className="server-top-layer">
         {/* not sure what to url for direct messages list is yet */}
-        <NavLink to="/app">
-          <div
-            id="active-server"
-            className="servers"
-            onClick={(e) => handleActiveButton(e)}
-          >
-            <img
-              id="server-logo"
-              src={logo}
-              alt="logo"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-              }}
-            />
-          </div>
+        <NavLink
+          to="/app"
+          id="active-server"
+          className="servers servers-friend-button"
+          onClick={(e) => handleActiveButton(e)}
+        >
+          <img className="server-logo" src={logo} alt="logo" />
         </NavLink>
         {/* <div className="servers" onClick={e => handleActiveButton(e)}>Private Call</div> */}
       </div>
@@ -77,7 +78,7 @@ function ServerList() {
           <li key={server.id}>
             {/* need to set proper link to where to navigate too */}
             <ServerCard
-              server={server}
+              serverInfo={server}
               handleActiveButton={handleActiveButton}
               toolTip={toolTip}
               setToolTip={setToolTip}
@@ -85,12 +86,6 @@ function ServerList() {
             />
           </li>
         ))}
-        {/* will add this div back in when a model is used to create a new server */}
-        {/* <li id={isModalOpen ? "active-plus" : ""} className={`plus`} onClick={e => {
-                    createServerModal()
-                    }}>
-                    +
-                </li> */}
       </ul>
     </div>
   );

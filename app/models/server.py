@@ -33,6 +33,7 @@ class Server(db.Model):
     )
 
     def to_dict(self):
+        first_channel = self.channels[0].to_dict() if self.channels else None
         return {
             "id": self.id,
             "owner_id": self.owner_id,
@@ -40,6 +41,7 @@ class Server(db.Model):
             "image_url": self.image_url,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
+            "firstChannel": first_channel,
         }
 
     def to_dict_relationships(self):

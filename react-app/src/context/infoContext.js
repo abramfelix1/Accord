@@ -9,7 +9,6 @@ export const InfoProvider = ({ children }) => {
   useEffect(() => {
     console.log("***************************");
     console.log(server);
-    // console.log(isLoaded);
   }, [server, isLoaded]);
 
   return (
