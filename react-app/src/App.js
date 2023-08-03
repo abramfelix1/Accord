@@ -23,6 +23,7 @@ function App() {
           <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignupPage} />
           <Route path="/app" component={Main} />
+          <Route path="/channels/:id" component={Main} />
         </Switch>
       )}
     </>

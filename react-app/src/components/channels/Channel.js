@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import * as channelActions from "../../store/channels";
@@ -14,6 +14,7 @@ import { InfoContext } from "../../context/infoContext";
 import "./channel-css/Channel.css";
 
 function Channel({ server }) {
+  // const {id} = useParams()
   const dispatch = useDispatch();
   const { setChannel } = useContext(ChannelContext);
 
@@ -51,15 +52,15 @@ function Channel({ server }) {
                 </Link> */}
                 {channels.map((channel) => {
                   return (
-                    <Link
+                    <NavLink
                       key={channel.id}
                       className="channel-flex"
-                      to={`/app`}
+                      to={`/channels/${channel.id}`}
                       onClick={(e) => setChannel(channel)}
                     >
                       <FaHashtag />
                       <div className="channel-name">{channel.name}</div>
-                    </Link>
+                    </NavLink>
                   );
                 })}
               </div>

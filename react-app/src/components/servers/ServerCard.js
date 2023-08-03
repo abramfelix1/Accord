@@ -1,12 +1,16 @@
+import { NavLink } from "react-router-dom";
 import ServerMemberList from "./ServerMemberList";
+import { useParams } from "react-router-dom";
 
 function ServerCard({
   server,
   handleActiveButton,
-  handleServerClick,
   toolTip,
   setToolTip,
+  linkID,
 }) {
+  const { id } = useParams();
+
   // gets the initals of the server name and return them capitalize
   const initals = (serverName) => {
     let res = "";
@@ -28,17 +32,16 @@ function ServerCard({
             src={server.image_url}
             alt="serverimage"
             onClick={(e) => handleActiveButton(e)}
-            // onMouseLeave={() => setToolTip(false)}
-            // onMouseEnter={() => setToolTip(true)}
           />
         </div>
       ) : (
-        <div
-          className="servers tooltip server-pointer"
+        <NavLink
+          to={`/channels/${server.id}`}
+          className={`servers tooltip server-pointer`}
           onClick={(e) => handleActiveButton(e, server)}
         >
           {initals(server.name)}
-        </div>
+        </NavLink>
       )}
 
       {toolTip && <span className="tooltiptext">{server.name}</span>}

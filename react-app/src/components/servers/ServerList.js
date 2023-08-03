@@ -6,18 +6,24 @@ import { useEffect, useState } from "react";
 // import { useContext } from "react"
 import { useSelector, useDispatch } from "react-redux";
 import * as userActions from "../../store/user";
+import * as channelActions from "../../store/channels";
 import { resetChannels } from "../../store/channels";
 import { InfoContext } from "../../context/infoContext";
 import { useContext } from "react";
+import { useParams } from "react-router-dom/";
 
 function ServerList() {
   const dispatch = useDispatch();
-  const { setServer } = useContext(InfoContext);
+  const { id } = useParams();
+  const { server, setServer } = useContext(InfoContext);
   const [toolTip, setToolTip] = useState(false);
   // const {createServerModal, isModalOpen} = useContext(ModalContext);
 
   // selecting the users state to get users servers
   const userServers = Object.values(useSelector((state) => state.user));
+  const serverFromId = userServers.find(
+    (server) => server.id.toString() === id
+  );
 
   // calls the dispatch function to set the state up for users servers
   useEffect(() => {
@@ -27,7 +33,6 @@ function ServerList() {
   }, [dispatch]);
 
   const handleActiveButton = (event, server) => {
-    event.preventDefault();
     if (event.target.id !== "active-server") dispatch(resetChannels());
     setServer(server);
     // gets the tag with the current button that is pressed to see the server
@@ -38,10 +43,6 @@ function ServerList() {
     }
     // sets the new targeted server to show that it is on that server
     event.target.id = "active-server";
-  };
-
-  const handleServerClick = (server) => {
-    //
   };
 
   return (
@@ -78,9 +79,9 @@ function ServerList() {
             <ServerCard
               server={server}
               handleActiveButton={handleActiveButton}
-              handleServerClick={handleServerClick}
               toolTip={toolTip}
               setToolTip={setToolTip}
+              linkID={server.id.toString()}
             />
           </li>
         ))}

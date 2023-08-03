@@ -3,6 +3,7 @@ import { RxCross2 } from "react-icons/rx";
 import { IoIosArrowDown } from "react-icons/io";
 import { useSelector } from "react-redux";
 import "./server-css/ServerNav.css";
+import { useParams } from "react-router-dom";
 
 function ServerNavDropDown(props) {
   let isLoading = useSelector((state) => state.channels.isLoading);

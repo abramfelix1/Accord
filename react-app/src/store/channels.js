@@ -35,7 +35,7 @@ const getOneChannel = (payload) => ({
 });
 
 export const getChannels = (serverId) => async (dispatch) => {
-  const response = await fetch(`api/servers/${serverId}/channels`);
+  const response = await fetch(`/api/servers/${serverId}/channels`);
   if (response.ok) {
     const data = await response.json();
     dispatch(populateChannels(data));
