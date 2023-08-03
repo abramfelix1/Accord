@@ -26,8 +26,10 @@ function ServerList() {
     })();
   }, [dispatch]);
 
-  const handleActiveButton = (event) => {
+  const handleActiveButton = (event, server) => {
     event.preventDefault();
+    if (event.target.id !== "active-server") dispatch(resetChannels());
+    setServer(server);
     // gets the tag with the current button that is pressed to see the server
     const current = document.getElementById("active-server");
     // gets the current tag id to nothing
@@ -40,8 +42,6 @@ function ServerList() {
 
   const handleServerClick = (server) => {
     //
-    setServer(server);
-    dispatch(resetChannels());
   };
 
   return (
@@ -73,16 +73,15 @@ function ServerList() {
       <div className="border-between-layer"></div>
       <ul className="server-bottom-layer">
         {userServers.map((server) => (
-          <li key={server.id} onClick={(e) => handleServerClick(server)}>
+          <li key={server.id}>
             {/* need to set proper link to where to navigate too */}
-            <NavLink to={`/app`}>
-              <ServerCard
-                server={server}
-                handleActiveButton={handleActiveButton}
-                toolTip={toolTip}
-                setToolTip={setToolTip}
-              />
-            </NavLink>
+            <ServerCard
+              server={server}
+              handleActiveButton={handleActiveButton}
+              handleServerClick={handleServerClick}
+              toolTip={toolTip}
+              setToolTip={setToolTip}
+            />
           </li>
         ))}
         {/* will add this div back in when a model is used to create a new server */}
