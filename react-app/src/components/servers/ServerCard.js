@@ -1,7 +1,7 @@
 
 
 
-function ServerCard({ server, handleActiveButton, toolTip, setToolTip }){
+function ServerCard({ server, handleActiveButton }){
 
     // gets the initals of the server name and return them capitalize
     const initals = (serverName) => {
@@ -19,23 +19,19 @@ function ServerCard({ server, handleActiveButton, toolTip, setToolTip }){
         <>
             {server.image_url !== null && server.image_url.length >= 1
             ? 
-            <div className="tooltip">
+            <div>
                 <img className="servers-img" 
                     src={server.image_url} 
                     alt="serverimage"
                     onClick={e => handleActiveButton(e)}
-                    // onMouseLeave={() => setToolTip(false)}
-                    // onMouseEnter={() => setToolTip(true)}
                 />
             </div>
             :   
-            <div className="servers tooltip"
+            <div className="servers"
                 onClick={e => handleActiveButton(e)}
             >
                 {initals(server.name)}
             </div>}
-
-            {toolTip && <span className="tooltiptext">{server.name}</span>}
         </>
     )
 }

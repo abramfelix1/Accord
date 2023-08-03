@@ -7,12 +7,12 @@ import * as userActions from "../../store/user";
 import { InfoContext } from "../../context/infoContext";
 import { ModalContext } from "../../context/modalContext"
 import { useContext } from "react"
+import Tooltip from "../utils/tooltip";
 
 
 function ServerList() {
     const dispatch = useDispatch()
     const { setServer } = useContext(InfoContext)
-    const [toolTip, setToolTip] = useState(false);
     const {createServerModal, isModalOpen} = useContext(ModalContext);
 
     // selecting the users state to get users servers
@@ -49,32 +49,37 @@ function ServerList() {
         }
     }
 
-
     return (
         <div className="server-list-container">
             <div style={{color: 'white', marginTop: "4px", fontSize: "13px"}}>Accord</div>
             <div className="server-top-layer">
                 {/* not sure what to url for direct messages list is yet */}
-                <NavLink to="/app" id="active-server" className="servers servers-friend-button" onClick={e => handleActiveButton(e)}>
-                        <img className="server-logo" src={logo} alt="logo" />
-                </NavLink>
+                <Tooltip text={"Direct Messages"}>
+                    <NavLink to="/app" id="active-server" className="servers servers-friend-button" onClick={e => handleActiveButton(e)}>
+                            <img className="server-logo" src={logo} alt="logo" />
+                    </NavLink>
+                </Tooltip>
                 {/* <div className="servers" onClick={e => handleActiveButton(e)}>Private Call</div> */}
             </div>
             <div className="border-between-layer"></div>
             <ul className="server-bottom-layer">
                 {userServers.map(server => (
-                    <li key={server.id} onClick={e => setServer(server)}>
-                {/* need to set proper link to where to navigate too */}
-                        <NavLink to={`/app`} >
-                            <ServerCard server={server} handleActiveButton={handleActiveButton} toolTip={toolTip} setToolTip={setToolTip}/>
-                        </NavLink>
-                    </li>
+                    <Tooltip text={server.name}>
+                        <li key={server.id} onClick={e => setServer(server)}>
+                    {/* need to set proper link to where to navigate too */}
+                            <NavLink to={`/app`} >
+                                <ServerCard server={server} handleActiveButton={handleActiveButton} />
+                            </NavLink>
+                        </li>
+                    </Tooltip>
                 ))}
-                <li id={isModalOpen ? "active-plus" : ""} className={`plus`} onClick={e => { 
-                    createServerModal()
-                    }}>
-                    +
-                </li>
+                <Tooltip text={"Create Server"}>
+                    <li id={isModalOpen ? "active-plus" : ""} className={`plus`} onClick={e => { 
+                        createServerModal()
+                        }}>
+                        +
+                    </li>
+                </Tooltip>
             </ul>
         </div>
     )

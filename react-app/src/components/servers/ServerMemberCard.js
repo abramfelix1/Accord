@@ -1,7 +1,8 @@
 import logo from "../../images/accord-logo.png"
+import { FaCrown } from "react-icons/fa6";
 
 
-function ServerMemberCard({ member, selectedMember, setShowProfile, showProfile  }) {
+function ServerMemberCard({ member, selectedMember, setShowProfile, showProfile, server  }) {
 
     // toggles to show the profile 
     const toggleProfile = () => {
@@ -9,7 +10,6 @@ function ServerMemberCard({ member, selectedMember, setShowProfile, showProfile 
             setShowProfile(false)
             return;
         } 
-        
         setShowProfile(true);
     }
 
@@ -25,6 +25,7 @@ function ServerMemberCard({ member, selectedMember, setShowProfile, showProfile 
                 <img className="member-logo" src={logo} alt="logo"/>
             </div>}
             <p className="member-name" >{member.display_name ? member.display_name : member.username}</p>
+            {server.owner_id === member.user_id && <FaCrown className="members-crown"/>}
         </div>
     )
 }
