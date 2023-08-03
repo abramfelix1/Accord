@@ -3,6 +3,11 @@ const ADD_CHANNEL = "channel/addChannel";
 const UPDATE_CHANNEL = "channel/editChannel";
 const DELETE_CHANNEL = "channel/deleteChannel";
 const GET_CHANNEL = "channel/getChannel";
+const RESET_CHANNELS = "channel/resetChannel";
+
+export const resetChannels = () => ({
+  type: RESET_CHANNELS,
+});
 
 const populateChannels = (payload) => ({
   type: POPULATE_CHANNELS,
@@ -88,16 +93,17 @@ export const removeChannel = (serverId, channelId) => async (dispatch) => {
   }
 };
 
-const initialState = {};
+const initialState = { channels: {}, isLoading: true };
 
 const channelsReducer = (state = initialState, action) => {
   const newState = { ...state };
   switch (action.type) {
     case POPULATE_CHANNELS:
-      return action.payload.Channels.reduce((channels, channel) => {
+      const channels = action.payload.Channels.reduce((channels, channel) => {
         channels[channel.id] = channel;
         return channels;
       }, {});
+      return { channels: { ...channels }, isLoading: false };
     case GET_CHANNEL:
       return action.payload;
     case ADD_CHANNEL:
@@ -109,6 +115,8 @@ const channelsReducer = (state = initialState, action) => {
     case DELETE_CHANNEL:
       delete newState[action.payload];
       return newState;
+    case RESET_CHANNELS:
+      return initialState;
     default:
       return state;
   }

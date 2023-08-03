@@ -1,18 +1,27 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 export const InfoContext = createContext();
 
 export const InfoProvider = ({ children }) => {
-    const [server, setServer] = useState({})
+  const [server, setServer] = useState({});
+  const [isLoaded, setIsLoaded] = useState(false);
 
-    return (
+  useEffect(() => {
+    console.log("***************************");
+    console.log(server);
+    // console.log(isLoaded);
+  }, [server, isLoaded]);
+
+  return (
     <InfoContext.Provider
-        value={{
+      value={{
         server,
-        setServer
-        }}
+        setServer,
+        isLoaded,
+        setIsLoaded,
+      }}
     >
-        {children}
+      {children}
     </InfoContext.Provider>
-    );
+  );
 };

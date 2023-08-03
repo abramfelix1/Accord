@@ -8,24 +8,31 @@ import { FaHashtag } from "react-icons/fa";
 import { BiPlus } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { ChannelContext } from "../../context/channelContext";
-import { useContext } from "react"
+import { useContext } from "react";
+import { InfoContext } from "../../context/infoContext";
 
 import "./channel-css/Channel.css";
 
 function Channel({ server }) {
   const dispatch = useDispatch();
-  const { setChannel } = useContext(ChannelContext)
+  const { setChannel } = useContext(ChannelContext);
 
-  const channels = Object.values(useSelector((state) => state.channels));
+  let isLoaded = useSelector((state) => state.channels.isLoading);
+  let channels = Object.values(useSelector((state) => state.channels.channels));
 
   useEffect(() => {
     (async () => {
       await dispatch(channelActions.getChannels(server.id || 1));
-    })()
+    })();
   }, [dispatch, server]);
 
+  useEffect(() => {
+    console.log(channels);
+    console.log(isLoaded);
+  }, [channels, isLoaded]);
+
   return (
-    channels && (
+    isLoaded === false && (
       <div className="channel-container">
         <div>
           <ul className="channel-list">
@@ -44,7 +51,12 @@ function Channel({ server }) {
                 </Link> */}
                 {channels.map((channel) => {
                   return (
-                    <Link key={channel.id} className="channel-flex" to={`/app`} onClick={(e => setChannel(channel))}>
+                    <Link
+                      key={channel.id}
+                      className="channel-flex"
+                      to={`/app`}
+                      onClick={(e) => setChannel(channel)}
+                    >
                       <FaHashtag />
                       <div className="channel-name">{channel.name}</div>
                     </Link>
