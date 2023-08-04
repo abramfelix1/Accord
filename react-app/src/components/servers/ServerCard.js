@@ -4,7 +4,7 @@
 function ServerCard({ server, handleActiveButton }){
 
     // gets the initals of the server name and return them capitalize
-    const initals = (serverName) => {
+    const initials = (serverName) => {
         let res = "";
         const serverNameArr = serverName.split(" ");
 
@@ -12,12 +12,12 @@ function ServerCard({ server, handleActiveButton }){
             let word = serverNameArr[i];
             res += word[0].toUpperCase();
         }
-        return res;
+        return res.slice(0, 3);
     } 
 
     return (
         <>
-            {server.image_url !== null && server.image_url.length >= 1
+            {server.image_url !== null && server.image_url.length >= 3
             ? 
             <div>
                 <img className="servers-img" 
@@ -30,7 +30,7 @@ function ServerCard({ server, handleActiveButton }){
             <div className="servers"
                 onClick={e => handleActiveButton(e)}
             >
-                {initals(server.name)}
+                {initials(server.name)}
             </div>}
         </>
     )
