@@ -25,9 +25,11 @@ function Channel({ server }) {
   );
 
   useEffect(() => {
-    (async () => {
-      await dispatch(channelActions.getChannels(server.id || 1));
-    })();
+    if (server) {
+      (async () => {
+        await dispatch(channelActions.getChannels(server.id || 1));
+      })();
+    }
   }, [dispatch, server]);
 
   const logoutHandler = async () => {

@@ -34,7 +34,9 @@ function ServerList() {
     event.stopPropagation();
     if (event.target.id !== "active-server") dispatch(resetChannels());
     setServer(server);
-    setChannel(server.firstChannel);
+    if (server) {
+      setChannel(server.firstChannel);
+    }
     // gets the tag with the current button that is pressed to see the server
     const current = document.getElementById("active-server");
     // gets the img tag with the server logo

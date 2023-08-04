@@ -18,12 +18,14 @@ function ServerMemberList({ server }) {
   }, [selectedMember]);
 
   useEffect(() => {
-    (async () => {
-      // currently just setting the server 1 as a starting point until
-      // we can figure out what to set the list starting point to
-      // when you are not on a server yet.
-      await dispatch(memberActions.getServerMembersThunk(server.id || 1));
-    })();
+    if (server) {
+      (async () => {
+        // currently just setting the server 1 as a starting point until
+        // we can figure out what to set the list starting point to
+        // when you are not on a server yet.
+        await dispatch(memberActions.getServerMembersThunk(server.id || 1));
+      })();
+    }
   }, [dispatch, server]);
 
   return (
