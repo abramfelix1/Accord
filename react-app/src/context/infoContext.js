@@ -7,7 +7,7 @@ export const InfoProvider = ({ children }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    console.log("***************************");
+    console.log("Server Context:");
     console.log(server);
   }, [server, isLoaded]);
 

@@ -1,18 +1,23 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 export const ChannelContext = createContext();
 
 export const ChannelProvider = ({ children }) => {
-    const [channel, setChannel] = useState({})
+  const [channel, setChannel] = useState();
 
-    return (
+  useEffect(() => {
+    console.log("Channel Context:");
+    console.log(channel);
+  }, [channel]);
+
+  return (
     <ChannelContext.Provider
-        value={{
+      value={{
         channel,
-        setChannel
-        }}
+        setChannel,
+      }}
     >
-        {children}
+      {children}
     </ChannelContext.Provider>
-    );
+  );
 };

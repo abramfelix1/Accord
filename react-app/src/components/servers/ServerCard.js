@@ -23,7 +23,7 @@ function ServerCard({ handleActiveButton, serverInfo, toolTip, setToolTip }) {
 
   return (
     <NavLink
-      to={`/channels/${serverInfo.firstChannel.id}`}
+      to={`/servers/${serverInfo.id}/channels/${serverInfo.firstChannel.id}`}
       className={`servers server-pointer`}
       onClick={(e) => handleActiveButton(e, serverInfo)}
     >

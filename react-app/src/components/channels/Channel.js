@@ -19,8 +19,10 @@ function Channel({ server }) {
   const dispatch = useDispatch();
   const { setChannel } = useContext(ChannelContext);
   const user = useSelector((state) => state.session.user);
-  let isLoaded = useSelector((state) => state.channels.isLoading);
-  let channels = Object.values(useSelector((state) => state.channels.channels));
+  const isLoaded = useSelector((state) => state.channels.isLoading);
+  const channels = Object.values(
+    useSelector((state) => state.channels.channels)
+  );
 
   useEffect(() => {
     (async () => {
@@ -57,7 +59,7 @@ function Channel({ server }) {
                     <NavLink
                       key={channel.id}
                       className="channel-flex"
-                      to={`/channels/${channel.id}`}
+                      to={`/servers/${server.id}/channels/${channel.id}`}
                       onClick={(e) => setChannel(channel)}
                     >
                       <FaHashtag />

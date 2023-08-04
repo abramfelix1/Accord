@@ -9,6 +9,7 @@ import * as channelActions from "../../store/channels";
 import { resetChannels } from "../../store/channels";
 import { InfoContext } from "../../context/infoContext";
 import { ModalContext } from "../../context/modalContext";
+import { ChannelContext } from "../../context/channelContext";
 import { useContext } from "react";
 import { useParams } from "react-router-dom/";
 import Tooltip from "../utils/tooltip";
@@ -16,6 +17,7 @@ import Tooltip from "../utils/tooltip";
 function ServerList() {
   const dispatch = useDispatch();
   const { setServer } = useContext(InfoContext);
+  const { setChannel } = useContext(ChannelContext);
   const { createServerModal, isModalOpen } = useContext(ModalContext);
 
   // selecting the users state to get users servers
@@ -32,6 +34,7 @@ function ServerList() {
     event.stopPropagation();
     if (event.target.id !== "active-server") dispatch(resetChannels());
     setServer(server);
+    setChannel(server.firstChannel);
     // gets the tag with the current button that is pressed to see the server
     const current = document.getElementById("active-server");
     // gets the img tag with the server logo
