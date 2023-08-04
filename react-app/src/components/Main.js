@@ -9,19 +9,26 @@ import { InfoContext } from "../context/infoContext";
 import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { joinServer } from "./utils/Socket";
+import { joinServer, sendMessage, startListeners } from "./utils/Socket";
 
 import "./Main.css";
 // import { useContext } from "react";
 
 function Main() {
-  //   const { isServerView, isDMView, toggleView } = useContext(ViewContext);
-  //   const { toggleTestModal } = useContext(ModalContext);
+  const userID = useSelector((state) => state.session.user.id).toString();
+  console.log("USERID: " + userID);
+  const buttonHandler = () => {
+    sendMessage(1, 1);
+  };
+  const button2Handler = () => {
+    startListeners();
+    joinServer(userID);
+  };
   const { server, setServer } = useContext(InfoContext);
-  console.log(server);
   return (
     <div className="main-container">
-      <button onClick={(e) => joinServer(1)}>TEST SOCKET</button>
+      <button onClick={(e) => button2Handler()}>START LISTENERS</button>
+      <button onClick={(e) => buttonHandler()}>TEST SOCKET</button>
       {/* Server Section */}
       <section className="main-section-1">
         <Server />

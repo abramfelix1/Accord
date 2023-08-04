@@ -24,6 +24,7 @@ def join_server(data):
     print("**************************JOIN SERVER DATA START**************************")
     user = User.query.get(data["user_id"])
     servers = user.user_servers()
+    # connect user to rooms based on server id
     for server in servers:
         print(f"Joining Server: {server}")
         join_room(str(server))
@@ -34,16 +35,13 @@ def join_server(data):
 # handle sending chat messages when send_message event is emitted from the frontend
 @socketio.on("send_message")
 def handle_chat(data):
-    # emits new_message event for the frontend
-    print("********SEND_MESSAGE DATA**********")
+    print("**************************SEND_MESSAGE DATA START**************************")
     print(data)
-    print("********SEND_MESSAGE DATA**********")
+    print("**************************SEND_MESSAGE DATA END**************************")
     emit(
-        "new_message",
+        "send_message_response",
         {
-            # "message": data["message"],
-            # "user_id": data["user_id"],
-            "channel_id": data["channel_id"],
+            "Message": f"NEW MESSAGE: SERVER: {data['server_id']} CHANNEL: {data['channel_id']}"
         },
-        broadcast=True,
+        room=str(data["server_id"]),
     )
