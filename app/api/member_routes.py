@@ -6,16 +6,48 @@ from app.forms import MessageForm
 
 member_routes = Blueprint("members", __name__)
 
-@member_routes.route("/current/server/<int:id>", methods=['DELETE'])
+@member_routes.route("/server/<int:id>", methods=["DELETE"])
 @login_required
 def leave_server(id):
-
+    """
+    Leave server by id
+    """
+    server = Server.query.get(id)
     user = current_user.get_id()
-    member = Member.query.filter(Member.user_id.like(user), Member.server_id.like(id)).first()
+
+    if not server:
+        return jsonify({"message": "Server not found"}), 404
+
+    member = Member.query.filter(
+        Member.user_id.like(user), Member.server_id.like(id)
+    ).first()
 
     if not member:
         return jsonify({"message": "Member not found"}), 404
 
     db.session.delete(member)
     db.session.commit()
-    return jsonify({"message": "Server succesfully deleted!"}), 200
+    return jsonify({"message": "Leave server succesful!"}), 200
+
+
+# @member_routes.route("/server/<int:id>")
+# @login_required
+# def get_current_server_member(id):
+#     """
+#     Get current server member by server ID
+#     """
+
+#     server = Server.query.get(id)
+#     user = current_user.get_id()
+
+#     if server is None:
+#         return jsonify({"message": "Server not found"}), 403
+
+#     member = Member.query.filter(
+#         Member.server_id.like(id), Member.user_id.like(user)
+#     ).first()
+
+#     if not member:
+#         return {}
+
+#     return member.to_dict()

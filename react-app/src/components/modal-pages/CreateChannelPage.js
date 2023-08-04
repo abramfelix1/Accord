@@ -18,7 +18,6 @@ function CreateChannelPage() {
   const createChannelHandleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(createChannel(server.id, channelName));
-    console.log("ASDFSDAFSDAFASDFSDAFSDAFSD");
     return setType(null);
   };
 

@@ -178,39 +178,3 @@ def get_server_members(id):
         return {}
 
     return [member.to_dict() for member in members]
-
-
-
-@server_routes.route("/<int:id>/join", methods=["POST"])
-@login_required
-def join_server(id):
-    """
-    Get current member associated to current server.
-    """
-
-    form = MembershipForm()
-    form["csrf_token"].data = request.cookies["csrf_token"]
-
-    server = Server.query.get(id)
-    user = current_user.get_id()
-    if server is None:
-        return jsonify({"message": "Server not found"}), 404
-
-    member = Member.query.filter(
-        Member.user_id.like(user), Member.server_id.like(id)
-    ).first()
-
-    if member:
-        return jsonify({"message": "Member is already a member"}), 404
-
-    if form.validate_on_submit():
-        data = Member(
-            user_id=form.data["user_id"],
-            server_id=form.data["server_id"],
-            nickname=form.data["nickname"],
-        )
-        db.session.add(data)
-        db.session.commit()
-        return data.to_dict()
-
-    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
