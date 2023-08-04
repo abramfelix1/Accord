@@ -9,6 +9,7 @@ import { BiPlus } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { ChannelContext } from "../../context/channelContext";
 import { useContext } from "react"
+import { ModalContext } from "../../context/modalContext";
 
 import { logout } from "../../store/session";
 
@@ -18,6 +19,7 @@ import "./channel-css/Channel.css";
 function Channel({ server }) {
   const dispatch = useDispatch();
   const { setChannel } = useContext(ChannelContext)
+  const { createChannelModal } = useContext(ModalContext)
   const user = useSelector(state => state.session.user)
   const channels = Object.values(useSelector((state) => state.channels));
 
@@ -45,7 +47,7 @@ function Channel({ server }) {
                 <p className="channel-list-title">Text Channels</p>
               </div>
               {user.id === server.owner_id &&
-              <BiPlus className="text-channel-add-icon" />
+              <BiPlus className="text-channel-add-icon create-new-channel-plus" onClick={e => createChannelModal()}/>
               }
             </li>
             <li>
