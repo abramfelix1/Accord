@@ -13,7 +13,7 @@ function ServerNav({ server }) {
 
   useEffect(() => {}, [openDropdown]);
 
-  const navActive = openDropdown ? 'server-nav-active' : ''
+  const navActive = openDropdown ? "server-nav-active" : "";
 
   return (
     <div

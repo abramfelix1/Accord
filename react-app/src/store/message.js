@@ -2,6 +2,11 @@ const POPULATE_MESSAGES = "chat/setMessages";
 const ADD_MESSAGE = "chat/addMessage";
 const UPDATE_MESSAGE = "chat/updateMessage";
 const DELETE_MESSAGE = "channel/deleteChannel";
+const RESET_MESSAGES = "channel/resetChannel";
+
+export const resetMessages = () => ({
+  type: RESET_MESSAGES,
+});
 
 const populateMessages = (payload) => ({
   type: POPULATE_MESSAGES,
@@ -42,7 +47,7 @@ export const createMessage = (channel_id, message) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(addMessage(data));
+    dispatch(getMessages(data.channel_id));
   }
 };
 
@@ -70,16 +75,17 @@ export const removeMessage = (channel_id, message_id) => async (dispatch) => {
   }
 };
 
-const initialState = {};
+const initialState = { messages: {}, isLoading: true };
 
 const messageReducer = (state = initialState, action) => {
   const newState = { ...state };
   switch (action.type) {
     case POPULATE_MESSAGES:
-      return action.payload.reduce((messages, message) => {
+      const messages = action.payload.reduce((messages, message) => {
         messages[message.id] = message;
         return messages;
       }, {});
+      return { messages: { ...messages }, isLoading: false };
     case ADD_MESSAGE:
       newState[action.payload.id] = action.payload;
       return newState;
@@ -89,6 +95,8 @@ const messageReducer = (state = initialState, action) => {
     case DELETE_MESSAGE:
       delete newState[action.payload];
       return newState;
+    case RESET_MESSAGES:
+      return initialState;
     default:
       return state;
   }

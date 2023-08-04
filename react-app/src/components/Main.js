@@ -6,21 +6,18 @@ import ChatNav from "./chat/ChatNav";
 import ChatBox from "./chat/ChatBox";
 import ServerMemberList from "./servers/ServerMemberList";
 import { InfoContext } from "../context/infoContext";
-import { useContext } from "react"
+import { useContext } from "react";
 import { useSelector } from "react-redux";
-import { Redirect } from 'react-router-dom'
+import { Redirect } from "react-router-dom";
 
 import "./Main.css";
 // import { useContext } from "react";
 
 function Main() {
-//   const { isServerView, isDMView, toggleView } = useContext(ViewContext);
-//   const { toggleTestModal } = useContext(ModalContext);
-  const {server, setServer} = useContext(InfoContext)
-  const userSession = useSelector(state => state.session.user)
-
-  if (!userSession) return <Redirect to='/login'/>
-
+  //   const { isServerView, isDMView, toggleView } = useContext(ViewContext);
+  //   const { toggleTestModal } = useContext(ModalContext);
+  const { server, setServer } = useContext(InfoContext);
+  console.log(server);
   return (
     <div className="main-container">
       {/* Server Section */}
@@ -31,8 +28,8 @@ function Main() {
       {/* Channel Section */}
       <section className="main-section-2">
         <div>
-          <ServerNav server={server}/>
-          <Channel server={server}/>
+          <ServerNav server={server} />
+          <Channel server={server} />
         </div>
         <UserNav />
       </section>
@@ -42,7 +39,7 @@ function Main() {
         <ChatNav />
         <div className="chatbox-member-container">
           <ChatBox />
-          <ServerMemberList server={server}/>
+          <ServerMemberList server={server} />
         </div>
       </section>
     </div>

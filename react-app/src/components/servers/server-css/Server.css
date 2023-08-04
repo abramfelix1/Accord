@@ -1,156 +1,181 @@
 .server-list-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* each server card */
 .servers {
-    background-color: rgb(48, 48, 48);
-    border-radius: 40px;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 11px;
-    text-align: center;
-    max-width: 50px;
-    color: rgb(177, 177, 177);
-    font-weight: bolder;
-    font-size: 20px;
-    transition: border-radius 0.5s;
-    transition: background-color 0.3s;
+  background-color: rgb(48, 48, 48);
+  border-radius: 40px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 11px;
+  text-align: center;
+  max-width: 50px;
+  color: rgb(177, 177, 177);
+  font-weight: bolder;
+  font-size: 20px;
+  transition: border-radius 0.5s;
+  transition: background-color 0.3s;
 }
 
 .servers:hover {
-    border-radius: 15px;
-    background-color: #4752C4;
+  border-radius: 15px;
+  background-color: #4752c4;
 }
 
 #active-server {
-    border-radius: 15px;
-    background-color: #4752C4;
+  border-radius: 15px;
+  background-color: #4752c4;
+}
+
+.active-server {
+  border-radius: 15px;
+  background-color: #4752c4;
+}
+
+.server-initials {
+  pointer-events: none;
+  background-color: rgb(48, 48, 48, 0);
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 11px;
+  text-align: center;
+  max-width: 50px;
+  color: rgb(177, 177, 177);
+  font-weight: bolder;
+  font-size: 20px;
+  transition: border-radius 0.5s;
+  transition: background-color 0.3s;
+}
+
+.servers-initals:hover {
+  border-radius: 15px;
+  background-color: #4752c4;
 }
 
 /* -------------------------------------------- */
 
 .plus {
-    background-color: rgb(48, 48, 48);
-    border-radius: 40px;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 11px;
-    text-align: center;
-    max-width: 50px;
-    color: green;
-    font-size: 40px;
-    transition: border-radius 0.5s;
-    transition: background-color 0.3s;
-    cursor: pointer;
+  background-color: rgb(48, 48, 48);
+  border-radius: 40px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 11px;
+  text-align: center;
+  max-width: 50px;
+  color: green;
+  font-size: 40px;
+  transition: border-radius 0.5s;
+  transition: background-color 0.3s;
+  cursor: pointer;
 }
 
 .plus:hover {
-    border-radius: 15px;
-    background-color: green;
-    color:rgb(177, 177, 177);
+  border-radius: 15px;
+  background-color: green;
+  color: rgb(177, 177, 177);
 }
 
-
 #active-plus {
-    border-radius: 15px;
-    background-color: green;
-    color:rgb(177, 177, 177);
+  border-radius: 15px;
+  background-color: green;
+  color: rgb(177, 177, 177);
 }
 
 /* ----------------------------------------------------- */
 
 .server-logo {
-    width: 28px;
-    height: 28px;
+  width: 28px;
+  height: 28px;
 }
 
 /* image of the server card */
 .servers-img {
-    width: 100%;
-    height: 100%;
-    border-radius: 40px;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 11px;
-    text-align: center;
-    max-width: 50px;
-    transition: border-radius 0.5s;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 11px;
+  text-align: center;
+  max-width: 50px;
+  transition: border-radius 0.5s;
 }
 
 .servers-img:hover {
-    border-radius: 15px;
+  border-radius: 15px;
 }
 
 .server-top-layer > a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 /* just the white line between all servers and friends marker */
 .border-between-layer {
-    border: 1px solid rgb(199, 196, 196);
-    width: 40px;
+  border: 1px solid rgb(199, 196, 196);
+  width: 40px;
 }
 
 .server-bottom-layer {
-    padding: 0px;
-    margin-top: 5px;
-    overflow: hidden scroll;
-    height: calc(100vh - 100px);
-    max-height: 100vh;
+  padding: 0px;
+  margin-top: 5px;
+  overflow: hidden scroll;
+  height: calc(100vh - 100px);
+  max-height: 100vh;
 }
 
 .server-bottom-layer::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .server-bottom-layer > li {
-    list-style-type: none;
+  list-style-type: none;
 }
 
-.server-bottom-layer > li > a{
-    text-decoration: none;
+.server-bottom-layer > li > a {
+  text-decoration: none;
 }
-
 
 /* ------------------ tooltip ------------------------ */
 .tooltip {
-    position: relative;
-    /* display: inline-flex; */
+  position: relative;
+  /* display: inline-flex; */
 }
 
 .tooltiptext {
-    position: fixed;
-    color: #949ba4;
-    text-align: center;
-    max-width: 200px;
-    padding: 5px 10px;
-    background-color: rgb(51, 50, 47);
-    border-radius: 6px;
-    box-shadow: 1px 1px 7px rgb(31, 28, 28);
-    z-index: 1;
-    font-size: 15px;
+  position: fixed;
+  color: #949ba4;
+  text-align: center;
+  max-width: 200px;
+  padding: 5px 10px;
+  background-color: rgb(51, 50, 47);
+  border-radius: 6px;
+  box-shadow: 1px 1px 7px rgb(31, 28, 28);
+  z-index: 1;
+  font-size: 15px;
 }
 
 .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 31%;
-    left: -7%;
-    margin-left: -5px;
-    border-width: 7px;
-    border-style: solid;
-    border-color:  transparent rgb(51, 50, 47) transparent transparent ;
+  content: "";
+  position: absolute;
+  top: 31%;
+  left: -7%;
+  margin-left: -5px;
+  border-width: 7px;
+  border-style: solid;
+  border-color: transparent rgb(51, 50, 47) transparent transparent;
 }

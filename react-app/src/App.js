@@ -26,7 +26,11 @@ function App() {
           <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignupPage} />
           <Route path="/app" component={Main} />
-          <Route path='/settings' component={ServerSetting}/>
+          <Route
+            path="/servers/:serverid/channels/:channelid"
+            component={Main}
+          />
+          <Route path="/settings" component={ServerSetting} />
         </Switch>
       )}
     </>

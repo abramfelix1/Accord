@@ -18,6 +18,7 @@ function CreateChannelPage() {
   const createChannelHandleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(createChannel(server.id, channelName));
+    console.log("ASDFSDAFSDAFASDFSDAFSDAFSD");
     return setType(null);
   };
 
@@ -117,15 +118,18 @@ function CreateChannelPage() {
               >
                 Cancel
               </p>
-              {channelName.length ?
+              {channelName.length ? (
                 <button type="submit" className="create-channel-submit-active">
                   Create Channel
-                </button> :
-                <button className="create-channel-submit-inactive" disabled={!channelName.length}>
-                Create Channel
-              </button>
-
-            }
+                </button>
+              ) : (
+                <button
+                  className="create-channel-submit-inactive"
+                  disabled={!channelName.length}
+                >
+                  Create Channel
+                </button>
+              )}
             </div>
           </form>
         </div>
