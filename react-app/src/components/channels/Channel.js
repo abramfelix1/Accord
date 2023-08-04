@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
-import { useParams, Redirect } from "react-router-dom";
+import { useParams, Redirect, useHistory } from "react-router-dom";
 import * as channelActions from "../../store/channels";
 import { IoIosArrowDown } from "react-icons/io";
 import { RiHashtag } from "react-icons/ri";
@@ -24,6 +24,7 @@ function Channel({ server }) {
   const { setChannel } = useContext(ChannelContext);
   const { createChannelModal } = useContext(ModalContext);
   const isLoaded = useSelector((state) => state.channels.isLoading);
+  const history = useHistory();
 
   const user = useSelector((state) => state.session.user);
   const channels = Object.values(
@@ -40,6 +41,7 @@ function Channel({ server }) {
 
   const logoutHandler = async () => {
     await dispatch(logout());
+    return history.push("/login");
   };
 
   const channelClickHandler = (channel) => {
@@ -58,7 +60,7 @@ function Channel({ server }) {
                 <IoIosArrowDown className=".text-channel-drop-down-icon" />
                 <p className="channel-list-title">Text Channels</p>
               </div>
-              {user.id === server.owner_id && (
+              {user && user.id === server.owner_id && (
                 <BiPlus
                   className="text-channel-add-icon create-new-channel-plus"
                   onClick={(e) => createChannelModal()}
