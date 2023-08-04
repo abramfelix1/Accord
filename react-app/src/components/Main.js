@@ -9,6 +9,7 @@ import { InfoContext } from "../context/infoContext";
 import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { joinServer } from "./utils/Socket";
 
 import "./Main.css";
 // import { useContext } from "react";
@@ -20,6 +21,7 @@ function Main() {
   console.log(server);
   return (
     <div className="main-container">
+      <button onClick={(e) => joinServer(1)}>TEST SOCKET</button>
       {/* Server Section */}
       <section className="main-section-1">
         <Server />

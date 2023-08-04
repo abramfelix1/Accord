@@ -1,5 +1,6 @@
-from flask_socketio import SocketIO, emit
-from .models import db, ChannelMessage
+from flask_socketio import SocketIO, emit, join_room, leave_room, close_room
+from flask_login import current_user
+from .models import db, ChannelMessage, User, Member, Server
 import os
 import datetime
 
@@ -15,6 +16,19 @@ else:
 
 # initialize your socket instance
 socketio = SocketIO(cors_allowed_origins=origins)
+
+
+# handle connecting user to all servers(rooms)
+@socketio.on("join_server")
+def join_server(data):
+    print("**************************JOIN SERVER DATA START**************************")
+    user = User.query.get(data["user_id"])
+    servers = user.user_servers()
+    for server in servers:
+        print(f"Joining Server: {server}")
+        join_room(str(server))
+    print("**************************JOIN SERVER DATA END**************************")
+    emit("join_server_response", {"Message": f"Joined Servers: {servers}"})
 
 
 # handle sending chat messages when send_message event is emitted from the frontend
