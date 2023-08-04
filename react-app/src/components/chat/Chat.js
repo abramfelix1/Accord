@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import socket from "../utils/Socket";
 import ChatInputField from "./ChatInputField";
 import { getMessages, createMessage } from "../../store/message";
-import { handleNewMessages } from "../utils/Socket";
+import { handleChatUpdates } from "../utils/Socket";
 import { useContext } from "react";
 import { ChannelContext } from "../../context/channelContext";
 import "./chat-css/ChatBox.css";
@@ -26,14 +26,14 @@ const Chat = () => {
     dispatch(getMessages(channelid));
 
     //listens for new_message event from the backend and rerender component when state updates
-    handleNewMessages((channel_id) => {
-      dispatch(getMessages(channel_id));
-    });
+    // handleChatUpdates((channel_id) => {
+    //   dispatch(getMessages(channel_id));
+    // });
 
     // when component unmounts, disconnect
-    return () => {
-      socket.disconnect();
-    };
+    // return () => {
+    //   socket.disconnect();
+    // };
   }, [dispatch, channelid]);
 
   const updateChatInput = (e) => {

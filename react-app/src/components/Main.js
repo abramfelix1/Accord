@@ -9,7 +9,7 @@ import { InfoContext } from "../context/infoContext";
 import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { joinServer, sendMessage, startListeners } from "./utils/Socket";
+import { joinServer, chatUpdate, startListeners } from "./utils/Socket";
 
 import "./Main.css";
 // import { useContext } from "react";
@@ -18,7 +18,7 @@ function Main() {
   const userID = useSelector((state) => state.session.user.id).toString();
   console.log("USERID: " + userID);
   const buttonHandler = () => {
-    sendMessage(1, 1);
+    chatUpdate(1, 1);
   };
   const button2Handler = () => {
     startListeners();

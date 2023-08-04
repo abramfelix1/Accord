@@ -2,9 +2,24 @@ import { io } from "socket.io-client";
 
 const socket = io();
 
-export function startListeners() {
+/* TODO
+-implement chatUpdate to Chat.js (chatUpdate accounts for all CRUD)
+  --Update reducers to corresponding thunks
+---BONUS---
+-create channelUpdate for realtime CRUD
+  --Only when viewing a server
+-create serverUpdate for realtime CRUD
+  --Global
+-create memberUpdate for realtime CRUD
+  --Only when viewing a server
+-setup online/offline feature
+  --On login establish all listeners for server wide use
+  --On logout disconnect sockets
+*/
+
+export function startListeners(user) {
   console.log("***LISTENING FOR SEND MESSAGE RESPONSE***");
-  socket.on("send_message_response", (data) => {
+  socket.on("chat_update_response", (data) => {
     console.log(data["Message"]);
   });
 }
@@ -18,17 +33,16 @@ export function joinServer(user_id) {
   });
 }
 
-export function sendMessage(server_id, channel_id) {
-  console.log("***EMIT SEND MESSAGE***");
-  socket.emit("send_message", { server_id, channel_id });
+export function chatUpdate(server_id, channel_id) {
+  console.log("***EMIT CHAT UPDATE***");
+  socket.emit("chat_update", { server_id, channel_id });
 }
 
-export function handleNewMessages(callback) {
-  console.log("***LISTENING FOR NEW MESSAGE***");
-  socket.on("new_message", (data) => {
-    console.log("***NEW_MESSAGE EVENT DATA***");
+export function handleChatUpdates(callback) {
+  console.log("***LISTENING FOR CHAT UPDATES***");
+  socket.on("chat_update_response", (data) => {
+    console.log("***CHAT UPDATES EVENT DATA***");
     console.log(data.channel_id);
-    console.log("***NEW_MESSAGE EVENT DATA***");
     const channel_id = data.channel_id;
     callback(channel_id);
   });

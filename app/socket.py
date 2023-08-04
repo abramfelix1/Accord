@@ -17,6 +17,9 @@ else:
 # initialize your socket instance
 socketio = SocketIO(cors_allowed_origins=origins)
 
+# Might use for bonus. Make isOnline key for Users table, or make a reducer for sockets. Have to set up Disconnect and Connect listeners.
+online_users = set()
+
 
 # handle connecting user to all servers(rooms)
 @socketio.on("join_server")
@@ -29,19 +32,24 @@ def join_server(data):
         print(f"Joining Server: {server}")
         join_room(str(server))
     print("**************************JOIN SERVER DATA END**************************")
-    emit("join_server_response", {"Message": f"Joined Servers: {servers}"})
+    emit(
+        "join_server_response",
+        {
+            "Message": f"Joined Servers: {servers}",
+        },
+    )
 
 
-# handle sending chat messages when send_message event is emitted from the frontend
-@socketio.on("send_message")
+# handle chat messages when message_update event is emitted from the frontend
+@socketio.on("chat_update")
 def handle_chat(data):
     print("**************************SEND_MESSAGE DATA START**************************")
     print(data)
     print("**************************SEND_MESSAGE DATA END**************************")
     emit(
-        "send_message_response",
+        "chat_update_response",
         {
-            "Message": f"NEW MESSAGE: SERVER: {data['server_id']} CHANNEL: {data['channel_id']}"
+            "Message": f"CHAT_UPDATE: SERVER: {data['server_id']} CHANNEL: {data['channel_id']}"
         },
         room=str(data["server_id"]),
     )

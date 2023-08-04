@@ -81,7 +81,7 @@ function ServerList() {
       <div className="border-between-layer"></div>
       <ul className="server-bottom-layer">
         {userServers.map((server) => (
-          <Tooltip text={server.name}>
+          <Tooltip key={server.id} text={server.name}>
             <li key={server.id}>
               {/* need to set proper link to where to navigate too */}
               <ServerCard
