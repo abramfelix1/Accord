@@ -1,21 +1,16 @@
 """empty message
 
-Revision ID: 1dd1ff207099
+Revision ID: 7051390ade95
 Revises: 
-Create Date: 2023-07-31 20:09:27.972733
+Create Date: 2023-08-01 23:49:23.767984
 
 """
 from alembic import op
 import sqlalchemy as sa
 
-# MAKE SURE TO ADD THIS INTO EVERY MIGRATION FILE
-import os
-
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '1dd1ff207099'
+revision = '7051390ade95'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -86,16 +81,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
-
-        # MAKE SURE TO ADD THIS INTO EVERY MIGRATION FILE
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE servers SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE private_messages SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE channels SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE members SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE channel_messages SET SCHEMA {SCHEMA};")
-    # ### end Alembic commands ###qqqqqqqqq
 
 
 def downgrade():

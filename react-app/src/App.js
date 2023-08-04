@@ -8,12 +8,15 @@ import SignupPage from "./components/login-signup/signup/Signup";
 import LandingPage from "./components/landing/LandingPage";
 import Modal from "./components/utils/Modal";
 
+import ServerSetting from "./components/modal-pages/ServerSetting";
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
+
   return (
     <>
       <Modal />
@@ -24,6 +27,7 @@ function App() {
           <Route path="/signup" component={SignupPage} />
           <Route path="/app" component={Main} />
           <Route path="/channels/:id" component={Main} />
+          <Route path="/settings" component={ServerSetting} />
         </Switch>
       )}
     </>

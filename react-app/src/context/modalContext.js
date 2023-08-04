@@ -13,6 +13,18 @@ export const ModalProvider = ({ children }) => {
   //     setType("login");
   //   };
 
+  const createServerModal = () => {
+    setType("Create Server")
+  }
+
+  const serverSettingModal = () => {
+    setType("Server Settings")
+  }
+
+  const serverProfileSettingModal =() => {
+    setType("Server Profile Settings")
+  }
+
   return (
     <ModalContext.Provider
       value={{
@@ -20,6 +32,9 @@ export const ModalProvider = ({ children }) => {
         setIsModalOpen,
         type,
         setType,
+        createServerModal,
+        serverSettingModal,
+        serverProfileSettingModal
         // toggleLogin,
       }}
     >

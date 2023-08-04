@@ -7,6 +7,8 @@ import ChatBox from "./chat/ChatBox";
 import ServerMemberList from "./servers/ServerMemberList";
 import { InfoContext } from "../context/infoContext";
 import { useContext } from "react";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 import "./Main.css";
 // import { useContext } from "react";
@@ -15,6 +17,7 @@ function Main() {
   //   const { isServerView, isDMView, toggleView } = useContext(ViewContext);
   //   const { toggleTestModal } = useContext(ModalContext);
   const { server, setServer } = useContext(InfoContext);
+  console.log(server);
   return (
     <div className="main-container">
       {/* Server Section */}

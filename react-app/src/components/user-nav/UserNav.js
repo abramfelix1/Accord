@@ -9,6 +9,7 @@ import {
   BiSolidCog,
 } from "react-icons/bi";
 import { MdHeadset, MdHeadsetOff } from "react-icons/md";
+import logo from '../../images/accord-logo.png'
 
 function UserNav() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -91,7 +92,7 @@ function UserNav() {
     <div className="usermenu-container">
       <div className="usermenu">
         <div className="usermen-left-section">
-          <div className="usermenu-pfp"></div>
+          <img className="usermenu-pfp" src={sessionUser.image_url || logo}/>
           <div>
             <div className="usermenu-username">{sessionUser.username}</div>
             <div style={{ color: "#ADADAD", fontSize: "12px" }}>

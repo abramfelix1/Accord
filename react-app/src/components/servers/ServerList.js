@@ -2,22 +2,21 @@ import { NavLink } from "react-router-dom";
 import ServerCard from "./ServerCard";
 import logo from "../../images/accord-logo.png";
 import { useEffect, useState } from "react";
-// import { ModalContext } from "../../context/modalContext"
-// import { useContext } from "react"
+
 import { useSelector, useDispatch } from "react-redux";
 import * as userActions from "../../store/user";
 import * as channelActions from "../../store/channels";
 import { resetChannels } from "../../store/channels";
 import { InfoContext } from "../../context/infoContext";
+import { ModalContext } from "../../context/modalContext";
 import { useContext } from "react";
 import { useParams } from "react-router-dom/";
+import Tooltip from "../utils/tooltip";
 
 function ServerList() {
   const dispatch = useDispatch();
-  const { id } = useParams();
-  const { server, setServer } = useContext(InfoContext);
-  const [toolTip, setToolTip] = useState(false);
-  // const {createServerModal, isModalOpen} = useContext(ModalContext);
+  const { setServer } = useContext(InfoContext);
+  const { createServerModal, isModalOpen } = useContext(ModalContext);
 
   // selecting the users state to get users servers
   const userServers = Object.values(useSelector((state) => state.user));
@@ -62,30 +61,42 @@ function ServerList() {
       </div>
       <div className="server-top-layer">
         {/* not sure what to url for direct messages list is yet */}
-        <NavLink
-          to="/app"
-          id="active-server"
-          className="servers servers-friend-button"
-          onClick={(e) => handleActiveButton(e)}
-        >
-          <img className="server-logo" src={logo} alt="logo" />
-        </NavLink>
+        <Tooltip text={"Direct Messages"}>
+          <NavLink
+            to="/app"
+            id="active-server"
+            className="servers servers-friend-button"
+            onClick={(e) => handleActiveButton(e)}
+          >
+            <img className="server-logo" src={logo} alt="logo" />
+          </NavLink>
+        </Tooltip>
         {/* <div className="servers" onClick={e => handleActiveButton(e)}>Private Call</div> */}
       </div>
       <div className="border-between-layer"></div>
       <ul className="server-bottom-layer">
         {userServers.map((server) => (
-          <li key={server.id}>
-            {/* need to set proper link to where to navigate too */}
-            <ServerCard
-              serverInfo={server}
-              handleActiveButton={handleActiveButton}
-              toolTip={toolTip}
-              setToolTip={setToolTip}
-              linkID={server.id.toString()}
-            />
-          </li>
+          <Tooltip text={server.name}>
+            <li key={server.id}>
+              {/* need to set proper link to where to navigate too */}
+              <ServerCard
+                serverInfo={server}
+                handleActiveButton={handleActiveButton}
+              />
+            </li>
+          </Tooltip>
         ))}
+        <Tooltip text={"Create Server"}>
+          <li
+            id={isModalOpen ? "active-plus" : ""}
+            className={`plus`}
+            onClick={(e) => {
+              createServerModal();
+            }}
+          >
+            +
+          </li>
+        </Tooltip>
       </ul>
     </div>
   );

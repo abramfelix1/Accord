@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import * as channelActions from "../../store/channels";
 import { IoIosArrowDown } from "react-icons/io";
 import { RiHashtag } from "react-icons/ri";
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ChannelContext } from "../../context/channelContext";
 import { useContext } from "react";
 import { InfoContext } from "../../context/infoContext";
+import { logout } from "../../store/session";
 
 import "./channel-css/Channel.css";
 
@@ -17,7 +18,7 @@ function Channel({ server }) {
   // const {id} = useParams()
   const dispatch = useDispatch();
   const { setChannel } = useContext(ChannelContext);
-
+  const user = useSelector((state) => state.session.user);
   let isLoaded = useSelector((state) => state.channels.isLoading);
   let channels = Object.values(useSelector((state) => state.channels.channels));
 
@@ -27,10 +28,9 @@ function Channel({ server }) {
     })();
   }, [dispatch, server]);
 
-  useEffect(() => {
-    console.log(channels);
-    console.log(isLoaded);
-  }, [channels, isLoaded]);
+  const logoutHandler = async () => {
+    await dispatch(logout());
+  };
 
   return (
     !isLoaded && (
@@ -42,7 +42,9 @@ function Channel({ server }) {
                 <IoIosArrowDown className=".text-channel-drop-down-icon" />
                 <p className="channel-list-title">Text Channels</p>
               </div>
-              <BiPlus className="text-channel-add-icon" />
+              {user.id === server.owner_id && (
+                <BiPlus className="text-channel-add-icon" />
+              )}
             </li>
             <li>
               <div>
@@ -65,6 +67,7 @@ function Channel({ server }) {
                 })}
               </div>
             </li>
+            <button onClick={(e) => logoutHandler()}> logout </button>
           </ul>
         </div>
       </div>

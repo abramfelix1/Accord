@@ -1,20 +1,13 @@
 import { NavLink } from "react-router-dom";
-import ServerMemberList from "./ServerMemberList";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useContext, useEffect } from "react";
 import { InfoContext, InfoProvider } from "../../context/infoContext";
+import ServerMemberList from "./ServerMemberList";
 
-function ServerCard({
-  handleActiveButton,
-  serverInfo,
-  toolTip,
-  setToolTip,
-  linkID,
-}) {
+function ServerCard({ handleActiveButton, serverInfo, toolTip, setToolTip }) {
   const { id } = useParams();
   const { server } = useContext(InfoContext);
-  console.log(server);
 
   // gets the initals of the server name and return them capitalize
   const initals = (serverName) => {
@@ -45,7 +38,7 @@ function ServerCard({
         </div>
       ) : (
         <div
-          className="server-initials"
+          className="server-initials tooltip"
           onClick={(e) => {
             // e.stopPropagation();
             e.preventDefault();
@@ -54,8 +47,8 @@ function ServerCard({
           {initals(serverInfo.name)}
         </div>
       )}
+      {toolTip && <span className="tooltiptext">{server.name}</span>}
     </NavLink>
   );
 }
-
 export default ServerCard;
