@@ -10,7 +10,7 @@ function ServerCard({ handleActiveButton, serverInfo, toolTip, setToolTip }) {
   const { server } = useContext(InfoContext);
 
   // gets the initals of the server name and return them capitalize
-  const initals = (serverName) => {
+  const initials = (serverName) => {
     let res = "";
     const serverNameArr = serverName.split(" ");
 
@@ -18,7 +18,7 @@ function ServerCard({ handleActiveButton, serverInfo, toolTip, setToolTip }) {
       let word = serverNameArr[i];
       res += word[0].toUpperCase();
     }
-    return res;
+    return res.slice(0, 3);
   };
 
   return (
@@ -27,11 +27,11 @@ function ServerCard({ handleActiveButton, serverInfo, toolTip, setToolTip }) {
       className={`servers server-pointer`}
       onClick={(e) => handleActiveButton(e, serverInfo)}
     >
-      {serverInfo.image_url !== null && serverInfo.image_url.length >= 1 ? (
-        <div className="tooltip">
+      {serverInfo.image_url !== null && serverInfo.image_url.length >= 3 ? (
+        <div>
           <img
             className="servers-img"
-            src={serverInfo.image_url}
+            src={server.image_url}
             alt="serverimage"
             onClick={(e) => handleActiveButton(e)}
           />
@@ -44,7 +44,7 @@ function ServerCard({ handleActiveButton, serverInfo, toolTip, setToolTip }) {
             e.preventDefault();
           }}
         >
-          {initals(serverInfo.name)}
+          {initials(serverInfo.name)}
         </div>
       )}
     </NavLink>

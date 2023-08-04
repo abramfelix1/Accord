@@ -1,10 +1,37 @@
 import "../../components/servers/server-css/ServerSetting.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ModalContext } from "../../context/modalContext";
 import { BiSolidTrash } from "react-icons/bi";
+import { InfoContext } from "../../context/infoContext";
+import { updateServerThunk, getAllServersThunk} from "../../store/server";
+import { useDispatch } from "react-redux";
 
 function ServerSetting() {
+  const dispatch = useDispatch()
   const { serverProfileSettingModal } = useContext(ModalContext);
+  const { server } = useContext(InfoContext);
+
+  const [serverName, setServerName] = useState('')
+  const [serverImage, setServerImage] = useState('')
+
+  console.log(serverName)
+
+  const initials = (serverName) => {
+    let res = "";
+    const serverNameArr = serverName.split(" ");
+
+    for (let i = 0; i < serverNameArr.length; i++) {
+      let word = serverNameArr[i];
+      res += word[0].toUpperCase();
+    }
+    return res
+  };
+
+  const updateServerHandleSubmit = async () => {
+    await dispatch(updateServerThunk(server.id, serverName, serverImage))
+    await dispatch(getAllServersThunk())
+  }
+
 
   return (
     <div className="server-setting-container">
@@ -32,12 +59,20 @@ function ServerSetting() {
         </div>
 
         <div className="server-inner-2">
-          <form onSubmit={""} className="server-setting-form">
+          <form onSubmit={updateServerHandleSubmit} className="server-setting-form">
             <h3 className="server-setting-header">Server Overview</h3>
-
             <div className="server-setting-form-main">
               <div className="server-setting-image-container">
-                <img className="server-setting-image" />
+                {server.image_url !== null && server.image_length > 1 ? (
+                  <img
+                    className="server-setting-image"
+                    src={server.image_url}
+                  />
+                ) : (
+                  <div className="server-setting-image-initials">
+                    {initials(server.name)}
+                  </div>
+                )}
                 <button className="remove-server-image">Remove</button>
               </div>
               <div
@@ -60,6 +95,9 @@ function ServerSetting() {
                   type="text"
                   className="server-setting-input-field"
                   style={{ marginBottom: "10px" }}
+                  placeholder={server.name}
+                  value={serverName}
+                  onChange={e => setServerName(e.target.value)}
                 ></input>
                 <label
                   style={{
@@ -74,6 +112,8 @@ function ServerSetting() {
                   type="url"
                   className="server-setting-input-field"
                   style={{ marginBottom: "38px" }}
+                  value={serverImage}
+                  onChange={e => setServerImage(e.target.value)}
                 ></input>
               </div>
             </div>

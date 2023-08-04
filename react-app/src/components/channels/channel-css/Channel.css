@@ -79,3 +79,7 @@
 .text-channel-add-icon {
     font-size: 22px;
 }
+
+.create-new-channel-plus:hover {
+    cursor: pointer;
+}
