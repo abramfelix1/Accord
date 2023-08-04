@@ -93,6 +93,7 @@ def edit_a_server(id):
     if form.validate_on_submit():
         data = form.data
         server.name = data["server_name"]
+        server.image_url = data['server_image']
         db.session.commit()
         return server.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
