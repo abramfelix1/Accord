@@ -127,9 +127,10 @@ export const createServerThunk = (server_name) => async (dispatch) => {
 }
 
 
-export const updateServerThunk = (server_id, server_name) => async (dispatch) => {
+export const updateServerThunk = (server_id, server_name, server_image) => async (dispatch) => {
     const reqBody = JSON.stringify({
         server_name,
+        server_image
     })
 
     const res = await fetch(`/api/servers/${server_id}`, {
