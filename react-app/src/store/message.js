@@ -47,7 +47,7 @@ export const createMessage = (channel_id, message) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(addMessage(data));
+    dispatch(getMessages(data.channel_id));
   }
 };
 

@@ -51,6 +51,7 @@ function Channel({ server }) {
   };
 
   return (
+    user &&
     !isLoaded && (
       <div className="channel-container">
         <div>
@@ -60,7 +61,7 @@ function Channel({ server }) {
                 <IoIosArrowDown className=".text-channel-drop-down-icon" />
                 <p className="channel-list-title">Text Channels</p>
               </div>
-              {user && user.id === server.owner_id && (
+              {user.id === server.owner_id && (
                 <BiPlus
                   className="text-channel-add-icon create-new-channel-plus"
                   onClick={(e) => createChannelModal()}
