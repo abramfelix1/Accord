@@ -11,8 +11,11 @@ import { ChannelContext } from "../../context/channelContext";
 import { useContext } from "react";
 import { InfoContext } from "../../context/infoContext";
 import { logout } from "../../store/session";
+import { resetChannels } from "../../store/channels";
+import { getMessages } from "../../store/message";
 
 import "./channel-css/Channel.css";
+import { resetMessages } from "../../store/message";
 
 function Channel({ server }) {
   // const {id} = useParams()
@@ -34,6 +37,12 @@ function Channel({ server }) {
 
   const logoutHandler = async () => {
     await dispatch(logout());
+  };
+
+  const channelClickHandler = (channel) => {
+    setChannel(channel);
+    // dispatch(resetMessages());
+    // dispatch(getMessages(channel.id));
   };
 
   return (
@@ -62,7 +71,9 @@ function Channel({ server }) {
                       key={channel.id}
                       className="channel-flex"
                       to={`/servers/${server.id}/channels/${channel.id}`}
-                      onClick={(e) => setChannel(channel)}
+                      onClick={(e) => {
+                        channelClickHandler(channel);
+                      }}
                     >
                       <FaHashtag />
                       <div className="channel-name">{channel.name}</div>

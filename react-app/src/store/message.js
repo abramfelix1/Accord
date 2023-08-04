@@ -4,7 +4,7 @@ const UPDATE_MESSAGE = "chat/updateMessage";
 const DELETE_MESSAGE = "channel/deleteChannel";
 const RESET_MESSAGES = "channel/resetChannel";
 
-export const resetChannels = () => ({
+export const resetMessages = () => ({
   type: RESET_MESSAGES,
 });
 

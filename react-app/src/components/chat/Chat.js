@@ -12,8 +12,10 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 const Chat = () => {
   const [chatInput, setChatInput] = useState("");
   const user = useSelector((state) => state.session.user);
-  const isLoaded = useSelector((state) => state.channels.isLoading);
-  const messages = useSelector((state) => Object.values(state.messages));
+  const isLoaded = useSelector((state) => state.messages.isLoading);
+  const messages = useSelector((state) =>
+    Object.values(state.messages.messages)
+  );
   // const channelID = useSelector((state) => state.channelID)
   const channel = useContext(ChannelContext);
   const { channelid } = useParams();
