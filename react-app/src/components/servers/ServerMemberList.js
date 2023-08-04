@@ -28,6 +28,7 @@ function ServerMemberList({ server }) {
 
   return (
     <div
+      className="member-container"
       style={{ backgroundColor: "#2B2D30", width: "14.938rem", color: "white" }}
     >
       {!isLoading && (
