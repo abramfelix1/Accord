@@ -38,7 +38,7 @@ function ServerCard({ handleActiveButton, serverInfo, toolTip, setToolTip }) {
         </div>
       ) : (
         <div
-          className="server-initials tooltip"
+          className="server-initials"
           onClick={(e) => {
             // e.stopPropagation();
             e.preventDefault();
@@ -47,7 +47,6 @@ function ServerCard({ handleActiveButton, serverInfo, toolTip, setToolTip }) {
           {initals(serverInfo.name)}
         </div>
       )}
-      {toolTip && <span className="tooltiptext">{server.name}</span>}
     </NavLink>
   );
 }
