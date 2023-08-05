@@ -68,11 +68,13 @@ export const updateUserThunk = (user) => async (dispatch) => {
 };
 
 export const getUserServersThunk = () => async (dispatch) => {
+  console.log("HELLO");
   const res = await fetch(`/api/users/servers`, {
     method: "GET",
   });
 
   if (res.ok) {
+    console.log("HELLO*********");
     const serverData = await res.json();
     dispatch(getUserServers(serverData));
     return serverData;

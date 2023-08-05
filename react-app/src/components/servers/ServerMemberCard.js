@@ -10,6 +10,7 @@ function ServerMemberCard({
   server,
 }) {
   // toggles to show the profile
+
   const toggleProfile = () => {
     if (showProfile && selectedMember == member.id) {
       setShowProfile(false);

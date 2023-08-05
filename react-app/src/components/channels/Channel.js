@@ -14,7 +14,7 @@ import { logout } from "../../store/session";
 
 import "./channel-css/Channel.css";
 
-function Channel({ server }) {
+function Channel() {
   // router doms
   const { serverid, channelid } = useParams();
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ function Channel({ server }) {
 
   // useSelectors
   const isLoaded = useSelector((state) => state.current.isLoading);
+  const server = useSelector((state) => state.current.server);
   const user = useSelector((state) => state.session.user);
   const channels = Object.values(
     useSelector((state) => state.channels.channels)

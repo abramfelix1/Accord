@@ -27,6 +27,7 @@ function Main() {
   const [showDash, setShowDash] = useState(true);
   const dispatch = useDispatch();
   const { channel, setChannel } = useContext(ChannelContext);
+  const { server, setServer } = useContext(InfoContext);
   const userID = useSelector((state) => state.session.user.id).toString();
   console.log("USERID: " + userID);
   const buttonHandler = () => {
@@ -41,7 +42,7 @@ function Main() {
     (async () => {
       if (serverid) {
         try {
-          let a = dispatch(serverActions.getServerThunk(serverid));
+          let a = await dispatch(serverActions.getServerThunk(serverid));
           let b = dispatch(channelActions.getChannel(channelid));
           let c = dispatch(messageActions.getMessages(channelid));
           let d = dispatch(memberActions.getServerMembersThunk(serverid));
@@ -56,7 +57,6 @@ function Main() {
     })();
   }, [serverid, channelid, dispatch, history]);
 
-  const { server, setServer } = useContext(InfoContext);
   console.log(server);
   return (
     <div className="main-container">

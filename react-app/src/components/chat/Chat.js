@@ -21,12 +21,11 @@ const Chat = () => {
   const dispatch = useDispatch();
   const messageRef = useRef(null);
 
-
-  // when a message is being typed or is sent, it ill scroll down to 
+  // when a message is being typed or is sent, it ill scroll down to
   // last message
   useEffect(() => {
-    messageRef.current?.scrollIntoView()
-  }, [messages])
+    messageRef.current?.scrollIntoView();
+  }, [messages]);
 
   useEffect(() => {
     //updates the message state every render
@@ -48,8 +47,6 @@ const Chat = () => {
     socket.emit("send_message", { channel_id: channelid });
     setChatInput("");
   };
-
-
 
   return (
     <>

@@ -1,23 +1,23 @@
 import { useSelector, useDispatch } from "react-redux";
 import { InfoContext } from "../../context/infoContext";
 import { useContext } from "react";
-import { ModalContext } from '../../context/modalContext'
+import { ModalContext } from "../../context/modalContext";
 import { leaveServerThunk } from "../../store/members";
-import { useHistory } from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 
 import "./modal-css/LeaveServerPage.css";
 
 function LeaveServerPage() {
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
 
   const { server } = useContext(InfoContext);
-  const { setType } = useContext(ModalContext)
+  const { setType } = useContext(ModalContext);
 
   const leaveServerHandleSubmit = async () => {
-    await dispatch(leaveServerThunk(server.id))
-    setType(null)
-    return history.push('/')
+    await dispatch(leaveServerThunk(server.id));
+    setType(null);
+    return history.push("/app");
   };
 
   return (
@@ -46,8 +46,15 @@ function LeaveServerPage() {
         </div>
         <div className="leave-server-cancel-submit">
           <div style={{ display: "flex", padding: "15px 15px 15px 20px" }}>
-            <p className="cancel-leave-server" onClick={e => setType(null)}>Cancel</p>
-            <button className="leave-server-button" onClick={e => leaveServerHandleSubmit()}>Leave Server</button>
+            <p className="cancel-leave-server" onClick={(e) => setType(null)}>
+              Cancel
+            </p>
+            <button
+              className="leave-server-button"
+              onClick={(e) => leaveServerHandleSubmit()}
+            >
+              Leave Server
+            </button>
           </div>
         </div>
       </div>

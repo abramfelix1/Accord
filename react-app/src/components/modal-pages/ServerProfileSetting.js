@@ -5,12 +5,15 @@ import { InfoContext } from "../../context/infoContext";
 import { BiSolidTrash } from "react-icons/bi";
 import "./modal-css/ServerProfileSetting.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom"
-import { deleteServerThunk } from "../../store/server";
-import { updateServerNicknameThunk, getSingleMemberThunk } from "../../store/members";
+import { useHistory } from "react-router-dom";
+import { deleteServerThunk, getAllServersThunk } from "../../store/server";
+import {
+  updateServerNicknameThunk,
+  getSingleMemberThunk,
+} from "../../store/members";
 
 function ServerProfileSetting() {
-  const history = useHistory()
+  const history = useHistory();
   const dispatch = useDispatch();
   // const user = useSelector(state => state.members)
   const { serverSettingModal, setType } = useContext(ModalContext);
@@ -18,24 +21,23 @@ function ServerProfileSetting() {
   // console.log(user, 'current server members')
   const [nickname, setNickname] = useState("");
 
-
   useEffect(() => {
     (async () => {
-      const member = await dispatch(getSingleMemberThunk(server.id))
-      return setNickname(member.nickname)
-    })()
-  }, [getSingleMemberThunk, setNickname, nickname])
+      const member = await dispatch(getSingleMemberThunk(server.id));
+      return setNickname(member.nickname);
+    })();
+  }, [getSingleMemberThunk, setNickname, nickname]);
 
   const updateNicknameHandleSubmit = async () => {
-
-    await dispatch(updateServerNicknameThunk(server.id, nickname))
-    setType(null)
-  }
+    await dispatch(updateServerNicknameThunk(server.id, nickname));
+    setType(null);
+  };
 
   const deleteServerHandleSubmit = async () => {
     await dispatch(deleteServerThunk(server.id));
-    setType(null)
-    return history.push('/app')
+    await dispatch(getAllServersThunk());
+    setType(null);
+    return history.push("/app");
   };
   return (
     <div className="server-setting-container">
@@ -47,7 +49,9 @@ function ServerProfileSetting() {
               <p className="setting-navigation-section-name">Server Settings</p>
             </div>
             <div>
-              <p className="setting-navigation-section-name highlight-server-setting">Server Profile</p>
+              <p className="setting-navigation-section-name highlight-server-setting">
+                Server Profile
+              </p>
             </div>
           </div>
           <div className="setting-separator"></div>

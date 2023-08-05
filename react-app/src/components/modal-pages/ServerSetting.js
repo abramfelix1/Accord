@@ -3,7 +3,11 @@ import { useContext, useState } from "react";
 import { ModalContext } from "../../context/modalContext";
 import { BiSolidTrash } from "react-icons/bi";
 import { InfoContext } from "../../context/infoContext";
-import { updateServerThunk, getAllServersThunk, deleteServerThunk } from "../../store/server";
+import {
+  updateServerThunk,
+  getAllServersThunk,
+  deleteServerThunk,
+} from "../../store/server";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -36,8 +40,9 @@ function ServerSetting() {
 
   const deleteServerHandleSubmit = async () => {
     await dispatch(deleteServerThunk(server.id));
-    setType(null)
-    return history.push('/app')
+    await dispatch(getAllServersThunk());
+    setType(null);
+    return history.push("/app");
   };
 
   return (
@@ -47,7 +52,9 @@ function ServerSetting() {
           <p className="setting-navigation-title">{server.name}</p>
           <div>
             <div>
-              <p className="setting-navigation-section-name highlight-server-setting">Server Settings</p>
+              <p className="setting-navigation-section-name highlight-server-setting">
+                Server Settings
+              </p>
             </div>
             <div onClick={(e) => serverProfileSettingModal()}>
               <p className="setting-navigation-section-name">Server Profile</p>
@@ -60,8 +67,11 @@ function ServerSetting() {
           </div>
           <div className="setting-separator"></div>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <p className="setting-navigation-section-name delete-server" onClick={e => deleteServerHandleSubmit()}>
-              Delete Server <BiSolidTrash style={{ marginLeft: '7px' }} />
+            <p
+              className="setting-navigation-section-name delete-server"
+              onClick={(e) => deleteServerHandleSubmit()}
+            >
+              Delete Server <BiSolidTrash style={{ marginLeft: "7px" }} />
             </p>
           </div>
         </div>
