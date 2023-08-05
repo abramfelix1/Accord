@@ -18,7 +18,7 @@ import * as messageActions from "../store/message";
 import * as memberActions from "../store/members";
 import "./Main.css";
 import { getChannels } from "../store/channels";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom/";
 // import { useContext } from "react";
 
 function Main() {
@@ -27,25 +27,14 @@ function Main() {
   const dispatch = useDispatch();
   const { server, setServer } = useContext(InfoContext);
   const user = useSelector((state) => state.session.user);
-  console.log("USERID: " + user.id);
-
-  const buttonHandler = () => {
-    chatUpdate(1, 1);
-  };
-  const button2Handler = () => {
-    startListeners();
-    joinServer(user.id);
-  };
 
   useEffect(() => {
-    if (!user) {
-      return history.push("/login");
-    }
     if (user) {
+      console.log("USERID: " + user.id);
       startListeners();
       joinServer(user.id);
     }
-  }, [user, history]);
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -65,6 +54,16 @@ function Main() {
       }
     })();
   }, [serverid, channelid, dispatch, history]);
+
+  if (!user) return <Redirect to="/login" />;
+
+  const buttonHandler = () => {
+    chatUpdate(1, 1);
+  };
+  const button2Handler = () => {
+    startListeners();
+    joinServer(user.id);
+  };
 
   console.log(server);
   return (
