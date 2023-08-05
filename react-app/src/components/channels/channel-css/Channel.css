@@ -92,6 +92,10 @@
     pointer-events: auto;
 }
 
+.channel-white {
+    color: #DBDEE1;
+}
+
 /* Icons */
 
 .text-channel-drop-down-icon {

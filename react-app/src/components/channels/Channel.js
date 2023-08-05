@@ -68,15 +68,15 @@ function Channel({ server }) {
                 {showTextChannel ? (
                   <IoIosArrowDown
                     className=".text-channel-drop-down-icon"
-                    onClick={(e) => setShowTextChannel(!true)}
+                    onClick={(e) => setShowTextChannel(!showTextChannel)}
                   />
                 ) : (
                   <IoIosArrowForward
                     className=".text-channel-drop-down-icon"
-                    onClick={(e) => setShowTextChannel(!false)}
+                    onClick={(e) => setShowTextChannel(!showTextChannel)}
                   />
                 )}
-                <p className="channel-list-title">Text Channels</p>
+                <p className="channel-list-title" onClick={e => setShowTextChannel(!showTextChannel)}>Text Channels</p>
               </div>
               {user.id === server.owner_id ? (
                 <BiPlus
@@ -104,7 +104,7 @@ function Channel({ server }) {
                         }}
                       >
                         <FaHashtag style={{ color: "#949ba4" }} />
-                        <p className="channel-name">{channel.name}</p>
+                        <p className={`channel-name ${channelid == channel.id ? 'channel-white' : ''}`}>{channel.name}</p>
                       </NavLink>
                       {user.id === server.owner_id && (
                         <div className="cog-container">
