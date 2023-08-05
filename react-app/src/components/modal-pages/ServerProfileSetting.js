@@ -1,27 +1,53 @@
 import "../../components/servers/server-css/ServerSetting.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ModalContext } from "../../context/modalContext";
+import { InfoContext } from "../../context/infoContext";
 import { BiSolidTrash } from "react-icons/bi";
-
-
+import "./modal-css/ServerProfileSetting.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom"
+import { deleteServerThunk } from "../../store/server";
+import { updateServerNicknameThunk, getSingleMemberThunk } from "../../store/members";
 
 function ServerProfileSetting() {
-  const { serverSettingModal } = useContext(ModalContext);
+  const history = useHistory()
+  const dispatch = useDispatch();
+  // const user = useSelector(state => state.members)
+  const { serverSettingModal, setType } = useContext(ModalContext);
+  const { server } = useContext(InfoContext);
+  // console.log(user, 'current server members')
+  const [nickname, setNickname] = useState("");
 
-  const [nickname, setNickname] = useState('')
 
+  useEffect(() => {
+    (async () => {
+      const member = await dispatch(getSingleMemberThunk(server.id))
+      return setNickname(member.nickname)
+    })()
+  }, [getSingleMemberThunk, setNickname, nickname])
 
+  const updateNicknameHandleSubmit = async () => {
+
+    await dispatch(updateServerNicknameThunk(server.id, nickname))
+    setType(null)
+  }
+
+  const deleteServerHandleSubmit = async () => {
+    await dispatch(deleteServerThunk(server.id));
+    setType(null)
+    return history.push('/app')
+  };
   return (
     <div className="server-setting-container">
       <div className="server-inner">
         <div className="settings-navigation">
-          <p className="setting-navigation-title">name</p>
+          <p className="setting-navigation-title">{server.name}</p>
           <div>
-            <div onClick={e => serverSettingModal() }>
+            <div onClick={(e) => serverSettingModal()}>
               <p className="setting-navigation-section-name">Server Settings</p>
             </div>
             <div>
-              <p className="setting-navigation-section-name">Server Profile</p>
+              <p className="setting-navigation-section-name highlight-server-setting">Server Profile</p>
             </div>
           </div>
           <div className="setting-separator"></div>
@@ -31,13 +57,17 @@ function ServerProfileSetting() {
           </div>
           <div className="setting-separator"></div>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <p className="setting-navigation-section-name">Delete Server</p>
-            <BiSolidTrash style={{ color: "#ADADAD" }} />
+            <p
+              className="setting-navigation-section-name delete-server"
+              onClick={(e) => deleteServerHandleSubmit()}
+            >
+              Delete Server <BiSolidTrash style={{ marginLeft: "7px" }} />
+            </p>
           </div>
         </div>
 
-        <div className="server-inner-2">
-          <form onSubmit={""} className="server-setting-form">
+        <div className="server-profile-inner-2">
+          <form className="server-setting-form">
             <h3 className="server-setting-header">Server Profile</h3>
 
             <div className="server-setting-form-main">
@@ -61,11 +91,11 @@ function ServerProfileSetting() {
                   type="text"
                   className="server-setting-input-field"
                   style={{ marginBottom: "10px" }}
-                  placeholder=""
+                  placeholder={""}
                 ></input>
               </div>
             </div>
-            <div className="server-setting-save-delete-button">
+            <div className="server-profile-save-delete-button server-profile-save">
               <button type="submit" className="server-save-button">
                 Save Changes
               </button>

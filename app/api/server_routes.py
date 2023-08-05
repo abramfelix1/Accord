@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import joinedload
 from app.models import Server, Member, Channel, User, db
-from app.forms import ServerForm, ChannelForm
+from app.forms import ServerForm, ChannelForm, MembershipForm
 
 server_routes = Blueprint("servers", __name__)
 
@@ -93,7 +93,7 @@ def edit_a_server(id):
     if form.validate_on_submit():
         data = form.data
         server.name = data["server_name"]
-        server.image_url = data['server_image']
+        server.image_url = data["server_image"]
         db.session.commit()
         return server.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400

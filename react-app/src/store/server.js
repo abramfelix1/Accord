@@ -166,10 +166,8 @@ export const updateServerThunk = (server_id, server_name, server_image) => async
 }
 
 
-/******/
+export const deleteServerThunk = (server_id) => async (dispatch) => {
 
-
-export const deleterServerThunk = (server_id) => async (dispatch) => {
     const res = await fetch(`/api/servers/${server_id}`, {
         method: "DELETE",
         headers: {

@@ -1,0 +1,24 @@
+.server-profile-inner-2 {
+    margin: 20px;
+    width: 100%;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding-right: 30px;
+}
+.server-profile-save {
+    height: 100%;
+}
+
+.server-profile-save-delete-button  {
+    display: flex;
+    height: 63%;
+    align-items: flex-end;
+    width: 95%;
+}
+
+.leave-server {
+    display: flex;
+    align-items: center;
+}

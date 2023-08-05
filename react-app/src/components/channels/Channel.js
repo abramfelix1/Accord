@@ -1,36 +1,41 @@
-import { NavLink } from "react-router-dom";
-import { useEffect } from "react";
+import { NavLink, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useParams, Redirect, useHistory } from "react-router-dom";
 import * as channelActions from "../../store/channels";
-import { IoIosArrowDown } from "react-icons/io";
-import { RiHashtag } from "react-icons/ri";
+import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { FaHashtag } from "react-icons/fa";
-import { BiPlus } from "react-icons/bi";
+import { BiPlus, BiSolidCog } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { ChannelContext } from "../../context/channelContext";
 import { useContext } from "react";
 import { ModalContext } from "../../context/modalContext";
 import { InfoContext } from "../../context/infoContext";
 import { logout } from "../../store/session";
-import { resetChannels } from "../../store/channels";
-import { getMessages } from "../../store/message";
 
 import "./channel-css/Channel.css";
-import { resetMessages } from "../../store/message";
 
 function Channel({ server }) {
-  // const {id} = useParams()
+  // router doms
   const dispatch = useDispatch();
-  const { setChannel } = useContext(ChannelContext);
-  const { createChannelModal } = useContext(ModalContext);
-  const isLoaded = useSelector((state) => state.channels.isLoading);
+  const { channelid } = useParams();
   const history = useHistory();
 
+  // useSelectors
+  const isLoaded = useSelector((state) => state.channels.isLoading);
   const user = useSelector((state) => state.session.user);
   const channels = Object.values(
     useSelector((state) => state.channels.channels)
   );
 
+  // Contexts
+  const { setChannel } = useContext(ChannelContext);
+  const { createChannelModal, channelSettingModal } = useContext(ModalContext);
+  const { setChannelCog } = useContext(InfoContext);
+
+  // useStates
+  const [showTextChannel, setShowTextChannel] = useState(true);
+
+  // useEffects
   useEffect(() => {
     if (server) {
       (async () => {
@@ -39,6 +44,7 @@ function Channel({ server }) {
     }
   }, [dispatch, server]);
 
+  // Handlers
   const logoutHandler = async () => {
     await dispatch(logout());
     return history.push("/login");
@@ -46,8 +52,6 @@ function Channel({ server }) {
 
   const channelClickHandler = (channel) => {
     setChannel(channel);
-    // dispatch(resetMessages());
-    // dispatch(getMessages(channel.id));
   };
 
   return (
@@ -57,40 +61,69 @@ function Channel({ server }) {
         <div>
           <ul className="channel-list">
             <li className="channel-list-title-container">
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <IoIosArrowDown className=".text-channel-drop-down-icon" />
-                <p className="channel-list-title">Text Channels</p>
+              <div
+                className="dropdown-text-channel"
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                {showTextChannel ? (
+                  <IoIosArrowDown
+                    className=".text-channel-drop-down-icon"
+                    onClick={(e) => setShowTextChannel(!showTextChannel)}
+                  />
+                ) : (
+                  <IoIosArrowForward
+                    className=".text-channel-drop-down-icon"
+                    onClick={(e) => setShowTextChannel(!showTextChannel)}
+                  />
+                )}
+                <p className="channel-list-title" onClick={e => setShowTextChannel(!showTextChannel)}>Text Channels</p>
               </div>
-              {user.id === server.owner_id && (
+              {user.id === server.owner_id ? (
                 <BiPlus
                   className="text-channel-add-icon create-new-channel-plus"
                   onClick={(e) => createChannelModal()}
                 />
+              ) : (
+                <BiPlus
+                  className="text-channel-add-icon create-new-channel-plus hide-plus"
+                  onClick={(e) => createChannelModal()}
+                />
               )}
             </li>
-            <li>
-              <div>
-                {/* <Link className="channel-flex" to="/app">
-                  <FaHashtag />
-                  <div className="channel-name">general</div>
-                </Link> */}
+            {showTextChannel ? (
+              <li>
                 {channels.map((channel) => {
                   return (
-                    <NavLink
-                      key={channel.id}
-                      className="channel-flex"
-                      to={`/servers/${server.id}/channels/${channel.id}`}
-                      onClick={(e) => {
-                        channelClickHandler(channel);
-                      }}
-                    >
-                      <FaHashtag />
-                      <div className="channel-name">{channel.name}</div>
-                    </NavLink>
+                    <div className={channelid == channel.id ? 'channel-box-active' : 'channel-box'}>
+                      <NavLink
+                        key={channel.id}
+                        to={`/servers/${server.id}/channels/${channel.id}`}
+                        className={'channel-flex'}
+                        onClick={(e) => {
+                          channelClickHandler(channel);
+                        }}
+                      >
+                        <FaHashtag style={{ color: "#949ba4" }} />
+                        <p className={`channel-name ${channelid == channel.id ? 'channel-white' : ''}`}>{channel.name}</p>
+                      </NavLink>
+                      {user.id === server.owner_id && (
+                        <div className="cog-container">
+                          <BiSolidCog
+                            className="channel-cog-settings"
+                            onClick={(e) => {
+                              setChannelCog(channel);
+                              channelSettingModal();
+                            }}
+                          />
+                        </div>
+                      )}
+                    </div>
                   );
                 })}
-              </div>
-            </li>
+              </li>
+            ) : (
+              ""
+            )}
             <button onClick={(e) => logoutHandler()}> logout </button>
           </ul>
         </div>
