@@ -20,7 +20,12 @@ function ServerCard({ handleActiveButton, serverInfo, toolTip, setToolTip }) {
       let word = serverNameArr[i];
       res += word[0].toUpperCase();
     }
-    return res.slice(0, 3);
+
+    if (res.length >= 3) {
+      return res.slice(0, 3)
+    }
+
+    return res;
   };
 
   return (

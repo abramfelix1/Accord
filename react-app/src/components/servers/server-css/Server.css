@@ -27,11 +27,13 @@
 .servers:hover {
   border-radius: 15px;
   background-color: #4752c4;
+  color: #DBDEE1;
 }
 
 #active-server {
   border-radius: 15px;
   background-color: #4752c4;
+  color: #DBDEE1;
 }
 
 .active-server {
@@ -49,7 +51,6 @@
   margin: 11px;
   text-align: center;
   max-width: 50px;
-  color: rgb(177, 177, 177);
   font-weight: bolder;
   font-size: 20px;
   transition: border-radius 0.5s;
@@ -59,6 +60,7 @@
 .servers-initals:hover {
   border-radius: 15px;
   background-color: #4752c4;
+  color: #DBDEE1;
 }
 
 /* -------------------------------------------- */
@@ -124,18 +126,34 @@
   text-decoration: none;
 }
 
-/* just the white line between all servers and friends marker */
+/* just the white line between all servers and DM */
 .border-between-layer {
   border: 1px solid rgb(199, 196, 196);
   width: 40px;
 }
 
+/* 
+
+
+
+
+
+efgweiyufbieu bgeu eir bgij;rgeb;brejbg iub  re;bgerug
+
+
+
+*/
 .server-bottom-layer {
   padding: 0px;
   margin-top: 5px;
-  overflow: hidden scroll;
   height: calc(100vh - 100px);
   max-height: 100vh;
+  overflow: hidden scroll;
+  z-index: 10;
+  /* width: 21vw; */
+  /* width: 300px; */
+  /* padding-left: 227px; */
+  list-style: none;
 }
 
 .server-bottom-layer::-webkit-scrollbar {
@@ -153,29 +171,31 @@
 /* ------------------ tooltip ------------------------ */
 .tooltip {
   position: relative;
-  /* display: inline-flex; */
+  /* display: inline; */
 }
 
 .tooltiptext {
-  position: fixed;
-  color: #949ba4;
+  position: absolute;
+  color: #b8bdc5;
   text-align: center;
-  max-width: 200px;
+  max-width: 500px;
   padding: 5px 10px;
-  background-color: rgb(51, 50, 47);
+  background-color: rgb(18, 18, 18);
   border-radius: 6px;
-  box-shadow: 1px 1px 7px rgb(31, 28, 28);
-  z-index: 1;
-  font-size: 15px;
+  box-shadow: 1px 1px 7px rgb(10, 10, 10);
+  font-size: 17px;
+  z-index: 1000;
+  left: 83px;
+  bottom: 10px;
 }
 
 .tooltiptext::after {
   content: "";
   position: absolute;
-  top: 31%;
-  left: -7%;
+  top: 30%;
+  left: -9px;
   margin-left: -5px;
   border-width: 7px;
   border-style: solid;
-  border-color: transparent rgb(51, 50, 47) transparent transparent;
+  border-color: transparent rgb(18, 18, 18) transparent transparent;
 }

@@ -12,7 +12,7 @@ function Tooltip({ text, children }) {
     return (
       <div
         className="tooltip"
-        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseMove}
         onMouseLeave={() => setPosition({ x: 0, y: 0 })}
       >
         {children}
@@ -20,7 +20,8 @@ function Tooltip({ text, children }) {
           <div
             id="tooltip"
             className="tooltiptext"
-            style={{ left: position.x + 75, top: position.y -10}}
+            // style={{ left: 75, top: position.y - 10}}
+            // style={{ left: position.x + 75, top: position.y -10}}
           >
             {text}
           </div>
