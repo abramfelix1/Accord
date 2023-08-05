@@ -81,6 +81,7 @@ const messageReducer = (state = initialState, action) => {
   const newState = { ...state };
   switch (action.type) {
     case POPULATE_MESSAGES:
+      console.log(action.payload);
       const messages = action.payload.reduce((messages, message) => {
         messages[message.id] = message;
         return messages;

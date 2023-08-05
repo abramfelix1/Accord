@@ -31,6 +31,15 @@ const serversReducer = (state = initialState, action) => {
         return members;
       }, {});
       return newState;
+    case messageActions.POPULATE_MESSAGES:
+      action.payload.reduce((messages, message) => {
+        if (!newState.channels[message.channel_id].messages) {
+          newState.channels[message.channel_id].messages = {};
+        }
+        newState.channels[message.channel_id].messages = messages;
+        return messages;
+      }, {});
+      return newState;
     default:
       return state;
   }
