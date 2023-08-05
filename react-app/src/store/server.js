@@ -1,3 +1,4 @@
+
 import { getUserServersThunk } from "./user";
 import * as userActions from "./user";
 import * as channelActions from "./channels";
@@ -98,7 +99,10 @@ export const getServerThunk = (server_id) => async (dispatch) => {
   }
 };
 
+
+
 /******/
+
 
 export const createServerThunk =
   (owner_id, server_name, image_url) => async (dispatch) => {
@@ -129,6 +133,7 @@ export const createServerThunk =
 
 /******/
 
+
 export const updateServerThunk =
   (server_id, server_name, server_image) => async (dispatch) => {
     const reqBody = JSON.stringify({
@@ -156,6 +161,7 @@ export const updateServerThunk =
       return error;
     }
   };
+
 
 export const deleteServerThunk = (server_id) => async (dispatch) => {
   const res = await fetch(`/api/servers/${server_id}`, {
