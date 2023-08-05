@@ -40,7 +40,7 @@ function ServerMemberCard({
           </div>
         )}
         <p className="member-name">
-          {member.display_name ? member.display_name : member.username}
+          {member.nickname ? member.nickname : (member.display_name || member.username)}
         </p>
         {server && member && server.owner_id === member.user_id && (
           <FaCrown className="members-crown" />
