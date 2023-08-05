@@ -33,10 +33,8 @@ const serversReducer = (state = initialState, action) => {
       return newState;
     case messageActions.POPULATE_MESSAGES:
       action.payload.reduce((messages, message) => {
-        if (!newState.channels[message.channel_id].messages) {
-          newState.channels[message.channel_id].messages = {};
-        }
-        newState.channels[message.channel_id].messages = messages;
+        newState[message.server_id].channels[message.channel_id].messages =
+          message;
         return messages;
       }, {});
       return newState;
