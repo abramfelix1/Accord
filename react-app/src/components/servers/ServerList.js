@@ -55,7 +55,7 @@ function ServerList() {
       serverFriendButton.id = "active-server";
     } else {
       // sets the new targeted server to show that it is on that server
-      // event.target.id = "active-server";
+      event.target.id = "active-server";
     }
   };
 
