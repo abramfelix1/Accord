@@ -5,8 +5,25 @@
     color: #ADADAD;
 }
 
-.channel-container::-webkit-scrollbar {
+/* .channel-container::-webkit-scrollbar {
     display: none;
+} */
+
+/* width */
+.channel-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.channel-container::-webkit-scrollbar-track {
+background: #2d2d2d;
+border-radius: 15px;
+}
+
+/* Handle */
+.channel-container::-webkit-scrollbar-thumb {
+border-radius: 15px;
+background: #141414;
 }
 
 

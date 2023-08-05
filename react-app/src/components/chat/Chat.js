@@ -59,19 +59,21 @@ const Chat = () => {
       <div className="main-chat-and-input-container">
         <div className="chat-container">
           {messages.map((message, idx) => (
-            <div key={idx}>
+            <div key={`${message.id}${idx}`} className="message-wrapper">
               {message.image_url !== null && message.image_url.length >= 1
               ? 
-              <img className="member-image" src={message.image_url} alt="member-image" />
+              <img className="chatbox-image" src={message.image_url} alt="chatbox-user-img" />
               :
-              <div className="member-logo-wrapper" >
-                  <img className="member-logo" src={logo} alt="logo"/>
+              <div className="chatbox-logo-wrapper" >
+                  <img className="chatbox-logo" src={logo} alt="logo"/>
               </div>}
-              <div>
-                <span>{message.display_name ? message.display_name : message.username}</span>
-                <span>{dateFormat(message.created_at)}</span>
+              <div className="chat-box-name-date-message-wrapper">
+                <div className="chat-box-name-date-wrapper">
+                  <span className="chat-box-name">{message.display_name ? message.display_name : message.username}</span>
+                  <span className="chat-box-date">{dateFormat(message.created_at)}</span>
+                </div>
+                <div className="chat-box-message">{message.message}</div>
               </div>
-              <div>{message.message}</div>
             </div>
           ))}
         </div>
