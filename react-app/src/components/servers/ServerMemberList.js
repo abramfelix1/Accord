@@ -20,16 +20,16 @@ function ServerMemberList({ server }) {
     setShowProfile(true);
   }, [selectedMember]);
 
-  useEffect(() => {
-    if (server) {
-      (async () => {
-        // currently just setting the server 1 as a starting point until
-        // we can figure out what to set the list starting point to
-        // when you are not on a server yet.
-        await dispatch(memberActions.getServerMembersThunk(server.id || 1));
-      })();
-    }
-  }, [dispatch, server, serverid]);
+  // useEffect(() => {
+  //   if (server) {
+  //     (async () => {
+  //       // currently just setting the server 1 as a starting point until
+  //       // we can figure out what to set the list starting point to
+  //       // when you are not on a server yet.
+  //       await dispatch(memberActions.getServerMembersThunk(server.id || 1));
+  //     })();
+  //   }
+  // }, [dispatch, server, serverid]);
 
   return (
     <div

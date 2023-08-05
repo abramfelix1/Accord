@@ -23,7 +23,7 @@ function Channel({ server }) {
   const dispatch = useDispatch();
   const { setChannel } = useContext(ChannelContext);
   const { createChannelModal } = useContext(ModalContext);
-  const isLoaded = useSelector((state) => state.channels.isLoading);
+  const isLoaded = useSelector((state) => state.current.isLoading);
   const history = useHistory();
 
   const user = useSelector((state) => state.session.user);

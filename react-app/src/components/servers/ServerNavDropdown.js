@@ -32,7 +32,7 @@ function ServerNavDropDown(props) {
     return () => {
       document.removeEventListener("click", handleClickOutside, true);
     };
-  }, [openDropdown, toggleDropdown, server]);
+  }, [openDropdown, toggleDropdown, serverid, server]);
 
   return (
     <>
