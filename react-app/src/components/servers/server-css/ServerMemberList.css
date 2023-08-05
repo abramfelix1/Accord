@@ -5,8 +5,25 @@
     max-height: 100vh;
 }
 
-.member-container::-webkit-scrollbar {
+/* .member-container::-webkit-scrollbar {
     display: none;
+} */
+
+/* width */
+.member-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.member-container::-webkit-scrollbar-track {
+    background: #2d2d2d;
+    border-radius: 15px;
+}
+
+/* Handle */
+.member-container::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background: #141414;
 }
 
 .member-container > ul {
@@ -37,10 +54,12 @@
     display: flex;
     align-items: center;
     border-radius: 7px;
+    color: #949ba4;
 }
 
 .member-wrapper:hover {
     background-color: rgb(50, 51, 56);
+    color: #DBDEE1;
 }
 
 #active-profile {
@@ -52,15 +71,16 @@
     display: flex;
     align-items: center;
     border-radius: 7px;
+    color: #DBDEE1;
 }
 
 .member-name {
     margin: 0px;
     font-size: 18px;
-    color: #949ba4;
     margin-left: 10px;
     font-weight: 100;
 }
+
 
 
 

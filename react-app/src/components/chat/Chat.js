@@ -8,6 +8,10 @@ import { useContext } from "react";
 import { ChannelContext } from "../../context/channelContext";
 import "./chat-css/ChatBox.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {dateFormat} from "./ChatHelperFunctions"
+import { useRef } from "react";
+import logo from "../../images/accord-logo.png"
+
 
 const Chat = () => {
   const [chatInput, setChatInput] = useState("");
@@ -20,6 +24,13 @@ const Chat = () => {
   const channel = useContext(ChannelContext);
   const { channelid } = useParams();
   const dispatch = useDispatch();
+  const messageRef = useRef(null);
+
+  // when a message is being typed or is sent, it ill scroll down to 
+  // last message
+  useEffect(() => {
+    messageRef.current?.scrollIntoView()
+  }, [messages])
 
   useEffect(() => {
     //updates the message state every render
@@ -48,17 +59,32 @@ const Chat = () => {
     setChatInput("");
   };
 
+
+
   return (
     user &&
     !isLoaded && (
-      <div>
+      <div className="main-chat-and-input-container">
         <div className="chat-container">
           {messages.map((message, idx) => (
-            <div key={idx}>
-              <div>{`${message.username} ${message.updated_at}`}</div>
-              <div>{message.message}</div>
+            <div key={`${message.id}${idx}`} className="message-wrapper">
+              {message.image_url !== null && message.image_url.length >= 1
+              ? 
+              <img className="chatbox-image" src={message.image_url} alt="chatbox-user-img" />
+              :
+              <div className="chatbox-logo-wrapper" >
+                  <img className="chatbox-logo" src={logo} alt="logo"/>
+              </div>}
+              <div className="chat-box-name-date-message-wrapper">
+                <div className="chat-box-name-date-wrapper">
+                  <span className="chat-box-name">{message.display_name ? message.display_name : message.username}</span>
+                  <span className="chat-box-date">{dateFormat(message.created_at)}</span>
+                </div>
+                <div className="chat-box-message">{message.message}</div>
+              </div>
             </div>
           ))}
+          {/* <div className="message-ref" ref={messageRef}></div> */}
         </div>
         <ChatInputField
           sendChat={sendChat}

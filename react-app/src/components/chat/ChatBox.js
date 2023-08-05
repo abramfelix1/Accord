@@ -17,7 +17,6 @@ function ChatBox() {
     >
       {!isLoading && (
         <>
-          CHAT BOX
           <MessageContainer />
           <Chat />
         </>
