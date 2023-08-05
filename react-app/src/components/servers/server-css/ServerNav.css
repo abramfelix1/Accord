@@ -21,10 +21,19 @@
     color: #F2F3EA;
     justify-content: space-between;
     position: relative;
+    align-items: center;
 }
 
 #server-nav-active {
     background-color: #404248;
+}
+
+.server-name-nav-bar {
+    max-width: 180px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    min-width: 0px;
 }
 
 /* DROP DOWN */

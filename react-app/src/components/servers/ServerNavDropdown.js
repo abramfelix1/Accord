@@ -39,7 +39,7 @@ function ServerNavDropDown(props) {
       {!isLoading && server && serverid && (
         <div className="inner-server-nav">
           <div className="server-nav-title">
-            <div style={{ alignItems: "center", display: "flex" }}>
+            <div className="server-name-nav-bar">
               {server.name}
             </div>
             {!openDropdown ? (

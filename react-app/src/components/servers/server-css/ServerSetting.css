@@ -160,6 +160,10 @@
     font-size: 14px;
     font-weight: bold;
     margin-left: 11px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 150px;
 
 }
 
