@@ -33,11 +33,12 @@ function Channel({ server }) {
 
   useEffect(() => {
     if (server) {
+      console.log(serverid);
       (async () => {
         await dispatch(channelActions.getChannels(serverid));
       })();
     }
-  }, [dispatch, server]);
+  }, [dispatch, server, serverid]);
 
   const logoutHandler = async () => {
     await dispatch(logout());
@@ -46,8 +47,6 @@ function Channel({ server }) {
 
   const channelClickHandler = (channel) => {
     setChannel(channel);
-    // dispatch(resetMessages());
-    // dispatch(getMessages(channel.id));
   };
 
   return (

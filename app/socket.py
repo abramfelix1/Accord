@@ -25,8 +25,10 @@ online_users = set()
 @socketio.on("join_server")
 def join_server(data):
     print("**************************JOIN SERVER DATA START**************************")
+    print("online_users before: ", online_users)
     user = User.query.get(data["user_id"])
     servers = user.user_servers()
+    online_users.add(user.id)
     # connect user to rooms based on server id
     for server in servers:
         print(f"Joining Server: {server}")
@@ -36,7 +38,9 @@ def join_server(data):
         "join_server_response",
         {
             "Message": f"Joined Servers: {servers}",
+            "Users": f"Online Users: {online_users}",
         },
+        broadcast=False,
     )
 
 

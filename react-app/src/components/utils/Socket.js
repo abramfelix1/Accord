@@ -30,6 +30,7 @@ export function joinServer(user_id) {
   console.log("***LISTENING FOR JOIN SERVER RESPONSE***");
   socket.on("join_server_response", (data) => {
     console.log(data["Message"]);
+    console.log(data["Users"]);
   });
 }
 

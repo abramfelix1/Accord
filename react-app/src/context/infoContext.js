@@ -3,7 +3,7 @@ import React, { createContext, useEffect, useState } from "react";
 export const InfoContext = createContext();
 
 export const InfoProvider = ({ children }) => {
-  const [server, setServer] = useState({});
+  const [server, setServer] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {

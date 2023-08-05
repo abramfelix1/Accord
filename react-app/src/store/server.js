@@ -80,11 +80,20 @@ export const getAllServersThunk = () => async (dispatch) => {
 
 export const getServerThunk = (server_id) => async (dispatch) => {
   const res = await fetch(`/api/servers/${server_id}`);
+  const res2 = await fetch(`/api/users/servers`);
 
   if (res.ok) {
     const server = await res.json();
-    dispatch(getServerAction(server));
-    return server;
+    const userServers = await res2.json();
+    let isAllowed = userServers.find((server) => server.id == server_id);
+    if (isAllowed) {
+      dispatch(getServerAction(server));
+      return server;
+    } else {
+      throw new Error("NOT ALLOWED");
+    }
+  } else {
+    throw new Error("NOT ALLOWED");
   }
 };
 
