@@ -9,13 +9,15 @@ import {
   getAllServersThunk,
   deleteServerThunk,
 } from "../../store/server";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 
 function ServerSetting() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { serverid } = useParams()
+  const { serverid } = useParams();
+  const user = useSelector((state) => state.session.user);
+
   const { serverProfileSettingModal, setType } = useContext(ModalContext);
   const { server, setServer } = useContext(InfoContext);
 
@@ -83,7 +85,13 @@ function ServerSetting() {
             onSubmit={(e) => updateServerHandleSubmit()}
             className="server-setting-form"
           >
-            <h3 className="server-setting-header">Server Overview <IoCloseOutline className="exit-server-profile" onClick={e => setType(null)}/></h3>
+            <h3 className="server-setting-header">
+              Server Overview{" "}
+              <IoCloseOutline
+                className="exit-server-profile"
+                onClick={(e) => setType(null)}
+              />
+            </h3>
             <div className="server-setting-form-main">
               <div className="server-setting-image-container">
                 {server.image_url ? (
@@ -96,59 +104,101 @@ function ServerSetting() {
                     {initials(server.name)}
                   </div>
                 )}
-                {server.image_url && (
+                {(server.image_url && user.id === server.owner_id) &&(
                   <button className="remove-server-image">Remove</button>
                 )}
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  marginLeft: "10px",
-                }}
-              >
-                <label
+              {user.id === server.owner_id ? (
+                <div
                   style={{
-                    color: "#99aab5",
-                    textAlign: "left",
-                    marginBottom: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    marginLeft: "10px",
                   }}
                 >
-                  Server Name
-                </label>
-                <input
-                  type="text"
-                  className="server-setting-input-field"
-                  style={{ marginBottom: "10px" }}
-                  placeholder={server.name}
-                  value={serverName}
-                  onChange={(e) => setServerName(e.target.value)}
-                ></input>
-                <label
+                  <label
+                    style={{
+                      color: "#99aab5",
+                      textAlign: "left",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    Server Name
+                  </label>
+                  <input
+                    type="text"
+                    className="server-setting-input-field"
+                    style={{ marginBottom: "10px" }}
+                    placeholder={server.name}
+                    value={serverName}
+                    onChange={(e) => setServerName(e.target.value)}
+                  ></input>
+                  <label
+                    style={{
+                      color: "#99aab5",
+                      textAlign: "left",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    Image Url
+                  </label>
+                  <input
+                    type="url"
+                    className="server-setting-input-field"
+                    style={{ marginBottom: "38px" }}
+                    value={serverImage}
+                    onChange={(e) => setServerImage(e.target.value)}
+                  ></input>
+                </div>
+              ) : (
+                <div
                   style={{
-                    color: "#99aab5",
-                    textAlign: "left",
-                    marginBottom: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    marginLeft: "10px",
                   }}
                 >
-                  Image Url
-                </label>
-                <input
-                  type="url"
-                  className="server-setting-input-field"
-                  style={{ marginBottom: "38px" }}
-                  value={serverImage}
-                  onChange={(e) => setServerImage(e.target.value)}
-                ></input>
+                  <label
+                    style={{
+                      color: "#99aab5",
+                      textAlign: "left",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    Server Name
+                  </label>
+                  <input
+                    type="text"
+                    className="server-setting-input-field"
+                    style={{ marginBottom: "10px" }}
+                    placeholder={server.name}
+                    disabled
+                  ></input>
+                  <label
+                    style={{
+                      color: "#99aab5",
+                      textAlign: "left",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    Image Url
+                  </label>
+                  <input
+                    type="url"
+                    className="server-setting-input-field"
+                    style={{ marginBottom: "38px" }}
+                    disabled
+                  ></input>
+                </div>
+              )}
+            </div>
+            {(server.name !== serverName || serverImage) && (
+              <div className="server-setting-save-delete-button">
+                <button type="submit" className="server-save-button">
+                  Save Changes
+                </button>
               </div>
-            </div>
-            {(server.name !== serverName || serverImage) &&
-            <div className="server-setting-save-delete-button">
-              <button type="submit" className="server-save-button">
-                Save Changes
-              </button>
-            </div>
-            }
+            )}
           </form>
         </div>
       </div>

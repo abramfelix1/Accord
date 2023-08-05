@@ -128,7 +128,7 @@
 
 .server-save-button {
     border: none;
-    background-color: #5855f2;
+    background-color: #248046;
     color: white;
     padding: 10px 30px;
     border-radius: 3px;
@@ -137,7 +137,7 @@
 }
 
 .server-save-button:hover {
-    background-color: #5855f2b5;
+    background-color: #248046b5;
     cursor: pointer;
 }
 
