@@ -6,7 +6,7 @@ import ChatNav from "./chat/ChatNav";
 import ChatBox from "./chat/ChatBox";
 import ServerMemberList from "./servers/ServerMemberList";
 import { InfoContext } from "../context/infoContext";
-import { ChannelContext } from "../context/infoContext";
+import { ChannelContext } from "../context/channelContext";
 import { useContext, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";

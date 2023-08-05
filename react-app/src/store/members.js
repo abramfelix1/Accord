@@ -1,8 +1,8 @@
 import { getUserServersThunk } from "./user";
 
 /*************** TYPES **************************/
-const GET_SERVER_MEMBERS = "server/GET_SERVER_MEMBERS";
-const GET_SINGLE_MEMBER = "server/GET_SINGLE_MEMBER ";
+export const GET_SERVER_MEMBERS = "server/GET_SERVER_MEMBERS";
+export const GET_SINGLE_MEMBER = "server/GET_SINGLE_MEMBER ";
 /*************** ACTIONS CREATOR **************************/
 
 export const getServerMembersAction = (members) => {
