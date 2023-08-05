@@ -31,7 +31,7 @@ function Main() {
   useEffect(() => {
     dispatch(serverActions.getServerThunk(serverid));
     dispatch(channelActions.getChannel(channelid));
-  }, []);
+  }, [serverid, channelid, dispatch]);
 
   const { server, setServer } = useContext(InfoContext);
   return (

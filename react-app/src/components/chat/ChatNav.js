@@ -6,17 +6,9 @@ import { AiFillQuestionCircle } from "react-icons/ai";
 import "./chat-css/ChatNav.css";
 
 function ChatNav() {
-  const { channel, setChannel } = useContext(ChannelContext);
+  // const { channel, setChannel } = useContext(ChannelContext);
   const isLoading = useSelector((state) => state.channels.isLoading);
-  const channels = Object.values(
-    useSelector((state) => state.channels.channels)
-  );
-
-  useEffect(() => {
-    if (!channel) {
-      setChannel("ASDFSD");
-    }
-  }, []);
+  const channel = useSelector((state) => state.current.channel);
 
   return (
     !isLoading && (
@@ -30,7 +22,7 @@ function ChatNav() {
                 fontSize: "26px",
               }}
             />{" "}
-            <span>{channels.name}</span>
+            <span>{channel.name}</span>
           </div>
           <div>
             <RiInboxFill className="inbox-icon" />

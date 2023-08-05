@@ -9,10 +9,10 @@ export const currentReducer = (state = initialState, action) => {
   const newState = { ...state };
   switch (action.type) {
     case serverActions.GET_SERVER:
-      newState.server[action.payload.id] = action.payload;
+      newState.server = action.payload;
       return newState;
     case channelActions.GET_CHANNEL:
-      newState.channel[action.payload.id] = action.payload;
+      newState.channel = action.payload;
       return newState;
     default:
       return state;

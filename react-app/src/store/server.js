@@ -174,10 +174,6 @@ export default function serverReducer(state = initialState, action) {
         newState[server.id] = server;
       });
       return newState;
-    case GET_SERVER:
-      newState = {};
-      newState[action.payload.id] = action.payload;
-      return newState;
     case DELETE_SERVER:
       newState = state;
       delete newState[action.payload];

@@ -105,8 +105,8 @@ const channelsReducer = (state = initialState, action) => {
         return channels;
       }, {});
       return { channels: { ...channels }, isLoading: false };
-    case GET_CHANNEL:
-      return action.payload;
+    // case GET_CHANNEL:
+    //   return action.payload;
     case ADD_CHANNEL:
       newState[action.payload.id] = action.payload;
       return newState;
