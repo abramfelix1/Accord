@@ -47,7 +47,7 @@ export const createMessage = (channel_id, message) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(getMessages(data.channel_id));
+    dispatch(addMessage(data.channel_id));
   }
 };
 
@@ -87,6 +87,7 @@ const messageReducer = (state = initialState, action) => {
       }, {});
       return { messages: { ...messages }, isLoading: false };
     case ADD_MESSAGE:
+      console.log(action.payload);
       newState[action.payload.id] = action.payload;
       return newState;
     case UPDATE_MESSAGE:

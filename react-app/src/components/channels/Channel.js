@@ -19,7 +19,7 @@ import "./channel-css/Channel.css";
 import { resetMessages } from "../../store/message";
 
 function Channel({ server }) {
-  // const {id} = useParams()
+  const { serverid } = useParams();
   const dispatch = useDispatch();
   const { setChannel } = useContext(ChannelContext);
   const { createChannelModal } = useContext(ModalContext);
@@ -34,7 +34,7 @@ function Channel({ server }) {
   useEffect(() => {
     if (server) {
       (async () => {
-        await dispatch(channelActions.getChannels(server.id || 1));
+        await dispatch(channelActions.getChannels(serverid));
       })();
     }
   }, [dispatch, server]);

@@ -38,6 +38,10 @@ const serversReducer = (state = initialState, action) => {
         return messages;
       }, {});
       return newState;
+    // case messageActions.ADD_MESSAGE:
+    //   const message = action.payload;
+    //   newState[message.server_id].channels[message.channel_id].message =
+    //     message;
     default:
       return state;
   }

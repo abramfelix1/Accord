@@ -16,7 +16,7 @@ function ChatNav() {
     if (!channel) {
       setChannel("ASDFSD");
     }
-  });
+  }, []);
 
   return (
     !isLoading && (
@@ -30,7 +30,7 @@ function ChatNav() {
                 fontSize: "26px",
               }}
             />{" "}
-            <span>{channel.name}</span>
+            <span>{channels.name}</span>
           </div>
           <div>
             <RiInboxFill className="inbox-icon" />

@@ -6,15 +6,16 @@ import ChatNav from "./chat/ChatNav";
 import ChatBox from "./chat/ChatBox";
 import ServerMemberList from "./servers/ServerMemberList";
 import { InfoContext } from "../context/infoContext";
-import { useContext } from "react";
+import { ChannelContext } from "../context/infoContext";
+import { useContext, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import { joinServer, chatUpdate, startListeners } from "./utils/Socket";
-
 import "./Main.css";
-// import { useContext } from "react";
 
 function Main() {
+  const { serverid, channelid } = useParams();
+
   const userID = useSelector((state) => state.session.user.id).toString();
   console.log("USERID: " + userID);
   const buttonHandler = () => {
@@ -24,6 +25,11 @@ function Main() {
     startListeners();
     joinServer(userID);
   };
+
+  useEffect(() => {
+    console.log(serverid, channelid);
+  }, []);
+
   const { server, setServer } = useContext(InfoContext);
   return (
     <div className="main-container">

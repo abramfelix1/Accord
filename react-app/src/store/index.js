@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   session,
   user: userReducer,
   messages: messageReducer,
-  servers: serversReducer,
+  // servers: serversReducer,
   channels: channelsReducer,
   members: memberReducer,
 });
