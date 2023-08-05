@@ -5,16 +5,16 @@ import { BiSolidTrash } from "react-icons/bi";
 import { InfoContext } from "../../context/infoContext";
 import { updateServerThunk, getAllServersThunk} from "../../store/server";
 import { useDispatch } from "react-redux";
+import { useHistory } from 'react-router-dom'
 
 function ServerSetting() {
   const dispatch = useDispatch()
+  const history = useHistory()
   const { serverProfileSettingModal } = useContext(ModalContext);
-  const { server } = useContext(InfoContext);
+  const { server, setServer } = useContext(InfoContext);
 
   const [serverName, setServerName] = useState('')
   const [serverImage, setServerImage] = useState('')
-
-  console.log(serverName)
 
   const initials = (serverName) => {
     let res = "";
@@ -27,9 +27,12 @@ function ServerSetting() {
     return res
   };
 
-  const updateServerHandleSubmit = async () => {
+  const updateServerHandleSubmit = async (e) => {
+
     await dispatch(updateServerThunk(server.id, serverName, serverImage))
     await dispatch(getAllServersThunk())
+
+    return setServer(server)
   }
 
 
@@ -59,7 +62,7 @@ function ServerSetting() {
         </div>
 
         <div className="server-inner-2">
-          <form onSubmit={updateServerHandleSubmit} className="server-setting-form">
+          <form onSubmit={e => updateServerHandleSubmit()} className="server-setting-form">
             <h3 className="server-setting-header">Server Overview</h3>
             <div className="server-setting-form-main">
               <div className="server-setting-image-container">
