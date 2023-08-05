@@ -1,0 +1,168 @@
+.channel-setting-container {
+    height: 250px;
+    width: 600px;
+    background-color: #303338;
+    border-radius: 5px;
+    display: flex;
+}
+
+/*  CHANNEL NAV */
+.channel-edit-nav {
+    background-color: #1E1F22;
+    border-radius: 4px 0px 0px 4px;
+    width: 280px;
+}
+
+.channel-edit-nav-content {
+    padding: 8px 15px 0px 15px;
+    height: 100%;
+}
+
+.channel-edit-nav-title-section {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--color-ADADAD);
+    padding-left: 10px;
+    margin-bottom: 5px;
+}
+
+.edit-channel-nav-name {
+    font: 18px;
+    color: var(--color-ADADAD);
+    background-color: #404248;
+    padding: 5px 12px;
+    border-radius: 4px;
+}
+
+
+.edit-channel-nav-name:hover {
+    background-color: #40424879;
+    cursor: pointer;
+}
+
+.delete-channel {
+    display: flex;
+    font: 18px;
+    color: var(--color-ADADAD);
+    justify-content: space-between;
+}
+
+.delete-channel-div:hover {
+    border-radius: 4px;
+    color: #F2F3F5;
+    background-color: #40424879;
+    cursor: pointer;
+}
+
+.delete-channel-div {
+    font: 18px;
+    color: var(--color-ADADAD);
+    padding: 5px 12px;
+    border-radius: 4px;
+}
+/* FORM SECTION */
+
+.inner-channel-setting {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+.edit-channel-form {
+    height: 65%;
+}
+
+.edit-channel-header {
+    font-size: 20px;
+    margin: 0px 0px 15px 0px;
+    color: #F2F3F5;
+    padding: 15px 15px 0px 25px;
+}
+
+.edit-channel {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 30px 0px 25px;
+    margin-bottom: 67px;
+}
+
+.edit-channel-name {
+    color: #949ba4;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+
+.edit-channel-input {
+    background-color: #1E1F22;
+    outline: none;
+    border: none;
+    padding: 8px 10px;
+    font: 15px;
+    border-radius: 3px;
+    height: 25px;
+    color: white;
+    margin-top: 10px;
+}
+
+.edit-channel-name-error {
+    color: #FA777C;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* BUTTON CONTAINER */
+
+.channel-setting-button-container {
+    display: flex;
+    align-items: flex-end;
+    padding: 15px 30px 15px 25px;
+    background-color: #2A2D31;
+    border-radius: 0px 0px 5px 0px;
+}
+
+.save-channel-edit {
+    outline: none;
+    border: none;
+    color: #F2F3F5;
+    padding: 0px 20px;
+    border-radius: 4px;
+    height: 35px;
+    background-color: #248046;
+    cursor: pointer;
+}
+
+.save-channel-edit:hover {
+    background-color: #248046b5;
+}
+
+.save-channel-edit-disabled {
+    outline: none;
+    border: none;
+    color: #939eaa;
+    padding: 0px 20px;
+    border-radius: 4px;
+    height: 35px;
+    background-color: #248046;
+    cursor: default;
+}
+
+.channel-setting-cancel {
+    font-size: 14px;
+    margin-right: 24px;
+    color: white;
+}
+
+.channel-setting-cancel:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* SEPARATOR */
+
+.edit-channel-setting-separator {
+    border-bottom: solid 1px rgba(72, 72, 72, 0.5);
+    margin: 10px 0px;
+}

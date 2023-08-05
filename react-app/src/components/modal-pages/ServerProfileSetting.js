@@ -2,7 +2,7 @@ import "../../components/servers/server-css/ServerSetting.css";
 import { useContext, useState } from "react";
 import { ModalContext } from "../../context/modalContext";
 import { BiSolidTrash } from "react-icons/bi";
-
+import './modal-css/ServerProfileSetting.css'
 
 
 function ServerProfileSetting() {
@@ -36,7 +36,7 @@ function ServerProfileSetting() {
           </div>
         </div>
 
-        <div className="server-inner-2">
+        <div className="server-profile-inner-2">
           <form onSubmit={""} className="server-setting-form">
             <h3 className="server-setting-header">Server Profile</h3>
 
@@ -65,7 +65,7 @@ function ServerProfileSetting() {
                 ></input>
               </div>
             </div>
-            <div className="server-setting-save-delete-button">
+            <div className="server-profile-save-delete-button server-profile-save">
               <button type="submit" className="server-save-button">
                 Save Changes
               </button>

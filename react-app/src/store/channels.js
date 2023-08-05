@@ -70,7 +70,7 @@ export const createChannel = (serverId, channel_name) => async (dispatch) => {
 };
 
 export const editChannel =
-  (serverId, channelId, channel_name) => async (dispatch) => {
+  (channelId, channel_name) => async (dispatch) => {
     const response = await fetch(`/api/channels/${channelId}`, {
       method: "PUT",
       headers: {
@@ -85,7 +85,7 @@ export const editChannel =
     }
   };
 
-export const removeChannel = (serverId, channelId) => async (dispatch) => {
+export const removeChannel = (channelId) => async (dispatch) => {
   const response = await fetch(`/api/channels/${channelId}`, {
     method: "DELETE",
   });

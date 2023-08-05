@@ -1,3 +1,5 @@
+import { getUserServersThunk } from './user'
+
 /*************** TYPES **************************/
 const GET_SERVER_MEMBERS = "server/GET_SERVER_MEMBERS"
 
@@ -25,6 +27,21 @@ export const getServerMembersThunk = (server_id) => async (dispatch) => {
     }
 }
 
+export const leaveServerThunk = (server_id) => async (dispatch) => {
+    const res = await fetch(`/api/members/server/${server_id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    // if the response is good. recall the get all servers thunk
+    // to get the redux updated with all the servers again to
+    // prevent loading issues
+    if (res.ok) {
+        dispatch(getUserServersThunk(server_id))
+    }
+}
 
 /******/
 
@@ -48,6 +65,3 @@ export default function memberReducer(state = {}, action) {
 			return state;
 	}
 }
-
-
-

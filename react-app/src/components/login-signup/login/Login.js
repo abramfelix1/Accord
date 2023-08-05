@@ -24,8 +24,6 @@ function LoginPage() {
     }
   };
 
-  console.log(errors)
-
   return (
     <div className="login-container">
       <div className="login-container-2">
