@@ -2,13 +2,16 @@ import { useDispatch, useSelector } from "react-redux";
 import * as memberActions from "../../store/members";
 import { useEffect, useState } from "react";
 import ServerMemberCard from "./ServerMemberCard";
-import { useRef } from "react";
+import { useParams } from "react-router-dom/";
 import MemberProfile from "./MemberProfile";
 import "./server-css/ServerMemberList.css";
 
 function ServerMemberList({ server }) {
   const dispatch = useDispatch();
-  const serverMembers = Object.values(useSelector((state) => state.members));
+  const { serverid } = useParams();
+  const serverMembers = Object.values(
+    useSelector((state) => state.current.members)
+  );
   let isLoading = useSelector((state) => state.channels.isLoading);
   const [showProfile, setShowProfile] = useState(false);
   const [selectedMember, setSelectedMember] = useState("");
@@ -26,7 +29,7 @@ function ServerMemberList({ server }) {
         await dispatch(memberActions.getServerMembersThunk(server.id || 1));
       })();
     }
-  }, [dispatch, server]);
+  }, [dispatch, server, serverid]);
 
   return (
     <div

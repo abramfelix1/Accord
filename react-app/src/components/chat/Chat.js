@@ -10,20 +10,22 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 const Chat = () => {
   const [chatInput, setChatInput] = useState("");
   const user = useSelector((state) => state.session.user);
-  const isLoaded = useSelector((state) => state.messages.isLoading);
+  const isLoaded = useSelector((state) => state.current.isLoading);
   const messages = useSelector((state) =>
-    Object.values(state.messages.messages)
+    Object.values(state.current.messages)
   );
   const { serverid, channelid } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("ASDFASDFASDFASDf");
+    console.log(messages);
     //updates the message state every render
-    dispatch(getMessages(channelid));
+    // dispatch(getMessages(channelid));
     handleChatUpdates((data) => {
       dispatch(getMessages(data));
     });
-  }, [dispatch, channelid]);
+  }, [dispatch, channelid, serverid]);
 
   const updateChatInput = (e) => {
     setChatInput(e.target.value);
@@ -39,24 +41,25 @@ const Chat = () => {
   };
 
   return (
-    user &&
-    !isLoaded && (
-      <div>
-        <div className="chat-container">
-          {messages.map((message, idx) => (
-            <div key={idx}>
-              <div>{`${message.username} ${message.updated_at}`}</div>
-              <div>{message.message}</div>
-            </div>
-          ))}
+    <>
+      {user && !isLoaded && serverid && (
+        <div>
+          <div className="chat-container">
+            {messages.map((message, idx) => (
+              <div key={idx}>
+                <div>{`${message.username} ${message.updated_at}`}</div>
+                <div>{message.message}</div>
+              </div>
+            ))}
+          </div>
+          <ChatInputField
+            sendChat={sendChat}
+            chatInput={chatInput}
+            updateChatInput={updateChatInput}
+          />
         </div>
-        <ChatInputField
-          sendChat={sendChat}
-          chatInput={chatInput}
-          updateChatInput={updateChatInput}
-        />
-      </div>
-    )
+      )}
+    </>
   );
 };
 

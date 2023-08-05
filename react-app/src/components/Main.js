@@ -14,6 +14,8 @@ import { joinServer, chatUpdate, startListeners } from "./utils/Socket";
 import * as serverActions from "../store/server";
 import * as channelActions from "../store/channels";
 import * as currentActions from "../store/current";
+import * as messageActions from "../store/message";
+import * as memberActions from "../store/members";
 import "./Main.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
@@ -36,9 +38,11 @@ function Main() {
     (async () => {
       if (serverid) {
         try {
-          let a = await dispatch(serverActions.getServerThunk(serverid));
-          let b = await dispatch(channelActions.getChannel(channelid));
-          setServer(a);
+          let a = dispatch(serverActions.getServerThunk(serverid));
+          let b = dispatch(channelActions.getChannel(channelid));
+          let c = dispatch(messageActions.getMessages(channelid));
+          let d = dispatch(memberActions.getServerMembersThunk(serverid));
+          // setServer(a);
           if (!a) {
             return history.push(`/app`);
           }
@@ -47,7 +51,7 @@ function Main() {
         }
       }
     })();
-  }, [serverid, channelid, dispatch]);
+  }, [serverid, channelid, dispatch, history]);
 
   const { server, setServer } = useContext(InfoContext);
   return (

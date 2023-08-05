@@ -80,12 +80,12 @@ const initialState = { messages: {}, isLoading: true };
 const messageReducer = (state = initialState, action) => {
   const newState = { ...state };
   switch (action.type) {
-    case POPULATE_MESSAGES:
-      const messages = action.payload.reduce((messages, message) => {
-        messages[message.id] = message;
-        return messages;
-      }, {});
-      return { messages: { ...messages }, isLoading: false };
+    // case POPULATE_MESSAGES:
+    //   const messages = action.payload.reduce((messages, message) => {
+    //     messages[message.id] = message;
+    //     return messages;
+    //   }, {});
+    //   return { messages: { ...messages }, isLoading: false };
     case ADD_MESSAGE:
       console.log(action.payload);
       newState[action.payload.id] = action.payload;

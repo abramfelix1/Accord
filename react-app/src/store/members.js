@@ -30,14 +30,14 @@ export default function memberReducer(state = {}, action) {
   let newState;
 
   switch (action.type) {
-    case GET_SERVER_MEMBERS:
-      //   console.log(action.payload);
-      newState = {};
-      const serverMembers = action.payload;
-      serverMembers.forEach((member) => {
-        newState[member.id] = member;
-      });
-      return newState;
+    // case GET_SERVER_MEMBERS:
+    //   //   console.log(action.payload);
+    //   newState = {};
+    //   const serverMembers = action.payload;
+    //   serverMembers.forEach((member) => {
+    //     newState[member.id] = member;
+    //   });
+    //   return newState;
     default:
       return state;
   }
