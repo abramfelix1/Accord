@@ -71,24 +71,24 @@ def update_member_nickname(id):
 
 
 
-# @member_routes.route("/server/<int:id>")
-# @login_required
-# def get_current_server_member(id):
-#     """
-#     Get current server member by server ID
-#     """
+@member_routes.route("/server/<int:id>")
+@login_required
+def get_current_server_member(id):
+    """
+    Get current server member by server ID
+    """
 
-#     server = Server.query.get(id)
-#     user = current_user.get_id()
+    server = Server.query.get(id)
+    user = current_user.get_id()
 
-#     if server is None:
-#         return jsonify({"message": "Server not found"}), 403
+    if server is None:
+        return jsonify({"message": "Server not found"}), 403
 
-#     member = Member.query.filter(
-#         Member.server_id.like(id), Member.user_id.like(user)
-#     ).first()
+    member = Member.query.filter(
+        Member.server_id.like(id), Member.user_id.like(user)
+    ).first()
 
-#     if not member:
-#         return {}
+    if not member:
+        return {}
 
-#     return member.to_dict()
+    return member.to_dict()
