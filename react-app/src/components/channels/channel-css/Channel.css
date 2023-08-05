@@ -127,3 +127,8 @@
     color: transparent;
     pointer-events: none;
 }
+
+.dropdown-text-channel:hover {
+    color: #DBDEE1;
+    cursor: pointer;
+}

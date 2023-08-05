@@ -2,7 +2,7 @@ import { NavLink, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useParams, Redirect, useHistory } from "react-router-dom";
 import * as channelActions from "../../store/channels";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown,IoIosArrowForward } from "react-icons/io";
 import { FaHashtag } from "react-icons/fa";
 import { BiPlus, BiSolidCog } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +20,7 @@ function Channel({ server }) {
   const { setChannel } = useContext(ChannelContext);
   const { createChannelModal, channelSettingModal } = useContext(ModalContext);
   const { setChannelCog } = useContext(InfoContext)
-  const [activeChannel, setActiveChannel] = useState("");
+  const [showTextChannel, setShowTextChannel] = useState(true);
   const isLoaded = useSelector((state) => state.channels.isLoading);
   const history = useHistory();
 
@@ -53,8 +53,12 @@ function Channel({ server }) {
         <div>
           <ul className="channel-list">
             <li className="channel-list-title-container">
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <IoIosArrowDown className=".text-channel-drop-down-icon" />
+              <div className='dropdown-text-channel' style={{ display: "flex", alignItems: "center" }}>
+                {showTextChannel ?
+                <IoIosArrowDown className=".text-channel-drop-down-icon" onClick={e => setShowTextChannel(!true)}/>
+                :
+                <IoIosArrowForward className=".text-channel-drop-down-icon" onClick={e => setShowTextChannel(!false)}/>
+                }
                 <p className="channel-list-title">Text Channels</p>
               </div>
               {user.id === server.owner_id ? (
@@ -70,6 +74,8 @@ function Channel({ server }) {
                 />
               )}
             </li>
+            {showTextChannel ?
+
             <li>
               {channels.map((channel) => {
                 return (
@@ -100,6 +106,8 @@ function Channel({ server }) {
                 );
               })}
             </li>
+            : ''
+}
             <button onClick={(e) => logoutHandler()}> logout </button>
           </ul>
         </div>
