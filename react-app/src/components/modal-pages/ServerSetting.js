@@ -3,18 +3,18 @@ import { useContext, useState } from "react";
 import { ModalContext } from "../../context/modalContext";
 import { BiSolidTrash } from "react-icons/bi";
 import { InfoContext } from "../../context/infoContext";
-import { updateServerThunk, getAllServersThunk} from "../../store/server";
+import { updateServerThunk, getAllServersThunk, deleteServerThunk } from "../../store/server";
 import { useDispatch } from "react-redux";
-import { useHistory } from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 
 function ServerSetting() {
-  const dispatch = useDispatch()
-  const history = useHistory()
-  const { serverProfileSettingModal } = useContext(ModalContext);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { serverProfileSettingModal, setType } = useContext(ModalContext);
   const { server, setServer } = useContext(InfoContext);
 
-  const [serverName, setServerName] = useState('')
-  const [serverImage, setServerImage] = useState('')
+  const [serverName, setServerName] = useState(server.name);
+  const [serverImage, setServerImage] = useState("");
 
   const initials = (serverName) => {
     let res = "";
@@ -24,26 +24,30 @@ function ServerSetting() {
       let word = serverNameArr[i];
       res += word[0].toUpperCase();
     }
-    return res
+    return res;
   };
 
   const updateServerHandleSubmit = async (e) => {
+    await dispatch(updateServerThunk(server.id, serverName, serverImage));
+    await dispatch(getAllServersThunk());
 
-    await dispatch(updateServerThunk(server.id, serverName, serverImage))
-    await dispatch(getAllServersThunk())
+    return setServer(server);
+  };
 
-    return setServer(server)
-  }
-
+  const deleteServerHandleSubmit = async () => {
+    await dispatch(deleteServerThunk(server.id));
+    setType(null)
+    return history.push('/app')
+  };
 
   return (
     <div className="server-setting-container">
       <div className="server-inner">
         <div className="settings-navigation">
-          <p className="setting-navigation-title">name</p>
+          <p className="setting-navigation-title">{server.name}</p>
           <div>
             <div>
-              <p className="setting-navigation-section-name">Server Settings</p>
+              <p className="setting-navigation-section-name highlight-server-setting">Server Settings</p>
             </div>
             <div onClick={(e) => serverProfileSettingModal()}>
               <p className="setting-navigation-section-name">Server Profile</p>
@@ -56,13 +60,17 @@ function ServerSetting() {
           </div>
           <div className="setting-separator"></div>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <p className="setting-navigation-section-name">Delete Server</p>
-            <BiSolidTrash style={{ color: "#ADADAD" }} />
+            <p className="setting-navigation-section-name delete-server" onClick={e => deleteServerHandleSubmit()}>
+              Delete Server <BiSolidTrash style={{ marginLeft: '7px' }} />
+            </p>
           </div>
         </div>
 
         <div className="server-inner-2">
-          <form onSubmit={e => updateServerHandleSubmit()} className="server-setting-form">
+          <form
+            onSubmit={(e) => updateServerHandleSubmit()}
+            className="server-setting-form"
+          >
             <h3 className="server-setting-header">Server Overview</h3>
             <div className="server-setting-form-main">
               <div className="server-setting-image-container">
@@ -76,7 +84,9 @@ function ServerSetting() {
                     {initials(server.name)}
                   </div>
                 )}
-                <button className="remove-server-image">Remove</button>
+                {server.image_url !== null && server.image_length > 1 && (
+                  <button className="remove-server-image">Remove</button>
+                )}
               </div>
               <div
                 style={{
@@ -100,7 +110,7 @@ function ServerSetting() {
                   style={{ marginBottom: "10px" }}
                   placeholder={server.name}
                   value={serverName}
-                  onChange={e => setServerName(e.target.value)}
+                  onChange={(e) => setServerName(e.target.value)}
                 ></input>
                 <label
                   style={{
@@ -116,7 +126,7 @@ function ServerSetting() {
                   className="server-setting-input-field"
                   style={{ marginBottom: "38px" }}
                   value={serverImage}
-                  onChange={e => setServerImage(e.target.value)}
+                  onChange={(e) => setServerImage(e.target.value)}
                 ></input>
               </div>
             </div>

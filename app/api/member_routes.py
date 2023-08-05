@@ -2,9 +2,19 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
 from app.models import db, Member, Server
-from app.forms import MessageForm
+from app.forms import MessageForm, MemberNicknameForm
 
 member_routes = Blueprint("members", __name__)
+
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = {}
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages[field] = error
+    return errorMessages
 
 @member_routes.route("/server/<int:id>", methods=["DELETE"])
 @login_required
@@ -28,6 +38,37 @@ def leave_server(id):
     db.session.delete(member)
     db.session.commit()
     return jsonify({"message": "Leave server succesful!"}), 200
+
+
+@member_routes.route('/server/<int:id>', methods=["PUT", "PATCH"])
+@login_required
+def update_member_nickname(id):
+
+    form = MemberNicknameForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    server = Server.query.get(id)
+    user = current_user.get_id()
+
+    if not server:
+        return jsonify({"message": "Server not found"}), 404
+
+    member = Member.query.filter(
+        Member.user_id.like(user), Member.server_id.like(id)
+    ).first()
+
+    if not member:
+        return jsonify({"message": "Member not found"}), 404
+
+    print(member, "dasdsadasdsadasdda")
+    if form.validate_on_submit():
+        member.nickname = form.data["nickname"]
+        db.session.commit()
+
+        return member.to_dict()
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
 
 
 # @member_routes.route("/server/<int:id>")

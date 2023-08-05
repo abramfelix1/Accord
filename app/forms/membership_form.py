@@ -7,3 +7,7 @@ class MembershipForm(FlaskForm):
     user_id = IntegerField("User", validators=[DataRequired()])
     server_id = IntegerField("Server", validators=[DataRequired()])
     nickname = StringField("Nickname")
+
+
+class MemberNicknameForm(FlaskForm):
+    nickname = StringField("Nickname")
