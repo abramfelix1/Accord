@@ -24,13 +24,13 @@ const Chat = () => {
   const channel = useContext(ChannelContext);
   const { channelid } = useParams();
   const dispatch = useDispatch();
-  // const messageRef = useRef(null);
+  const messageRef = useRef(null);
 
-  // // when a message is being typed or is sent, it ill scroll down to 
-  // // last message
-  // useEffect(() => {
-  //   messageRef.current?.scrollIntoView()
-  // }, [messages])
+  // when a message is being typed or is sent, it ill scroll down to 
+  // last message
+  useEffect(() => {
+    messageRef.current?.scrollIntoView()
+  }, [messages])
 
   useEffect(() => {
     //updates the message state every render

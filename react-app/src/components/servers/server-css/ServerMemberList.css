@@ -16,14 +16,14 @@
 
 /* Track */
 .member-container::-webkit-scrollbar-track {
-background: #2d2d2d;
-border-radius: 15px;
+    background: #2d2d2d;
+    border-radius: 15px;
 }
 
 /* Handle */
 .member-container::-webkit-scrollbar-thumb {
-border-radius: 15px;
-background: #141414;
+    border-radius: 15px;
+    background: #141414;
 }
 
 .member-container > ul {
