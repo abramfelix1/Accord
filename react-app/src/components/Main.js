@@ -8,14 +8,16 @@ import ServerMemberList from "./servers/ServerMemberList";
 import { InfoContext } from "../context/infoContext";
 import { ChannelContext } from "../context/infoContext";
 import { useContext, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 import { joinServer, chatUpdate, startListeners } from "./utils/Socket";
+import * as serverActions from "../store/server";
+import * as channelActions from "../store/channels";
 import "./Main.css";
 
 function Main() {
   const { serverid, channelid } = useParams();
-
+  const dispatch = useDispatch();
   const userID = useSelector((state) => state.session.user.id).toString();
   console.log("USERID: " + userID);
   const buttonHandler = () => {
@@ -27,7 +29,8 @@ function Main() {
   };
 
   useEffect(() => {
-    console.log(serverid, channelid);
+    dispatch(serverActions.getServerThunk(serverid));
+    dispatch(channelActions.getChannel(channelid));
   }, []);
 
   const { server, setServer } = useContext(InfoContext);
