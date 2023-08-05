@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useContext, useEffect } from "react";
 import { InfoContext, InfoProvider } from "../../context/infoContext";
-import ServerMemberList from "./ServerMemberList";
 
-function ServerCard({ handleActiveButton, serverInfo, toolTip, setToolTip }) {
+
+function ServerCard({ handleActiveButton, serverInfo}) {
   const { serverid } = useParams();
   const { server } = useContext(InfoContext);
 
@@ -29,34 +29,39 @@ function ServerCard({ handleActiveButton, serverInfo, toolTip, setToolTip }) {
   };
 
   return (
-    <NavLink
-      to={`/servers/${serverInfo.id}/channels/${serverInfo.firstChannel.id}`}
-      className={`servers server-pointer ${
-        serverInfo.id == serverid ? "active-server" : ""
-      }`}
-      onClick={(e) => handleActiveButton(e, serverInfo)}
-    >
-      {serverInfo.image_url !== null && serverInfo.image_url.length >= 3 ? (
-        <div>
-          <img
-            className="servers-img"
-            src={server.image_url}
-            alt="serverimage"
-            onClick={(e) => handleActiveButton(e)}
-          />
-        </div>
-      ) : (
-        <div
-          className="server-initials"
-          onClick={(e) => {
-            // e.stopPropagation();
-            e.preventDefault();
-          }}
+    <>
+      {server && (
+        <NavLink
+          to={`/servers/${serverInfo.id}/channels/${serverInfo.firstChannel.id}`}
+          className={`servers server-pointer ${
+            serverInfo.id == serverid ? "active-server" : ""
+          }`}
+          onClick={(e) => handleActiveButton(e, serverInfo)}
         >
-          {initials(serverInfo.name)}
-        </div>
+          {serverInfo.image_url !== null && serverInfo.image_url.length >= 3 ? (
+            <div>
+              <img
+                className="servers-img"
+                src={server.image_url}
+                alt="serverimage"
+                onClick={(e) => handleActiveButton(e)}
+              />
+            </div>
+          ) : (
+            <div
+              className="server-initials"
+              onClick={(e) => {
+                // e.stopPropagation();
+                e.preventDefault();
+              }}
+            >
+              {initials(serverInfo.name)}
+            </div>
+          )}
+        </NavLink>
       )}
-    </NavLink>
+    </>
+    
   );
 }
 export default ServerCard;

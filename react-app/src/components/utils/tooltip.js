@@ -22,7 +22,7 @@ function Tooltip({ text, children }) {
           <div
             id="tooltip"
             className="tooltiptext"
-            style={{ left: 90, top: position.y -10}}
+            style={{ left: 95, top: position.y -10}}
             // style={{ left: position.x + 100, top: position.y -10}}
           >
             {text}

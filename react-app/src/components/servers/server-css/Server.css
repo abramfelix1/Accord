@@ -41,6 +41,10 @@
   background-color: #4752c4;
 }
 
+.server-list-wrapper:hover {
+  border-left: 0.5px solid white;
+}
+
 .server-initials {
   pointer-events: none;
   background-color: rgb(48, 48, 48, 0);
