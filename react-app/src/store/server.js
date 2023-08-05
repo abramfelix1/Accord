@@ -1,3 +1,4 @@
+import { getUserServersThunk } from "./user";
 import * as userActions from "./user";
 import * as channelActions from "./channels";
 import * as messageActions from "./message";
@@ -97,31 +98,36 @@ export const getServerThunk = (server_id) => async (dispatch) => {
   }
 };
 
-export const createServerThunk = (server_name) => async (dispatch) => {
-  const reqBody = JSON.stringify({
-    server_name,
-  });
+/******/
 
-  const res = await fetch("/api/servers/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: reqBody,
-  });
+export const createServerThunk =
+  (owner_id, server_name, image_url) => async (dispatch) => {
+    const res = await fetch("/api/servers/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        owner_id: owner_id,
+        server_name: server_name,
+        server_image: image_url,
+      }),
+    });
 
-  // if the response is good. recall the get all servers thunk
-  // to get the redux updated with all the servers again to
-  // prevent loading issues
-  if (res.ok) {
-    const newServer = await res.json();
-    await dispatch(getAllServersThunk());
-    return newServer;
-  } else {
-    const error = await res.json();
-    return error;
-  }
-};
+    // if the response is good. recall the get all the users servers thunk
+    // to get the redux updated with all the servers again to
+    // prevent loading issues
+    if (res.ok) {
+      const newServer = await res.json();
+      await dispatch(getUserServersThunk());
+      return newServer;
+    } else {
+      const error = await res.json();
+      return error;
+    }
+  };
+
+/******/
 
 export const updateServerThunk =
   (server_id, server_name, server_image) => async (dispatch) => {
@@ -151,7 +157,7 @@ export const updateServerThunk =
     }
   };
 
-export const deleterServerThunk = (server_id) => async (dispatch) => {
+export const deleteServerThunk = (server_id) => async (dispatch) => {
   const res = await fetch(`/api/servers/${server_id}`, {
     method: "DELETE",
     headers: {

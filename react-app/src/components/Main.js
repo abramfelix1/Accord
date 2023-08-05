@@ -17,13 +17,16 @@ import * as currentActions from "../store/current";
 import * as messageActions from "../store/message";
 import * as memberActions from "../store/members";
 import "./Main.css";
+import { getChannels } from "../store/channels";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+// import { useContext } from "react";
 
 function Main() {
   const history = useHistory();
   const { serverid, channelid } = useParams();
   const [showDash, setShowDash] = useState(true);
   const dispatch = useDispatch();
+  const { channel, setChannel } = useContext(ChannelContext);
   const userID = useSelector((state) => state.session.user.id).toString();
   console.log("USERID: " + userID);
   const buttonHandler = () => {
@@ -54,10 +57,11 @@ function Main() {
   }, [serverid, channelid, dispatch, history]);
 
   const { server, setServer } = useContext(InfoContext);
+  console.log(server);
   return (
     <div className="main-container">
-      <button onClick={(e) => button2Handler()}>START LISTENERS</button>
-      <button onClick={(e) => buttonHandler()}>TEST SOCKET</button>
+      {/* <button onClick={(e) => button2Handler()}>START LISTENERS</button>
+      <button onClick={(e) => buttonHandler()}>TEST SOCKET</button> */}
       {/* Server Section */}
       <section className="main-section-1">
         <Server />

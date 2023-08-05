@@ -12,8 +12,8 @@ function ServerNavDropDown(props) {
   const { serverid, channelid } = useParams();
   const dropdownRef = useRef(null);
   const { openDropdown, toggleDropdown, setToggleDropdown, navRef } = props;
-  const { serverSettingModal, createChannelModal } = useContext(ModalContext);
-  // const { server } = useContext(InfoContext);
+  const { serverSettingModal, createChannelModal, leaveServerModal } =
+    useContext(ModalContext);
   const user = useSelector((state) => state.session.user);
   const server = useSelector((state) => state.current.server);
 
@@ -85,17 +85,22 @@ function ServerNavDropDown(props) {
                   <p>Edit Server Profile</p>
                 </div>
               </div>
-
-              <div className="server-nav-seperator"></div>
-
-              <div
-                className="server-dropdown-settings"
-                onClick={() => toggleDropdown()}
-              >
-                <div className="server-dropdown-leave">
-                  <p>Leave Server</p>
+              {user.id !== server.owner_id && (
+                <div className="server-nav-seperator"></div>
+              )}
+              {user.id !== server.owner_id && (
+                <div
+                  className="server-dropdown-settings"
+                  onClick={() => {
+                    leaveServerModal();
+                    toggleDropdown();
+                  }}
+                >
+                  <div className="server-dropdown-leave">
+                    <p>Leave Server</p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
         </div>

@@ -5,8 +5,25 @@
     color: #ADADAD;
 }
 
-.channel-container::-webkit-scrollbar {
+/* .channel-container::-webkit-scrollbar {
     display: none;
+} */
+
+/* width */
+.channel-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.channel-container::-webkit-scrollbar-track {
+background: #2d2d2d;
+border-radius: 15px;
+}
+
+/* Handle */
+.channel-container::-webkit-scrollbar-thumb {
+border-radius: 15px;
+background: #141414;
 }
 
 
@@ -15,7 +32,7 @@
     padding-top: 15px;
     list-style: none;
     padding-left: 3px;
-    padding-right: 10px;
+    padding-right: 6px;
     /* padding-bottom: 80px; */
     margin: 0px;
     font-size: 12px;
@@ -45,29 +62,55 @@
     font-size: 16px;
     color: #949ba4;
     margin: 0px 2px;
-    border-radius: 2px;
     padding-left: 10px;
     align-items: center;
     height: 32px;
     overflow: hidden;
     scrollbar-width: thin;
+    width: 100%;
 }
 
 .channel-name {
     margin-left: 5px;
 }
 
+.channel-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 3px 0px;
+}
+
 .channel-flex::-webkit-scrollbar {
     display: none;
 }
 
-.channel-flex:hover {
+.channel-box-active {
+    color: #DBDEE1;
     background-color: #404248;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 3px 0px;
+    border-radius: 3px;
 }
 
-#active-channel {
-    border-radius: 20px;
-    background-color: rgb(96, 83, 240);
+.channel-box:hover {
+    display: flex;
+    border-radius: 2px;
+    background-color: #40424873;
+    cursor: pointer;
+    color: #DBDEE1;
+    border-radius: 3px;
+}
+
+.channel-flex:hover + .cog-container {
+    display: flex;
+    pointer-events: auto;
+}
+
+.channel-white {
+    color: #DBDEE1;
 }
 
 /* Icons */
@@ -78,8 +121,46 @@
 
 .text-channel-add-icon {
     font-size: 22px;
+    padding-right: 5px;
 }
 
 .create-new-channel-plus:hover {
+    cursor: pointer;
+    color: #DBDEE1;
+}
+
+.cog-container {
+    display: none;
+}
+
+.cog-container:hover {
+    display: flex;
+}
+
+.channel-cog-settings {
+    padding-left: 0px;
+    padding: 8px;
+    font-size: 16px;
+    color: #949ba4;
+}
+
+.channel-cog-settings:hover {
+    cursor: pointer;
+    color: white
+}
+
+
+.channel-popup-container {
+    display: flex;
+    align-items: center;
+}
+
+.hide-plus {
+    color: transparent;
+    pointer-events: none;
+}
+
+.dropdown-text-channel:hover {
+    color: #DBDEE1;
     cursor: pointer;
 }

@@ -2,10 +2,15 @@ import "./model-pages-css/CreateServer.css"
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux";
 // import { BiSolidCamera } from "react-icons/bi";
-
+import * as serverActions from "../../store/server";
+import { useContext } from "react";
+import { ModalContext } from "../../context/modalContext"
+import { useHistory } from "react-router-dom"
 
 function CreateServerPage() {
     const dispatch = useDispatch();
+    const history = useHistory()
+    const { setType } = useContext(ModalContext)
     const [serverName, setServerName] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const user = useSelector(state => state.session.user);
@@ -16,12 +21,25 @@ function CreateServerPage() {
         }
     }, [user])
 
-    const handleSubmit = async () => {
-        
+    const createServerHandleSubmit = async (e) => {
+        e.preventDefault()
+
+        const newServer = await dispatch(serverActions
+            .createServerThunk(user.id, serverName, imageUrl))
+
+        if (newServer) {
+            // console.log(newServer)
+            setType(null);
+            return history.push(`/servers/${newServer.id}/channels/${newServer.firstChannel.id}`)
+        }
+    }
+
+    const closeModal = () => {
+        setType(null)
     }
 
     return(
-        <form className="create-server-container">
+        <form className="create-server-container" onSubmit={createServerHandleSubmit}>
             <div className="c-server-top-wrap">
                 <h1 className="c-server-header">Customize your server</h1>
                 <p className="c-server-description">
@@ -56,8 +74,8 @@ function CreateServerPage() {
                 </p>
             </div>
             <div className="c-server-bottom-wrap">
-                <p className="c-server-back">Back</p>
-                <button className="c-server-create-button">Create</button>
+                <p className="c-server-back" onClick={closeModal}>Back</p>
+                <button id={serverName.length < 1 ? "c-server-button-disabled" : ""} disabled={serverName.length < 1} className="c-server-create-button" type="submit">Create</button>
             </div>
         </form>
     )
