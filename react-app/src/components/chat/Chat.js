@@ -8,6 +8,9 @@ import { useContext } from "react";
 import { ChannelContext } from "../../context/channelContext";
 import "./chat-css/ChatBox.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {dateFormat} from "./ChatHelperFunctions"
+import logo from "../../images/accord-logo.png"
+
 
 const Chat = () => {
   const [chatInput, setChatInput] = useState("");
@@ -20,6 +23,7 @@ const Chat = () => {
   const channel = useContext(ChannelContext);
   const { channelid } = useParams();
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     //updates the message state every render
@@ -48,6 +52,7 @@ const Chat = () => {
     setChatInput("");
   };
 
+
   return (
     user &&
     !isLoaded && (
@@ -55,7 +60,17 @@ const Chat = () => {
         <div className="chat-container">
           {messages.map((message, idx) => (
             <div key={idx}>
-              <div>{`${message.username} ${message.updated_at}`}</div>
+              {message.image_url !== null && message.image_url.length >= 1
+              ? 
+              <img className="member-image" src={message.image_url} alt="member-image" />
+              :
+              <div className="member-logo-wrapper" >
+                  <img className="member-logo" src={logo} alt="logo"/>
+              </div>}
+              <div>
+                <span>{message.display_name ? message.display_name : message.username}</span>
+                <span>{dateFormat(message.created_at)}</span>
+              </div>
               <div>{message.message}</div>
             </div>
           ))}
