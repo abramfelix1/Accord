@@ -84,7 +84,7 @@ const Chat = () => {
               </div>
             </div>
           ))}
-          {/* <div ref={messageRef}></div> */}
+          {/* <div className="message-ref" ref={messageRef}></div> */}
         </div>
         <ChatInputField
           sendChat={sendChat}

@@ -3,6 +3,7 @@
   grid-template-rows: repeat(20, 1fr);
   height: 100vh;
   margin-top: 5px;
+  position: relative;
 }
 
 .chat-container {
@@ -86,3 +87,8 @@
   white-space: normal;
   overflow-wrap: break-word;
 }
+
+/* .message-ref {
+  position: fixed;
+  bottom: 0px;
+} */
