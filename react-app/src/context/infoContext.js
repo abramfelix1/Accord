@@ -4,7 +4,7 @@ export const InfoContext = createContext();
 
 export const InfoProvider = ({ children }) => {
   const [server, setServer] = useState({});
-  const [channelCog, setChannelCog] = useState({})
+  const [channelCog, setChannelCog] = useState({});
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export const InfoProvider = ({ children }) => {
         isLoaded,
         setIsLoaded,
         setChannelCog,
-        channelCog
+        channelCog,
       }}
     >
       {children}

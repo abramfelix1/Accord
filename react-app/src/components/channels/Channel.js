@@ -16,12 +16,13 @@ import "./channel-css/Channel.css";
 
 function Channel({ server }) {
   // router doms
+  const { serverid, channelid } = useParams();
   const dispatch = useDispatch();
-  const { channelid } = useParams();
+
   const history = useHistory();
 
   // useSelectors
-  const isLoaded = useSelector((state) => state.channels.isLoading);
+  const isLoaded = useSelector((state) => state.current.isLoading);
   const user = useSelector((state) => state.session.user);
   const channels = Object.values(
     useSelector((state) => state.channels.channels)
@@ -37,12 +38,13 @@ function Channel({ server }) {
 
   // useEffects
   useEffect(() => {
-    if (server) {
+    if (serverid) {
+      console.log(serverid);
       (async () => {
-        await dispatch(channelActions.getChannels(server.id || 1));
+        await dispatch(channelActions.getChannels(serverid));
       })();
     }
-  }, [dispatch, server]);
+  }, [dispatch, server, serverid, channelid, isLoaded]);
 
   // Handlers
   const logoutHandler = async () => {
@@ -55,80 +57,98 @@ function Channel({ server }) {
   };
 
   return (
-    user &&
-    !isLoaded && (
-      <div className="channel-container">
-        <div>
-          <ul className="channel-list">
-            <li className="channel-list-title-container">
-              <div
-                className="dropdown-text-channel"
-                style={{ display: "flex", alignItems: "center" }}
-              >
-                {showTextChannel ? (
-                  <IoIosArrowDown
-                    className=".text-channel-drop-down-icon"
+    <>
+      {user && !isLoaded && server && (
+        <div className="channel-container">
+          <div>
+            <ul className="channel-list">
+              <li className="channel-list-title-container">
+                <div
+                  className="dropdown-text-channel"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  {showTextChannel ? (
+                    <IoIosArrowDown
+                      className=".text-channel-drop-down-icon"
+                      onClick={(e) => setShowTextChannel(!showTextChannel)}
+                    />
+                  ) : (
+                    <IoIosArrowForward
+                      className=".text-channel-drop-down-icon"
+                      onClick={(e) => setShowTextChannel(!showTextChannel)}
+                    />
+                  )}
+                  <p
+                    className="channel-list-title"
                     onClick={(e) => setShowTextChannel(!showTextChannel)}
+                  >
+                    Text Channels
+                  </p>
+                </div>
+                {user.id === server.owner_id ? (
+                  <BiPlus
+                    className="text-channel-add-icon create-new-channel-plus"
+                    onClick={(e) => createChannelModal()}
                   />
                 ) : (
-                  <IoIosArrowForward
-                    className=".text-channel-drop-down-icon"
-                    onClick={(e) => setShowTextChannel(!showTextChannel)}
+                  <BiPlus
+                    className="text-channel-add-icon create-new-channel-plus hide-plus"
+                    onClick={(e) => createChannelModal()}
                   />
                 )}
-                <p className="channel-list-title" onClick={e => setShowTextChannel(!showTextChannel)}>Text Channels</p>
-              </div>
-              {user.id === server.owner_id ? (
-                <BiPlus
-                  className="text-channel-add-icon create-new-channel-plus"
-                  onClick={(e) => createChannelModal()}
-                />
-              ) : (
-                <BiPlus
-                  className="text-channel-add-icon create-new-channel-plus hide-plus"
-                  onClick={(e) => createChannelModal()}
-                />
-              )}
-            </li>
-            {showTextChannel ? (
-              <li>
-                {channels.map((channel) => {
-                  return (
-                    <div className={channelid == channel.id ? 'channel-box-active' : 'channel-box'}>
-                      <NavLink
-                        key={channel.id}
-                        to={`/servers/${server.id}/channels/${channel.id}`}
-                        className={'channel-flex'}
-                        onClick={(e) => {
-                          channelClickHandler(channel);
-                        }}
-                      >
-                        <FaHashtag style={{ color: "#949ba4" }} />
-                        <p className={`channel-name ${channelid == channel.id ? 'channel-white' : ''}`}>{channel.name}</p>
-                      </NavLink>
-                      {user.id === server.owner_id && (
-                        <div className="cog-container">
-                          <BiSolidCog
-                            className="channel-cog-settings"
-                            onClick={(e) => {
-                              setChannelCog(channel);
-                              channelSettingModal();
-                            }}
-                          />
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
               </li>
-            ) : (
-              ""
-            )}
-            <button onClick={(e) => logoutHandler()}> logout </button>
-          </ul>
+              {showTextChannel ? (
+                <li>
+                  {channels.map((channel) => {
+                    return (
+                      <div
+                        className={
+                          channelid == channel.id
+                            ? "channel-box-active"
+                            : "channel-box"
+                        }
+                      >
+                        <NavLink
+                          key={channel.id}
+                          to={`/servers/${server.id}/channels/${channel.id}`}
+                          className={"channel-flex"}
+                          onClick={(e) => {
+                            channelClickHandler(channel);
+                          }}
+                        >
+                          <FaHashtag style={{ color: "#949ba4" }} />
+                          <p
+                            className={`channel-name ${
+                              channelid == channel.id ? "channel-white" : ""
+                            }`}
+                          >
+                            {channel.name}
+                          </p>
+                        </NavLink>
+                        {user.id === server.owner_id && (
+                          <div className="cog-container">
+                            <BiSolidCog
+                              className="channel-cog-settings"
+                              onClick={(e) => {
+                                setChannelCog(channel);
+                                channelSettingModal();
+                              }}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </li>
+              ) : (
+                ""
+              )}
+              <button onClick={(e) => logoutHandler()}> logout </button>
+            </ul>
+          </div>
         </div>
-      </div>
-    )
+      )}
+    </>
   );
 }
 

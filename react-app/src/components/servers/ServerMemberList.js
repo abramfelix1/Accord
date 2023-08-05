@@ -2,14 +2,17 @@ import { useDispatch, useSelector } from "react-redux";
 import * as memberActions from "../../store/members";
 import { useEffect, useState } from "react";
 import ServerMemberCard from "./ServerMemberCard";
-import { useRef } from "react";
+import { useParams } from "react-router-dom/";
 import MemberProfile from "./MemberProfile";
 import "./server-css/ServerMemberList.css";
 
 function ServerMemberList({ server }) {
   const dispatch = useDispatch();
-  const serverMembers = Object.values(useSelector((state) => state.members));
-  let isLoading = useSelector((state) => state.channels.isLoading);
+  const { serverid } = useParams();
+  const serverMembers = Object.values(
+    useSelector((state) => state.current.members)
+  );
+  let isLoading = useSelector((state) => state.current.isLoading);
   const [showProfile, setShowProfile] = useState(false);
   const [selectedMember, setSelectedMember] = useState("");
 
@@ -17,23 +20,23 @@ function ServerMemberList({ server }) {
     setShowProfile(true);
   }, [selectedMember]);
 
-  useEffect(() => {
-    if (server) {
-      (async () => {
-        // currently just setting the server 1 as a starting point until
-        // we can figure out what to set the list starting point to
-        // when you are not on a server yet.
-        await dispatch(memberActions.getServerMembersThunk(server.id || 1));
-      })();
-    }
-  }, [dispatch, server]);
+  // useEffect(() => {
+  //   if (server) {
+  //     (async () => {
+  //       // currently just setting the server 1 as a starting point until
+  //       // we can figure out what to set the list starting point to
+  //       // when you are not on a server yet.
+  //       await dispatch(memberActions.getServerMembersThunk(server.id || 1));
+  //     })();
+  //   }
+  // }, [dispatch, server, serverid]);
 
   return (
     <div
       className="member-container"
       style={{ backgroundColor: "#2B2D30", width: "14.938rem", color: "white" }}
     >
-      {!isLoading && (
+      {!isLoading && serverid && (
         <>
           <p className="member-total">
             MEMBERS - {serverMembers ? serverMembers.length : 0}

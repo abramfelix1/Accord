@@ -6,8 +6,10 @@ import { InfoContext, InfoProvider } from "../../context/infoContext";
 import ServerMemberList from "./ServerMemberList";
 
 function ServerCard({ handleActiveButton, serverInfo, toolTip, setToolTip }) {
-  const { id } = useParams();
+  const { serverid } = useParams();
   const { server } = useContext(InfoContext);
+
+  useEffect(() => {}, [serverid]);
 
   // gets the initals of the server name and return them capitalize
   const initials = (serverName) => {
@@ -29,7 +31,9 @@ function ServerCard({ handleActiveButton, serverInfo, toolTip, setToolTip }) {
   return (
     <NavLink
       to={`/servers/${serverInfo.id}/channels/${serverInfo.firstChannel.id}`}
-      className={`servers server-pointer`}
+      className={`servers server-pointer ${
+        serverInfo.id == serverid ? "active-server" : ""
+      }`}
       onClick={(e) => handleActiveButton(e, serverInfo)}
     >
       {serverInfo.image_url !== null && serverInfo.image_url.length >= 3 ? (
