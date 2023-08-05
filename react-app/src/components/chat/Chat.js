@@ -18,14 +18,12 @@ const Chat = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("ASDFASDFASDFASDf");
-    console.log(messages);
     //updates the message state every render
     // dispatch(getMessages(channelid));
     handleChatUpdates((data) => {
       dispatch(getMessages(data));
     });
-  }, [dispatch, channelid, serverid]);
+  }, [dispatch, channelid, serverid, isLoaded]);
 
   const updateChatInput = (e) => {
     setChatInput(e.target.value);

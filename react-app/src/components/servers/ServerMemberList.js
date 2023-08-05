@@ -12,7 +12,7 @@ function ServerMemberList({ server }) {
   const serverMembers = Object.values(
     useSelector((state) => state.current.members)
   );
-  let isLoading = useSelector((state) => state.channels.isLoading);
+  let isLoading = useSelector((state) => state.current.isLoading);
   const [showProfile, setShowProfile] = useState(false);
   const [selectedMember, setSelectedMember] = useState("");
 
@@ -36,7 +36,7 @@ function ServerMemberList({ server }) {
       className="member-container"
       style={{ backgroundColor: "#2B2D30", width: "14.938rem", color: "white" }}
     >
-      {!isLoading && (
+      {!isLoading && serverid && (
         <>
           <p className="member-total">
             MEMBERS - {serverMembers ? serverMembers.length : 0}

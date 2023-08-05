@@ -24,7 +24,7 @@ export const currentReducer = (state = initialState, action) => {
   switch (action.type) {
     case serverActions.GET_SERVER:
       newState.server = action.payload;
-      return newState;
+      return { ...newState, isLoading: false };
     case channelActions.GET_CHANNEL:
       newState.channel = action.payload;
       return { ...newState, isLoading: false };
@@ -33,15 +33,15 @@ export const currentReducer = (state = initialState, action) => {
         messages[message.id] = message;
         return messages;
       }, {});
-      return { ...newState, messages: { ...messages }, isLoading: false };
+      return { ...newState, messages: { ...messages } };
     case memberActions.GET_SERVER_MEMBERS:
       const members = action.payload.reduce((members, member) => {
         members[member.id] = member;
         return members;
       }, {});
-      return { ...newState, members: { ...members }, isLoading: false };
+      return { ...newState, members: { ...members } };
     case RESET_CURRENT:
-      return initialState;
+      return { ...newState, isLoading: true };
     default:
       return state;
   }

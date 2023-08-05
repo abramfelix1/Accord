@@ -8,11 +8,12 @@ import { ModalContext } from "../../context/modalContext";
 import { InfoContext } from "../../context/infoContext";
 
 function ServerNavDropDown(props) {
-  let isLoading = useSelector((state) => state.channels.isLoading);
-
+  let isLoading = useSelector((state) => state.current.isLoading);
+  const { serverid, channelid } = useParams();
   const dropdownRef = useRef(null);
   const { openDropdown, toggleDropdown, setToggleDropdown, navRef } = props;
   const { serverSettingModal, createChannelModal } = useContext(ModalContext);
+  // const { server } = useContext(InfoContext);
   const user = useSelector((state) => state.session.user);
   const server = useSelector((state) => state.current.server);
 
@@ -31,71 +32,75 @@ function ServerNavDropDown(props) {
     return () => {
       document.removeEventListener("click", handleClickOutside, true);
     };
-  }, [openDropdown, toggleDropdown]);
+  }, [openDropdown, toggleDropdown, server]);
 
   return (
-    <div className="inner-server-nav">
-      <div className="server-nav-title">
-        <div style={{ alignItems: "center", display: "flex" }}>
-          {server.name}
-        </div>
-        {!openDropdown ? (
-          <IoIosArrowDown className="server-nav-icons" />
-        ) : (
-          <RxCross2 className="server-nav-icons" />
-        )}
-      </div>
-      {!openDropdown ? null : (
-        <div
-          id="server-nav-dropdown"
-          className="server-nav-dropdown"
-          ref={dropdownRef}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="server-dropdown-settings">
-            <div
-              className="server-dropdown-options"
-              onClick={(e) => {
-                serverSettingModal();
-                toggleDropdown();
-              }}
-            >
-              <p>Server Setting</p>
+    <>
+      {!isLoading && server && serverid && (
+        <div className="inner-server-nav">
+          <div className="server-nav-title">
+            <div style={{ alignItems: "center", display: "flex" }}>
+              {server.name}
             </div>
-            {user.id === server.owner_id && (
-              <div
-                className="server-dropdown-options"
-                onClick={() => {
-                  createChannelModal();
-                  toggleDropdown();
-                }}
-              >
-                <p>Create Channel</p>
-              </div>
+            {!openDropdown ? (
+              <IoIosArrowDown className="server-nav-icons" />
+            ) : (
+              <RxCross2 className="server-nav-icons" />
             )}
+          </div>
+          {!openDropdown ? null : (
             <div
-              className="server-dropdown-options"
-              onClick={() => {
-                toggleDropdown();
-              }}
+              id="server-nav-dropdown"
+              className="server-nav-dropdown"
+              ref={dropdownRef}
+              onClick={(e) => e.stopPropagation()}
             >
-              <p>Edit Server Profile</p>
-            </div>
-          </div>
+              <div className="server-dropdown-settings">
+                <div
+                  className="server-dropdown-options"
+                  onClick={(e) => {
+                    serverSettingModal();
+                    toggleDropdown();
+                  }}
+                >
+                  <p>Server Setting</p>
+                </div>
+                {user.id === server.owner_id && (
+                  <div
+                    className="server-dropdown-options"
+                    onClick={() => {
+                      createChannelModal();
+                      toggleDropdown();
+                    }}
+                  >
+                    <p>Create Channel</p>
+                  </div>
+                )}
+                <div
+                  className="server-dropdown-options"
+                  onClick={() => {
+                    toggleDropdown();
+                  }}
+                >
+                  <p>Edit Server Profile</p>
+                </div>
+              </div>
 
-          <div className="server-nav-seperator"></div>
+              <div className="server-nav-seperator"></div>
 
-          <div
-            className="server-dropdown-settings"
-            onClick={() => toggleDropdown()}
-          >
-            <div className="server-dropdown-leave">
-              <p>Leave Server</p>
+              <div
+                className="server-dropdown-settings"
+                onClick={() => toggleDropdown()}
+              >
+                <div className="server-dropdown-leave">
+                  <p>Leave Server</p>
+                </div>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 }
 

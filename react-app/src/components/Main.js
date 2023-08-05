@@ -42,7 +42,7 @@ function Main() {
           let b = dispatch(channelActions.getChannel(channelid));
           let c = dispatch(messageActions.getMessages(channelid));
           let d = dispatch(memberActions.getServerMembersThunk(serverid));
-          // setServer(a);
+          setServer(a);
           if (!a) {
             return history.push(`/app`);
           }
