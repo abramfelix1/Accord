@@ -50,51 +50,52 @@ function Channel({ server }) {
   };
 
   return (
-    user &&
-    !isLoaded && (
-      <div className="channel-container">
-        <div>
-          <ul className="channel-list">
-            <li className="channel-list-title-container">
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <IoIosArrowDown className=".text-channel-drop-down-icon" />
-                <p className="channel-list-title">Text Channels</p>
-              </div>
-              {user.id === server.owner_id && (
-                <BiPlus
-                  className="text-channel-add-icon create-new-channel-plus"
-                  onClick={(e) => createChannelModal()}
-                />
-              )}
-            </li>
-            <li>
-              <div>
-                {/* <Link className="channel-flex" to="/app">
+    <>
+      {user && !isLoaded && server && (
+        <div className="channel-container">
+          <div>
+            <ul className="channel-list">
+              <li className="channel-list-title-container">
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <IoIosArrowDown className=".text-channel-drop-down-icon" />
+                  <p className="channel-list-title">Text Channels</p>
+                </div>
+                {user.id === server.owner_id && (
+                  <BiPlus
+                    className="text-channel-add-icon create-new-channel-plus"
+                    onClick={(e) => createChannelModal()}
+                  />
+                )}
+              </li>
+              <li>
+                <div>
+                  {/* <Link className="channel-flex" to="/app">
                   <FaHashtag />
                   <div className="channel-name">general</div>
                 </Link> */}
-                {channels.map((channel) => {
-                  return (
-                    <NavLink
-                      key={channel.id}
-                      className="channel-flex"
-                      to={`/servers/${server.id}/channels/${channel.id}`}
-                      onClick={(e) => {
-                        channelClickHandler(channel);
-                      }}
-                    >
-                      <FaHashtag />
-                      <div className="channel-name">{channel.name}</div>
-                    </NavLink>
-                  );
-                })}
-              </div>
-            </li>
-            <button onClick={(e) => logoutHandler()}> logout </button>
-          </ul>
+                  {channels.map((channel) => {
+                    return (
+                      <NavLink
+                        key={channel.id}
+                        className="channel-flex"
+                        to={`/servers/${server.id}/channels/${channel.id}`}
+                        onClick={(e) => {
+                          channelClickHandler(channel);
+                        }}
+                      >
+                        <FaHashtag />
+                        <div className="channel-name">{channel.name}</div>
+                      </NavLink>
+                    );
+                  })}
+                </div>
+              </li>
+              <button onClick={(e) => logoutHandler()}> logout </button>
+            </ul>
+          </div>
         </div>
-      </div>
-    )
+      )}
+    </>
   );
 }
 

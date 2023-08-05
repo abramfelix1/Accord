@@ -40,7 +40,7 @@ def join_server(data):
             "Message": f"Joined Servers: {servers}",
             "Users": f"Online Users: {online_users}",
         },
-        broadcast=False,
+        broadcast=True,
     )
 
 

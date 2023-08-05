@@ -37,6 +37,7 @@ function Main() {
       if (serverid) {
         try {
           let a = await dispatch(serverActions.getServerThunk(serverid));
+          let b = await dispatch(channelActions.getChannel(channelid));
           setServer(a);
           if (!a) {
             return history.push(`/app`);
