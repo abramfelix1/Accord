@@ -32,7 +32,7 @@ function ServerList() {
 
   const handleActiveButton = (event, server) => {
     event.stopPropagation();
-    if (event.target.id !== "active-server") dispatch(resetChannels());
+    // if (event.target.id !== "active-server") dispatch(resetChannels());
     setServer(server);
     if (server) {
       setChannel(server.firstChannel);

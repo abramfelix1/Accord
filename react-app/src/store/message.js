@@ -1,8 +1,8 @@
-const POPULATE_MESSAGES = "chat/setMessages";
-const ADD_MESSAGE = "chat/addMessage";
-const UPDATE_MESSAGE = "chat/updateMessage";
-const DELETE_MESSAGE = "channel/deleteChannel";
-const RESET_MESSAGES = "channel/resetChannel";
+export const POPULATE_MESSAGES = "chat/setMessages";
+export const ADD_MESSAGE = "chat/addMessage";
+export const UPDATE_MESSAGE = "chat/updateMessage";
+export const DELETE_MESSAGE = "channel/deleteChannel";
+export const RESET_MESSAGES = "channel/resetChannel";
 
 export const resetMessages = () => ({
   type: RESET_MESSAGES,

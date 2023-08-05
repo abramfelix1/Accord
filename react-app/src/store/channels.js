@@ -1,35 +1,35 @@
-const POPULATE_CHANNELS = "channel/setChannel";
-const ADD_CHANNEL = "channel/addChannel";
-const UPDATE_CHANNEL = "channel/editChannel";
-const DELETE_CHANNEL = "channel/deleteChannel";
-const GET_CHANNEL = "channel/getChannel";
-const RESET_CHANNELS = "channel/resetChannel";
+export const POPULATE_CHANNELS = "channel/setChannel";
+export const ADD_CHANNEL = "channel/addChannel";
+export const UPDATE_CHANNEL = "channel/editChannel";
+export const DELETE_CHANNEL = "channel/deleteChannel";
+export const GET_CHANNEL = "channel/getChannel";
+export const RESET_CHANNELS = "channel/resetChannel";
 
 export const resetChannels = () => ({
   type: RESET_CHANNELS,
 });
 
-const populateChannels = (payload) => ({
+export const populateChannels = (payload) => ({
   type: POPULATE_CHANNELS,
   payload,
 });
 
-const addChannel = (payload) => ({
+export const addChannel = (payload) => ({
   type: ADD_CHANNEL,
   payload,
 });
 
-const updateChannel = (payload) => ({
+export const updateChannel = (payload) => ({
   type: UPDATE_CHANNEL,
   payload,
 });
 
-const deleteChannel = (payload) => ({
+export const deleteChannel = (payload) => ({
   type: DELETE_CHANNEL,
   payload,
 });
 
-const getOneChannel = (payload) => ({
+export const getOneChannel = (payload) => ({
   type: GET_CHANNEL,
   payload,
 });

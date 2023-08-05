@@ -49,7 +49,8 @@ def handle_chat(data):
     emit(
         "chat_update_response",
         {
-            "Message": f"CHAT_UPDATE: SERVER: {data['server_id']} CHANNEL: {data['channel_id']}"
+            "Message": f"CHAT_UPDATE: SERVER: {data['server_id']} CHANNEL: {data['channel_id']}",
+            "channel_id": data["channel_id"],
         },
         room=str(data["server_id"]),
     )
