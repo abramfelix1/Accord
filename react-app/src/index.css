@@ -5,6 +5,8 @@ html, body {
     margin: 0px;
     height: 100%;
     width: 100%;
+    overflow: hidden;
+    position: relative;
     /* this overflow currently stops the navigation of allowing scroll to top of the page with up button*/
     /* overflow: hidden scroll; */
 }

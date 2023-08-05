@@ -14,12 +14,13 @@ function ChatInputField({ sendChat, chatInput, updateChatInput }) {
 
   return (
     <form id="chat-form-input-container" onSubmit={sendChat}>
-      <textarea
+      <input
         id="chat-input" 
         placeholder={`Message #${channel.name}`} 
         value={chatInput} 
         onChange={updateChatInput} 
-      ></textarea>
+        autoComplete="off"
+      ></input>
       <FaGift className="chat-gift-icon"/>
       <HiGif className="chat-gif-icon"/>
       <LuSticker className="chat-sticker-icon"/>

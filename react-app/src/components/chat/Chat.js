@@ -51,7 +51,7 @@ const Chat = () => {
   return (
     user &&
     !isLoaded && (
-      <div>
+      <div className="main-chat-and-input-container">
         <div className="chat-container">
           {messages.map((message, idx) => (
             <div key={idx}>

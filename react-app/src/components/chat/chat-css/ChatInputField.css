@@ -2,16 +2,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 10px;
     position: relative;
+    padding-left: 16px;
+    padding-right: 16px;
+    grid-row-start: 18;
+    grid-row-end: 19;
 }
 
 #chat-input {
     width: 97%;
-    padding: 10px 200px 10px 40px;
-    font-size: 17px;
+    padding: 13px 200px 13px 20px;
+    font-size: 15px;
     color: #DBDEE1;
-    background-color: var(--color-383A41);
+    background-color: #373A3F;
     border-style: none;
     border-radius: 8px;
     white-space: normal;
@@ -31,7 +34,7 @@
 .chat-sticker-icon,
 .chat-emoji-icon {
     position: absolute;
-    color: #949ba4;
+    color: #c1c9d2;
     font-size: 25px;
     cursor: pointer;
 }
