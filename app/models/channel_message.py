@@ -23,6 +23,8 @@ class ChannelMessage(db.Model):
     channels = db.relationship("Channel", back_populates="messages")
 
     def to_dict(self):
+        # channels = [channel.to_dict()["server_id"] for channel in self.channels]
+        channels = self.channels.to_dict()
         return {
             "id": self.id,
             "message": self.message,
@@ -31,6 +33,7 @@ class ChannelMessage(db.Model):
             "image_url": self.users.image_url,
             "display_name": self.users.display_name,
             "channel_id": self.channel_id,
+            "server_id": channels["server_id"],
             "created_at": self.created_at,
             "updated_at": self.updated_at,
         }
