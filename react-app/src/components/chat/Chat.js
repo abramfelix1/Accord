@@ -9,6 +9,7 @@ import { ChannelContext } from "../../context/channelContext";
 import "./chat-css/ChatBox.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import {dateFormat} from "./ChatHelperFunctions"
+import { useRef } from "react";
 import logo from "../../images/accord-logo.png"
 
 
@@ -23,7 +24,13 @@ const Chat = () => {
   const channel = useContext(ChannelContext);
   const { channelid } = useParams();
   const dispatch = useDispatch();
+  // const messageRef = useRef(null);
 
+  // // when a message is being typed or is sent, it ill scroll down to 
+  // // last message
+  // useEffect(() => {
+  //   messageRef.current?.scrollIntoView()
+  // }, [messages])
 
   useEffect(() => {
     //updates the message state every render
@@ -53,6 +60,7 @@ const Chat = () => {
   };
 
 
+
   return (
     user &&
     !isLoaded && (
@@ -76,6 +84,7 @@ const Chat = () => {
               </div>
             </div>
           ))}
+          {/* <div ref={messageRef}></div> */}
         </div>
         <ChatInputField
           sendChat={sendChat}
