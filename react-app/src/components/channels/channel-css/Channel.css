@@ -62,7 +62,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-right: 5px;
 }
 
 .channel-flex::-webkit-scrollbar {
@@ -70,10 +69,16 @@
 }
 
 .channel-box:hover {
+    display: flex;
     border-radius: 2px;
     background-color: #404248;
     cursor: pointer;
     color: #DBDEE1;
+}
+
+.channel-flex:hover + .cog-container {
+    display: flex;
+    pointer-events: auto;
 }
 
 /* Icons */
@@ -92,8 +97,17 @@
     color: #DBDEE1;
 }
 
+.cog-container {
+    display: none;
+}
+
+.cog-container:hover {
+    display: flex;
+}
+
 .channel-cog-settings {
-    padding-right: 3px;
+    padding-left: 0px;
+    padding: 8px;
     font-size: 16px;
     color: #949ba4;
 }
@@ -107,4 +121,9 @@
 .channel-popup-container {
     display: flex;
     align-items: center;
+}
+
+.hide-plus {
+    color: transparent;
+    pointer-events: none;
 }

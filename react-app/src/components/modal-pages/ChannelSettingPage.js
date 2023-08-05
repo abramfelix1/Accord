@@ -31,6 +31,8 @@ function ChannelSettingPage() {
       `/servers/${server.id}/channels/${server.firstChannel.id}`
     );
   };
+
+
   return (
     <div className="channel-setting-container">
       <div className="channel-edit-nav">

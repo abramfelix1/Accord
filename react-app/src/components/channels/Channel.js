@@ -57,9 +57,15 @@ function Channel({ server }) {
                 <IoIosArrowDown className=".text-channel-drop-down-icon" />
                 <p className="channel-list-title">Text Channels</p>
               </div>
-              {user.id === server.owner_id && (
+              {user.id === server.owner_id ? (
                 <BiPlus
                   className="text-channel-add-icon create-new-channel-plus"
+                  onClick={(e) => createChannelModal()}
+                />)
+                :
+                (
+                <BiPlus
+                  className="text-channel-add-icon create-new-channel-plus hide-plus"
                   onClick={(e) => createChannelModal()}
                 />
               )}
@@ -80,7 +86,7 @@ function Channel({ server }) {
                       <p className="channel-name">{channel.name}</p>
                     </Link>
                     {user.id === server.owner_id && (
-                      <div>
+                      <div className="cog-container">
                         <BiSolidCog
                           className="channel-cog-settings"
                           onClick={(e) => {
@@ -88,7 +94,7 @@ function Channel({ server }) {
                             channelSettingModal();
                           }}
                         />
-                      </div>
+                        </div>
                     )}
                   </div>
                 );
