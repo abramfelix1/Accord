@@ -7,6 +7,7 @@ import ServerSetting from '../../components/modal-pages/ServerSetting'
 import ServerProfileSetting from "../modal-pages/ServerProfileSetting";
 import CreateChannelPage from "../modal-pages/CreateChannelPage"
 import LeaveServerPage from "../modal-pages/LeaveServerPage";
+import ChannelSettingPage from "../modal-pages/ChannelSettingPage";
 
 export default function Modal(props) {
   const { type, setType } = useContext(ModalContext);
@@ -41,6 +42,7 @@ export default function Modal(props) {
           {type === "Server Profile Settings" && <ServerProfileSetting/>}
           {type === "Create Channel" && <CreateChannelPage />}
           {type === "Leave Server" && <LeaveServerPage />}
+          {type === "Channel Setting" && <ChannelSettingPage />}
         </div>
         <div className="modalBackdrop" onClick={handleContent} />
       </div>

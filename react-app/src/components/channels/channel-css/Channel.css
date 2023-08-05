@@ -15,7 +15,7 @@
     padding-top: 15px;
     list-style: none;
     padding-left: 3px;
-    padding-right: 10px;
+    padding-right: 6px;
     /* padding-bottom: 80px; */
     margin: 0px;
     font-size: 12px;
@@ -51,23 +51,29 @@
     height: 32px;
     overflow: hidden;
     scrollbar-width: thin;
+    width: 100%;
 }
 
 .channel-name {
     margin-left: 5px;
 }
 
+.channel-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 5px;
+}
+
 .channel-flex::-webkit-scrollbar {
     display: none;
 }
 
-.channel-flex:hover {
+.channel-box:hover {
+    border-radius: 2px;
     background-color: #404248;
-}
-
-#active-channel {
-    border-radius: 20px;
-    background-color: rgb(96, 83, 240);
+    cursor: pointer;
+    color: #DBDEE1;
 }
 
 /* Icons */
@@ -78,8 +84,27 @@
 
 .text-channel-add-icon {
     font-size: 22px;
+    padding-right: 5px;
 }
 
 .create-new-channel-plus:hover {
     cursor: pointer;
+    color: #DBDEE1;
+}
+
+.channel-cog-settings {
+    padding-right: 3px;
+    font-size: 16px;
+    color: #949ba4;
+}
+
+.channel-cog-settings:hover {
+    cursor: pointer;
+    color: #DBDEE1;
+}
+
+
+.channel-popup-container {
+    display: flex;
+    align-items: center;
 }

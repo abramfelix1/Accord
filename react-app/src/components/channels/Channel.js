@@ -1,28 +1,26 @@
-import { NavLink } from "react-router-dom";
-import { useEffect } from "react";
+import { NavLink, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useParams, Redirect, useHistory } from "react-router-dom";
 import * as channelActions from "../../store/channels";
 import { IoIosArrowDown } from "react-icons/io";
-import { RiHashtag } from "react-icons/ri";
 import { FaHashtag } from "react-icons/fa";
-import { BiPlus } from "react-icons/bi";
+import { BiPlus, BiSolidCog } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { ChannelContext } from "../../context/channelContext";
 import { useContext } from "react";
 import { ModalContext } from "../../context/modalContext";
 import { InfoContext } from "../../context/infoContext";
 import { logout } from "../../store/session";
-import { resetChannels } from "../../store/channels";
-import { getMessages } from "../../store/message";
 
 import "./channel-css/Channel.css";
-import { resetMessages } from "../../store/message";
 
 function Channel({ server }) {
   // const {id} = useParams()
   const dispatch = useDispatch();
   const { setChannel } = useContext(ChannelContext);
-  const { createChannelModal } = useContext(ModalContext);
+  const { createChannelModal, channelSettingModal } = useContext(ModalContext);
+  const { setChannelCog } = useContext(InfoContext)
+  const [activeChannel, setActiveChannel] = useState("");
   const isLoaded = useSelector((state) => state.channels.isLoading);
   const history = useHistory();
 
@@ -46,8 +44,6 @@ function Channel({ server }) {
 
   const channelClickHandler = (channel) => {
     setChannel(channel);
-    // dispatch(resetMessages());
-    // dispatch(getMessages(channel.id));
   };
 
   return (
@@ -69,27 +65,34 @@ function Channel({ server }) {
               )}
             </li>
             <li>
-              <div>
-                {/* <Link className="channel-flex" to="/app">
-                  <FaHashtag />
-                  <div className="channel-name">general</div>
-                </Link> */}
-                {channels.map((channel) => {
-                  return (
-                    <NavLink
+              {channels.map((channel) => {
+                return (
+                  <div className="channel-box">
+                    <Link
                       key={channel.id}
-                      className="channel-flex"
                       to={`/servers/${server.id}/channels/${channel.id}`}
+                      className="channel-flex"
                       onClick={(e) => {
                         channelClickHandler(channel);
                       }}
                     >
-                      <FaHashtag />
-                      <div className="channel-name">{channel.name}</div>
-                    </NavLink>
-                  );
-                })}
-              </div>
+                      <FaHashtag style={{ color: "#949ba4" }} />
+                      <p className="channel-name">{channel.name}</p>
+                    </Link>
+                    {user.id === server.owner_id && (
+                      <div>
+                        <BiSolidCog
+                          className="channel-cog-settings"
+                          onClick={(e) => {
+                            setChannelCog(channel)
+                            channelSettingModal();
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </li>
             <button onClick={(e) => logoutHandler()}> logout </button>
           </ul>
