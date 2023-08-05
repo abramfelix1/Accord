@@ -1,3 +1,5 @@
+import { getUserServersThunk } from "./user"
+
 /*************** TYPES **************************/
 const GET_ALL_SERVERS = "server/GET_ALL_SERVERS"
 // const GET_USER_SERVERS = "server/GET_USER_SERVERS"
@@ -100,31 +102,40 @@ export const getServerThunk = (server_id) => async (dispatch) => {
     }
 }
 
-export const createServerThunk = (server_name) => async (dispatch) => {
-    const reqBody = JSON.stringify({
-        server_name,
-    })
+
+/******/
+
+
+export const createServerThunk = (owner_id, server_name, image_url) => async (dispatch) => {
+
 
     const res = await fetch("/api/servers/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: reqBody,
+        body: JSON.stringify({
+            "owner_id": owner_id,
+            "server_name": server_name,
+            "server_image": image_url
+        }),
     });
 
-    // if the response is good. recall the get all servers thunk
+    // if the response is good. recall the get all the users servers thunk
     // to get the redux updated with all the servers again to
     // prevent loading issues
     if (res.ok) {
         const newServer = await res.json();
-        await dispatch(getAllServersThunk());
+        await dispatch(getUserServersThunk());
         return newServer
     } else {
         const error = await res.json();
         return error;
     }
 }
+
+
+/******/
 
 
 export const updateServerThunk = (server_id, server_name, server_image) => async (dispatch) => {
@@ -153,6 +164,7 @@ export const updateServerThunk = (server_id, server_name, server_image) => async
         return error;
     }
 }
+
 
 export const deleteServerThunk = (server_id) => async (dispatch) => {
     const res = await fetch(`/api/servers/${server_id}`, {

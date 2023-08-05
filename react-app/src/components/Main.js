@@ -6,18 +6,35 @@ import ChatNav from "./chat/ChatNav";
 import ChatBox from "./chat/ChatBox";
 import ServerMemberList from "./servers/ServerMemberList";
 import { InfoContext } from "../context/infoContext";
-import { useContext } from "react";
-import { useSelector } from "react-redux";
+import { ChannelContext } from "../context/channelContext";
+import { useContext, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import "./Main.css";
+import { useParams } from "react-router-dom";
+import { getChannels } from "../store/channels";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // import { useContext } from "react";
 
 function Main() {
-  //   const { isServerView, isDMView, toggleView } = useContext(ViewContext);
-  //   const { toggleTestModal } = useContext(ModalContext);
   const { server, setServer } = useContext(InfoContext);
-  console.log(server);
+  const { channel, setChannel } = useContext(ChannelContext);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const channels = useSelector((state) =>
+    Object.values(state.channels.channels)
+  );
+
+  useEffect(() => {
+    if (!server) {
+      return history.push("/app");
+    }
+    if (!channel) {
+      return history.push("/app");
+    }
+  }, []);
+
   return (
     <div className="main-container">
       {/* Server Section */}

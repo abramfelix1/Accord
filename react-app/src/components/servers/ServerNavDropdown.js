@@ -39,7 +39,7 @@ function ServerNavDropDown(props) {
       <div className="inner-server-nav">
         <div className="server-nav-title">
           <div style={{ alignItems: "center", display: "flex" }}>
-            {server.name}
+            {server?.name || "🚧🛑🚧🛑🚧🛑🚧"}
           </div>
           {!openDropdown ? (
             <IoIosArrowDown className="server-nav-icons" />

@@ -12,11 +12,7 @@ function ChatNav() {
     useSelector((state) => state.channels.channels)
   );
 
-  useEffect(() => {
-    if (!channel) {
-      setChannel("ASDFSD");
-    }
-  });
+  useEffect(() => {}, [channel]);
 
   return (
     !isLoading && (
@@ -30,7 +26,7 @@ function ChatNav() {
                 fontSize: "26px",
               }}
             />{" "}
-            <span>{channel.name}</span>
+            <span>{channel?.name || "🚧🛑🚧🛑🚧🛑🚧"}</span>
           </div>
           <div>
             <RiInboxFill className="inbox-icon" />
