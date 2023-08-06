@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 import { deleteServerThunk, getAllServersThunk } from "../../store/server";
 import {
   updateServerNicknameThunk,
-  getSingleMemberThunk,
+  getSingleMemberThunk, getServerMembersThunk
 } from "../../store/members";
 
 function ServerProfileSetting() {
@@ -32,7 +32,10 @@ function ServerProfileSetting() {
   }, []);
 
   const updateNicknameHandleSubmit = async () => {
+
+    console.log(nickname, 'dkslajdslkdjlksajdlasjdksaldasd')
     await dispatch(updateServerNicknameThunk(server.id, nickname));
+    await dispatch(getServerMembersThunk(server.id))
     setType(null);
   };
 
@@ -75,7 +78,7 @@ function ServerProfileSetting() {
         </div>
 
         <div className="server-profile-inner-2">
-          <form className="server-profile-form" onSubmit={e => updateNicknameHandleSubmit}>
+          <form className="server-profile-form" onSubmit={updateNicknameHandleSubmit}>
 
             <h3 className="server-profile-header">Server Profile <IoCloseOutline className="exit-server-profile" onClick={e => setType(null)}/></h3>
 
