@@ -1,18 +1,19 @@
 import "./modal-css/ChannelSettingPage.css";
 import { useParams, useHistory } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { InfoContext } from "../../context/infoContext";
 import { ModalContext } from "../../context/modalContext";
-import { editChannel, removeChannel } from "../../store/channels";
+import { editChannel, removeChannel, getChannels } from "../../store/channels";
 
 import { BiSolidTrash } from "react-icons/bi";
 
 function ChannelSettingPage() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { channelCog, server } = useContext(InfoContext);
+  const { channelCog } = useContext(InfoContext);
   const { setType } = useContext(ModalContext);
+  const server = useSelector((state) => state.current.server);
 
   const [channelName, setChannelName] = useState(channelCog.name);
 
@@ -21,6 +22,7 @@ function ChannelSettingPage() {
 
     await dispatch(editChannel(channelCog.id, channelName));
     setType(null);
+    await dispatch(getChannels(server.id));
   };
 
   const deleteChannelHandler = async (e) => {
@@ -32,7 +34,6 @@ function ChannelSettingPage() {
     );
   };
 
-
   return (
     <div className="channel-setting-container">
       <div className="channel-edit-nav">
@@ -40,16 +41,16 @@ function ChannelSettingPage() {
           <h2 className="channel-edit-nav-title-section">{channelCog.name}</h2>
           <div className="edit-channel-nav-name">Edit Channel</div>
           <div className="edit-channel-setting-separator"></div>
-          {(channelCog.name !== "General") && (
-              <div className="delete-channel-div">
-                <div
-                  className="delete-channel"
-                  onClick={(e) => deleteChannelHandler(e)}
-                >
-                  Delete Channel <BiSolidTrash />
-                </div>
+          {channelCog.name !== "General" && (
+            <div className="delete-channel-div">
+              <div
+                className="delete-channel"
+                onClick={(e) => deleteChannelHandler(e)}
+              >
+                Delete Channel <BiSolidTrash />
               </div>
-            )}
+            </div>
+          )}
         </div>
       </div>
       <div className="inner-channel-setting">

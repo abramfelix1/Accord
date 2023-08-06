@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as userActions from "../../store/user";
 import * as channelActions from "../../store/channels";
-import { resetChannels } from "../../store/channels";
+import { resetCurrent } from "../../store/current";
 import { InfoContext } from "../../context/infoContext";
 import { ModalContext } from "../../context/modalContext";
 import { ChannelContext } from "../../context/channelContext";
@@ -33,7 +33,7 @@ function ServerList() {
   const handleActiveButton = (event, server) => {
     // event.preventDefault();
     event.stopPropagation();
-    if (event.target.id !== "active-server") dispatch(resetChannels());
+    if (event.target.id !== "active-server") dispatch(resetCurrent());
     setServer(server);
     if (server) {
       setChannel(server.firstChannel);
@@ -82,7 +82,7 @@ function ServerList() {
       <div className="border-between-layer"></div>
       <ul className="server-bottom-layer">
         {userServers.map((server) => (
-          <Tooltip text={server.name}>
+          <Tooltip key={server.id} text={server.name}>
             <li key={server.id}>
               {/* need to set proper link to where to navigate too */}
               <ServerCard

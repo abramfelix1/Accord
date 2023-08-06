@@ -4,37 +4,37 @@ import { ChannelContext } from "../../context/channelContext";
 import { RiHashtag, RiInboxFill } from "react-icons/ri";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import "./chat-css/ChatNav.css";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function ChatNav() {
-  const { channel, setChannel } = useContext(ChannelContext);
-  const isLoading = useSelector((state) => state.channels.isLoading);
-  const channels = Object.values(
-    useSelector((state) => state.channels.channels)
-  );
-
-  useEffect(() => {}, [channel]);
-
+  // const { channel, setChannel } = useContext(ChannelContext);
+  const { serverid, channelid } = useParams();
+  const isLoading = useSelector((state) => state.current.isLoading);
+  const channel = useSelector((state) => state.current.channel);
+  // useEffect(() => {}, [channel]);
   return (
-    !isLoading && (
+    <>
       <div className="live-chat-container">
-        <div className="inner-live-chat-container">
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <RiHashtag
-              style={{
-                marginRight: "10px",
-                color: "#ADADAD",
-                fontSize: "26px",
-              }}
-            />{" "}
-            <span>{channel?.name || "🚧🛑🚧🛑🚧🛑🚧"}</span>
+        {!isLoading && channel && serverid && (
+          <div className="inner-live-chat-container">
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <RiHashtag
+                style={{
+                  marginRight: "10px",
+                  color: "#ADADAD",
+                  fontSize: "26px",
+                }}
+              />{" "}
+              <span>{channel.name}</span>
+            </div>
+            <div>
+              <RiInboxFill className="inbox-icon" />
+              <AiFillQuestionCircle className="question-icon " />
+            </div>
           </div>
-          <div>
-            <RiInboxFill className="inbox-icon" />
-            <AiFillQuestionCircle className="question-icon " />
-          </div>
-        </div>
+        )}
       </div>
-    )
+    </>
   );
 }
 
