@@ -23,7 +23,7 @@ function MemberProfile({ member, setShowProfile }) {
             </div>
             <div className="profile-logo-outer-wrapper">
                 {member.image_url !== null && member.image_url.length >= 1
-                    ? 
+                    ?
                     <img className="profile-image" src={member.image_url} alt="profile-image" />
                     :
                     <div className="profile-logo-inner-wrapper">

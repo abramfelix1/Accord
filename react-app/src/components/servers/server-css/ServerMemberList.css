@@ -79,6 +79,10 @@
     font-size: 18px;
     margin-left: 10px;
     font-weight: 100;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 150px;
 }
 
 
