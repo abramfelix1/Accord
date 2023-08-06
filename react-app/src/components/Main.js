@@ -68,8 +68,8 @@ function Main() {
   console.log(server);
   return (
     <div className="main-container">
-      <button onClick={(e) => button2Handler()}>START LISTENERS</button>
-      <button onClick={(e) => buttonHandler()}>TEST SOCKET</button>
+      {/* <button onClick={(e) => button2Handler()}>START LISTENERS</button>
+      <button onClick={(e) => buttonHandler()}>TEST SOCKET</button> */}
       {/* Server Section */}
       <section className="main-section-1">
         <Server />
