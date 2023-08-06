@@ -6,7 +6,7 @@ import { getMessages, createMessage } from "../../store/message";
 import { handleChatUpdates, chatUpdate } from "../utils/Socket";
 import "./chat-css/ChatBox.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { dateFormat } from "./ChatHelperFunctions";
+import { dateFormat, isItANewDay } from "./ChatHelperFunctions";
 import { useRef } from "react";
 import logo from "../../images/accord-logo.png";
 import ChatFullStyle from "./ChatFullStyle";
@@ -23,7 +23,8 @@ const Chat = () => {
   const { serverid, channelid } = useParams();
   const dispatch = useDispatch();
   const messageRef = useRef(null);
-  const [lastMessageUserId, setLastMessageUserId] = useState("")
+  const [prevMessageUserId, setPrevMessageUserId] = useState("")
+  const [secondToLastMessage, setSecondToLastMessage] = useState("")
 
 
 
@@ -36,7 +37,8 @@ const Chat = () => {
 
   useEffect(() => {
     if (messages) {
-      setLastMessageUserId(messages[messages.length - 1]?.user_id)
+      setPrevMessageUserId(messages[messages.length - 2]?.user_id)
+      setSecondToLastMessage(messages[messages.length - 2])
     }
 
     // for (let i = 0; i < messages.length; i++) {
@@ -44,6 +46,7 @@ const Chat = () => {
     // }
 
   }, [messages]);
+
 
   useEffect(() => {
     //updates the message state every render
@@ -66,10 +69,6 @@ const Chat = () => {
     setChatInput("");
   };
 
-  const fullMessageWrapper = () => {
-    
-  }
-
   return (
     <>
       {user && !isLoaded && serverid && (
@@ -77,7 +76,9 @@ const Chat = () => {
           <div className="chat-container">
             {messages.map((message, idx) => ( 
               <div key={`${message.id}${idx}`}>
-                {lastMessageUserId === message?.user_id
+                {/* {secondToLastMessage && isItANewDay(secondToLastMessage, message) &&  */}
+                {/* <div>---------------------</div>} */}
+                {prevMessageUserId === message?.user_id
                   ? <ChatMessageOnlyStyle message={message} />
                   : <ChatFullStyle message={message} /> 
                 }
