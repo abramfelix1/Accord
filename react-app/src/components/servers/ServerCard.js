@@ -7,7 +7,8 @@ import { InfoContext, InfoProvider } from "../../context/infoContext";
 
 function ServerCard({ handleActiveButton, serverInfo}) {
   const { serverid } = useParams();
-  const { server } = useContext(InfoContext);
+  // const { server } = useContext(InfoContext);
+  const server = useSelector((state) => state.current.server);
 
   useEffect(() => {}, [serverid]);
 
@@ -22,7 +23,7 @@ function ServerCard({ handleActiveButton, serverInfo}) {
     }
 
     if (res.length >= 3) {
-      return res.slice(0, 3)
+      return res.slice(0, 3);
     }
 
     return res;
