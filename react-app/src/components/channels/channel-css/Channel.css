@@ -72,6 +72,10 @@ background: #141414;
 
 .channel-name {
     margin-left: 5px;
+    width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .channel-box {

@@ -1,7 +1,7 @@
 .channel-setting-container {
     height: 250px;
     width: 600px;
-    background-color: #303338;
+    background-color: #35393E;
     border-radius: 5px;
     display: flex;
 }
@@ -28,7 +28,7 @@
 
 .edit-channel-nav-name {
     font: 18px;
-    color: var(--color-ADADAD);
+    color: white;
     background-color: #404248;
     padding: 5px 12px;
     border-radius: 4px;
@@ -37,19 +37,19 @@
 
 .edit-channel-nav-name:hover {
     background-color: #40424879;
+    color: var(--color-ADADAD);
     cursor: pointer;
 }
 
 .delete-channel {
     display: flex;
     font: 18px;
-    color: var(--color-ADADAD);
     justify-content: space-between;
 }
 
 .delete-channel-div:hover {
     border-radius: 4px;
-    color: #F2F3F5;
+    color: white;
     background-color: #40424879;
     cursor: pointer;
 }
@@ -57,7 +57,7 @@
 .delete-channel-div {
     font: 18px;
     color: var(--color-ADADAD);
-    padding: 5px 12px;
+    padding: 6px 12px;
     border-radius: 4px;
 }
 /* FORM SECTION */
@@ -95,11 +95,11 @@
 
 
 .edit-channel-input {
-    background-color: #1E1F22;
+    background-color: #1F2124;
     outline: none;
     border: none;
     padding: 8px 10px;
-    font: 15px;
+    font-size: 14px;
     border-radius: 3px;
     height: 25px;
     color: white;
@@ -119,7 +119,7 @@
     display: flex;
     align-items: flex-end;
     padding: 15px 30px 15px 25px;
-    background-color: #2A2D31;
+    background-color: #1e1f22b8;
     border-radius: 0px 0px 5px 0px;
 }
 

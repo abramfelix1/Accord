@@ -2,6 +2,7 @@ import "../../components/servers/server-css/ServerSetting.css";
 import { useContext, useEffect, useState } from "react";
 import { ModalContext } from "../../context/modalContext";
 import { InfoContext } from "../../context/infoContext";
+import { IoCloseOutline } from "react-icons/io5";
 import { BiSolidTrash } from "react-icons/bi";
 import "./modal-css/ServerProfileSetting.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +10,7 @@ import { useHistory } from "react-router-dom";
 import { deleteServerThunk, getAllServersThunk } from "../../store/server";
 import {
   updateServerNicknameThunk,
-  getSingleMemberThunk,
+  getSingleMemberThunk, getServerMembersThunk
 } from "../../store/members";
 
 function ServerProfileSetting() {
@@ -20,16 +21,21 @@ function ServerProfileSetting() {
   const { server } = useContext(InfoContext);
   // console.log(user, 'current server members')
   const [nickname, setNickname] = useState("");
+  const [currentNickname, setCurrentNickname] = useState('')
 
   useEffect(() => {
-    (async () => {
+    (async (e) => {
       const member = await dispatch(getSingleMemberThunk(server.id));
-      return setNickname(member.nickname);
+      setCurrentNickname(member.nickname)
+      setNickname(member.nickname);
     })();
-  }, [getSingleMemberThunk, setNickname, nickname]);
+  }, []);
 
   const updateNicknameHandleSubmit = async () => {
+
+    console.log(nickname, 'dkslajdslkdjlksajdlasjdksaldasd')
     await dispatch(updateServerNicknameThunk(server.id, nickname));
+    await dispatch(getServerMembersThunk(server.id))
     setType(null);
   };
 
@@ -39,6 +45,7 @@ function ServerProfileSetting() {
     setType(null);
     return history.push("/app");
   };
+
   return (
     <div className="server-setting-container">
       <div className="server-inner">
@@ -71,15 +78,15 @@ function ServerProfileSetting() {
         </div>
 
         <div className="server-profile-inner-2">
-          <form className="server-setting-form">
-            <h3 className="server-setting-header">Server Profile</h3>
+          <form className="server-profile-form" onSubmit={updateNicknameHandleSubmit}>
+
+            <h3 className="server-profile-header">Server Profile <IoCloseOutline className="exit-server-profile" onClick={e => setType(null)}/></h3>
 
             <div className="server-setting-form-main">
               <div
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  marginLeft: "10px",
                 }}
               >
                 <label
@@ -95,15 +102,17 @@ function ServerProfileSetting() {
                   type="text"
                   className="server-setting-input-field"
                   style={{ marginBottom: "10px" }}
-                  placeholder={""}
+                  placeholder={nickname}
+                  value={nickname}
+                  onChange={e => setNickname(e.target.value)}
                 ></input>
               </div>
             </div>
-            <div className="server-profile-save-delete-button server-profile-save">
+            {(nickname !== currentNickname) && <div className="server-profile-save-delete-button server-profile-save">
               <button type="submit" className="server-save-button">
                 Save Changes
               </button>
-            </div>
+            </div>}
           </form>
         </div>
       </div>
