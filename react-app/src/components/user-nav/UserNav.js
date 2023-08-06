@@ -95,7 +95,7 @@ function UserNav() {
           <img className="usermenu-pfp" src={sessionUser.image_url || logo}/>
           <div>
             <div className="usermenu-username">{sessionUser.username}</div>
-            <div style={{ color: "#ADADAD", fontSize: "12px" }}>
+            <div className='usermenu-display-name' style={{ color: "#ADADAD", fontSize: "12px" }}>
               {sessionUser.display_name
                 ? sessionUser.display_name
                 : sessionUser.username}
