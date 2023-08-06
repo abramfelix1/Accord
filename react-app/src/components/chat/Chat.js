@@ -9,6 +9,9 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { dateFormat } from "./ChatHelperFunctions";
 import { useRef } from "react";
 import logo from "../../images/accord-logo.png";
+import ChatFullStyle from "./ChatFullStyle";
+import ChatMessageOnlyStyle from "./ChatMessageOnluStyle";
+
 
 const Chat = () => {
   const [chatInput, setChatInput] = useState("");
@@ -20,11 +23,26 @@ const Chat = () => {
   const { serverid, channelid } = useParams();
   const dispatch = useDispatch();
   const messageRef = useRef(null);
+  const [lastMessageUserId, setLastMessageUserId] = useState("")
+
+
 
   // when a message is being typed or is sent, it ill scroll down to
   // last message
   useEffect(() => {
     messageRef.current?.scrollIntoView();
+  }, [messages]);
+
+
+  useEffect(() => {
+    if (messages) {
+      setLastMessageUserId(messages[messages.length - 1]?.user_id)
+    }
+
+    // for (let i = 0; i < messages.length; i++) {
+    //   console.log(messages[i].user_id === messages[messages.length - 1]?.user_id)
+    // }
+
   }, [messages]);
 
   useEffect(() => {
@@ -48,37 +66,21 @@ const Chat = () => {
     setChatInput("");
   };
 
+  const fullMessageWrapper = () => {
+    
+  }
+
   return (
     <>
       {user && !isLoaded && serverid && (
         <div className="main-chat-and-input-container">
           <div className="chat-container">
-            {messages.map((message, idx) => (
-              <div key={`${message.id}${idx}`} className="message-wrapper">
-                {message.image_url !== null && message.image_url.length >= 1 ? (
-                  <img
-                    className="chatbox-image"
-                    src={message.image_url}
-                    alt="chatbox-user-img"
-                  />
-                ) : (
-                  <div className="chatbox-logo-wrapper">
-                    <img className="chatbox-logo" src={logo} alt="logo" />
-                  </div>
-                )}
-                <div className="chat-box-name-date-message-wrapper">
-                  <div className="chat-box-name-date-wrapper">
-                    <span className="chat-box-name">
-                      {message.display_name
-                        ? message.display_name
-                        : message.username}
-                    </span>
-                    <span className="chat-box-date">
-                      {dateFormat(message.created_at)}
-                    </span>
-                  </div>
-                  <div className="chat-box-message">{message.message}</div>
-                </div>
+            {messages.map((message, idx) => ( 
+              <div key={`${message.id}${idx}`}>
+                {lastMessageUserId === message?.user_id
+                  ? <ChatMessageOnlyStyle message={message} />
+                  : <ChatFullStyle message={message} /> 
+                }
               </div>
             ))}
             {/* <div className="message-ref" ref={messageRef}></div> */}

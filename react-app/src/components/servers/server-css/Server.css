@@ -189,9 +189,14 @@ efgweiyufbieu bgeu eir bgij;rgeb;brejbg iub  re;bgerug
   box-shadow: 1px 1px 7px rgb(10, 10, 10);
   font-size: 17px;
   z-index: 1000;
-  opacity: 0.9;
-  transition: opacity 1s;
+  /* opacity: 0;
+  transition: opacity 1s ; */
 }
+/* .tooltip:hover .tooltiptext {
+  opacity: 1;
+  visibility: visible;
+  background-color: red;
+} */
 
 .tooltiptext::after {
   content: "";
