@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { InfoContext } from "../../context/infoContext";
 
 
 //a helper function that converts the month into a full month string
@@ -171,4 +173,14 @@ export function isItANewDay(prevMessage, currMessage) {
     console.log(false)
     console.log("------------------------------------------")
     return false
+}
+
+
+
+export function isSameUser(prevMessage, currMessage) {
+    if (prevMessage.user_id === currMessage.user_id) {
+        return true;
+    }
+
+    return false;
 }
