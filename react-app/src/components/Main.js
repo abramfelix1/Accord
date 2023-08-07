@@ -49,7 +49,7 @@ function Main() {
       if (serverid) {
         try {
           let a = await dispatch(serverActions.getServerThunk(serverid));
-          let b = dispatch(channelActions.getChannel(channelid));
+          let b = await dispatch(channelActions.getChannel(channelid));
           let c = dispatch(messageActions.getMessages(channelid));
           let d = dispatch(memberActions.getServerMembersThunk(serverid));
           setServer(a);

@@ -13,6 +13,7 @@ import { InfoContext } from "../../context/infoContext";
 import { logout } from "../../store/session";
 
 import "./channel-css/Channel.css";
+import { resetServers } from "../../store/servers";
 
 function Channel() {
   // router doms
@@ -47,6 +48,7 @@ function Channel() {
   // Handlers
 
   const channelClickHandler = (channel) => {
+    dispatch(resetServers());
     setChannel(channel);
   };
 
@@ -96,7 +98,7 @@ function Channel() {
                   {channels.map((channel, idx) => {
                     return (
                       <div
-                      key={`${channel.id}${idx}`}
+                        key={`${channel.id}${idx}`}
                         className={
                           channelid == channel.id
                             ? "channel-box-active"

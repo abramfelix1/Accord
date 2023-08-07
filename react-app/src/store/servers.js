@@ -28,38 +28,54 @@ const serversReducer = (state = initialState, action) => {
       return newState;
     case channelActions.POPULATE_CHANNELS:
       action.payload.Channels.reduce((channels, channel) => {
-        if (!newState[channel.server_id].channels) {
+        if (
+          newState[channel.server_id] &&
+          !newState[channel.server_id].channels
+        ) {
           newState[channel.server_id].channels = {};
         }
-        newState[channel.server_id].channels[channel.id] = {
-          ...channel,
-          messages: {},
-        };
+        if (newState[channel.server_id]) {
+          newState[channel.server_id].channels[channel.id] = {
+            ...channel,
+            messages: {},
+          };
+        }
         return channels;
       }, {});
       return newState;
     case memberActions.GET_SERVER_MEMBERS:
       action.payload.reduce((members, member) => {
-        if (!newState[member.server_id].members) {
+        if (newState[member.server_id] && !newState[member.server_id].members) {
           newState[member.server_id].members = {};
         }
-        newState[member.server_id].members[member.id] = member;
+        if (newState[member.server_id]) {
+          newState[member.server_id].members[member.id] = member;
+        }
         return members;
       }, {});
       return newState;
     case messageActions.POPULATE_MESSAGES:
       action.payload.reduce((messages, message) => {
-        newState[message.server_id].channels[message.channel_id].messages[
-          message.id
-        ] = message;
+        if (
+          newState[message.server_id] &&
+          newState[message.server_id].channels[message.channel_id] &&
+          !newState[message.server_id].channels[message.channel_id].messages
+        ) {
+          newState[message.server_id].channels[message.channel_id].messages =
+            {};
+        }
+        if (
+          newState[message.server_id] &&
+          newState[message.server_id].channels[message.channel_id]
+        ) {
+          newState[message.server_id].channels[message.channel_id].messages[
+            message.id
+          ] = message;
+        }
         console.log(message);
         return messages;
       }, {});
       return newState;
-    // case messageActions.ADD_MESSAGE:
-    //   const message = action.payload;
-    //   newState[message.server_id].channels[message.channel_id].message =
-    //     message;
     case RESET_SERVERS:
       return { ...newState, isLoading: true };
     default:
