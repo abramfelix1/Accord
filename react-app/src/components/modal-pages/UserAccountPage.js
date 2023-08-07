@@ -14,7 +14,6 @@ function UserAccountPage() {
   const user = useSelector((state) => state.session.user);
 
   const [editButton, setEditButton] = useState(true);
-  const [username, setUsername] = useState(user.username);
   const [displayName, setDisplayName] = useState(
     user.display_name || user.username
   );
@@ -22,11 +21,11 @@ function UserAccountPage() {
   const [errors, setErrors] = useState({});
 
   const updateUserHandleSubmit = async (e) => {
+    // e.preventDefault()
     setErrors({});
     const data = await dispatch(
-      updateUserThunk(username,displayName, imageUrl)
+      updateUserThunk(user.username,displayName, imageUrl)
     );
-    await dispatch(getAllServersThunk())
     if (data) {
       setErrors(data);
     }
@@ -91,7 +90,6 @@ function UserAccountPage() {
                     onClick={(e) => {
                       setEditButton(!editButton);
                       setDisplayName(user.display_name || user.username);
-                      setUsername(user.username);
                       setImageUrl(user.image_url);
                     }}
                   >
@@ -205,10 +203,8 @@ function UserAccountPage() {
                       <input
                         type="text"
                         className="account-user-input-field"
-                        value={username}
-                        placeholder={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
+                        placeholder={user.username}
+                        disabled
                       />
                     </div>
                     <div className="user-profile-form-field">

@@ -66,8 +66,6 @@ export const updateUserThunk = (username, display_name, image_url) => async (dis
   if (response.ok) {
     const userData = await response.json();
     dispatch(updateUser(userData));
-    dispatch(getAllUsersThunk())
-    dispatch(getUserServersThunk())
 
     return userData;
   }
