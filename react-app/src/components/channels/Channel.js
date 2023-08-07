@@ -50,7 +50,7 @@ function Channel() {
   // Handlers
   const logoutHandler = async () => {
     await dispatch(logout());
-    return <Redirect to='/login'/>
+    return history.push('/login')
   };
 
   const channelClickHandler = (channel) => {
