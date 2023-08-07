@@ -10,28 +10,37 @@ import { dateFormat, isItANewDay } from "./ChatHelperFunctions";
 import { useRef } from "react";
 import logo from "../../images/accord-logo.png";
 
-
 const Chat = () => {
   const [chatInput, setChatInput] = useState("");
   const user = useSelector((state) => state.session.user);
   const isLoaded = useSelector((state) => state.current.isLoading);
-  const messages = useSelector((state) =>
-    Object.values(state.current.messages)
-  );
   const { serverid, channelid } = useParams();
+  // const messages = useSelector((state) =>
+  //   Object.values(state.current.messages)
+  // );
+  const messages = useSelector((state) => {
+    if (
+      state.servers[serverid] &&
+      state.servers[serverid].channels[channelid]
+    ) {
+      return Object.values(
+        state.servers[serverid].channels[channelid].messages
+      );
+    } else {
+      return [];
+    }
+  });
+
   const dispatch = useDispatch();
   // const messageRef = useRef(null);
-  const [prevMessageUserId, setPrevMessageUserId] = useState("")
+  const [prevMessageUserId, setPrevMessageUserId] = useState("");
   // const [secondToLastMessage, setSecondToLastMessage] = useState("")
-  
 
-    // Function to reverse a given array
+  // Function to reverse a given array
   const reverseArray = (array) => {
     let reverseArray = array.reverse();
     return reverseArray;
-  }
-
-
+  };
 
   // when a message is being typed or is sent, it ill scroll down to
   // last message
@@ -39,19 +48,16 @@ const Chat = () => {
   //   messageRef.current?.scrollIntoView();
   // }, [messages]);
 
-
   useEffect(() => {
     if (messages) {
-      setPrevMessageUserId(messages[messages.length - 2]?.user_id)
+      setPrevMessageUserId(messages[messages.length - 2]?.user_id);
       // setSecondToLastMessage(messages[messages.length - 2])
     }
 
     // for (let i = 0; i < messages.length; i++) {
     //   console.log(messages[i].user_id === messages[messages.length - 1]?.user_id)
     // }
-
   }, [messages]);
-
 
   useEffect(() => {
     //updates the message state every render
@@ -84,29 +90,34 @@ const Chat = () => {
       {user && !isLoaded && serverid && (
         <div className="main-chat-and-input-container">
           <div className="chat-container">
-            {reverseArray([...messages]).map((message, idx) => ( 
+            {reverseArray([...messages]).map((message, idx) => (
               <div key={`${message.id}${idx}`}>
                 <div className="message-wrapper">
-                  {message.image_url !== null && message.image_url.length >= 1 
-                    ? (<img
+                  {message.image_url !== null &&
+                  message.image_url.length >= 1 ? (
+                    <img
                       className="chatbox-image"
                       src={message.image_url}
                       alt="chatbox-user-img"
-                    />) 
-                    : (<div className="chatbox-logo-wrapper">
-                        <img className="chatbox-logo" src={logo} alt="logo" />
-                      </div>)}
-                    <div className="chat-box-name-date-message-wrapper">
-                        <div className="chat-box-name-date-wrapper">
-                          <span className="chat-box-name">
-                              {message.display_name ? message.display_name : message.username}
-                          </span>
-                          <span className="chat-box-date">
-                              {dateFormat(message.created_at)}
-                          </span>
-                        </div>
-                        <p className="chat-box-message">{message.message}</p>
+                    />
+                  ) : (
+                    <div className="chatbox-logo-wrapper">
+                      <img className="chatbox-logo" src={logo} alt="logo" />
                     </div>
+                  )}
+                  <div className="chat-box-name-date-message-wrapper">
+                    <div className="chat-box-name-date-wrapper">
+                      <span className="chat-box-name">
+                        {message.display_name
+                          ? message.display_name
+                          : message.username}
+                      </span>
+                      <span className="chat-box-date">
+                        {dateFormat(message.created_at)}
+                      </span>
+                    </div>
+                    <p className="chat-box-message">{message.message}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -125,32 +136,21 @@ const Chat = () => {
 
 export default Chat;
 
-
-
-
-
-
-
-
-
-
-
-
 //   return (
 //     <>
 //       {user && !isLoaded && serverid && (
 //         <div className="main-chat-and-input-container">
 //           <div className="chat-container">
-//             {messages.map((message, idx) => ( 
+//             {messages.map((message, idx) => (
 //               <div key={`${message.id}${idx}`}>
-//                 {prevMessageUserId === message.user_id 
+//                 {prevMessageUserId === message.user_id
 //                 ? (<div className="message-wrapper">
-//                   {message.image_url !== null && message.image_url.length >= 1 
+//                   {message.image_url !== null && message.image_url.length >= 1
 //                     ? (<img
 //                       className="chatbox-image"
 //                       src={message.image_url}
 //                       alt="chatbox-user-img"
-//                     />) 
+//                     />)
 //                     : (<div className="chatbox-logo-wrapper">
 //                         <img className="chatbox-logo" src={logo} alt="logo" />
 //                       </div>)}
@@ -165,7 +165,7 @@ export default Chat;
 //                         </div>
 //                         <p className="chat-box-message">{message.message}</p>
 //                     </div>
-//                 </div>) 
+//                 </div>)
 //                 : <p className="chat-box-message-only">{message.message}</p>}
 //               </div>
 //             ))}

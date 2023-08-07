@@ -5,7 +5,13 @@ import * as channelActions from "./channels";
 import * as messageActions from "./message";
 import * as memberActions from "./members";
 
+const RESET_SERVERS = "servers/reset";
+
 const initialState = { isLoading: true };
+
+export const resetServers = () => ({
+  type: RESET_SERVERS,
+});
 
 const serversReducer = (state = initialState, action) => {
   let newState = { ...state };
@@ -43,8 +49,10 @@ const serversReducer = (state = initialState, action) => {
       return newState;
     case messageActions.POPULATE_MESSAGES:
       action.payload.reduce((messages, message) => {
-        newState[message.server_id].channels[message.channel_id].messages =
-          message;
+        newState[message.server_id].channels[message.channel_id].messages[
+          message.id
+        ] = message;
+        console.log(message);
         return messages;
       }, {});
       return newState;
@@ -52,6 +60,8 @@ const serversReducer = (state = initialState, action) => {
     //   const message = action.payload;
     //   newState[message.server_id].channels[message.channel_id].message =
     //     message;
+    case RESET_SERVERS:
+      return { ...newState, isLoading: true };
     default:
       return state;
   }
