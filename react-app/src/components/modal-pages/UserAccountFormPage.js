@@ -5,13 +5,22 @@ import { IoCloseOutline } from "react-icons/io5";
 import logo from "../../images/accord-logo.png";
 import { ModalContext } from "../../context/modalContext";
 import { getAllServersThunk } from "../../store/server";
-
 import { updateUserThunk } from "../../store/user";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 function UserAccountFormPage() {
   const dispatch = useDispatch();
   const { setType } = useContext(ModalContext);
-  const user = useSelector((state) => state.session.user);
+  const userSession = useSelector((state) => state.session.user);
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    if (userSession) {
+      setUser(userSession);
+    } else {
+      return <Redirect to="login" />;
+    }
+  });
 
   const [editButton, setEditButton] = useState(true);
   const [displayName, setDisplayName] = useState(
