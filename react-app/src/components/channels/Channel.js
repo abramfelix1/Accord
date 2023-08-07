@@ -39,13 +39,12 @@ function Channel() {
 
   // useEffects
   useEffect(() => {
-    if (serverid) {
-      console.log(serverid);
+    if (Object.values(server).length > 1) {
       (async () => {
         await dispatch(channelActions.getChannels(serverid));
       })();
     }
-  }, [dispatch, server, serverid, channelid, isLoaded]);
+  }, [dispatch, server, serverid]);
 
   // Handlers
   const logoutHandler = async () => {

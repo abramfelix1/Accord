@@ -18,17 +18,19 @@ import * as messageActions from "../store/message";
 import * as memberActions from "../store/members";
 import "./Main.css";
 import { getChannels } from "../store/channels";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom/";
 // import { useContext } from "react";
 
 function Main() {
   const history = useHistory();
   const { serverid, channelid } = useParams();
+
   const [showDash, setShowDash] = useState(true);
   const [userID, setUserID] = useState('')
+
   const dispatch = useDispatch();
-  const { channel, setChannel } = useContext(ChannelContext);
   const { server, setServer } = useContext(InfoContext);
+
   // const userID = useSelector((state) => state.session.user.id).toString();
   const userSession = useSelector(state => state.session.user)
 
@@ -40,6 +42,17 @@ function Main() {
     startListeners();
     joinServer(userID);
   };
+
+  const user = useSelector((state) => state.session.user);
+
+  useEffect(() => {
+    if (user) {
+      console.log("USERID: " + user.id);
+      startListeners();
+      joinServer(user.id);
+    }
+  }, []);
+
 
   useEffect(() => {
     if (userSession) {
@@ -68,6 +81,16 @@ function Main() {
     })();
   }, [serverid, channelid, dispatch, history]);
 
+  if (!user) return <Redirect to="/login" />;
+
+  const buttonHandler = () => {
+    chatUpdate(1, 1);
+  };
+  const button2Handler = () => {
+    startListeners();
+    joinServer(user.id);
+  };
+
   console.log(server);
   return (
     <div className="main-container">
@@ -78,25 +101,23 @@ function Main() {
         <Server />
       </section>
       {/* Channel Section */}
-      {showDash && (
-        <>
-          <section className="main-section-2">
-            <div>
-              <ServerNav server={server} />
-              <Channel server={server} />
-            </div>
-            <UserNav />
-          </section>
-          {/* Chatbox, ChatNav, and Members List */}
-          <section className="main-section-3">
-            <ChatNav />
-            <div className="chatbox-member-container">
-              <ChatBox />
-              <ServerMemberList server={server} />
-            </div>
-          </section>
-        </>
-      )}
+      <>
+        <section className="main-section-2">
+          <div>
+            <ServerNav server={server} />
+            <Channel server={server} />
+          </div>
+          <UserNav />
+        </section>
+        {/* Chatbox, ChatNav, and Members List */}
+        <section className="main-section-3">
+          <ChatNav />
+          <div className="chatbox-member-container">
+            <ChatBox />
+            <ServerMemberList server={server} />
+          </div>
+        </section>
+      </>
     </div>
   );
 }
