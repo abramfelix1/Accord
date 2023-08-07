@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { dateFormat, isItANewDay } from "./ChatHelperFunctions";
 import { useRef } from "react";
 import logo from "../../images/accord-logo.png";
+import ChatLoading from "../loading/ChatLoading";
 
 const Chat = () => {
   const [chatInput, setChatInput] = useState("");
@@ -87,7 +88,9 @@ const Chat = () => {
 
   return (
     <>
-      {user && !isLoaded && serverid && (
+      {isLoaded ? (
+        <ChatLoading />
+      ) : (
         <div className="main-chat-and-input-container">
           <div className="chat-container">
             {reverseArray([...messages]).map((message, idx) => (
