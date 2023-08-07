@@ -40,7 +40,7 @@ function ServerList() {
     event.stopPropagation();
     //comment out for more speed!!
     // if (event.target.id !== "active-server") dispatch(resetCurrent());
-    if (server.id == serverid) {
+    if (server?.id == serverid) {
       event.preventDefault(); // Prevent the redirect
       return history.push(`/servers/${serverid}/channels/${channelid}`);
     } else {
@@ -83,7 +83,7 @@ function ServerList() {
         <Tooltip text={"Direct Messages"}>
           <NavLink
             to="/app"
-            id="active-server"
+            id={serverid ? "" : `active-server`}
             className="servers servers-friend-button"
             onClick={(e) => handleActiveButton(e)}
           >
