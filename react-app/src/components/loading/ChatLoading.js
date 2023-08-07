@@ -6,6 +6,7 @@ import "./ChatLoading.css";
 const getRandomWidth = () => {
   return Math.floor(Math.random() * (200 - 30 + 1) + 30) + "px";
 };
+const getRandomLength = () => Math.floor(Math.random() * 4) + 1;
 
 const MessageBlock = ({ numMessages }) => {
   let messages = [];
@@ -22,6 +23,7 @@ const MessageBlock = ({ numMessages }) => {
 
 const MessageWrapperBlock = ({ numWrappers }) => {
   let wrappers = [];
+  const arr = new Array(getRandomLength()).fill(null);
   for (let i = 0; i < numWrappers; i++) {
     wrappers.push(
       <div className="message-wrapper">
@@ -34,9 +36,11 @@ const MessageWrapperBlock = ({ numWrappers }) => {
               name
             </span>
           </div>
-          <MessageBlock numMessages={6} />
-          <MessageBlock numMessages={6} />
-          <MessageBlock numMessages={6} />
+          {arr.map((el, idx) => (
+            <div>
+              <MessageBlock numMessages={6} />
+            </div>
+          ))}
         </div>
       </div>
     );
