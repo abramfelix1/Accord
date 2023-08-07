@@ -163,7 +163,7 @@ function UserAccountPage() {
                         style={{ fontSize: "16px" }}
                         className="account-profile-image"
                       >
-                        {user.image_url}
+                        {user.image_url || 'No Image Provided'}
                       </div>
                     </div>
                   </div>
