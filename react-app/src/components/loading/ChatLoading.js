@@ -3,16 +3,21 @@ import ChatInputField from "../chat/ChatInputField";
 import "../chat/chat-css/ChatBox.css";
 import "./ChatLoading.css";
 
-const getRandomWidth = () => {
+const randomWidth = () => {
   return Math.floor(Math.random() * (200 - 30 + 1) + 30) + "px";
 };
-const getRandomLength = () => Math.floor(Math.random() * 4) + 1;
+
+const randomWidthName = () => {
+  return Math.floor(Math.random() * (250 - 100 + 1) + 150) + "px";
+};
+
+const randomLength = () => Math.floor(Math.random() * 4) + 1;
 
 const MessageBlock = ({ numMessages }) => {
   let messages = [];
   for (let i = 0; i < numMessages; i++) {
     messages.push(
-      <p className="loading-message" style={{ width: getRandomWidth() }}>
+      <p className="loading-message" style={{ width: randomWidth() }}>
         msg
       </p>
     );
@@ -23,7 +28,7 @@ const MessageBlock = ({ numMessages }) => {
 
 const MessageWrapperBlock = ({ numWrappers }) => {
   let wrappers = [];
-  const arr = new Array(getRandomLength()).fill(null);
+  const arr = new Array(randomLength()).fill(null);
   for (let i = 0; i < numWrappers; i++) {
     wrappers.push(
       <div className="message-wrapper">
@@ -32,13 +37,13 @@ const MessageWrapperBlock = ({ numWrappers }) => {
         </div>
         <div className="loading-message-info-container">
           <div className="chat-box-name-date-wrapper">
-            <span className="loading-name" style={{ width: "150px" }}>
+            <span className="loading-name" style={{ width: randomWidthName() }}>
               name
             </span>
           </div>
           {arr.map((el, idx) => (
             <div>
-              <MessageBlock numMessages={6} />
+              <MessageBlock numMessages={randomLength()} />
             </div>
           ))}
         </div>

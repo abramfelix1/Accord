@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import socket from "../utils/Socket";
 import ChatInputField from "./ChatInputField";
@@ -10,11 +10,13 @@ import { dateFormat, isItANewDay } from "./ChatHelperFunctions";
 import { useRef } from "react";
 import logo from "../../images/accord-logo.png";
 import ChatLoading from "../loading/ChatLoading";
+import { InfoContext } from "../../context/infoContext";
 
 const Chat = () => {
   const [chatInput, setChatInput] = useState("");
   const user = useSelector((state) => state.session.user);
-  const isLoaded = useSelector((state) => state.current.isLoading);
+  // const isLoaded = useSelector((state) => state.current.isLoading);
+  const { isLoaded } = useContext(InfoContext);
   const { serverid, channelid } = useParams();
   // const messages = useSelector((state) =>
   //   Object.values(state.current.messages)
@@ -88,7 +90,7 @@ const Chat = () => {
 
   return (
     <>
-      {isLoaded ? (
+      {!isLoaded ? (
         <ChatLoading />
       ) : (
         <div className="main-chat-and-input-container">
