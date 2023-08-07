@@ -17,6 +17,17 @@ const socket = io();
   --On logout disconnect sockets
 */
 
+/*
+If BE emits "update_chat_response", send channelID and serverID to FE, Update listener for "update_chanel_response" logic for handle messages
+dispatches to only dispatch get messages if the param channel id == channelID send from the backend. If so, dispatch, if not, send data update to other state or give that channel/server an alert icon.
+Implement has read or view emitter/listener? if that happens.
+*/
+
+/*
+Before working withs server(s) reducer, try update thunks to work with current socket set up,
+If not, check send message from client to backend for other clients to recieve what type of update to dispatch
+*/
+
 export function startListeners(user) {
   console.log("***LISTENING FOR SEND MESSAGE RESPONSE***");
   socket.on("chat_update_response", (data) => {
