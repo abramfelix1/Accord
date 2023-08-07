@@ -10,7 +10,7 @@ function UserAccountPage() {
     const history = useHistory();
       // Handlers
   const logoutHandler = async () => {
-    await dispatch(logout());
+    await dispatch(logout())
     return history.push('/login')
   };
 
