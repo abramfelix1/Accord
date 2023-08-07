@@ -72,7 +72,6 @@ const serversReducer = (state = initialState, action) => {
             message.id
           ] = message;
         }
-        console.log(message);
         return messages;
       }, {});
       return newState;

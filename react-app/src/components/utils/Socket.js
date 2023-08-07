@@ -64,8 +64,6 @@ export function handleChatUpdates(callback, chid) {
     console.log("***CHAT UPDATES EVENT DATA***");
     const channel_id = data.channel_id;
     if (channel_id == chid) {
-      console.log("******************************");
-      console.log(channel_id, chid);
       callback(channel_id);
     }
   });

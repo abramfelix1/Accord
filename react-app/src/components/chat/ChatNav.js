@@ -11,9 +11,7 @@ function ChatNav() {
   const { serverid, channelid } = useParams();
   const isLoading = useSelector((state) => state.current.isLoading);
   // const channel = useSelector((state) => state.current.channel);
-  useEffect(() => {
-    // console.log(channel.name);
-  }, [channel]);
+
   return (
     <>
       <div className="live-chat-container">

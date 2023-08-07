@@ -67,20 +67,8 @@ function Main() {
 
   if (!user) return <Redirect to="/login" />;
 
-  const buttonHandler = () => {
-    chatUpdate(1, 1);
-  };
-  const button2Handler = () => {
-    startListeners();
-    joinServer(user.id);
-  };
-
-  console.log(server);
   return (
     <div className="main-container">
-      {/* <button onClick={(e) => button2Handler()}>START LISTENERS</button>
-      <button onClick={(e) => buttonHandler()}>TEST SOCKET</button> */}
-      {/* Server Section */}
       <section className="main-section-1">
         <Server />
       </section>
