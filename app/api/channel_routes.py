@@ -135,3 +135,35 @@ def get_channel_messages(id):
     messages = ChannelMessage.query.filter(ChannelMessage.channel_id == id)
 
     return [message.to_dict() for message in messages]
+
+    # new_list_of_messages = []
+    # last_user_id = None
+
+    # for message in messages:
+    #     if message["user_id"] == last_user_id:
+    #         new_list_of_messages.append({
+    #             "id": message["id"],
+    #             "channel_id": message["channel_id"],
+    #             "server_id": message["server_id"],
+    #             "message": message["message"],
+    #             "user_id": message["user_id"],
+    #             "created_at": message["created_at"],
+    #             "updated_at": message["updated_at"]
+    #         })
+
+    #     last_user_id = message["user_id"]
+
+    #     new_list_of_messages.append({
+    #         "id": message["id"],
+    #         "channel_id": message["channel_id"],
+    #         "display_name": message["display_name"],
+    #         "image_url": message["image_url"],
+    #         "server_id": message["server_id"],
+    #         "message": message["message"],
+    #         "user_id": message["user_id"],
+    #         "created_at": message["created_at"],
+    #         "updated_at": message["updated_at"]
+    #     })
+    # print("--------------------------------------------------------------", new_list_of_messages)
+    # print("Hello with new message", new_list_of_messages)
+    # return new_list_of_messages

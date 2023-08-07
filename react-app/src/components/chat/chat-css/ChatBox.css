@@ -11,8 +11,10 @@
   overflow-y: scroll;
   grid-row-start: 1;
   grid-row-end: 19;
-  padding-bottom: 0px;
+  padding-bottom: 25px;
   margin-right: 3px;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 /* width */
@@ -86,18 +88,17 @@
   max-width: calc(100vw - 700px);
   white-space: normal;
   overflow-wrap: break-word;
+  margin: 0px;
 }
 
 /* styling for if a user recently sent a message */
-.message-wrapper-only {
-  margin: 8px 17px;
-}
 
 .chat-box-message-only {
   max-width: calc(100vw - 700px);
   white-space: normal;
   overflow-wrap: break-word;
-  margin-left: 60px;
+  /* margin-left: 60px; */
+  margin: 5px 17px 5px 75px;
 }
 
 /* .message-ref {

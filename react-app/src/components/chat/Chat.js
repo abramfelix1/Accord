@@ -9,8 +9,6 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { dateFormat, isItANewDay } from "./ChatHelperFunctions";
 import { useRef } from "react";
 import logo from "../../images/accord-logo.png";
-import ChatFullStyle from "./ChatFullStyle";
-import ChatMessageOnlyStyle from "./ChatMessageOnluStyle";
 
 
 const Chat = () => {
@@ -22,23 +20,30 @@ const Chat = () => {
   );
   const { serverid, channelid } = useParams();
   const dispatch = useDispatch();
-  const messageRef = useRef(null);
+  // const messageRef = useRef(null);
   const [prevMessageUserId, setPrevMessageUserId] = useState("")
-  const [secondToLastMessage, setSecondToLastMessage] = useState("")
+  // const [secondToLastMessage, setSecondToLastMessage] = useState("")
+  
+
+    // Function to reverse a given array
+  const reverseArray = (array) => {
+    let reverseArray = array.reverse();
+    return reverseArray;
+  }
 
 
 
   // when a message is being typed or is sent, it ill scroll down to
   // last message
-  useEffect(() => {
-    messageRef.current?.scrollIntoView();
-  }, [messages]);
+  // useEffect(() => {
+  //   messageRef.current?.scrollIntoView();
+  // }, [messages]);
 
 
   useEffect(() => {
     if (messages) {
       setPrevMessageUserId(messages[messages.length - 2]?.user_id)
-      setSecondToLastMessage(messages[messages.length - 2])
+      // setSecondToLastMessage(messages[messages.length - 2])
     }
 
     // for (let i = 0; i < messages.length; i++) {
@@ -74,14 +79,30 @@ const Chat = () => {
       {user && !isLoaded && serverid && (
         <div className="main-chat-and-input-container">
           <div className="chat-container">
-            {messages.map((message, idx) => ( 
+            {reverseArray([...messages]).map((message, idx) => ( 
               <div key={`${message.id}${idx}`}>
-                {/* {secondToLastMessage && isItANewDay(secondToLastMessage, message) &&  */}
-                {/* <div>---------------------</div>} */}
-                {prevMessageUserId === message?.user_id
-                  ? <ChatMessageOnlyStyle message={message} />
-                  : <ChatFullStyle message={message} /> 
-                }
+                <div className="message-wrapper">
+                  {message.image_url !== null && message.image_url.length >= 1 
+                    ? (<img
+                      className="chatbox-image"
+                      src={message.image_url}
+                      alt="chatbox-user-img"
+                    />) 
+                    : (<div className="chatbox-logo-wrapper">
+                        <img className="chatbox-logo" src={logo} alt="logo" />
+                      </div>)}
+                    <div className="chat-box-name-date-message-wrapper">
+                        <div className="chat-box-name-date-wrapper">
+                          <span className="chat-box-name">
+                              {message.display_name ? message.display_name : message.username}
+                          </span>
+                          <span className="chat-box-date">
+                              {dateFormat(message.created_at)}
+                          </span>
+                        </div>
+                        <p className="chat-box-message">{message.message}</p>
+                    </div>
+                </div>
               </div>
             ))}
             {/* <div className="message-ref" ref={messageRef}></div> */}
@@ -98,3 +119,62 @@ const Chat = () => {
 };
 
 export default Chat;
+
+
+
+
+
+
+
+
+
+
+
+
+//   return (
+//     <>
+//       {user && !isLoaded && serverid && (
+//         <div className="main-chat-and-input-container">
+//           <div className="chat-container">
+//             {messages.map((message, idx) => ( 
+//               <div key={`${message.id}${idx}`}>
+//                 {prevMessageUserId === message.user_id 
+//                 ? (<div className="message-wrapper">
+//                   {message.image_url !== null && message.image_url.length >= 1 
+//                     ? (<img
+//                       className="chatbox-image"
+//                       src={message.image_url}
+//                       alt="chatbox-user-img"
+//                     />) 
+//                     : (<div className="chatbox-logo-wrapper">
+//                         <img className="chatbox-logo" src={logo} alt="logo" />
+//                       </div>)}
+//                     <div className="chat-box-name-date-message-wrapper">
+//                         <div className="chat-box-name-date-wrapper">
+//                           <span className="chat-box-name">
+//                               {message.display_name ? message.display_name : message.username}
+//                           </span>
+//                           <span className="chat-box-date">
+//                               {dateFormat(message.created_at)}
+//                           </span>
+//                         </div>
+//                         <p className="chat-box-message">{message.message}</p>
+//                     </div>
+//                 </div>) 
+//                 : <p className="chat-box-message-only">{message.message}</p>}
+//               </div>
+//             ))}
+//             {/* <div className="message-ref" ref={messageRef}></div> */}
+//           </div>
+//           <ChatInputField
+//             sendChat={sendChat}
+//             chatInput={chatInput}
+//             updateChatInput={updateChatInput}
+//           />
+//         </div>
+//       )}
+//     </>
+//   );
+// };
+
+// export default Chat;

@@ -99,9 +99,10 @@ function Channel() {
               </li>
               {showTextChannel ? (
                 <li>
-                  {channels.map((channel) => {
+                  {channels.map((channel, idx) => {
                     return (
                       <div
+                      key={`${channel.id}${idx}`}
                         className={
                           channelid == channel.id
                             ? "channel-box-active"
