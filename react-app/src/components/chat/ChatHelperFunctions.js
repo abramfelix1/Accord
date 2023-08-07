@@ -1,7 +1,37 @@
 
 
+//a helper function that converts the month into a full month string
+const monthToFullMonth = (month) => {
+    if (month === "Jan") {
+        return "January";
+    } else if (month === "Feb") {
+        return "February";
+    } else if (month === "Mar") {
+        return "March";
+    } else if (month === "Apr") {
+        return "April";
+    } else if (month === "May") {
+        return "May";
+    } else if (month === "Jun") {
+        return "June";
+    } else if (month === "Jul") {
+        return "July";
+    } else if (month === "Aug") {
+        return "August";
+    } else if (month === "Sep") {
+        return "September";
+    } else if (month === "Oct") {
+        return "October";
+    } else if (month === "Nov") {
+        return "November";
+    } else {
+        return "December";
+    }
+};
+
+
 //a helper function that converts the month into a number
-const month = (month) => {
+const monthToNum = (month) => {
     if (month === "Jan") {
         return "01";
     } else if (month === "Feb") {
@@ -99,10 +129,46 @@ export const dateFormat = (date) => {
     }
 
   // if no conditions met, it will return date as format of "08/01/23 8:07 PM"
-    newFormattedDate += `${month(date.slice(8, 11))}/`;
+    newFormattedDate += `${monthToNum(date.slice(8, 11))}/`;
     newFormattedDate += `${date.slice(5, 7)}/`;
     newFormattedDate += `${date.slice(14, 16)} `;
     newFormattedDate += `${timeConversion(time)}`;
 
     return newFormattedDate;
 };
+
+
+export function isItANewDay(prevMessage, currMessage) {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const prevMonth = new Date(prevMessage.created_at).toUTCString().slice(8, 11);
+    const currMonth = new Date(currMessage.created_at).toUTCString().slice(8, 11);
+    const prevDay = Number(new Date(prevMessage.created_at).toUTCString().slice(5, 7))
+    const currDay = Number(new Date(currMessage.created_at).toUTCString().slice(5, 7))
+    const prevMonthIndex = months.indexOf(prevMonth);
+    const currMonthIndex = months.indexOf(currMonth);
+    console.log("prev", prevMonth)
+    console.log("curr", currMonth)
+    console.log("prevDay", prevDay)
+    console.log("currDay", currDay)
+    console.log("prevIndex", prevMonthIndex)
+    console.log("currIndex", currMonthIndex)
+
+    if (prevMonth === "Dec" && currMonth === "Jan") {
+        console.log(true)
+        return true
+    }
+
+    if (prevMonthIndex < currMonthIndex) {
+        console.log(true)
+        return true
+    }
+
+    if (prevMonthIndex === currMonthIndex && prevDay < currDay) {
+        console.log(true)
+        return true
+    }
+
+    console.log(false)
+    console.log("------------------------------------------")
+    return false
+}

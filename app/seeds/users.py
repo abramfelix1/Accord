@@ -6,17 +6,17 @@ def seed_users():
     demo = User(
         username='Demo', email='demo@aa.io', password='password')
     gary = User(
-        username='Gary', email='gary@aa.io', password='password')
+        username='Gary', email='gary@aa.io', password='password', image_url="")
     pearl = User(
-        username='Pearl', email='pearl@aa.io', password='password')
+        username='Pearl', email='pearl@aa.io', password='password', image_url="")
     puff = User(
-        username='Puff', email='puff@aa.io', password='password')
+        username='Puff', email='puff@aa.io', password='password', image_url="")
     larry = User(
-        username='Larry', email='larry@aa.io', password='password')
+        username='Larry', email='larry@aa.io', password='password', image_url="")
     karen = User(
-        username='Karen', email='karen@aa.io', password='password')
+        username='Karen', email='karen@aa.io', password='password', image_url="")
     man_ray = User(
-        username='Man_Ray', email='man_ray@aa.io', password='password')
+        username='Man_Ray', email='man_ray@aa.io', password='password', image_url="")
     flying_dutchman = User(
         username='Flying_Dutchman', email='flying_dutchman@aa.io', password='password')
     king_neptune = User(

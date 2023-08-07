@@ -19,8 +19,6 @@ function Channel() {
   const { serverid, channelid } = useParams();
   const dispatch = useDispatch();
 
-  const history = useHistory();
-
   // useSelectors
   const isLoaded = useSelector((state) => state.current.isLoading);
   const server = useSelector((state) => state.current.server);
@@ -47,10 +45,6 @@ function Channel() {
   }, [dispatch, server, serverid]);
 
   // Handlers
-  const logoutHandler = async () => {
-    await dispatch(logout());
-    return history.push("/login");
-  };
 
   const channelClickHandler = (channel) => {
     setChannel(channel);
@@ -99,9 +93,10 @@ function Channel() {
               </li>
               {showTextChannel ? (
                 <li>
-                  {channels.map((channel) => {
+                  {channels.map((channel, idx) => {
                     return (
                       <div
+                      key={`${channel.id}${idx}`}
                         className={
                           channelid == channel.id
                             ? "channel-box-active"
@@ -143,7 +138,6 @@ function Channel() {
               ) : (
                 ""
               )}
-              <button onClick={(e) => logoutHandler()}> logout </button>
             </ul>
           </div>
         </div>

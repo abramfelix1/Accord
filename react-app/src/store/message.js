@@ -32,6 +32,7 @@ export const getMessages = (channelId) => async (dispatch) => {
   const response = await fetch(`/api/channels/${channelId}/messages`);
   if (response.ok) {
     const data = await response.json();
+
     dispatch(populateMessages(data));
   }
   return response;

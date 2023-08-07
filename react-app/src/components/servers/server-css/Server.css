@@ -41,6 +41,10 @@
   background-color: #4752c4;
 }
 
+.server-list-wrapper:hover {
+  border-left: 0.5px solid white;
+}
+
 .server-initials {
   pointer-events: none;
   background-color: rgb(48, 48, 48, 0);
@@ -150,10 +154,10 @@ efgweiyufbieu bgeu eir bgij;rgeb;brejbg iub  re;bgerug
   max-height: 100vh;
   overflow: hidden scroll;
   z-index: 10;
-  /* width: 21vw; */
-  /* width: 300px; */
-  /* padding-left: 227px; */
   list-style: none;
+  /* width: 21vw; */
+  /* width: 100px; */
+  /* padding-left: 227px; */
 }
 
 .server-bottom-layer::-webkit-scrollbar {
@@ -175,7 +179,7 @@ efgweiyufbieu bgeu eir bgij;rgeb;brejbg iub  re;bgerug
 }
 
 .tooltiptext {
-  position: absolute;
+  position: fixed;
   color: #b8bdc5;
   text-align: center;
   max-width: 500px;
@@ -185,9 +189,14 @@ efgweiyufbieu bgeu eir bgij;rgeb;brejbg iub  re;bgerug
   box-shadow: 1px 1px 7px rgb(10, 10, 10);
   font-size: 17px;
   z-index: 1000;
-  left: 83px;
-  bottom: 10px;
+  /* opacity: 0;
+  transition: opacity 1s ; */
 }
+/* .tooltip:hover .tooltiptext {
+  opacity: 1;
+  visibility: visible;
+  background-color: red;
+} */
 
 .tooltiptext::after {
   content: "";

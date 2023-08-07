@@ -36,6 +36,7 @@ function ServerSetting() {
   };
 
   const updateServerHandleSubmit = async (e) => {
+
     await dispatch(updateServerThunk(server.id, serverName, serverImage));
     await dispatch(getAllServersThunk());
 
