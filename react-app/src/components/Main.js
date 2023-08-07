@@ -25,12 +25,11 @@ function Main() {
   const history = useHistory();
   const { serverid, channelid } = useParams();
   const [showDash, setShowDash] = useState(true);
-  const [userID, setUserID] = useState('')
   const dispatch = useDispatch();
   const { channel, setChannel } = useContext(ChannelContext);
   const { server, setServer } = useContext(InfoContext);
-  // const userID = useSelector((state) => state.session.user.id).toString();
-  const userSession = useSelector(state => state.session.user)
+  const userID = useSelector((state) => state.session.user.id).toString();
+
 
   console.log("USERID: " + userID);
   const buttonHandler = () => {
@@ -40,14 +39,6 @@ function Main() {
     startListeners();
     joinServer(userID);
   };
-
-  useEffect(() => {
-    if (userSession) {
-      setUserID(userSession.id)
-    } else {
-      return <Redirect to='/login'/>
-    }
-  }, [Redirect, userSession])
 
   useEffect(() => {
     (async () => {
