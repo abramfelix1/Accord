@@ -24,7 +24,7 @@ export const currentReducer = (state = initialState, action) => {
   switch (action.type) {
     case serverActions.GET_SERVER:
       newState.server = action.payload;
-      return { ...newState, isLoading: false };
+      return { ...newState };
     case channelActions.GET_CHANNEL:
       newState.channel = action.payload;
       return { ...newState, isLoading: false };

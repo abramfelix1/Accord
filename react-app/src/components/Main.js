@@ -10,7 +10,12 @@ import { ChannelContext } from "../context/channelContext";
 import { useContext, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
-import { joinServer, chatUpdate, startListeners } from "./utils/Socket";
+import {
+  joinServer,
+  chatUpdate,
+  startListeners,
+  disconnectSockets,
+} from "./utils/Socket";
 import * as serverActions from "../store/server";
 import * as channelActions from "../store/channels";
 import * as currentActions from "../store/current";
@@ -30,10 +35,12 @@ function Main() {
 
   useEffect(() => {
     if (user) {
-      console.log("USERID: " + user.id);
       startListeners();
       joinServer(user.id);
     }
+    return () => {
+      disconnectSockets();
+    };
   }, []);
 
   useEffect(() => {

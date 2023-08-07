@@ -32,8 +32,13 @@ const Chat = () => {
     // dispatch(getMessages(channelid));
     handleChatUpdates((data) => {
       dispatch(getMessages(data));
-    });
-  }, [dispatch, serverid]);
+    }, channelid);
+    return () => {
+      socket.off("chat_update_response", (data) => {
+        dispatch(getMessages(data));
+      });
+    };
+  }, [dispatch, channelid]);
 
   const updateChatInput = (e) => {
     setChatInput(e.target.value);

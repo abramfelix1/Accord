@@ -11,14 +11,24 @@ const serversReducer = (state = initialState, action) => {
   let newState = { ...state };
   switch (action.type) {
     case userActions.GET_USER_SERVERS:
-      action.payload.forEach((server) => (newState[server.id] = server));
+      action.payload.forEach(
+        (server) =>
+          (newState[server.id] = {
+            ...server,
+            channels: {},
+            members: {},
+          })
+      );
       return newState;
     case channelActions.POPULATE_CHANNELS:
       action.payload.Channels.reduce((channels, channel) => {
         if (!newState[channel.server_id].channels) {
           newState[channel.server_id].channels = {};
         }
-        newState[channel.server_id].channels[channel.id] = channel;
+        newState[channel.server_id].channels[channel.id] = {
+          ...channel,
+          messages: {},
+        };
         return channels;
       }, {});
       return newState;
