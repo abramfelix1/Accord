@@ -3,14 +3,18 @@ import { RiLogoutBoxRFill } from 'react-icons/ri'
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import { useHistory } from "react-router-dom"
+import { useContext } from "react";
+import { ModalContext } from "../../context/modalContext";
 
 function UserAccountPage() {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const { setType } = useContext(ModalContext)
       // Handlers
   const logoutHandler = async () => {
-    await dispatch(logout())
+    await dispatch(logout());
+    setType(null)
     return history.push('/login')
   };
 
