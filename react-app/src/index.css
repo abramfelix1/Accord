@@ -7,6 +7,7 @@ html, body {
     width: 100%;
     overflow: hidden;
     position: relative;
+    background-color: #2A2D30;
     /* this overflow currently stops the navigation of allowing scroll to top of the page with up button*/
     /* overflow: hidden scroll; */
 }
