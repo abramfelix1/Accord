@@ -50,19 +50,25 @@ export const getUserThunk = (id) => async (dispatch) => {
   }
 };
 
-export const updateUserThunk = (user) => async (dispatch) => {
+export const updateUserThunk = (username, display_name, image_url) => async (dispatch) => {
   const response = await fetch(`/api/users/profile`, {
     method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
-      username: user.username,
-      display_name: user.display_name,
-      image_url: user.image_url,
+      "username": username,
+      "display_name": display_name,
+      "image_url": image_url,
     }),
   });
 
   if (response.ok) {
     const userData = await response.json();
     dispatch(updateUser(userData));
+    dispatch(getAllUsersThunk())
+    dispatch(getUserServersThunk())
+
     return userData;
   }
 };

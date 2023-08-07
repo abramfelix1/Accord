@@ -1,6 +1,6 @@
 import "./UserNav.css";
 import { login } from "../../store/session";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import {
@@ -10,9 +10,12 @@ import {
 } from "react-icons/bi";
 import { MdHeadset, MdHeadsetOff } from "react-icons/md";
 import logo from '../../images/accord-logo.png'
+import { ModalContext } from "../../context/modalContext";
+
 
 function UserNav() {
   const sessionUser = useSelector((state) => state.session.user);
+  const { userAccountModal   } = useContext(ModalContext)
 
   const [micToggle, setMicToggle] = useState(false);
   const [headsetToggle, setHeadsetToggle] = useState(false);
@@ -136,6 +139,7 @@ function UserNav() {
           <BiSolidCog
             className="usermenu-icons cog"
             style={{ marginRight: "6px" }}
+            onClick={e => userAccountModal()}
           />
         </div>
       </div>

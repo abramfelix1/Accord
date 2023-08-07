@@ -9,7 +9,7 @@ import { InfoContext } from "../context/infoContext";
 import { ChannelContext } from "../context/channelContext";
 import { useContext, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect, useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import { joinServer, chatUpdate, startListeners } from "./utils/Socket";
 import * as serverActions from "../store/server";
 import * as channelActions from "../store/channels";
@@ -25,10 +25,13 @@ function Main() {
   const history = useHistory();
   const { serverid, channelid } = useParams();
   const [showDash, setShowDash] = useState(true);
+  const [userID, setUserID] = useState('')
   const dispatch = useDispatch();
   const { channel, setChannel } = useContext(ChannelContext);
   const { server, setServer } = useContext(InfoContext);
-  const userID = useSelector((state) => state.session.user.id).toString();
+  // const userID = useSelector((state) => state.session.user.id).toString();
+  const userSession = useSelector(state => state.session.user)
+
   console.log("USERID: " + userID);
   const buttonHandler = () => {
     chatUpdate(1, 1);
@@ -37,6 +40,14 @@ function Main() {
     startListeners();
     joinServer(userID);
   };
+
+  useEffect(() => {
+    if (userSession) {
+      setUserID(userSession.id)
+    } else {
+      return <Redirect to='/login'/>
+    }
+  }, [Redirect, userSession])
 
   useEffect(() => {
     (async () => {
