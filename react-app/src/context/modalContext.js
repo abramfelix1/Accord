@@ -37,6 +37,10 @@ export const ModalProvider = ({ children }) => {
     setType("Channel Setting")
   }
 
+  const userAccountModal = () => {
+    setType("User Account")
+  }
+
   return (
     <ModalContext.Provider
       value={{
@@ -50,6 +54,7 @@ export const ModalProvider = ({ children }) => {
         createChannelModal,
         leaveServerModal,
         channelSettingModal,
+        userAccountModal
         // toggleLogin,
       }}
     >

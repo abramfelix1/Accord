@@ -30,6 +30,17 @@
 .usermenu-username {
     font-size: 14px;
     color: #F2F3EA;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 90px;
+}
+
+.usermenu-display-name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 90px;
 }
 
 .usermenu-icons-container {
