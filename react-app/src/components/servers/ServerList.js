@@ -83,7 +83,7 @@ function ServerList() {
       <ul className="server-bottom-layer">
         {userServers.map((server) => (
           <Tooltip key={server.id} text={server.name}>
-            <li key={server.id}>
+            <li key={server.id} className="server-list-wrapper">
               {/* need to set proper link to where to navigate too */}
               <ServerCard
                 serverInfo={server}

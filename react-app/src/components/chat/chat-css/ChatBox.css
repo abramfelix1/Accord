@@ -11,8 +11,10 @@
   overflow-y: scroll;
   grid-row-start: 1;
   grid-row-end: 19;
-  padding-bottom: 0px;
+  padding-bottom: 25px;
   margin-right: 3px;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 /* width */
@@ -40,7 +42,7 @@
 .message-wrapper {
   display: flex;
   /* background-color: green; */
-  margin: 25px 17px;
+  margin: 25px 17px 0px 17px;
 }
 
 /* css for the image of each chatbox */
@@ -86,6 +88,17 @@
   max-width: calc(100vw - 700px);
   white-space: normal;
   overflow-wrap: break-word;
+  margin: 0px;
+}
+
+/* styling for if a user recently sent a message */
+
+.chat-box-message-only {
+  max-width: calc(100vw - 700px);
+  white-space: normal;
+  overflow-wrap: break-word;
+  /* margin-left: 60px; */
+  margin: 5px 17px 5px 75px;
 }
 
 /* .message-ref {
