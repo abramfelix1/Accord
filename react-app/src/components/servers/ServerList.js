@@ -37,7 +37,8 @@ function ServerList() {
     event.stopPropagation();
     //comment out for more speed!!
     // if (event.target.id !== "active-server") dispatch(resetCurrent());
-    setIsLoaded(false);
+    if (event.target.id !== "active-server") setIsLoaded(false);
+
     setServer(server);
     if (server) {
       setChannel(server.firstChannel);
