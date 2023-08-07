@@ -8,14 +8,19 @@ import { ModalContext } from "../../context/modalContext";
 import { InfoContext } from "../../context/infoContext";
 
 function ServerNavDropDown(props) {
-  let isLoading = useSelector((state) => state.current.isLoading);
+  let isLoaded = useSelector((state) => state.current.isLoading);
   const { serverid, channelid } = useParams();
   const dropdownRef = useRef(null);
-  const { openDropdown, toggleDropdown, setToggleDropdown, navRef } = props;
-  const { serverSettingModal, createChannelModal, leaveServerModal, serverProfileSettingModal } =
-    useContext(ModalContext);
+  const { openDropdown, toggleDropdown, setToggleDropdown, navRef, server } =
+    props;
+  const {
+    serverSettingModal,
+    createChannelModal,
+    leaveServerModal,
+    serverProfileSettingModal,
+  } = useContext(ModalContext);
   const user = useSelector((state) => state.session.user);
-  const server = useSelector((state) => state.current.server);
+  // const server = useSelector((state) => state.current.server);
 
   const handleClickOutside = (event) => {
     if (navRef.current && navRef.current.contains(event.target)) {
@@ -36,12 +41,10 @@ function ServerNavDropDown(props) {
 
   return (
     <>
-      {!isLoading && server && serverid && (
+      {!isLoaded && server && (
         <div className="inner-server-nav">
           <div className="server-nav-title">
-            <div className="server-name-nav-bar">
-              {server.name}
-            </div>
+            <div className="server-name-nav-bar">{server.name}</div>
             {!openDropdown ? (
               <IoIosArrowDown className="server-nav-icons" />
             ) : (
@@ -68,7 +71,7 @@ function ServerNavDropDown(props) {
                 <div
                   className="server-dropdown-options"
                   onClick={() => {
-                    serverProfileSettingModal()
+                    serverProfileSettingModal();
                     toggleDropdown();
                   }}
                 >
@@ -85,7 +88,6 @@ function ServerNavDropDown(props) {
                     <p>Create Channel</p>
                   </div>
                 )}
-
               </div>
               {user.id !== server.owner_id && (
                 <div className="server-nav-seperator"></div>

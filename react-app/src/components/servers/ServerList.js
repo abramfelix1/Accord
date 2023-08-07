@@ -34,7 +34,7 @@ function ServerList() {
   const handleActiveButton = (event, server) => {
     // event.preventDefault();
     event.stopPropagation();
-    if (event.target.id !== "active-server") dispatch(resetServers());
+    //comment out for more speed!!
     if (event.target.id !== "active-server") dispatch(resetCurrent());
     setServer(server);
     if (server) {

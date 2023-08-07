@@ -30,6 +30,7 @@ function Main() {
   const history = useHistory();
   const { serverid, channelid } = useParams();
   const dispatch = useDispatch();
+  const { channel, setChannel } = useContext(ChannelContext);
   const { server, setServer } = useContext(InfoContext);
   const user = useSelector((state) => state.session.user);
 
@@ -53,6 +54,7 @@ function Main() {
           let c = dispatch(messageActions.getMessages(channelid));
           let d = dispatch(memberActions.getServerMembersThunk(serverid));
           setServer(a);
+          setChannel(b);
           if (!a) {
             return history.push(`/app`);
           }

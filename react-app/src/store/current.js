@@ -24,10 +24,10 @@ export const currentReducer = (state = initialState, action) => {
   switch (action.type) {
     case serverActions.GET_SERVER:
       newState.server = action.payload;
-      return { ...newState };
+      return { ...newState, isLoading: false };
     case channelActions.GET_CHANNEL:
       newState.channel = action.payload;
-      return { ...newState, isLoading: false };
+      return { ...newState };
     case messageActions.POPULATE_MESSAGES:
       const messages = action.payload.reduce((messages, message) => {
         messages[message.id] = message;
