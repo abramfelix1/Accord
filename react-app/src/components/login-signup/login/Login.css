@@ -159,3 +159,11 @@ font-size: 10px;
     font-size: 10px;
     font-style: italic;
 }
+
+/*  DEMO */
+
+.demo-user-link {
+    text-decoration: none;
+    color: #00A8FC;
+    margin-left: 5px;
+}
