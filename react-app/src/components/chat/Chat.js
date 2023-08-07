@@ -15,6 +15,7 @@ import MessageContainer from "./MessageContainer";
 
 const Chat = () => {
   const [chatInput, setChatInput] = useState("");
+  const [showEditField, setShowEditField] = useState("");
   const user = useSelector((state) => state.session.user);
   // const isLoaded = useSelector((state) => state.current.isLoading);
   const { isLoaded } = useContext(InfoContext);
@@ -98,7 +99,7 @@ const Chat = () => {
           <div className="chat-container">
             {reverseArray([...messages]).map((message, idx) => (
               <div key={`${message.id}${idx}`}>
-                <MessageContainer>
+                <MessageContainer message={message}>
                   <div className="message-wrapper">
                     {message.image_url !== null &&
                     message.image_url.length >= 1 ? (
