@@ -35,6 +35,7 @@ function Main() {
 
   useEffect(() => {
     if (user) {
+      //
       startListeners();
       joinServer(user.id);
     }
