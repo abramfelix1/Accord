@@ -74,6 +74,22 @@ export const getSingleMemberThunk = (server_id) => async (dispatch) => {
   }
 };
 
+export const joinServerThunk = (server_id) => async (dispatch) => {
+  const res = await fetch(`/api/server/${server_id}/join`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      server_id: server_id
+    }),
+  })
+
+  if (res.ok) {
+    dispatch(getUserServersThunk())
+  }
+}
+
 /******/
 
 // REDUCER
