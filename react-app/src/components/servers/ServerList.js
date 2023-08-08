@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import ServerCard from "./ServerCard";
 import logo from "../../images/accord-logo.png";
 import { useEffect, useState } from "react";
+import { IoCompassSharp } from 'react-icons/io5'
 
 import { useSelector, useDispatch } from "react-redux";
 import * as userActions from "../../store/user";
@@ -18,7 +19,7 @@ function ServerList() {
   const dispatch = useDispatch();
   const { setServer } = useContext(InfoContext);
   const { setChannel } = useContext(ChannelContext);
-  const { createServerModal, isModalOpen } = useContext(ModalContext);
+  const { createServerModal, isModalOpen, discoverServerModal } = useContext(ModalContext);
 
   // selecting the users state to get users servers
   const userServers = Object.values(useSelector((state) => state.user));
@@ -101,6 +102,17 @@ function ServerList() {
             }}
           >
             +
+          </li>
+        </Tooltip>
+        <Tooltip text={"Discover Servers"}>
+          <li
+            id={isModalOpen ? "active-plus" : ""}
+            className={`compass`}
+            onClick={(e) => {
+              discoverServerModal();
+            }}
+          >
+            <IoCompassSharp className="compass-icon"/>
           </li>
         </Tooltip>
       </ul>
