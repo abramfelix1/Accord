@@ -176,11 +176,3 @@ export function isItANewDay(prevMessage, currMessage) {
 }
 
 
-
-export function isSameUser(prevMessage, currMessage) {
-    if (prevMessage.user_id === currMessage.user_id) {
-        return true;
-    }
-
-    return false;
-}
