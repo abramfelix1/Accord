@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { InfoContext } from "../../context/infoContext";
 import "./modal-css/DeleteMessagePage.css";
 
 function DeleteMessagePage(mesasgeInfo) {
+  const { message, setMessage } = useContext(InfoContext);
+
+  useEffect(() => {
+    console.log("MESSAGE DELETE");
+    console.log(message);
+  }, []);
+
   return (
     <div className="delete-message-container">
       <div className="delete-message-header">

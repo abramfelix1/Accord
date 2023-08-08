@@ -14,12 +14,6 @@ function MessageContainer({ children, message, setShowEditField }) {
   const { setMessage } = useContext(InfoContext);
   const user = useSelector((state) => state.session.user);
 
-  if (message) setMessage(message);
-
-  useEffect(() => {
-    if (message) setMessage(message);
-  }, [message]);
-
   return (
     <div
       className="message-container"
