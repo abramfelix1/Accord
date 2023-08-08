@@ -117,7 +117,7 @@ const Chat = () => {
                         <img className="chatbox-logo" src={logo} alt="logo" />
                       </div>
                     )}
-                    {showEditField ? (
+                    {showEditField && user.id === message.user_id ? (
                       <MessageEditField
                         message={message}
                         setShowEditField={setShowEditField}
