@@ -42,7 +42,7 @@ const MessageWrapperBlock = ({ numWrappers }) => {
             </span>
           </div>
           {arr.map((el, idx) => (
-            <div>
+            <div key={idx}>
               <MessageBlock numMessages={randomLength()} />
             </div>
           ))}
