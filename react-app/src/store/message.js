@@ -64,6 +64,7 @@ export const editMessage =
     if (response.ok) {
       const data = await response.json();
       dispatch(updateMessage(data));
+      // dispatch(populateMessages(data));
     }
   };
 

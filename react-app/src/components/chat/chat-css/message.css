@@ -1,10 +1,18 @@
 .message-container {
   position: relative;
+  margin-left: 7px;
 }
 
 .message-container:hover {
   background-color: #2e3035;
-  margin-right: 10px;
+  margin-right: 7px;
+  border-radius: 3px;
+}
+#message-container-active {
+  background-color: #2e3035;
+  margin-right: 7px;
+  margin-left: 7px;
+  border-radius: 3px;
 }
 
 .message-settings-container {
@@ -61,4 +69,73 @@
 
 .message-edit-wrapper {
   margin-left: 0px;
+  padding: 0px 0px;
+  display: flex;
+  align-items: center;
+}
+
+.message-edit-form {
+  margin-left: 0px;
+  padding: 10px 0px;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  width: 100%;
+}
+
+.message-edit-input {
+  width: 95%;
+  /* max-width: 90%; */
+  /* line-height: normal; */
+  padding: 13px 20px 13px 20px;
+  font-size: 15px;
+  color: #DBDEE1;
+  background-color: #373A3F;
+  border-style: none;
+  border-radius: 8px;
+  white-space: normal;
+  overflow-wrap: break-word;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.message-edit-input:focus {
+  outline: none;
+}
+
+.message-edit-chat-emoji-icon {
+  position: absolute;
+  color: #c1c9d2;
+  font-size: 25px;
+  cursor: pointer;
+  top: 35px;
+  right: 50px;
+}
+
+.message-edit-cancel-save {
+  font-size: 11px;
+  margin: 0px;
+  margin-top: 8px;
+}
+
+.message-edit-cancel, 
+.message-edit-save {
+  color: #00A8FC;
+  cursor: pointer;
+}
+
+.message-edit-cancel:hover, 
+.message-edit-save:hover {
+  text-decoration: underline;
+}
+
+.message-edit-save {
+	background: none;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
 }
