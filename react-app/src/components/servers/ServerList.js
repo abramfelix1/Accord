@@ -2,23 +2,31 @@ import { NavLink } from "react-router-dom";
 import ServerCard from "./ServerCard";
 import logo from "../../images/accord-logo.png";
 import { useEffect, useState } from "react";
+import { IoCompassSharp } from 'react-icons/io5'
 
 import { useSelector, useDispatch } from "react-redux";
 import * as userActions from "../../store/user";
 import * as channelActions from "../../store/channels";
 import { resetCurrent } from "../../store/current";
+import { resetServers } from "../../store/servers";
 import { InfoContext } from "../../context/infoContext";
 import { ModalContext } from "../../context/modalContext";
 import { ChannelContext } from "../../context/channelContext";
 import { useContext } from "react";
 import { useParams } from "react-router-dom/";
 import Tooltip from "../utils/tooltip";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function ServerList() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { setServer } = useContext(InfoContext);
   const { setChannel } = useContext(ChannelContext);
-  const { createServerModal, isModalOpen } = useContext(ModalContext);
+
+  const { createServerModal, isModalOpen, discoverServerModal } = useContext(ModalContext);
+  const { setIsLoaded } = useContext(InfoContext);
+  const { serverid, channelid } = useParams();
+
 
   // selecting the users state to get users servers
   const userServers = Object.values(useSelector((state) => state.user));
@@ -33,8 +41,16 @@ function ServerList() {
   const handleActiveButton = (event, server) => {
     // event.preventDefault();
     event.stopPropagation();
-    if (event.target.id !== "active-server") dispatch(resetCurrent());
-    setServer(server);
+    //comment out for more speed!!
+    // if (event.target.id !== "active-server") dispatch(resetCurrent());
+    if (server?.id == serverid) {
+      event.preventDefault(); // Prevent the redirect
+      return history.push(`/servers/${serverid}/channels/${channelid}`);
+    } else {
+      setIsLoaded(false);
+    }
+
+    // setServer(server);
     if (server) {
       setChannel(server.firstChannel);
     }
@@ -70,7 +86,7 @@ function ServerList() {
         <Tooltip text={"Direct Messages"}>
           <NavLink
             to="/app"
-            id="active-server"
+            id={serverid ? "" : `active-server`}
             className="servers servers-friend-button"
             onClick={(e) => handleActiveButton(e)}
           >
@@ -101,6 +117,17 @@ function ServerList() {
             }}
           >
             +
+          </li>
+        </Tooltip>
+        <Tooltip text={"Discover Servers"}>
+          <li
+            id={isModalOpen ? "active-plus" : ""}
+            className={`compass`}
+            onClick={(e) => {
+              discoverServerModal();
+            }}
+          >
+            <IoCompassSharp className="compass-icon"/>
           </li>
         </Tooltip>
       </ul>

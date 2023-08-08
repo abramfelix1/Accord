@@ -9,6 +9,7 @@ import CreateChannelPage from "../modal-pages/CreateChannelPage"
 import LeaveServerPage from "../modal-pages/LeaveServerPage";
 import ChannelSettingPage from "../modal-pages/ChannelSettingPage";
 import UserAccountPage from "../modal-pages/UserAccountPage";
+import DiscoverServerModal from "../modal-pages/DiscoverServerModal";
 
 export default function Modal(props) {
   const { type, setType } = useContext(ModalContext);
@@ -45,6 +46,7 @@ export default function Modal(props) {
           {type === "Leave Server" && <LeaveServerPage />}
           {type === "Channel Setting" && <ChannelSettingPage />}
           {type === "User Account" && <UserAccountPage />}
+          {type === "Discover Server" && <DiscoverServerModal/>}
         </div>
         <div className="modalBackdrop" onClick={handleContent} />
       </div>

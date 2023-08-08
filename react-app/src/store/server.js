@@ -69,7 +69,7 @@ export const deleteServerAction = (server_id) => {
 /*************** THUNK ACTIONS CREATOR **************************/
 
 export const getAllServersThunk = () => async (dispatch) => {
-  const res = await fetch("/api/servers");
+  const res = await fetch("/api/servers/");
 
   if (res.ok) {
     const servers = await res.json();

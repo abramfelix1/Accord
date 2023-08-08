@@ -33,6 +33,14 @@ export function startListeners(user) {
   socket.on("chat_update_response", (data) => {
     console.log(data["Message"]);
   });
+  socket.on("disconnect_response", (data) => {
+    console.log(data["Message"]);
+    console.log(data["Users"]);
+  });
+}
+
+export function disconnectSockets() {
+  socket.disconnect();
 }
 
 export function joinServer(user_id) {
@@ -50,13 +58,14 @@ export function chatUpdate(server_id, channel_id) {
   socket.emit("chat_update", { server_id, channel_id });
 }
 
-export function handleChatUpdates(callback) {
+export function handleChatUpdates(callback, chid) {
   console.log("***LISTENING FOR CHAT UPDATES***");
   socket.on("chat_update_response", (data) => {
     console.log("***CHAT UPDATES EVENT DATA***");
-    console.log(data.channel_id);
     const channel_id = data.channel_id;
-    callback(channel_id);
+    if (channel_id == chid) {
+      callback(channel_id);
+    }
   });
 }
 

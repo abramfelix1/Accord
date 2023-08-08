@@ -88,7 +88,6 @@ const messageReducer = (state = initialState, action) => {
     //   }, {});
     //   return { messages: { ...messages }, isLoading: false };
     case ADD_MESSAGE:
-      console.log(action.payload);
       newState[action.payload.id] = action.payload;
       return newState;
     case UPDATE_MESSAGE:
