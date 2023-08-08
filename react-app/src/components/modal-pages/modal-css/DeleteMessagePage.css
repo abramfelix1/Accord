@@ -1,0 +1,19 @@
+.delete-message-container {
+  background-color: #35393e;
+}
+
+.delete-message-header {
+  font-size: 20px;
+  color: white;
+}
+
+.delete-message-sub-header {
+  font-size: 16px;
+  color: #dbdee1;
+}
+
+.delete-message-footer {
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: #1e1f22;
+}
