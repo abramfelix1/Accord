@@ -5,12 +5,9 @@ import MessageContainer from "./MessageContainer";
 import MessageEditField from "./MessageEditField";
 import { useState } from "react";
 
-function MessageCard({ message }) {
-  const [showEditField, setShowEditField] = useState(false);
-  const user = useSelector((state) => state.session.user);
-
+function MessageCard({ message, setShowEditField }) {
   return (
-    <MessageContainer message={(message, setShowEditField)}>
+    <MessageContainer message={message} setShowEditField={setShowEditField}>
       <div className="message-wrapper">
         {message.image_url !== null && message.image_url.length >= 1 ? (
           <img

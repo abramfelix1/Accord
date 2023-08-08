@@ -12,8 +12,11 @@ import MessageCard from "./MessageCard";
 import ChatLoading from "../loading/ChatLoading";
 import { InfoContext } from "../../context/infoContext";
 import MessageEditField from "./MessageEditField";
+import MessageContainer from "./MessageContainer";
 
 const Chat = () => {
+  const [showEditField, setShowEditField] = useState(false);
+  const user = useSelector((state) => state.session.user);
   const [chatInput, setChatInput] = useState("");
   // const isLoaded = useSelector((state) => state.current.isLoading);
   const { isLoaded } = useContext(InfoContext);
@@ -86,7 +89,14 @@ const Chat = () => {
                 return (
                   <div key={`${message.id}${idx}`}>
                     {isSameUser ? (
-                      <p className="chat-box-message-only">{message.message}</p>
+                      <MessageContainer
+                        message={message}
+                        setShowEditField={setShowEditField}
+                      >
+                        <p className="chat-box-message-only">
+                          {message.message}
+                        </p>
+                      </MessageContainer>
                     ) : (
                       <MessageCard message={message} />
                     )}

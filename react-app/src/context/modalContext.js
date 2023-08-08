@@ -14,36 +14,40 @@ export const ModalProvider = ({ children }) => {
   //   };
 
   const createServerModal = () => {
-    setType("Create Server")
-  }
+    setType("Create Server");
+  };
 
   const serverSettingModal = () => {
-    setType("Server Settings")
-  }
+    setType("Server Settings");
+  };
 
-  const serverProfileSettingModal =() => {
-    setType("Server Profile Settings")
-  }
+  const serverProfileSettingModal = () => {
+    setType("Server Profile Settings");
+  };
 
   const createChannelModal = () => {
-    setType("Create Channel")
-  }
+    setType("Create Channel");
+  };
 
   const leaveServerModal = () => {
-    setType("Leave Server")
-  }
+    setType("Leave Server");
+  };
 
   const channelSettingModal = () => {
-    setType("Channel Setting")
-  }
+    setType("Channel Setting");
+  };
 
   const userAccountModal = () => {
-    setType("User Account")
-  }
+    setType("User Account");
+  };
 
-  const  discoverServerModal = () => {
-    setType('Discover Server')
-  }
+  const discoverServerModal = () => {
+    setType("Discover Server");
+  };
+
+  const deleteMessageModal = () => {
+    setType("Delete Message");
+  };
 
   return (
     <ModalContext.Provider
@@ -60,6 +64,7 @@ export const ModalProvider = ({ children }) => {
         channelSettingModal,
         userAccountModal,
         discoverServerModal,
+        deleteMessageModal,
         // toggleLogin,
       }}
     >
