@@ -62,11 +62,6 @@ function ServerProfileSetting() {
             </div>
           </div>
           <div className="setting-separator"></div>
-          <p className="setting-navigation-title">User Settings</p>
-          <div>
-            <p className="setting-navigation-section-name">My Account</p>
-          </div>
-          <div className="setting-separator"></div>
           <div style={{ display: "flex", alignItems: "center" }}>
             <p
               className="setting-navigation-section-name delete-server"

@@ -62,7 +62,7 @@ def create_a_servers():
         db.session.commit()
 
         new_member = Member(user_id=current_user.get_id(), server_id=new_server.id)
-        new_channel = Channel(name="General", server_id=new_server.id)
+        new_channel = Channel(name="general", server_id=new_server.id)
         db.session.add(new_channel)
         db.session.add(new_member)
         db.session.commit()
