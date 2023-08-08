@@ -21,7 +21,7 @@ function MessageContainer({ children, message, setShowEditField, setEditMessageI
       onMouseLeave={() => setShowSettings(false)}
     >
       <div className="message-edit-field-container"></div>
-      {showSettings && (
+      {showSettings && user && message && user.id === message.user_id && (
         <div className="message-settings-container">
           <div className="message-icon-container emoji">
             <BsFillEmojiSmileFill className="message-emoji" />
