@@ -69,25 +69,9 @@ const Chat = () => {
         <div className="main-chat-and-input-container">
           <div className="chat-container">
             {messages && reverseArray([...messages]).map((message, idx) => {
-              const tempIndex = messages.length - idx - 1;
-                    //  3            4             0     
-                    //  2            3             1     
-                    //  1            2             2     
-                    //  0            1             3     
-                    //     
-                    //     
-                    //  curridx: 0 
-                    //  tempidx: 3
-                    //   
-                    //                         |  
-                    // normal        [1, 2, 3, 4]
-                    // reversed      [4, 3, 2, 1]
-                    //                |                
-                    //      
-                    //      
-                    //     
+              const tempIndex = messages.length - idx - 1;   
               const isSameUser = tempIndex === 0
-                  ? false    //3                                2
+                  ? false    
                   : messages[tempIndex].user_id === messages[tempIndex - 1].user_id;
               return (
                 <div key={`${message.id}${idx}`}>
