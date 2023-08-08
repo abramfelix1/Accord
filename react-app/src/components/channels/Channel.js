@@ -22,6 +22,7 @@ function Channel() {
 
   // useSelectors
   const isLoaded = useSelector((state) => state.current.isLoading);
+  const { setIsLoaded } = useContext(InfoContext);
   const server = useSelector((state) => state.current.server);
   const user = useSelector((state) => state.session.user);
   const channels = Object.values(
@@ -48,7 +49,8 @@ function Channel() {
   // Handlers
 
   const channelClickHandler = (channel) => {
-    dispatch(resetServers());
+    // dispatch(resetServers());
+    setIsLoaded(false);
     setChannel(channel);
   };
 

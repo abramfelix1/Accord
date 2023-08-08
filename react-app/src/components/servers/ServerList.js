@@ -20,6 +20,7 @@ function ServerList() {
   const { setServer } = useContext(InfoContext);
   const { setChannel } = useContext(ChannelContext);
   const { createServerModal, isModalOpen } = useContext(ModalContext);
+  const { setIsLoaded } = useContext(InfoContext);
 
   // selecting the users state to get users servers
   const userServers = Object.values(useSelector((state) => state.user));
@@ -35,7 +36,8 @@ function ServerList() {
     // event.preventDefault();
     event.stopPropagation();
     //comment out for more speed!!
-    if (event.target.id !== "active-server") dispatch(resetCurrent());
+    // if (event.target.id !== "active-server") dispatch(resetCurrent());
+    setIsLoaded(false);
     setServer(server);
     if (server) {
       setChannel(server.firstChannel);

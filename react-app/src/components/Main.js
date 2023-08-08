@@ -31,7 +31,7 @@ function Main() {
   const { serverid, channelid } = useParams();
   const dispatch = useDispatch();
   const { channel, setChannel } = useContext(ChannelContext);
-  const { server, setServer } = useContext(InfoContext);
+  const { server, setServer, setIsLoaded } = useContext(InfoContext);
   const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
@@ -49,12 +49,13 @@ function Main() {
     (async () => {
       if (serverid) {
         try {
+          let d = dispatch(memberActions.getServerMembersThunk(serverid));
           let a = await dispatch(serverActions.getServerThunk(serverid));
           let b = await dispatch(channelActions.getChannel(channelid));
           let c = dispatch(messageActions.getMessages(channelid));
-          let d = dispatch(memberActions.getServerMembersThunk(serverid));
           setServer(a);
           setChannel(b);
+          setIsLoaded(true);
           if (!a) {
             return history.push(`/app`);
           }
