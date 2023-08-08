@@ -12,7 +12,10 @@ function MessageEditField({ message, setShowEditField }) {
 
   const editMessageHandler = async (e) => {
     e.preventDefault();
+    // if empty string is passed in for the message value. 
+    // pop open a modal for delete confirm
 
+    
     await dispatch(messageActions.editMessage(message.channel_id, message.id, messageValue));
   }
   
