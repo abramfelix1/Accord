@@ -10,7 +10,12 @@ import { ChannelContext } from "../context/channelContext";
 import { useContext, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
-import { joinServer, chatUpdate, startListeners } from "./utils/Socket";
+import {
+  joinServer,
+  chatUpdate,
+  startListeners,
+  disconnectSockets,
+} from "./utils/Socket";
 import * as serverActions from "../store/server";
 import * as channelActions from "../store/channels";
 import * as currentActions from "../store/current";
@@ -25,15 +30,19 @@ function Main() {
   const history = useHistory();
   const { serverid, channelid } = useParams();
   const dispatch = useDispatch();
+  const { channel, setChannel } = useContext(ChannelContext);
   const { server, setServer } = useContext(InfoContext);
   const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
     if (user) {
-      console.log("USERID: " + user.id);
+      //
       startListeners();
       joinServer(user.id);
     }
+    return () => {
+      disconnectSockets();
+    };
   }, []);
 
   useEffect(() => {
@@ -41,10 +50,11 @@ function Main() {
       if (serverid) {
         try {
           let a = await dispatch(serverActions.getServerThunk(serverid));
-          let b = dispatch(channelActions.getChannel(channelid));
+          let b = await dispatch(channelActions.getChannel(channelid));
           let c = dispatch(messageActions.getMessages(channelid));
           let d = dispatch(memberActions.getServerMembersThunk(serverid));
           setServer(a);
+          setChannel(b);
           if (!a) {
             return history.push(`/app`);
           }
@@ -57,20 +67,8 @@ function Main() {
 
   if (!user) return <Redirect to="/login" />;
 
-  const buttonHandler = () => {
-    chatUpdate(1, 1);
-  };
-  const button2Handler = () => {
-    startListeners();
-    joinServer(user.id);
-  };
-
-  console.log(server);
   return (
     <div className="main-container">
-      {/* <button onClick={(e) => button2Handler()}>START LISTENERS</button>
-      <button onClick={(e) => buttonHandler()}>TEST SOCKET</button> */}
-      {/* Server Section */}
       <section className="main-section-1">
         <Server />
       </section>

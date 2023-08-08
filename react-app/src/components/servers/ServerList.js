@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as userActions from "../../store/user";
 import * as channelActions from "../../store/channels";
 import { resetCurrent } from "../../store/current";
+import { resetServers } from "../../store/servers";
 import { InfoContext } from "../../context/infoContext";
 import { ModalContext } from "../../context/modalContext";
 import { ChannelContext } from "../../context/channelContext";
@@ -33,6 +34,7 @@ function ServerList() {
   const handleActiveButton = (event, server) => {
     // event.preventDefault();
     event.stopPropagation();
+    //comment out for more speed!!
     if (event.target.id !== "active-server") dispatch(resetCurrent());
     setServer(server);
     if (server) {

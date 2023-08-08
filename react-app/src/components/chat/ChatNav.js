@@ -7,11 +7,11 @@ import "./chat-css/ChatNav.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function ChatNav() {
-  // const { channel, setChannel } = useContext(ChannelContext);
+  const { channel, setChannel } = useContext(ChannelContext);
   const { serverid, channelid } = useParams();
   const isLoading = useSelector((state) => state.current.isLoading);
-  const channel = useSelector((state) => state.current.channel);
-  // useEffect(() => {}, [channel]);
+  // const channel = useSelector((state) => state.current.channel);
+
   return (
     <>
       <div className="live-chat-container">
