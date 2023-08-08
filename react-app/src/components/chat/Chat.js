@@ -12,6 +12,7 @@ import logo from "../../images/accord-logo.png";
 import ChatLoading from "../loading/ChatLoading";
 import { InfoContext } from "../../context/infoContext";
 import MessageContainer from "./MessageContainer";
+import MessageEditField from "./MessageEditField";
 
 const Chat = () => {
   const [chatInput, setChatInput] = useState("");
@@ -99,7 +100,10 @@ const Chat = () => {
           <div className="chat-container">
             {reverseArray([...messages]).map((message, idx) => (
               <div key={`${message.id}${idx}`}>
-                <MessageContainer message={message}>
+                <MessageContainer
+                  message={message}
+                  setShowEditField={setShowEditField}
+                >
                   <div className="message-wrapper">
                     {message.image_url !== null &&
                     message.image_url.length >= 1 ? (
@@ -113,19 +117,26 @@ const Chat = () => {
                         <img className="chatbox-logo" src={logo} alt="logo" />
                       </div>
                     )}
-                    <div className="chat-box-name-date-message-wrapper">
-                      <div className="chat-box-name-date-wrapper">
-                        <span className="chat-box-name">
-                          {message.display_name
-                            ? message.display_name
-                            : message.username}
-                        </span>
-                        <span className="chat-box-date">
-                          {dateFormat(message.created_at)}
-                        </span>
+                    {showEditField ? (
+                      <MessageEditField
+                        message={message}
+                        setShowEditField={setShowEditField}
+                      />
+                    ) : (
+                      <div className="chat-box-name-date-message-wrapper">
+                        <div className="chat-box-name-date-wrapper">
+                          <span className="chat-box-name">
+                            {message.display_name
+                              ? message.display_name
+                              : message.username}
+                          </span>
+                          <span className="chat-box-date">
+                            {dateFormat(message.created_at)}
+                          </span>
+                        </div>
+                        <p className="chat-box-message">{message.message}</p>
                       </div>
-                      <p className="chat-box-message">{message.message}</p>
-                    </div>
+                    )}
                   </div>
                 </MessageContainer>
               </div>

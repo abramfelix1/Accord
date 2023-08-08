@@ -21,7 +21,12 @@ function MessageContainer({ children, message, setShowEditField }) {
             <BsFillEmojiSmileFill className="message-emoji" />
           </div>
           <div className="message-icon-container edit">
-            <MdOutlineModeEditOutline className="message-edit" />
+            <MdOutlineModeEditOutline
+              className="message-edit"
+              onClick={(e) => {
+                setShowEditField(true);
+              }}
+            />
           </div>
           <div className="message-icon-container more">
             <RiDeleteBinLine className="message-more" />
