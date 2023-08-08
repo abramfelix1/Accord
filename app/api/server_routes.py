@@ -35,21 +35,12 @@ def get_all_servers():
     if not servers:
         return {}
 
-    # return [server.to_dict() for server in servers]
     # Server Users are members of
     members = Member.query.filter(Member.user_id == user_id).all()
 
-    server_ids = []
-    # for member in members:
-    #     print(member)
-    #     server_ids.append(member.to_dict()["server_id"])
-    for server in servers:
-        for member in members:
-            if server.id != member.server_id:
-                server_ids.append(server.to_dict())
+    member_servers = [m.to_dict()['server_id'] for m in members]
 
-    return server_ids
-
+    return [server.to_dict() for server in Server.query.filter(Server.id.not_in(set(member_servers))).all()]
 
 
 @server_routes.route("/", methods=["POST"])
