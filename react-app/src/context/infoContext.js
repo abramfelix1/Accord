@@ -5,6 +5,8 @@ export const InfoContext = createContext();
 export const InfoProvider = ({ children }) => {
   const [server, setServer] = useState(null);
   const [channelCog, setChannelCog] = useState({});
+  const [showEditField, setShowEditField] = useState(false);
+  const [editMessageId, setEditMessageId] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -23,6 +25,10 @@ export const InfoProvider = ({ children }) => {
         setIsLoaded,
         setChannelCog,
         channelCog,
+        showEditField,
+        setShowEditField,
+        editMessageId, 
+        setEditMessageId,
       }}
     >
       {children}

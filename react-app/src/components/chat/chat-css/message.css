@@ -52,3 +52,13 @@
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
 }
+
+
+.message-only-wrapper {
+  margin: 0px 17px 0px 70px;
+  padding: 5px;
+}
+
+.message-edit-wrapper {
+  margin-left: 0px;
+}

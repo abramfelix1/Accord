@@ -6,7 +6,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 
-function MessageContainer({ children, message, setShowEditField }) {
+function MessageContainer({ children, message, setShowEditField, setEditMessageId }) {
   const [showSettings, setShowSettings] = useState(false);
   const user = useSelector((state) => state.session.user);
 
@@ -27,6 +27,7 @@ function MessageContainer({ children, message, setShowEditField }) {
               className="message-edit"
               onClick={(e) => {
                 setShowEditField(true);
+                setEditMessageId(message.id)
               }}
             />
           </div>
