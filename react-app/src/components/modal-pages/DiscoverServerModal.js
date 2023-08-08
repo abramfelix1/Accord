@@ -19,6 +19,7 @@ function DiscoverServerModal() {
     console.log(servers, 'servers')
   return (
     <div className="discover-server">
+        <div>
         {
             servers.map((server) => {
                 return (
@@ -26,6 +27,7 @@ function DiscoverServerModal() {
                 )
             })
         }
+        </div>
     </div>
   );
 }
