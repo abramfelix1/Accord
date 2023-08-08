@@ -7,12 +7,13 @@ import { handleChatUpdates, chatUpdate } from "../utils/Socket";
 import "./chat-css/ChatBox.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { dateFormat, isItANewDay } from "./ChatHelperFunctions";
-import { useRef } from "react";
 import logo from "../../images/accord-logo.png";
+import MessageCard from "./MessageCard";
 import ChatLoading from "../loading/ChatLoading";
 import { InfoContext } from "../../context/infoContext";
 import MessageContainer from "./MessageContainer";
 import MessageEditField from "./MessageEditField";
+
 
 const Chat = () => {
   const [chatInput, setChatInput] = useState("");
@@ -38,9 +39,7 @@ const Chat = () => {
   });
 
   const dispatch = useDispatch();
-  // const messageRef = useRef(null);
-  const [prevMessageUserId, setPrevMessageUserId] = useState("");
-  // const [secondToLastMessage, setSecondToLastMessage] = useState("")
+
 
   // Function to reverse a given array
   const reverseArray = (array) => {
@@ -48,22 +47,6 @@ const Chat = () => {
     return reverseArray;
   };
 
-  // when a message is being typed or is sent, it ill scroll down to
-  // last message
-  // useEffect(() => {
-  //   messageRef.current?.scrollIntoView();
-  // }, [messages]);
-
-  useEffect(() => {
-    if (messages) {
-      setPrevMessageUserId(messages[messages.length - 2]?.user_id);
-      // setSecondToLastMessage(messages[messages.length - 2])
-    }
-
-    // for (let i = 0; i < messages.length; i++) {
-    //   console.log(messages[i].user_id === messages[messages.length - 1]?.user_id)
-    // }
-  }, [messages]);
 
   useEffect(() => {
     //updates the message state every render
@@ -98,38 +81,22 @@ const Chat = () => {
       ) : (
         <div className="main-chat-and-input-container">
           <div className="chat-container">
-            {reverseArray([...messages]).map((message, idx) => (
-              <div key={`${message.id}${idx}`}>
-                <div className="message-wrapper">
-                  {message.image_url !== null &&
-                  message.image_url.length >= 1 ? (
-                    <img
-                      className="chatbox-image"
-                      src={message.image_url}
-                      alt="chatbox-user-img"
-                    />
+            {messages && reverseArray([...messages]).map((message, idx) => {
+              const tempIndex = messages.length - idx - 1;   
+              const isSameUser = tempIndex === 0
+                  ? false    
+                  : messages[tempIndex].user_id === messages[tempIndex - 1].user_id;
+              return (
+                <div key={`${message.id}${idx}`}>
+                  {isSameUser 
+                  ? (
+                    <p className="chat-box-message-only">{message.message}</p>
                   ) : (
-                    <div className="chatbox-logo-wrapper">
-                      <img className="chatbox-logo" src={logo} alt="logo" />
-                    </div>
+                    <MessageCard message={message} />
                   )}
-                  <div className="chat-box-name-date-message-wrapper">
-                    <div className="chat-box-name-date-wrapper">
-                      <span className="chat-box-name">
-                        {message.display_name
-                          ? message.display_name
-                          : message.username}
-                      </span>
-                      <span className="chat-box-date">
-                        {dateFormat(message.created_at)}
-                      </span>
-                    </div>
-                    <p className="chat-box-message">{message.message}</p>
-                  </div>
                 </div>
-              </div>
-            ))}
-            {/* <div className="message-ref" ref={messageRef}></div> */}
+              );
+            })}
           </div>
           <ChatInputField
             sendChat={sendChat}
@@ -143,51 +110,3 @@ const Chat = () => {
 };
 
 export default Chat;
-
-//   return (
-//     <>
-//       {user && !isLoaded && serverid && (
-//         <div className="main-chat-and-input-container">
-//           <div className="chat-container">
-//             {messages.map((message, idx) => (
-//               <div key={`${message.id}${idx}`}>
-//                 {prevMessageUserId === message.user_id
-//                 ? (<div className="message-wrapper">
-//                   {message.image_url !== null && message.image_url.length >= 1
-//                     ? (<img
-//                       className="chatbox-image"
-//                       src={message.image_url}
-//                       alt="chatbox-user-img"
-//                     />)
-//                     : (<div className="chatbox-logo-wrapper">
-//                         <img className="chatbox-logo" src={logo} alt="logo" />
-//                       </div>)}
-//                     <div className="chat-box-name-date-message-wrapper">
-//                         <div className="chat-box-name-date-wrapper">
-//                           <span className="chat-box-name">
-//                               {message.display_name ? message.display_name : message.username}
-//                           </span>
-//                           <span className="chat-box-date">
-//                               {dateFormat(message.created_at)}
-//                           </span>
-//                         </div>
-//                         <p className="chat-box-message">{message.message}</p>
-//                     </div>
-//                 </div>)
-//                 : <p className="chat-box-message-only">{message.message}</p>}
-//               </div>
-//             ))}
-//             {/* <div className="message-ref" ref={messageRef}></div> */}
-//           </div>
-//           <ChatInputField
-//             sendChat={sendChat}
-//             chatInput={chatInput}
-//             updateChatInput={updateChatInput}
-//           />
-//         </div>
-//       )}
-//     </>
-//   );
-// };
-
-// export default Chat;
