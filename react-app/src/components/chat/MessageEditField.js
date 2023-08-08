@@ -6,12 +6,7 @@ import ChatInputField from "./ChatInputField";
 function MessageEditField({ message, setShowEditField }) {
   return (
     <div className="chat-box-name-date-message-wrapper">
-      <div className="chat-box-name-date-wrapper">
-        <span className="chat-box-name">
-          {message.display_name ? message.display_name : message.username}
-        </span>
-        <span className="chat-box-date">{dateFormat(message.created_at)}</span>
-      </div>
+      <div className="chat-box-name-date-wrapper"></div>
       <form>
         <input placeholder={`${message.message}`}></input>
         <p>

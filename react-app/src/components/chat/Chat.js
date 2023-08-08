@@ -11,14 +11,10 @@ import logo from "../../images/accord-logo.png";
 import MessageCard from "./MessageCard";
 import ChatLoading from "../loading/ChatLoading";
 import { InfoContext } from "../../context/infoContext";
-import MessageContainer from "./MessageContainer";
 import MessageEditField from "./MessageEditField";
-
 
 const Chat = () => {
   const [chatInput, setChatInput] = useState("");
-  const [showEditField, setShowEditField] = useState("");
-  const user = useSelector((state) => state.session.user);
   // const isLoaded = useSelector((state) => state.current.isLoading);
   const { isLoaded } = useContext(InfoContext);
   const { serverid, channelid } = useParams();
@@ -40,13 +36,11 @@ const Chat = () => {
 
   const dispatch = useDispatch();
 
-
   // Function to reverse a given array
   const reverseArray = (array) => {
     let reverseArray = array.reverse();
     return reverseArray;
   };
-
 
   useEffect(() => {
     //updates the message state every render
@@ -81,22 +75,24 @@ const Chat = () => {
       ) : (
         <div className="main-chat-and-input-container">
           <div className="chat-container">
-            {messages && reverseArray([...messages]).map((message, idx) => {
-              const tempIndex = messages.length - idx - 1;   
-              const isSameUser = tempIndex === 0
-                  ? false    
-                  : messages[tempIndex].user_id === messages[tempIndex - 1].user_id;
-              return (
-                <div key={`${message.id}${idx}`}>
-                  {isSameUser 
-                  ? (
-                    <p className="chat-box-message-only">{message.message}</p>
-                  ) : (
-                    <MessageCard message={message} />
-                  )}
-                </div>
-              );
-            })}
+            {messages &&
+              reverseArray([...messages]).map((message, idx) => {
+                const tempIndex = messages.length - idx - 1;
+                const isSameUser =
+                  tempIndex === 0
+                    ? false
+                    : messages[tempIndex].user_id ===
+                      messages[tempIndex - 1].user_id;
+                return (
+                  <div key={`${message.id}${idx}`}>
+                    {isSameUser ? (
+                      <p className="chat-box-message-only">{message.message}</p>
+                    ) : (
+                      <MessageCard message={message} />
+                    )}
+                  </div>
+                );
+              })}
           </div>
           <ChatInputField
             sendChat={sendChat}
