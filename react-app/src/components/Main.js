@@ -40,9 +40,9 @@ function Main() {
       startListeners();
       joinServer(user.id);
     }
-    return () => {
-      disconnectSockets();
-    };
+    // return () => {
+    //   disconnectSockets();
+    // };
   }, []);
 
   useEffect(() => {

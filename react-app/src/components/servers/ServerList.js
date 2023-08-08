@@ -14,13 +14,16 @@ import { ChannelContext } from "../../context/channelContext";
 import { useContext } from "react";
 import { useParams } from "react-router-dom/";
 import Tooltip from "../utils/tooltip";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function ServerList() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { setServer } = useContext(InfoContext);
   const { setChannel } = useContext(ChannelContext);
   const { createServerModal, isModalOpen } = useContext(ModalContext);
   const { setIsLoaded } = useContext(InfoContext);
+  const { serverid, channelid } = useParams();
 
   // selecting the users state to get users servers
   const userServers = Object.values(useSelector((state) => state.user));
@@ -37,8 +40,14 @@ function ServerList() {
     event.stopPropagation();
     //comment out for more speed!!
     // if (event.target.id !== "active-server") dispatch(resetCurrent());
-    setIsLoaded(false);
-    setServer(server);
+    if (server?.id == serverid) {
+      event.preventDefault(); // Prevent the redirect
+      return history.push(`/servers/${serverid}/channels/${channelid}`);
+    } else {
+      setIsLoaded(false);
+    }
+
+    // setServer(server);
     if (server) {
       setChannel(server.firstChannel);
     }
@@ -74,7 +83,7 @@ function ServerList() {
         <Tooltip text={"Direct Messages"}>
           <NavLink
             to="/app"
-            id="active-server"
+            id={serverid ? "" : `active-server`}
             className="servers servers-friend-button"
             onClick={(e) => handleActiveButton(e)}
           >

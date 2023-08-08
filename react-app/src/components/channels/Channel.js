@@ -48,10 +48,14 @@ function Channel() {
 
   // Handlers
 
-  const channelClickHandler = (channel) => {
+  const channelClickHandler = (event, channel) => {
     // dispatch(resetServers());
-    setIsLoaded(false);
     setChannel(channel);
+    if (event.target.id !== "active-channel") setIsLoaded(false);
+    const current = document.getElementById("active-channel");
+    const chan = document.getElementsByClassName("channel-box")[0];
+    if (current) current.id = "";
+    event.target.id = "active-channel";
   };
 
   return (
@@ -106,14 +110,14 @@ function Channel() {
                             ? "channel-box-active"
                             : "channel-box"
                         }
+                        onClick={(e) => {
+                          channelClickHandler(e, channel);
+                        }}
                       >
                         <NavLink
                           key={channel.id}
                           to={`/servers/${server.id}/channels/${channel.id}`}
-                          className={"channel-flex"}
-                          onClick={(e) => {
-                            channelClickHandler(channel);
-                          }}
+                          className={`channel-flex `}
                         >
                           <FaHashtag style={{ color: "#949ba4" }} />
                           <p
