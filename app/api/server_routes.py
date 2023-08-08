@@ -31,11 +31,25 @@ def get_all_servers():
     Gets all public servers
     """
     servers = Server.query.all()
-
+    user_id = current_user.get_id()
     if not servers:
         return {}
 
-    return [server.to_dict() for server in servers]
+    # return [server.to_dict() for server in servers]
+    # Server Users are members of
+    members = Member.query.filter(Member.user_id == user_id).all()
+
+    server_ids = []
+    # for member in members:
+    #     print(member)
+    #     server_ids.append(member.to_dict()["server_id"])
+    for server in servers:
+        for member in members:
+            if server.id != member.server_id:
+                server_ids.append(server.to_dict())
+
+    return server_ids
+
 
 
 @server_routes.route("/", methods=["POST"])
