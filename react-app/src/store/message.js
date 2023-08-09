@@ -64,7 +64,8 @@ export const editMessage =
     if (response.ok) {
       const data = await response.json();
       dispatch(updateMessage(data));
-      // dispatch(populateMessages(data));
+      dispatch(getMessages(data.channel_id));
+      return data;
     }
   };
 
