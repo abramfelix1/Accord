@@ -43,7 +43,9 @@ export const leaveServerThunk = (server_id) => async (dispatch) => {
   // to get the redux updated with all the servers again to
   // prevent loading issues
   if (res.ok) {
+    const data = res.json()
     dispatch(getUserServersThunk(server_id));
+    return data
   }
 };
 
@@ -60,7 +62,9 @@ export const updateServerNicknameThunk =
     });
 
     if (res.ok) {
+      const data = res.json()
       dispatch(getUserServersThunk(server_id));
+      return data
     }
   };
 
@@ -86,7 +90,9 @@ export const joinServerThunk = (server_id) => async (dispatch) => {
   })
 
   if (res.ok) {
+    const data = res.json()
     dispatch(getUserServersThunk())
+    return data
   }
 }
 
