@@ -36,7 +36,6 @@ function ServerSetting() {
   };
 
   const updateServerHandleSubmit = async (e) => {
-
     await dispatch(updateServerThunk(server.id, serverName, serverImage));
     await dispatch(getAllServersThunk());
 
@@ -65,15 +64,19 @@ function ServerSetting() {
               <p className="setting-navigation-section-name">Server Profile</p>
             </div>
           </div>
-          <div className="setting-separator"></div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <p
-              className="setting-navigation-section-name delete-server"
-              onClick={(e) => deleteServerHandleSubmit()}
-            >
-              Delete Server <BiSolidTrash style={{ marginLeft: "7px" }} />
-            </p>
-          </div>
+          {server.owner_id === user.id && (
+            <div>
+              <div className="setting-separator"></div>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <p
+                  className="setting-navigation-section-name delete-server"
+                  onClick={(e) => deleteServerHandleSubmit()}
+                >
+                  Delete Server <BiSolidTrash style={{ marginLeft: "7px" }} />
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="server-inner-2">
@@ -100,7 +103,7 @@ function ServerSetting() {
                     {initials(server.name)}
                   </div>
                 )}
-                {(server.image_url && user.id === server.owner_id) &&(
+                {server.image_url && user.id === server.owner_id && (
                   <button className="remove-server-image">Remove</button>
                 )}
               </div>

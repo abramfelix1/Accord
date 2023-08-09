@@ -27,16 +27,9 @@ function UserAccountFormPage() {
     user.display_name || user.username
   );
   const [imageUrl, setImageUrl] = useState(user.image_url);
-  const [errors, setErrors] = useState({});
 
   const updateUserHandleSubmit = async (e) => {
-    setErrors({});
-    const data = await dispatch(
-      updateUserThunk(user.username, displayName, imageUrl)
-    );
-    if (data) {
-      setErrors(data);
-    }
+    await dispatch(updateUserThunk(user.username, displayName, imageUrl));
   };
 
   const handleSubmit = async (e) => {
