@@ -33,14 +33,14 @@ export function startListeners(user) {
   socket.on("chat_update_response", (data) => {
     console.log(data["Message"]);
   });
-  // socket.on("disconnect_response", (data) => {
-  //   console.log(data["Message"]);
-  //   console.log(data["Users"]);
-  // });
+  socket.on("disconnect_response", (data) => {
+    console.log(data["Message"]);
+    console.log(data["Users"]);
+  });
 }
 
 export function disconnectSockets() {
-  // socket.disconnect();
+  socket.disconnect();
 }
 
 export function joinServer(user_id) {
