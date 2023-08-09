@@ -35,7 +35,7 @@ function DeleteMessagePage() {
   };
 
   return (
-    <div className="delete-message-container">
+      message && <div className="delete-message-container">
       <div className="delete-message-header">
         <p>Delete Message</p>
       </div>
