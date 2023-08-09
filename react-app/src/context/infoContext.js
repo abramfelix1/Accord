@@ -8,13 +8,16 @@ export const InfoProvider = ({ children }) => {
   const [showEditField, setShowEditField] = useState(false);
   const [editMessageId, setEditMessageId] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     console.log("Server Context:");
     console.log(server);
     console.log("Is Loaded:");
     console.log(isLoaded);
-  }, [server, isLoaded]);
+    console.log("Message Context:");
+    console.log(message);
+  }, [server, isLoaded, message]);
 
   return (
     <InfoContext.Provider
@@ -25,6 +28,8 @@ export const InfoProvider = ({ children }) => {
         setIsLoaded,
         setChannelCog,
         channelCog,
+        message,
+        setMessage,
         showEditField,
         setShowEditField,
         editMessageId, 
