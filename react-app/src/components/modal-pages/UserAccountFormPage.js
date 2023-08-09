@@ -77,7 +77,7 @@ function UserAccountFormPage() {
                   marginTop: "5px",
                 }}
               >
-                {displayName}
+                {displayName || user.display_name || user.username}
               </p>
             </div>
             {editButton ? (
