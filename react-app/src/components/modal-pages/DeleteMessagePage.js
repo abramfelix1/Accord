@@ -1,17 +1,38 @@
 import React, { useContext, useEffect } from "react";
+import socket from "../utils/Socket";
 import { InfoContext } from "../../context/infoContext";
 import { dateFormat } from "../chat/ChatHelperFunctions";
 import logo from "../../images/accord-logo.png";
 import "./modal-css/DeleteMessagePage.css";
 import "../chat/chat-css/ChatBox.css";
+import { ModalContext } from "../../context/modalContext";
+import { useDispatch } from "react-redux";
+import { getMessages, removeMessage } from "../../store/message";
+import { ChannelContext } from "../../context/channelContext";
 
-function DeleteMessagePage(mesasgeInfo) {
+function DeleteMessagePage() {
   const { message, setMessage } = useContext(InfoContext);
+  const { channel } = useContext(ChannelContext);
+  const { setType } = useContext(ModalContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("MESSAGE DELETE");
     console.log(message);
   }, []);
+
+  const handleDeleteButton = (channel, message) => {
+    (async () => {
+      if (message) {
+        console.log("delete message");
+        console.log(message.id);
+        dispatch(removeMessage(channel.id, message.id));
+
+        socket.emit("send_message", { channel_id: channel.id });
+        setType(null);
+      }
+    })();
+  };
 
   return (
     <div className="delete-message-container">
@@ -61,10 +82,22 @@ function DeleteMessagePage(mesasgeInfo) {
       <div className="delete-message-footer">
         <div className="delete-buttons-container">
           <button className="delete-message-button">
-            <p>Delete</p>
+            <p
+              onClick={() => {
+                handleDeleteButton(channel, message);
+              }}
+            >
+              Delete
+            </p>
           </button>
           <button className="cancel-message-button">
-            <p>Cancel</p>
+            <p
+              onClick={() => {
+                setType(null);
+              }}
+            >
+              Cancel
+            </p>
           </button>
         </div>
       </div>

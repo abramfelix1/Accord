@@ -1,7 +1,7 @@
 export const POPULATE_MESSAGES = "chat/setMessages";
 export const ADD_MESSAGE = "chat/addMessage";
 export const UPDATE_MESSAGE = "chat/updateMessage";
-export const DELETE_MESSAGE = "channel/deleteChannel";
+export const DELETE_MESSAGE = "channel/deleteMessage";
 export const RESET_MESSAGES = "channel/resetChannel";
 
 export const resetMessages = () => ({
@@ -72,7 +72,8 @@ export const removeMessage = (channel_id, message_id) => async (dispatch) => {
     method: "DELETE",
   });
   if (response.ok) {
-    dispatch(deleteMessage(message_id));
+    const msg = dispatch(deleteMessage(message_id));
+    dispatch(getMessages(channel_id));
   }
 };
 
