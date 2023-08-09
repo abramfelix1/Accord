@@ -88,15 +88,14 @@ const Chat = () => {
                     : messages[tempIndex].user_id ===
                       messages[tempIndex - 1].user_id;
                 return (
-                  <div key={`${message.id}${idx}`}>
+                  <div key={`${Math.random()}${idx}`}>
                     {isSameUser ? (
                       <MessageContainer
                         message={message}
                         setShowEditField={setShowEditField}
                       >
-                        <MessageOnlyCard message={message}/>
+                        <MessageOnlyCard message={message} />
                       </MessageContainer>
-
                     ) : (
                       <MessageCard message={message} />
                     )}
