@@ -8,8 +8,6 @@ import { useSelector } from "react-redux";
 
 import { ModalContext } from "../../context/modalContext";
 
-import { useContext } from "react";
-
 import { InfoContext } from "../../context/infoContext";
 
 function MessageContainer({ children, message, setShowEditField, setEditMessageId }) {
@@ -21,7 +19,7 @@ function MessageContainer({ children, message, setShowEditField, setEditMessageI
 
   return (
     <div
-      className={`message-container`} 
+      className={`message-container`}
       id={message && editMessageId === message.id ? "message-container-active" : ""}
       onMouseEnter={() => setShowSettings(true)}
       onMouseLeave={() => setShowSettings(false)}
