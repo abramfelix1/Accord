@@ -68,7 +68,6 @@ const Chat = () => {
     dispatch(createMessage(channelid, chatInput));
     //emits send_message event for the backend
     chatUpdate(serverid, channelid);
-    socket.emit("send_message", { channel_id: channelid });
     setChatInput("");
   };
 
