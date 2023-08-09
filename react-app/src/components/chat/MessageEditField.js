@@ -10,7 +10,7 @@ import { InfoContext } from "../../context/infoContext";
 import { ModalContext } from "../../context/modalContext";
 
 function MessageEditField({ message, setShowEditField, }) {
-  const { setEditMessageId } = useContext(InfoContext);
+  const { setEditMessageId, setMessage } = useContext(InfoContext);
   const { deleteMessageModal } = useContext(ModalContext);
   const [messageValue, setMessageValue] = useState(message.message);
   const dispatch = useDispatch();
@@ -38,6 +38,7 @@ function MessageEditField({ message, setShowEditField, }) {
     // pop open a modal for delete confirm
 
     if (messageValue.length === 0) {
+      setMessage(message);
       deleteMessageModal();
       return;
     }
