@@ -88,7 +88,7 @@ const Chat = () => {
                     : messages[tempIndex].user_id ===
                       messages[tempIndex - 1].user_id;
                 return (
-                  <div key={`${Math.random()}${idx}`}>
+                  <div key={`${Math.random()}${idx}${message.id}`}>
                     {isSameUser ? (
                       <MessageContainer
                         message={message}
