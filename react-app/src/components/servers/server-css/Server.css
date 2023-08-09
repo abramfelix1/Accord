@@ -29,13 +29,14 @@
   color: #DBDEE1;
 }
 
-#active-server {
+/* #active-server {
   border-radius: 15px;
   background-color: #4752c4;
   color: #DBDEE1;
-}
+} */
 
 .active-server {
+  color: #DBDEE1;
   border-radius: 15px;
   background-color: #4752c4;
 }
