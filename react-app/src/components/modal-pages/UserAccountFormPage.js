@@ -139,7 +139,7 @@ function UserAccountFormPage() {
                       type="text"
                       className="account-user-input-field"
                       value={displayName}
-                      placeholder={displayName}
+                      placeholder={displayName || user.display_name || user.username}
                       onChange={(e) => setDisplayName(e.target.value)}
                     />
                   </div>
