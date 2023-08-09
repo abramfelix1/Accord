@@ -8,11 +8,12 @@ import datetime
 # configure cors_allowed_origins
 if os.environ.get("FLASK_ENV") == "production":
     origins = [
-        "https://accord-w9kc.onrender.com",
-        "https://accord-w9kc.onrender.com",
+        "https://accord-ajr.onrender.com",
+        "https://accord-ajr.onrender.com",
     ]
 else:
     origins = "*"
+
 
 # initialize your socket instance
 socketio = SocketIO(cors_allowed_origins=origins)
