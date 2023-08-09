@@ -84,6 +84,19 @@ export const getUserServersThunk = () => async (dispatch) => {
   }
 };
 
+export const uploadProfileImageThunk = (image) => async (dispatch) => {
+  const res = await fetch(`/api/users/image`, {
+    method: "PUT",
+    body: image
+  })
+
+  if (res.ok) {
+    const data = res.json()
+    return data
+  }
+
+}
+
 // -------------------------------- Reducer --------------------------------
 
 export default function userReducer(state = {}, action) {
