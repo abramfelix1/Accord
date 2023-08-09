@@ -25,7 +25,6 @@ function ChangeAvatarPage({ setType }) {
   });
 
   const changeAvatarHandleSubmit = async (e) => {
-    e.preventDefault()
     const formData = new FormData();
     formData.append("image_url", imageUrl);
     await dispatch(uploadProfileImageThunk(formData));

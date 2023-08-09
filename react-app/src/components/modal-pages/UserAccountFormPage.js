@@ -152,12 +152,7 @@ function UserAccountFormPage() {
                     >
                       Username
                     </label>
-                    <input
-                      type="text"
-                      className="account-user-input-field"
-                      placeholder={user.username}
-                      disabled
-                    />
+                    <div style={{ fontSize: "16px", marginTop: '2px' }}>{user.username}</div>
                   </div>
                 </div>
               )}
