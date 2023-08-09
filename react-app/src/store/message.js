@@ -49,6 +49,7 @@ export const createMessage = (channel_id, message) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(addMessage(data.channel_id));
+    return data
   }
 };
 
@@ -76,6 +77,7 @@ export const removeMessage = (channel_id, message_id) => async (dispatch) => {
   if (response.ok) {
     const msg = dispatch(deleteMessage(message_id));
     dispatch(getMessages(channel_id));
+    return msg
   }
 };
 

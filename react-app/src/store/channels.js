@@ -89,7 +89,9 @@ export const removeChannel = (channelId) => async (dispatch) => {
     method: "DELETE",
   });
   if (response.ok) {
+    const data = response.json()
     dispatch(deleteChannel(channelId));
+    return data
   }
 };
 
