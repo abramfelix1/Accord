@@ -87,6 +87,8 @@ def seed_members():
         user_id=11, server_id=4)
     member_57 = Member(
         user_id=1, server_id=4)
+    member_61 = Member(
+        user_id=7, server_id=4)
 
     # Members of Chum Bucket
     member_10 = Member(
@@ -97,6 +99,8 @@ def seed_members():
         user_id=11, server_id=3)
     member_58 = Member(
         user_id=1, server_id=3)
+    member_60 = Member(
+        user_id=3, server_id=3)
 
     # Members of Krusty Krabs
     member_13 = Member(
@@ -156,10 +160,13 @@ def seed_members():
     db.session.add(member_54)
     db.session.add(member_55)
     db.session.add(member_56)
+    db.session.add(member_1)
+    db.session.add(member_15)
+    db.session.add(member_60)
+    db.session.add(member_61)
     db.session.add(member_57)
     db.session.add(member_58)
     db.session.add(member_59)
-    db.session.add(member_1)
     db.session.add(member_2)
     db.session.add(member_3)
     db.session.add(member_4)
@@ -173,7 +180,6 @@ def seed_members():
     db.session.add(member_12)
     db.session.add(member_13)
     db.session.add(member_14)
-    db.session.add(member_15)
     db.session.add(member_17)
     db.session.add(member_18)
     db.session.add(member_19)

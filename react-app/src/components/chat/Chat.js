@@ -1,32 +1,63 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import socket from "../utils/Socket";
 import ChatInputField from "./ChatInputField";
 import { getMessages, createMessage } from "../../store/message";
-import { handleNewMessages } from "../utils/Socket";
+import { handleChatUpdates, chatUpdate } from "../utils/Socket";
 import "./chat-css/ChatBox.css";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { dateFormat, isItANewDay } from "./ChatHelperFunctions";
+import logo from "../../images/accord-logo.png";
+import MessageCard from "./MessageCard";
+import MessageOnlyCard from "./MessageOnlyCard";
+import ChatLoading from "../loading/ChatLoading";
+import { InfoContext } from "../../context/infoContext";
+import MessageEditField from "./MessageEditField";
+import MessageContainer from "./MessageContainer";
 
 const Chat = () => {
-  const [chatInput, setChatInput] = useState("");
+  const [showEditField, setShowEditField] = useState(false);
   const user = useSelector((state) => state.session.user);
-  const messages = useSelector((state) => Object.values(state.messages));
-  // const channelID = useSelector((state) => state.channelID)
+  const [chatInput, setChatInput] = useState("");
+  // const isLoaded = useSelector((state) => state.current.isLoading);
+  const { isLoaded } = useContext(InfoContext);
+  const { serverid, channelid } = useParams();
+  // const messages = useSelector((state) =>
+  //   Object.values(state.current.messages)
+  // );
+  const messages = useSelector((state) => {
+    if (
+      state.servers[serverid] &&
+      state.servers[serverid].channels[channelid]
+    ) {
+      return Object.values(
+        state.servers[serverid].channels[channelid].messages
+      );
+    } else {
+      return [];
+    }
+  });
+
   const dispatch = useDispatch();
+
+  // Function to reverse a given array
+  const reverseArray = (array) => {
+    let reverseArray = array.reverse();
+    return reverseArray;
+  };
 
   useEffect(() => {
     //updates the message state every render
-    dispatch(getMessages(1));
-
-    //listens for new_message event from the backend and rerender component when state updates
-    handleNewMessages((channel_id) => {
-      dispatch(getMessages(channel_id));
-    });
-
-    // when component unmounts, disconnect
+    // dispatch(getMessages(channelid));
+    handleChatUpdates((data) => {
+      dispatch(getMessages(data));
+    }, channelid);
     return () => {
-      socket.disconnect();
+      socket.off("chat_update_response", (data) => {
+        dispatch(getMessages(data));
+      });
     };
-  }, [dispatch]);
+  }, [dispatch, channelid]);
 
   const updateChatInput = (e) => {
     setChatInput(e.target.value);
@@ -34,30 +65,53 @@ const Chat = () => {
 
   const sendChat = (e) => {
     e.preventDefault();
-    dispatch(createMessage(1, chatInput));
+    dispatch(createMessage(channelid, chatInput));
     //emits send_message event for the backend
-    socket.emit("send_message", { channel_id: 1 });
+    chatUpdate(serverid, channelid);
+    socket.emit("send_message", { channel_id: channelid });
     setChatInput("");
   };
 
   return (
-    user && (
-      <div>
-        <div className="chat-container">
-          {messages.map((message, idx) => (
-            <div key={idx}>
-              <div>{`${message.username} ${message.updated_at}`}</div>
-              <div>{message.message}</div>
-            </div>
-          ))}
+    <>
+      {!isLoaded ? (
+        <ChatLoading />
+      ) : (
+        <div className="main-chat-and-input-container">
+          <div className="chat-container">
+            {messages &&
+              reverseArray([...messages]).map((message, idx) => {
+                const tempIndex = messages.length - idx - 1;
+                const isSameUser =
+                  tempIndex === 0
+                    ? false
+                    : messages[tempIndex].user_id ===
+                      messages[tempIndex - 1].user_id;
+                return (
+                  <div key={`${message.id}${idx}`}>
+                    {isSameUser ? (
+                      <MessageContainer
+                        message={message}
+                        setShowEditField={setShowEditField}
+                      >
+                        <MessageOnlyCard message={message}/>
+                      </MessageContainer>
+
+                    ) : (
+                      <MessageCard message={message} />
+                    )}
+                  </div>
+                );
+              })}
+          </div>
+          <ChatInputField
+            sendChat={sendChat}
+            chatInput={chatInput}
+            updateChatInput={updateChatInput}
+          />
         </div>
-        <ChatInputField
-          sendChat={sendChat}
-          chatInput={chatInput}
-          updateChatInput={updateChatInput}
-        />
-      </div>
-    )
+      )}
+    </>
   );
 };
 

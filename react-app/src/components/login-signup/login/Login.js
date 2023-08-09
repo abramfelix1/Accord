@@ -24,7 +24,10 @@ function LoginPage() {
     }
   };
 
-  console.log(errors)
+  const demoLogin = async (e) => {
+    e.preventDefault();
+    await dispatch(login('Demo', 'password'));
+  }
 
   return (
     <div className="login-container">
@@ -45,11 +48,13 @@ function LoginPage() {
                   {errors.length ? (
                     <p className="form-input-label-error">
                       Email or Username{" "}
-                      <span className="form-input-label-error-span">- Login or Password is invalid.</span>
+                      <span className="form-input-label-error-span">
+                        - Login or Password is invalid.
+                      </span>
                     </p>
                   ) : (
                     <p className="form-input-label">
-                      Email or Username - <span>*</span>
+                      Email or Username <span>*</span>
                     </p>
                   )}
                   <input
@@ -64,7 +69,10 @@ function LoginPage() {
                   {errors.length ? (
                     <p className="form-input-label-error">
                       Password -{" "}
-                      <span className="form-input-label-error-span"> Login or Password is invalid.</span>
+                      <span className="form-input-label-error-span">
+                        {" "}
+                        Login or Password is invalid.
+                      </span>
                     </p>
                   ) : (
                     <p className="form-input-label">
@@ -86,14 +94,22 @@ function LoginPage() {
                       Log in
                     </button>
                   </div>
-                  <p className="register-container">
-                    Need an account?
-                    <span>
-                      <Link to="/signup" className="register-link">
-                        Register
-                      </Link>
-                    </span>
-                  </p>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <p className="register-container">
+                      Need an account?
+                      <span>
+                        <Link to="/signup" className="register-link">
+                          Register
+                        </Link>
+                      </span>
+                    </p>
+                    <p className="register-container">
+                      Login as
+                      <span className="demo-user-link" onClick={e => demoLogin(e)}>Demo User</span>
+                    </p>
+                  </div>
                 </form>
               </div>
             </div>

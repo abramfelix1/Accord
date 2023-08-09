@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import joinedload
 from app.models import Server, Member, Channel, User, db
-from app.forms import ServerForm, ChannelForm
+from app.forms import ServerForm, ChannelForm, MembershipForm
 
 server_routes = Blueprint("servers", __name__)
 
@@ -31,11 +31,16 @@ def get_all_servers():
     Gets all public servers
     """
     servers = Server.query.all()
-
+    user_id = current_user.get_id()
     if not servers:
         return {}
 
-    return [server.to_dict() for server in servers]
+    # Server Users are members of
+    members = Member.query.filter(Member.user_id == user_id).all()
+
+    member_servers = [m.to_dict()['server_id'] for m in members]
+
+    return [server.to_dict() for server in Server.query.filter(Server.id.not_in(set(member_servers))).all()]
 
 
 @server_routes.route("/", methods=["POST"])
@@ -49,13 +54,15 @@ def create_a_servers():
     if form.validate_on_submit():
         data = form.data
         new_server = Server(
-            owner_id=current_user.get_id(), name=data["server_name"], image_url=data["server_image"] or None
+            owner_id=current_user.get_id(),
+            name=data["server_name"],
+            image_url=data["server_image"] or None,
         )
         db.session.add(new_server)
         db.session.commit()
 
         new_member = Member(user_id=current_user.get_id(), server_id=new_server.id)
-        new_channel = Channel(name="General", server_id=new_server.id)
+        new_channel = Channel(name="general", server_id=new_server.id)
         db.session.add(new_channel)
         db.session.add(new_member)
         db.session.commit()
@@ -91,6 +98,7 @@ def edit_a_server(id):
     if form.validate_on_submit():
         data = form.data
         server.name = data["server_name"]
+        server.image_url = data["server_image"]
         db.session.commit()
         return server.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
@@ -169,25 +177,9 @@ def get_server_members(id):
     if server is None:
         return jsonify({"message": "Server not found"}), 403
 
-    members = (
-        Member.query.filter(Member.server_id == id).options(joinedload("user")).all()
-    )
+    members = Member.query.filter(Member.server_id == id)
 
     if not members:
         return {}
 
-    members_info = []
-
-    for member in members:
-        member_info = {
-            "id": member.id,
-            "created_at": member.created_at,
-            "display_name": member.user.display_name,
-            "image_url": member.user.image_url,
-            "member_id": member.id,
-            "user_id": member.user_id,
-            "username": member.user.username,
-        }
-        members_info.append(member_info)
-
-    return members_info
+    return [member.to_dict() for member in members]

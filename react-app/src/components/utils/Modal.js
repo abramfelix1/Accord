@@ -2,6 +2,15 @@ import React, { useContext, useEffect } from "react";
 import { ModalContext } from "../../context/modalContext";
 import "./modal.css";
 import TestPage from "../modal-pages/TestPage";
+import CreateServerPage from "../modal-pages/CreateServerPage";
+import ServerSetting from "../../components/modal-pages/ServerSetting";
+import ServerProfileSetting from "../modal-pages/ServerProfileSetting";
+import CreateChannelPage from "../modal-pages/CreateChannelPage";
+import LeaveServerPage from "../modal-pages/LeaveServerPage";
+import ChannelSettingPage from "../modal-pages/ChannelSettingPage";
+import UserAccountPage from "../modal-pages/UserAccountPage";
+import DiscoverServerModal from "../modal-pages/DiscoverServerModal";
+import DeleteMessagePage from "../modal-pages/DeleteMessagePage";
 
 export default function Modal(props) {
   const { type, setType } = useContext(ModalContext);
@@ -31,6 +40,15 @@ export default function Modal(props) {
           <div className="closeButtonWrapper"></div>
           {/* EXAMPLE HOW TO SET UP A MODAL PAGE */}
           {type === "TEST" && <TestPage />}
+          {type === "Create Server" && <CreateServerPage />}
+          {type === "Server Settings" && <ServerSetting />}
+          {type === "Server Profile Settings" && <ServerProfileSetting />}
+          {type === "Create Channel" && <CreateChannelPage />}
+          {type === "Leave Server" && <LeaveServerPage />}
+          {type === "Channel Setting" && <ChannelSettingPage />}
+          {type === "User Account" && <UserAccountPage />}
+          {type === "Discover Server" && <DiscoverServerModal />}
+          {type === "Delete Message" && <DeleteMessagePage />}
         </div>
         <div className="modalBackdrop" onClick={handleContent} />
       </div>

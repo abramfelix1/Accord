@@ -16,6 +16,9 @@ class Member(db.Model):
     server_id = db.Column(
         db.Integer(), db.ForeignKey(add_prefix_for_prod("servers.id")), nullable=False
     )
+    nickname = db.Column(
+        db.String()
+    )
     created_at = db.Column(db.DateTime(), default=datetime.now)
     updated_at = db.Column(db.DateTime(), default=datetime.now)
 
@@ -27,6 +30,10 @@ class Member(db.Model):
             "id": self.id,
             "user_id": self.user_id,
             "server_id": self.server_id,
+            "nickname": self.nickname,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
+            "display_name": self.user.display_name,
+            "image_url": self.user.image_url,
+            "username": self.user.username,
         }

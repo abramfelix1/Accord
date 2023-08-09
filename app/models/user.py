@@ -70,3 +70,9 @@ class User(db.Model, UserMixin):
             "servers_owned": self.servers_owned,
             "channel_messages": self.channel_messages,
         }
+
+    def user_servers(self):
+        servers = [server.to_dict()["server_id"] for server in self.memberships]
+        print("******FROM BACKEND*******")
+        print(servers)
+        return servers

@@ -1,18 +1,42 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 export const InfoContext = createContext();
 
 export const InfoProvider = ({ children }) => {
-    const [server, setServer] = useState({})
+  const [server, setServer] = useState(null);
+  const [channelCog, setChannelCog] = useState({});
+  const [showEditField, setShowEditField] = useState(false);
+  const [editMessageId, setEditMessageId] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [message, setMessage] = useState(null);
 
-    return (
+  useEffect(() => {
+    console.log("Server Context:");
+    console.log(server);
+    console.log("Is Loaded:");
+    console.log(isLoaded);
+    console.log("Message Context:");
+    console.log(message);
+  }, [server, isLoaded, message]);
+
+  return (
     <InfoContext.Provider
-        value={{
+      value={{
         server,
-        setServer
-        }}
+        setServer,
+        isLoaded,
+        setIsLoaded,
+        setChannelCog,
+        channelCog,
+        message,
+        setMessage,
+        showEditField,
+        setShowEditField,
+        editMessageId, 
+        setEditMessageId,
+      }}
     >
-        {children}
+      {children}
     </InfoContext.Provider>
-    );
+  );
 };

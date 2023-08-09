@@ -1,36 +1,41 @@
-const POPULATE_CHANNELS = "channel/setChannel";
-const ADD_CHANNEL = "channel/addChannel";
-const UPDATE_CHANNEL = "channel/editChannel";
-const DELETE_CHANNEL = "channel/deleteChannel";
-const GET_CHANNEL = "channel/getChannel";
+export const POPULATE_CHANNELS = "channel/setChannel";
+export const ADD_CHANNEL = "channel/addChannel";
+export const UPDATE_CHANNEL = "channel/editChannel";
+export const DELETE_CHANNEL = "channel/deleteChannel";
+export const GET_CHANNEL = "channel/getChannel";
+export const RESET_CHANNELS = "channel/resetChannel";
 
-const populateChannels = (payload) => ({
+export const resetChannels = () => ({
+  type: RESET_CHANNELS,
+});
+
+export const populateChannels = (payload) => ({
   type: POPULATE_CHANNELS,
   payload,
 });
 
-const addChannel = (payload) => ({
+export const addChannel = (payload) => ({
   type: ADD_CHANNEL,
   payload,
 });
 
-const updateChannel = (payload) => ({
+export const updateChannel = (payload) => ({
   type: UPDATE_CHANNEL,
   payload,
 });
 
-const deleteChannel = (payload) => ({
+export const deleteChannel = (payload) => ({
   type: DELETE_CHANNEL,
   payload,
 });
 
-const getOneChannel = (payload) => ({
+export const getOneChannel = (payload) => ({
   type: GET_CHANNEL,
   payload,
 });
 
 export const getChannels = (serverId) => async (dispatch) => {
-  const response = await fetch(`api/servers/${serverId}/channels`);
+  const response = await fetch(`/api/servers/${serverId}/channels`);
   if (response.ok) {
     const data = await response.json();
     dispatch(populateChannels(data));
@@ -43,6 +48,7 @@ export const getChannel = (channelId) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(getOneChannel(data));
+    return data;
   }
 };
 
@@ -58,28 +64,27 @@ export const createChannel = (serverId, channel_name) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(addChannel(data));
+    dispatch(getChannels(data.server_id));
     return serverId;
   }
 };
 
-export const editChannel =
-  (serverId, channelId, channel_name) => async (dispatch) => {
-    const response = await fetch(`/api/channels/${channelId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ channel_name }),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(updateChannel(data));
-      return channelId;
-    }
-  };
+export const editChannel = (channelId, channel_name) => async (dispatch) => {
+  const response = await fetch(`/api/channels/${channelId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ channel_name }),
+  });
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(updateChannel(data));
+    return channelId;
+  }
+};
 
-export const removeChannel = (serverId, channelId) => async (dispatch) => {
+export const removeChannel = (channelId) => async (dispatch) => {
   const response = await fetch(`/api/channels/${channelId}`, {
     method: "DELETE",
   });
@@ -88,18 +93,19 @@ export const removeChannel = (serverId, channelId) => async (dispatch) => {
   }
 };
 
-const initialState = {};
+const initialState = { channels: {}, isLoading: true };
 
 const channelsReducer = (state = initialState, action) => {
   const newState = { ...state };
   switch (action.type) {
     case POPULATE_CHANNELS:
-      return action.payload.Channels.reduce((channels, channel) => {
+      const channels = action.payload.Channels.reduce((channels, channel) => {
         channels[channel.id] = channel;
         return channels;
       }, {});
-    case GET_CHANNEL:
-      return action.payload;
+      return { channels: { ...channels }, isLoading: false };
+    // case GET_CHANNEL:
+    //   return action.payload;
     case ADD_CHANNEL:
       newState[action.payload.id] = action.payload;
       return newState;
@@ -109,6 +115,8 @@ const channelsReducer = (state = initialState, action) => {
     case DELETE_CHANNEL:
       delete newState[action.payload];
       return newState;
+    case RESET_CHANNELS:
+      return initialState;
     default:
       return state;
   }

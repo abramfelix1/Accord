@@ -5,9 +5,13 @@ html, body {
     margin: 0px;
     height: 100%;
     width: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: #2A2D30;
     /* this overflow currently stops the navigation of allowing scroll to top of the page with up button*/
     /* overflow: hidden scroll; */
 }
+
 
 /* body::-webkit-scrollbar {
     display: none;
@@ -17,7 +21,15 @@ html, body {
     --main-bg-color: brown;
     --width-100: 100%;
     --height-100: 100%;
-    --padding-bottom-0: 0px
+    --padding-bottom-0: 0px;
+    --color-ADADAD: #ADADAD;
+    --color-313338: #313338;
+    --color-2B2D30: #2B2D30;
+    --color-1E1F22: #1E1F22;
+    --color-383A41: #383A41;
+    --color-input-field: #1f2124;
+    --color-font-names: #F2F3EA;
+    --color-submit-button: #5864F2
 }
 
 a {

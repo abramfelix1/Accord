@@ -1,7 +1,9 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import User, Member, Server, db
-from app.forms import UserSettingsForm
+from app.forms import UserSettingsForm, UserImageForm
+from werkzeug.utils import secure_filename
+from app.aws_helpers import *
 
 user_routes = Blueprint('users', __name__)
 
@@ -9,10 +11,10 @@ def validation_errors_to_error_messages(validation_errors):
     """
     Simple function that turns the WTForms validation errors into a simple list
     """
-    errorMessages = []
+    errorMessages = {}
     for field in validation_errors:
         for error in validation_errors[field]:
-            errorMessages.append(f'{field} : {error}')
+            errorMessages[field] = error
     return errorMessages
 
 @user_routes.route('/')
@@ -73,3 +75,27 @@ def get_user_servers():
 
     servers = [server.to_dict() for server in Server.query.filter(Server.id.in_(server_ids)).all()]
     return servers
+
+
+@user_routes.route("/image", methods=["PUT", "PATCH"])
+@login_required
+def add_user_image():
+    print("********************************* BEFORE THE SUBMIT ***************************")
+
+    form = UserImageForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    if form.validate_on_submit():
+        image = form.data["image_url"]
+        image.filename = get_unique_filename(image.filename)
+        print(image)
+        upload = upload_file_to_s3(image)
+        print(upload, "DASDSADSADSADSADSADASDADADSADASD")
+
+        if "url" in upload:
+            url = upload["url"]
+            current_user.image_url = url
+            db.session.commit()
+
+    print("DASD NOT THROGIH DASDADSADSADADSA")
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401

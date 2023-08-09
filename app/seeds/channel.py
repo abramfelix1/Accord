@@ -3,46 +3,37 @@ from sqlalchemy.sql import text
 
 
 def seed_channels():
-
     # Demo Server Channels
-    music = Channel(
-        name='music', server_id=1)
-    random = Channel(
-        name='random', server_id=1)
-    memes = Channel(
-        name='memes', server_id=1)
-    leet_code = Channel(
-        name='leet codes', server_id=1)
+    music = Channel(name="music", server_id=1)
+    random = Channel(name="random", server_id=1)
+    memes = Channel(name="memes", server_id=1)
+    leet_code = Channel(name="leet codes", server_id=1)
 
     # Krusty Krab Channels
-    krusty_kitchen = Channel(
-        name='The Krusty Kitchen', server_id=2
-    )
-    mr_krab_office = Channel(
-        name="Mr.Krab's Office", server_id=2
-    )
-    krusty_menu = Channel(
-        name="Krusty Menu and Updates", server_id=2
-    )
+    krusty_kitchen = Channel(name="The Krusty Kitchen", server_id=2)
+    mr_krab_office = Channel(name="Mr.Krab's Office", server_id=2)
+    krusty_menu = Channel(name="Krusty Menu and Updates", server_id=2)
 
     # Chum Bucket Channels
-    bucket_list = Channel(
-        name='The Bucket List', server_id=3
-    )
-    chum_cafeteria = Channel(
-        name='Chum Cafeteria', server_id=3
-    )
-    laboratory = Channel(
-        name='The Laboratory', server_id=3
-    )
+    bucket_list = Channel(name="The Bucket List", server_id=3)
+    chum_cafeteria = Channel(name="Chum Cafeteria", server_id=3)
+    laboratory = Channel(name="The Laboratory", server_id=3)
 
     # Bikini Bottom Channels
-    kelp_forest = Channel(
-        name='Kelp Forest', server_id=4)
-    dullsville = Channel(
-        name='Dullsville', server_id=4)
-    rock_bottom = Channel(
-        name='rock_bottom', server_id=4)
+    kelp_forest = Channel(name="Kelp Forest", server_id=4)
+    dullsville = Channel(name="Dullsville", server_id=4)
+    rock_bottom = Channel(name="rock_bottom", server_id=4)
+
+    # TEST SERVERS
+    test1 = Channel(name="General", server_id=5)
+    test2 = Channel(name="General", server_id=6)
+    test3 = Channel(name="General", server_id=7)
+    test4 = Channel(name="General", server_id=8)
+    test5 = Channel(name="General", server_id=9)
+    test6 = Channel(name="General", server_id=10)
+    test7 = Channel(name="General", server_id=11)
+    test8 = Channel(name="General", server_id=12)
+    test9 = Channel(name="General", server_id=13)
 
     db.session.add(music)
     db.session.add(random)
@@ -57,6 +48,15 @@ def seed_channels():
     db.session.add(kelp_forest)
     db.session.add(dullsville)
     db.session.add(rock_bottom)
+    db.session.add(test1)
+    db.session.add(test2)
+    db.session.add(test3)
+    db.session.add(test4)
+    db.session.add(test5)
+    db.session.add(test6)
+    db.session.add(test7)
+    db.session.add(test8)
+    db.session.add(test9)
 
     db.session.commit()
 
@@ -69,7 +69,9 @@ def seed_channels():
 # it will reset the primary keys for you as well.
 def undo_channels():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.channels RESTART IDENTITY CASCADE;")
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.channels RESTART IDENTITY CASCADE;"
+        )
     else:
         db.session.execute(text("DELETE FROM channels"))
 
