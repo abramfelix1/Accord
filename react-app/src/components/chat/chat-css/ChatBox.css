@@ -89,6 +89,7 @@
   white-space: normal;
   overflow-wrap: break-word;
   margin: 0px;
+  color: #dbdee1;
 }
 
 /* styling for if a user recently sent a message */
@@ -99,6 +100,7 @@
   overflow-wrap: break-word;
   /* margin-left: 60px; */
   margin: 5px 17px 0px 75px;
+  color: #dbdee1;
 }
 
 /* .message-ref {

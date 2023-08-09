@@ -1,19 +1,140 @@
 .delete-message-container {
   background-color: #35393e;
+  border-radius: 8px;
+  /* max-height: 400px; */
+  /* overflow-y: hidden; */
 }
 
 .delete-message-header {
+  position: absolute;
+  background-color: #35393e;
+  top: 0;
+  z-index: 999;
+  padding: 0px;
+  width: 100%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.delete-message-header p {
+  padding: 0px;
+  margin: 10px 0 15px 0;
+  width: 100%;
+}
+
+.delete-message-top-container {
+  margin-top: 55px;
+  overflow-y: scroll;
+  background-color: #35393e;
+  max-height: 400px;
+}
+
+/* width */
+.delete-message-top-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.delete-message-top-container::-webkit-scrollbar-track {
+  background: #2d2d2d;
+  border-radius: 15px;
+  margin-top: 15px;
+}
+
+/* Handle */
+.delete-message-top-container::-webkit-scrollbar-thumb {
+  border-radius: 15px;
+  background: #222222;
+}
+
+.delete-message-header p {
   font-size: 20px;
   color: white;
+  padding-top: 15px;
+  padding-left: 15px;
 }
 
 .delete-message-sub-header {
   font-size: 16px;
   color: #dbdee1;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 20px;
 }
 
 .delete-message-footer {
   display: flex;
   flex-direction: row-reverse;
   background-color: #1e1f22;
+}
+
+.delete-message-info-container {
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 0px 10px 0px rgb(0, 0, 0, 0.25);
+  background-color: #35393e;
+  border: 1px solid rgb(35, 37, 40);
+  border-radius: 4px;
+  margin: 15px;
+  max-width: 500px;
+  padding-right: 90px;
+}
+
+.message-wrapper.delete {
+  margin: 0px;
+  padding: 15px;
+}
+
+.delete-message-container {
+  /* overflow-y: scroll; */
+}
+
+.delete-message {
+  max-width: 500px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.delete-message-footer {
+  background-color: #2b2d31;
+  color: white;
+  font-size: 14px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.delete-buttons-container {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 15px;
+}
+
+.delete-message-button {
+  padding: 2px 15px 2px 15px;
+  background-color: #da373c;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-message-button > p {
+  padding: 0px 12px 0px 12px;
+  color: white;
+}
+
+.cancel-message-button {
+  padding: 2px 15px 2px 15px;
+  background-color: rgb(0, 0, 0, 0);
+  border: none;
+  cursor: pointer;
+}
+
+.cancel-message-button > p {
+  padding: 0px 12px 0px 12px;
+  color: white;
+}
+
+.cancel-message-button > p:hover {
+  text-decoration: underline;
 }

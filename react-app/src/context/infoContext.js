@@ -13,7 +13,7 @@ export const InfoProvider = ({ children }) => {
     console.log(server);
     console.log("Is Loaded:");
     console.log(isLoaded);
-    console.log("Message Context");
+    console.log("Message Context:");
     console.log(message);
   }, [server, isLoaded, message]);
 
