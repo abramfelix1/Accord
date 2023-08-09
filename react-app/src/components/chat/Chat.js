@@ -94,9 +94,7 @@ const Chat = () => {
                         message={message}
                         setShowEditField={setShowEditField}
                       >
-                        <p className="chat-box-message-only">
-                          {message.message}
-                        </p>
+                        <MessageOnlyCard message={message}/>
                       </MessageContainer>
 
                     ) : (

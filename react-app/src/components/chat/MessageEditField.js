@@ -7,9 +7,11 @@ import { useDispatch } from "react-redux";
 import * as messageActions from "../../store/message"
 import { useContext } from "react";
 import { InfoContext } from "../../context/infoContext";
+import { ModalContext } from "../../context/modalContext";
 
 function MessageEditField({ message, setShowEditField, }) {
-  const {  setEditMessageId } = useContext(InfoContext);
+  const { setEditMessageId } = useContext(InfoContext);
+  const { deleteMessageModal } = useContext(ModalContext);
   const [messageValue, setMessageValue] = useState(message.message);
   const dispatch = useDispatch();
 
@@ -29,10 +31,16 @@ function MessageEditField({ message, setShowEditField, }) {
     };
   }, []);
 
+
   const editMessageHandler = async (e) => {
     e.preventDefault();
     // if empty string is passed in for the message value. 
     // pop open a modal for delete confirm
+
+    if (messageValue.length === 0) {
+      deleteMessageModal();
+      return;
+    }
 
 
     await dispatch(messageActions.editMessage(message.channel_id, message.id, messageValue));
@@ -45,7 +53,6 @@ function MessageEditField({ message, setShowEditField, }) {
       <form className="message-edit-form" onSubmit={editMessageHandler}>
         <input 
         className="message-edit-input"
-        placeholder={`${message.message}`} 
         value={messageValue}
         onChange={e => setMessageValue(e.target.value)}
         >
@@ -64,24 +71,3 @@ function MessageEditField({ message, setShowEditField, }) {
 }
 
 export default MessageEditField;
-
-
-
-
-// function MessageEditField({ message, setShowEditField }) {
-//   return (
-//     <div className="chat-box-name-date-message-wrapper">
-//       <div className="chat-box-name-date-wrapper"></div>
-//       <form>
-//         <input placeholder={`${message.message}`}></input>
-//         <p>
-//           escape to <span onClick={() => setShowEditField(false)}>cancel</span>{" "}
-//           • enter to <button>save</button>
-//         </p>
-//       </form>
-//       {/* <p className="chat-box-message">{message.message}</p> */}
-//     </div>
-//   );
-// }
-
-// export default MessageEditField;
