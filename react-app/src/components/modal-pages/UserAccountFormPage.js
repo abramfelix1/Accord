@@ -5,7 +5,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import logo from "../../images/accord-logo.png";
 import { ModalContext } from "../../context/modalContext";
 import { getAllServersThunk } from "../../store/server";
-import { updateUserThunk } from "../../store/user";
+import { updateUserThunk, uploadProfileImageThunk } from "../../store/user";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 function UserAccountFormPage() {
@@ -30,7 +30,6 @@ function UserAccountFormPage() {
   const [errors, setErrors] = useState({});
 
   const updateUserHandleSubmit = async (e) => {
-    // e.preventDefault()
     setErrors({});
     const data = await dispatch(
       updateUserThunk(user.username, displayName, imageUrl)
@@ -38,6 +37,12 @@ function UserAccountFormPage() {
     if (data) {
       setErrors(data);
     }
+  };
+
+  const handleSubmit = async (e) => {
+    const formData = new FormData();
+    formData.append("image_url", imageUrl);
+    await dispatch(uploadProfileImageThunk(formData));
   };
 
   return (
@@ -52,10 +57,31 @@ function UserAccountFormPage() {
       <div className="user-account-content-container">
         <div className="user-background-setting"></div>
         <div className="user-edit-settings">
-          <img
-            src={user.image_url || logo}
-            className="user-profile-picture-setting"
-          />
+          {editButton ? (
+            <img
+              src={user.image_url || logo}
+              className="user-profile-picture-setting"
+            />
+          ) : (
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
+              <label
+                className="user-display-input-label"
+                style={{
+                  marginTop: "8px",
+                }}
+              >
+                Profile Image
+              </label>
+              <input
+                type="file"
+                className="account-user-input-field"
+                accept="image/*"
+                onChange={(e) => setImageUrl(e.target.files[0])}
+                name="pfp"
+              />
+              <button type="submit">add photo</button>
+            </form>
+          )}
           <div className="user-name-edit-profile">
             <div style={{ height: "0px" }}>
               <p className="account-name-setting">{user.username}</p>
@@ -157,23 +183,6 @@ function UserAccountFormPage() {
                       className="account-user-input-field"
                       placeholder={user.username}
                       disabled
-                    />
-                  </div>
-                  <div className="user-profile-form-field">
-                    <label
-                      className="user-display-input-label"
-                      style={{
-                        marginTop: "8px",
-                      }}
-                    >
-                      Profile Image
-                    </label>
-                    <input
-                      type="text"
-                      className="account-user-input-field"
-                      value={imageUrl}
-                      placeholder={user.image_url}
-                      onChange={(e) => setImageUrl(e.target.value)}
                     />
                   </div>
                 </div>
