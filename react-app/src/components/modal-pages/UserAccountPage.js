@@ -1,17 +1,19 @@
 import UserAccountFormPage from "./UserAccountFormPage";
 import { RiLogoutBoxRFill } from 'react-icons/ri'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/session";
 import { useHistory } from "react-router-dom"
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ModalContext } from "../../context/modalContext";
 
 function UserAccountPage() {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const user = useSelector(state => state.session.user)
     const { setType } = useContext(ModalContext)
       // Handlers
+
   const logoutHandler = async () => {
     await dispatch(logout());
     setType(null)

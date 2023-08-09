@@ -99,6 +99,52 @@
     background-color: #1E1F22;
 }
 
+.change-avatar {
+
+}
+
+.change-avatar-text {
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    font-size: 12px;
+    text-align: center;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    top: 130px;
+    left: 270px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.file-pfp {
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    font-size: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    top: 130px;
+    left: 270px;
+    opacity: 0;
+    /* background-color: #1E1F22; */
+    display: none;
+}
+
+.file-pfp:hover {
+    background-color: #31333884;
+    opacity: 100;
+}
+
+.change-avatar-text:hover {
+    display: flex;
+    color: white;
+    background-color: #31333884;
+    opacity: 100;
+}
+
 .user-profile-picture-setting {
     position: absolute;
     height: 80px;

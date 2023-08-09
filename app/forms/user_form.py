@@ -1,8 +1,11 @@
 from flask_wtf import FlaskForm
 from flask_login import current_user
 from wtforms import StringField
+from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms.validators import DataRequired, URL, ValidationError
 from app.models import User
+
+from app.aws_helpers import ALLOWED_EXTENSIONS
 
 def username_exists(form, field):
     # Checking if username is already in use
@@ -19,4 +22,4 @@ def username_exists(form, field):
 class UserSettingsForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired(), username_exists])
     display_name = StringField("Display Form")
-    image_url = StringField("User Image")
+    image_url = StringField("User Image", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])

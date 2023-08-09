@@ -4,41 +4,32 @@ import "./modal-css/UserAccountPage.css";
 import { IoCloseOutline } from "react-icons/io5";
 import logo from "../../images/accord-logo.png";
 import { ModalContext } from "../../context/modalContext";
-import { getAllServersThunk } from "../../store/server";
-import { updateUserThunk } from "../../store/user";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import { updateUserThunk, uploadProfileImageThunk } from "../../store/user";
+import { useHistory } from "react-router-dom";
 
 function UserAccountFormPage() {
   const dispatch = useDispatch();
+  const history = useHistory()
   const { setType } = useContext(ModalContext);
-  const userSession = useSelector((state) => state.session.user);
-  const [user, setUser] = useState("");
-
-  useEffect(() => {
-    if (userSession) {
-      setUser(userSession);
-    } else {
-      return <Redirect to="login" />;
-    }
-  });
+  const user = useSelector((state) => state.session.user);
 
   const [editButton, setEditButton] = useState(true);
   const [displayName, setDisplayName] = useState(
     user.display_name || user.username
   );
   const [imageUrl, setImageUrl] = useState(user.image_url);
-  const [errors, setErrors] = useState({});
+  const [imageLoading, setImageLoading] = useState(false);
 
   const updateUserHandleSubmit = async (e) => {
-    // e.preventDefault()
-    setErrors({});
-    const data = await dispatch(
-      updateUserThunk(user.username, displayName, imageUrl)
-    );
-    if (data) {
-      setErrors(data);
-    }
+    await dispatch(updateUserThunk(user.username, displayName))
   };
+
+  const handleSubmit = async (e) => {
+    const formData = new FormData();
+    formData.append("image_url", imageUrl);
+    setImageLoading(true);
+    await dispatch(uploadProfileImageThunk(formData));
+}
 
   return (
     <div style={{ marginLeft: "50px" }}>
@@ -52,10 +43,12 @@ function UserAccountFormPage() {
       <div className="user-account-content-container">
         <div className="user-background-setting"></div>
         <div className="user-edit-settings">
-          <img
-            src={user.image_url || logo}
-            className="user-profile-picture-setting"
-          />
+          <div>
+            <img
+              src={user.image_url || logo}
+              className="user-profile-picture-setting"
+            />
+          </div>
           <div className="user-name-edit-profile">
             <div style={{ height: "0px" }}>
               <p className="account-name-setting">{user.username}</p>
@@ -106,6 +99,7 @@ function UserAccountFormPage() {
               id="my-account-form"
               className="user-profile-form"
               onSubmit={updateUserHandleSubmit}
+              encType="multipart/form-data"
             >
               {editButton ? (
                 <div>
@@ -159,25 +153,29 @@ function UserAccountFormPage() {
                       disabled
                     />
                   </div>
-                  <div className="user-profile-form-field">
-                    <label
-                      className="user-display-input-label"
-                      style={{
-                        marginTop: "8px",
-                      }}
-                    >
-                      Profile Image
-                    </label>
-                    <input
-                      type="text"
-                      className="account-user-input-field"
-                      value={imageUrl}
-                      placeholder={user.image_url}
-                      onChange={(e) => setImageUrl(e.target.value)}
-                    />
-                  </div>
+                  <div className="user-profile-form-field"></div>
                 </div>
               )}
+            </form>
+
+            {/* dsadasdadsadasd */}
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
+              <label
+                className="user-display-input-label"
+                style={{
+                  marginTop: "8px",
+                }}
+              >
+                Profile Image
+              </label>
+              <input
+                type="file"
+                className="account-user-input-field"
+                accept="image/*"
+                onChange={(e) => setImageUrl(e.target.files[0])}
+                name="pfp"
+              />
+              <button type="submit">add photo</button>
             </form>
           </div>
         </div>
