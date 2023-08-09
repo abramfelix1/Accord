@@ -4,10 +4,21 @@ import { dateFormat } from "./ChatHelperFunctions";
 import MessageContainer from "./MessageContainer";
 import MessageEditField from "./MessageEditField";
 import { useState } from "react";
+import { useContext } from "react";
+import { InfoContext } from "../../context/infoContext";
 
-function MessageCard({ message, setShowEditField }) {
+
+function MessageCard({ message }) {
+  const { showEditField, setShowEditField, editMessageId, setEditMessageId } =
+    useContext(InfoContext);
+  const user = useSelector((state) => state.session.user);
+
   return (
-    <MessageContainer message={message} setShowEditField={setShowEditField}>
+    <MessageContainer
+      message={message}
+      setShowEditField={setShowEditField}
+      setEditMessageId={setEditMessageId}
+    >
       <div className="message-wrapper">
         {message.image_url !== null && message.image_url.length >= 1 ? (
           <img
@@ -29,7 +40,16 @@ function MessageCard({ message, setShowEditField }) {
               {dateFormat(message.created_at)}
             </span>
           </div>
-          <p className="chat-box-message">{message.message}</p>
+          {showEditField &&
+          user.id === message.user_id &&
+          editMessageId === message.id ? (
+            <MessageEditField
+              message={message}
+              setShowEditField={setShowEditField}
+            />
+          ) : (
+            <p className="chat-box-message">{message.message}</p>
+          )}
         </div>
       </div>
     </MessageContainer>

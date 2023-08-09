@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { dateFormat, isItANewDay } from "./ChatHelperFunctions";
 import logo from "../../images/accord-logo.png";
 import MessageCard from "./MessageCard";
+import MessageOnlyCard from "./MessageOnlyCard";
 import ChatLoading from "../loading/ChatLoading";
 import { InfoContext } from "../../context/infoContext";
 import MessageEditField from "./MessageEditField";
@@ -97,6 +98,7 @@ const Chat = () => {
                           {message.message}
                         </p>
                       </MessageContainer>
+
                     ) : (
                       <MessageCard message={message} />
                     )}
