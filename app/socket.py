@@ -58,3 +58,15 @@ def handle_chat(data):
         },
         room=str(data["server_id"]),
     )
+
+
+@socketio.on("disconnect")
+def handle_disconnect(data):
+    emit(
+        "disconnect_response",
+        {
+            "Message": "USER HAS DISCONNECTED",
+            "Users": f"Online Users: {online_users}",
+        },
+        broadcast=True,
+    )

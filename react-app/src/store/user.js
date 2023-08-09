@@ -50,35 +50,34 @@ export const getUserThunk = (id) => async (dispatch) => {
   }
 };
 
-export const updateUserThunk = (username, display_name, image_url) => async (dispatch) => {
-  const response = await fetch(`/api/users/profile`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      "username": username,
-      "display_name": display_name,
-      "image_url": image_url,
-    }),
-  });
+export const updateUserThunk =
+  (username, display_name, image_url) => async (dispatch) => {
+    const response = await fetch(`/api/users/profile`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        display_name: display_name,
+        image_url: image_url,
+      }),
+    });
 
-  if (response.ok) {
-    const userData = await response.json();
-    dispatch(updateUser(userData));
+    if (response.ok) {
+      const userData = await response.json();
+      dispatch(updateUser(userData));
 
-    return userData;
-  }
-};
+      return userData;
+    }
+  };
 
 export const getUserServersThunk = () => async (dispatch) => {
-  console.log("HELLO");
   const res = await fetch(`/api/users/servers`, {
     method: "GET",
   });
 
   if (res.ok) {
-    console.log("HELLO*********");
     const serverData = await res.json();
     dispatch(getUserServers(serverData));
     return serverData;
@@ -111,7 +110,6 @@ export default function userReducer(state = {}, action) {
       return newState;
 
     case GET_USER:
-      console.log(action);
       return { user: action.payload };
 
     case UPDATE_USER:

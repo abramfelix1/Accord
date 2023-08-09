@@ -4,8 +4,7 @@ import { useSelector } from "react-redux";
 import { useContext, useEffect } from "react";
 import { InfoContext, InfoProvider } from "../../context/infoContext";
 
-
-function ServerCard({ handleActiveButton, serverInfo}) {
+function ServerCard({ handleActiveButton, serverInfo }) {
   const { serverid } = useParams();
   // const { server } = useContext(InfoContext);
   const server = useSelector((state) => state.current.server);
@@ -62,7 +61,6 @@ function ServerCard({ handleActiveButton, serverInfo}) {
         </NavLink>
       )}
     </>
-    
   );
 }
 export default ServerCard;
