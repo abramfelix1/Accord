@@ -7,18 +7,25 @@ import { useSelector, useDispatch } from "react-redux";
 import { ModalContext } from "../../context/modalContext";
 import { InfoContext } from "../../context/infoContext";
 import { createChannel } from "../../store/channels";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 
 function CreateChannelPage() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { setType } = useContext(ModalContext);
   const { server } = useContext(InfoContext);
+  const { serverid, channelid } = useParams();
   //   const user = useSelector(state => state.session.user)
   const [channelName, setChannelName] = useState("");
 
   const createChannelHandleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(createChannel(server.id, channelName));
-    return setType(null);
+    const newChannel = await dispatch(createChannel(server.id, channelName));
+    setType(null);
+    return history.push(`/servers/${serverid}/channels/${newChannel.id}`);
   };
 
   return (

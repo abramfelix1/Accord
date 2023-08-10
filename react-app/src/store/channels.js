@@ -65,7 +65,7 @@ export const createChannel = (serverId, channel_name) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(getChannels(data.server_id));
-    return serverId;
+    return data;
   }
 };
 
@@ -89,9 +89,9 @@ export const removeChannel = (channelId) => async (dispatch) => {
     method: "DELETE",
   });
   if (response.ok) {
-    const data = response.json()
+    const data = response.json();
     dispatch(deleteChannel(channelId));
-    return data
+    return data;
   }
 };
 
