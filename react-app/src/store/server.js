@@ -206,6 +206,20 @@ export const uploadServerImageThunk = (server_id, image) => async (dispatch) => 
   }
 };
 
+export const removeServerImageThunk = (server_id) => async (dispatch) => {
+  const res = await fetch(`/api/servers/${server_id}/image/remove`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  })
+
+  if (res.ok) {
+    const data = res.json()
+    return data
+  }
+}
+
 // REDUCER
 
 const initialState = {

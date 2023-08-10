@@ -212,3 +212,14 @@ def add_server_image(id):
             return server
 
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
+@server_routes.route('/<int:id>/image/remove', methods=["PUT"])
+@login_required
+def remove_server_image():
+    server = Server.query.get(id)
+
+    server.image_url = None
+    db.session.commit()
+
+    return server.to_dict()
