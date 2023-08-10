@@ -12,6 +12,7 @@ export const GET_SERVER = "server/GET_SERVER";
 export const CREATE_SERVER = "server/CREATE_SERVER";
 export const UPDATE_SERVER = "server/UPDATE_SERVER";
 export const DELETE_SERVER = "server/DELETE_SERVER";
+export const UPDATE_SERVER_IMAGE = "server/UPDATE_SERVER_IMAGE"
 
 /*************** ACTIONS CREATOR **************************/
 export const getAllServersAction = (servers) => {
@@ -65,6 +66,16 @@ export const deleteServerAction = (server_id) => {
     payload: server_id,
   };
 };
+
+/******/
+
+export const updateServeImageAction = (server) => {
+  return {
+    type: UPDATE_SERVER_IMAGE,
+    payload: server,
+  };
+};
+
 
 /*************** THUNK ACTIONS CREATOR **************************/
 
@@ -180,6 +191,27 @@ export const deleteServerThunk = (server_id) => async (dispatch) => {
     return data
   }
 };
+
+export const uploadServerImageThunk =
+  (server_id, image) => async (dispatch) => {
+
+    const res = await fetch(`/api/servers/${server_id}/image`, {
+      method: "PUT",
+      body: image,
+    });
+
+    // if the response is good. recall the get all servers thunk
+    // to get the redux updated with all the servers again to
+    // prevent loading issues
+    if (res.ok) {
+      const updatedServer = await res.json();
+      await dispatch(userActions.getUserServers());
+      return updatedServer;
+    } else {
+      const error = await res.json();
+      return error;
+    }
+  };
 
 // REDUCER
 
