@@ -49,6 +49,7 @@ function Main() {
   useEffect(() => {
     (async () => {
       if (serverid) {
+        setIsLoaded(false);
         try {
           let d = dispatch(memberActions.getServerMembersThunk(serverid));
           let a = await dispatch(serverActions.getServerThunk(serverid));

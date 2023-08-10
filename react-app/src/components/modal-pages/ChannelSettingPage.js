@@ -11,7 +11,7 @@ import { BiSolidTrash } from "react-icons/bi";
 function ChannelSettingPage() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { channelCog } = useContext(InfoContext);
+  const { channelCog, setIsLoaded } = useContext(InfoContext);
   const { setType } = useContext(ModalContext);
   const server = useSelector((state) => state.current.server);
   const { serverid, channelid } = useParams();
