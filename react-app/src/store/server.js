@@ -175,7 +175,9 @@ export const deleteServerThunk = (server_id) => async (dispatch) => {
   // to get the redux updated with all the servers again to
   // prevent loading issues
   if (res.ok) {
+    const data = res.json()
     dispatch(deleteServerAction(server_id));
+    return data
   }
 };
 
