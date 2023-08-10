@@ -7,8 +7,6 @@ import { IoCloseOutline } from "react-icons/io5";
 import { FaThumbsUp } from "react-icons/fa";
 import { ModalContext} from '../../context/modalContext'
 
-
-
 function ChangeAvatarPage({ setType }) {
   const dispatch = useDispatch();
   const { userAccountModal } = useContext(ModalContext)
@@ -25,8 +23,10 @@ function ChangeAvatarPage({ setType }) {
   });
 
   const changeAvatarHandleSubmit = async (e) => {
+    // e.preventDefault()
     const formData = new FormData();
     formData.append("image_url", imageUrl);
+    console.log(formData)
     await dispatch(uploadProfileImageThunk(formData));
   };
 
@@ -35,7 +35,7 @@ function ChangeAvatarPage({ setType }) {
     userAccountModal()
   }
 
-  console.log();
+
   return (
     <div className="change-avatar-container">
       <form
