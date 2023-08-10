@@ -27,10 +27,11 @@ function DeleteMessagePage() {
   const handleDeleteButton = (channel, message) => {
     (async () => {
       if (message) {
+        console.log("MESSAGE_ID", message.id);
         await dispatch(
           removeMessage(message.server_id, message.channel_id, message.id)
         );
-        chatUpdate(serverid, channelid);
+        chatUpdate(serverid, channelid, "DELETE", message.id);
         setType(null);
       }
     })();

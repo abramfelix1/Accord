@@ -32,6 +32,7 @@ export function startListeners(user) {
   console.log("***LISTENING FOR SEND MESSAGE RESPONSE***");
   socket.on("chat_update_response", (data) => {
     console.log(data["Message"]);
+    console.log(data["Action_Type"]);
   });
   socket.on("disconnect_response", (data) => {
     console.log(data["Message"]);
@@ -53,18 +54,38 @@ export function joinServer(user_id) {
   });
 }
 
-export function chatUpdate(server_id, channel_id) {
+export function chatUpdate(
+  server_id,
+  channel_id,
+  action_type,
+  message_id = null
+) {
   console.log("***EMIT CHAT UPDATE***");
-  socket.emit("chat_update", { server_id, channel_id });
+  socket.emit("chat_update", {
+    server_id,
+    channel_id,
+    action_type,
+    message_id,
+  });
 }
 
-export function handleChatUpdates(callback, chid) {
+export function handleChatUpdates(callbacks, chid) {
   console.log("***LISTENING FOR CHAT UPDATES***");
   socket.on("chat_update_response", (data) => {
-    console.log("***CHAT UPDATES EVENT DATA***");
+    const server_id = data.server_id;
     const channel_id = data.channel_id;
-    if (channel_id == chid) {
-      callback(channel_id);
+    const message_id = data.message_id;
+    const actionType = data.Action_Type;
+    console.log(server_id, channel_id, message_id, actionType);
+    if (channel_id == chid && actionType == "CREATE") {
+      console.log("CREATING SOCKET EMITTED");
+      callbacks[actionType](channel_id);
+    }
+    if (channel_id == chid && actionType == "DELETE") {
+      console.log("DELETING SOCKET EMITTED");
+      console.log("DELETEING:");
+      //dont dispatch the thunk, dispatch the action
+      callbacks[actionType](server_id, channel_id, message_id);
     }
   });
 }
