@@ -86,9 +86,7 @@ const serversReducer = (state = initialState, action) => {
       return { ...newState };
     }
     case messageActions.ADD_MESSAGE: {
-      console.log("ADD PAYLOAD:", action.payload);
       const { server_id, channel_id, message } = action.payload;
-      console.log("**************", server_id, channel_id, message);
       if (
         newState[server_id] &&
         newState[server_id].channels &&
@@ -100,9 +98,7 @@ const serversReducer = (state = initialState, action) => {
       return { ...newState };
     }
     case messageActions.UPDATE_MESSAGE: {
-      console.log("EDIT PAYLOAD:", action.payload);
       const { server_id, channel_id, message } = action.payload;
-      console.log("**************", server_id, channel_id, message);
       if (
         newState[server_id] &&
         newState[server_id].channels &&

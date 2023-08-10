@@ -19,15 +19,9 @@ function DeleteMessagePage() {
   const { setType } = useContext(ModalContext);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log("MESSAGE DELETE");
-    console.log(message);
-  }, []);
-
   const handleDeleteButton = (channel, message) => {
     (async () => {
       if (message) {
-        console.log("MESSAGE_ID", message.id);
         await dispatch(
           removeMessage(message.server_id, message.channel_id, message.id)
         );

@@ -14,6 +14,7 @@ import {
   deleteMessage,
   addMessage,
   getMessage,
+  updateMessage,
 } from "../../store/message";
 import { handleChatUpdates, chatUpdate } from "../utils/Socket";
 import "./chat-css/ChatBox.css";
@@ -59,6 +60,7 @@ const Chat = () => {
     const callbacks = {
       CREATE: (data) => dispatch(addMessage(data)),
       DELETE: (data) => dispatch(deleteMessage(data)),
+      EDIT: (data) => dispatch(updateMessage(data)),
     };
 
     handleChatUpdates(callbacks, channelid);

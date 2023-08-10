@@ -55,7 +55,7 @@ function MessageEditField({ message, setShowEditField }) {
     chatUpdate({
       server_id: serverid,
       channel_id: channelid,
-      action_type: "CREATE",
+      action_type: "EDIT",
       message: updatedMessage,
     });
   };
