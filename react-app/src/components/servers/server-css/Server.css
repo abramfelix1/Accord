@@ -158,6 +158,11 @@
   border-radius: 15px;
 }
 
+.active-server-img {
+  color: #DBDEE1;
+  border-radius: 15px;
+}
+
 .server-top-layer > a {
   text-decoration: none;
 }
