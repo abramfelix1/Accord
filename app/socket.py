@@ -57,7 +57,7 @@ def handle_chat(data):
             "channel_id": data["channel_id"],
         },
         room=str(data["server_id"]),
-        broadcast=False,
+        broadcast=True,
     )
 
 

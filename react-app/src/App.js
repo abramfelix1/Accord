@@ -6,7 +6,6 @@ import Main from "./components/Main";
 import LoginPage from "./components/login-signup/login/Login";
 import SignupPage from "./components/login-signup/signup/Signup";
 import LandingPage from "./components/landing/LandingPage";
-import Modal from "./components/utils/Modal";
 
 import ServerSetting from "./components/modal-pages/ServerSetting";
 
@@ -18,11 +17,8 @@ function App() {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
-
-
   return (
     <>
-      <Modal />
       {isLoaded && (
         <Switch>
           <Route exact path="/" component={LandingPage} />
