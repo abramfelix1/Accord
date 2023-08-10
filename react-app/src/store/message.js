@@ -48,7 +48,7 @@ export const createMessage = (channel_id, message) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(addMessage(data.channel_id));
+    // dispatch(addMessage(data.channel_id));
   }
 };
 
@@ -75,8 +75,8 @@ export const removeMessage =
       method: "DELETE",
     });
     if (response.ok) {
-      // console.log("IDs:", server_id, channel_id, message_id);
-      // dispatch(deleteMessage(server_id, channel_id, message_id));
+      console.log("IDs:", server_id, channel_id, message_id);
+      dispatch(deleteMessage({ server_id, channel_id, message_id }));
     }
   };
 

@@ -54,7 +54,7 @@ const Chat = () => {
       dispatch(getMessages(data));
     };
 
-    handleChatUpdates(callback, channelid);
+    // handleChatUpdates(callback, channelid);
 
     return () => {
       socket.off("chat_update_response", callback);

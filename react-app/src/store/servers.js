@@ -72,6 +72,19 @@ const serversReducer = (state = initialState, action) => {
         }
       });
       return newState;
+    case messageActions.DELETE_MESSAGE:
+      const { server_id, channel_id, message_id } = action.payload;
+      if (
+        newState[server_id] &&
+        newState[server_id].channels &&
+        newState[server_id].channels[channel_id] &&
+        newState[server_id].channels[channel_id].messages &&
+        newState[server_id].channels[channel_id].messages[message_id]
+      ) {
+        delete newState[server_id].channels[channel_id].messages[message_id];
+      }
+
+      return { ...newState };
     case RESET_SERVERS:
       return { ...newState, isLoading: true };
     default:
