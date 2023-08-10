@@ -3,10 +3,9 @@ from flask_login import login_required, current_user
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import joinedload
 from app.models import Server, Member, Channel, User, db
-from app.forms import ServerForm, ChannelForm, MembershipForm
+from app.forms import ServerForm, ChannelForm, MembershipForm, ServerImageForm
 from werkzeug.utils import secure_filename
 from app.aws_helpers import *
-from ..forms.server_image_form import ServerImageForm
 
 server_routes = Blueprint("servers", __name__)
 
@@ -187,7 +186,7 @@ def get_server_members(id):
     return [member.to_dict() for member in members]
 
 
-@server_routes.route("/<int:id>/image", methods=["PUT, PATCH"])
+@server_routes.route("/<int:id>/image", methods=["PUT", "PATCH"])
 @login_required
 def add_server_image(id):
     print("********************************* BEFORE THE SUBMIT ***************************")

@@ -27,12 +27,13 @@ function CreateServerPage() {
         const newServer = await dispatch(serverActions.createServerThunk(user.id, serverName))
 
         if (imageUrl && newServer) {
-            console.log(imageUrl)
             const formData = new FormData();
             formData.append("image_url", imageUrl);
-            console.log(formData, "888888888")
             await dispatch(serverActions.uploadServerImageThunk(newServer.id, formData));
-            }
+
+            setType(null);
+            return history.push(`/servers/${newServer.id}/channels/${newServer.firstChannel.id}`)
+        }
 
         if (newServer) {
             // console.log(newServer)

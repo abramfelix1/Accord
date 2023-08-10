@@ -7,3 +7,4 @@ from .membership_form import MemberNicknameForm
 from .channel_form import ChannelForm
 from .message_form import MessageForm
 from .user_image_form import UserImageForm
+from .server_image_form import ServerImageForm
