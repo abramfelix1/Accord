@@ -6,6 +6,7 @@ from app.models import Server, Member, Channel, User, db
 from app.forms import ServerForm, ChannelForm, MembershipForm, ServerImageForm
 from werkzeug.utils import secure_filename
 from app.aws_helpers import *
+from ..forms.server_image_form import ServerImageForm
 
 server_routes = Blueprint("servers", __name__)
 
@@ -58,6 +59,7 @@ def create_a_servers():
         new_server = Server(
             owner_id=current_user.get_id(),
             name=data["server_name"],
+            image_url=None
         )
         db.session.add(new_server)
         db.session.commit()
@@ -189,16 +191,16 @@ def get_server_members(id):
 @server_routes.route("/<int:id>/image", methods=["PUT", "PATCH"])
 @login_required
 def add_server_image(id):
-    print("********************************* BEFORE THE SUBMIT ***************************")
-    server = Server.query.get(id);
+    print("********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************* BEFORE THE SUBMIT ***************************")
+    server = Server.query.get(id)
     if not server:
         return jsonify({"message": "Server not found"}), 404
-    
+
     form = ServerImageForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
 
     if form.validate_on_submit():
-        print("******************************** made validations ****************************************")
+        print("******************************** made validations ********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************")
         image = form.data["image_url"]
         image.filename = get_unique_filename(image.filename)
         upload = upload_file_to_s3(image)
@@ -210,3 +212,14 @@ def add_server_image(id):
             return server
 
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
+@server_routes.route('/<int:id>/image/remove', methods=["PUT"])
+@login_required
+def remove_server_image():
+    server = Server.query.get(id)
+
+    server.image_url = None
+    db.session.commit()
+
+    return server.to_dict()

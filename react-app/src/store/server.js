@@ -199,13 +199,26 @@ export const uploadServerImageThunk = (server_id, image) => async (dispatch) => 
 
     if (res.ok) {
       const updatedServer = await res.json();
-      console.log(updatedServer)
       return updatedServer;
     } else {
       const error = await res.json();
       return error;
     }
-  };
+}
+
+export const removeServerImageThunk = (server_id) => async (dispatch) => {
+  const res = await fetch(`/api/servers/${server_id}/image/remove`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  })
+
+  if (res.ok) {
+    const data = res.json()
+    return data
+  }
+}
 
 // REDUCER
 
