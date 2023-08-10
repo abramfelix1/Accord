@@ -1,8 +1,21 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useReducer,
+  useCallback,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import socket from "../utils/Socket";
 import ChatInputField from "./ChatInputField";
-import { getMessages, createMessage } from "../../store/message";
+import {
+  getMessages,
+  createMessage,
+  deleteMessage,
+  addMessage,
+  getMessage,
+  updateMessage,
+} from "../../store/message";
 import { handleChatUpdates, chatUpdate } from "../utils/Socket";
 import "./chat-css/ChatBox.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
@@ -22,9 +35,6 @@ const Chat = () => {
   // const isLoaded = useSelector((state) => state.current.isLoading);
   const { isLoaded } = useContext(InfoContext);
   const { serverid, channelid } = useParams();
-  // const messages = useSelector((state) =>
-  //   Object.values(state.current.messages)
-  // );
   const messages = useSelector((state) => {
     if (
       state.servers[serverid] &&
@@ -47,15 +57,16 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    //updates the message state every render
-    // dispatch(getMessages(channelid));
-    handleChatUpdates((data) => {
-      dispatch(getMessages(data));
-    }, channelid);
+    const callbacks = {
+      CREATE: (data) => dispatch(addMessage(data)),
+      DELETE: (data) => dispatch(deleteMessage(data)),
+      EDIT: (data) => dispatch(updateMessage(data)),
+    };
+
+    handleChatUpdates(callbacks, channelid);
+
     return () => {
-      socket.off("chat_update_response", (data) => {
-        dispatch(getMessages(data));
-      });
+      socket.off("chat_update_response");
     };
   }, [dispatch, channelid]);
 
@@ -63,12 +74,18 @@ const Chat = () => {
     setChatInput(e.target.value);
   };
 
-  const sendChat = (e) => {
+  const sendChat = async (e) => {
     e.preventDefault();
-    dispatch(createMessage(channelid, chatInput));
+    const message = await dispatch(
+      createMessage(serverid, channelid, chatInput)
+    );
     //emits send_message event for the backend
-    chatUpdate(serverid, channelid);
-    socket.emit("send_message", { channel_id: channelid });
+    chatUpdate({
+      server_id: serverid,
+      channel_id: channelid,
+      action_type: "CREATE",
+      message: message,
+    });
     setChatInput("");
   };
 
@@ -88,15 +105,14 @@ const Chat = () => {
                     : messages[tempIndex].user_id ===
                       messages[tempIndex - 1].user_id;
                 return (
-                  <div key={`${message.id}${idx}`}>
+                  <div key={`${Math.random()}${idx}${message.id}`}>
                     {isSameUser ? (
                       <MessageContainer
                         message={message}
                         setShowEditField={setShowEditField}
                       >
-                        <MessageOnlyCard message={message}/>
+                        <MessageOnlyCard message={message} />
                       </MessageContainer>
-
                     ) : (
                       <MessageCard message={message} />
                     )}

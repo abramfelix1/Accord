@@ -5,6 +5,7 @@ import UserNav from "./user-nav/UserNav";
 import ChatNav from "./chat/ChatNav";
 import ChatBox from "./chat/ChatBox";
 import ServerMemberList from "./servers/ServerMemberList";
+import Modal from "./utils/Modal";
 import { InfoContext } from "../context/infoContext";
 import { ChannelContext } from "../context/channelContext";
 import { useContext, useEffect, useState } from "react";
@@ -69,29 +70,32 @@ function Main() {
   if (!user) return <Redirect to="/login" />;
 
   return (
-    <div className="main-container">
-      <section className="main-section-1">
-        <Server />
-      </section>
-      {/* Channel Section */}
-      <>
-        <section className="main-section-2">
-          <div>
-            <ServerNav server={server} />
-            <Channel server={server} />
-          </div>
-          <UserNav />
+    <>
+      <Modal />
+      <div className="main-container">
+        <section className="main-section-1">
+          <Server />
         </section>
-        {/* Chatbox, ChatNav, and Members List */}
-        <section className="main-section-3">
-          <ChatNav />
-          <div className="chatbox-member-container">
-            <ChatBox />
-            <ServerMemberList server={server} />
-          </div>
-        </section>
-      </>
-    </div>
+        {/* Channel Section */}
+        <>
+          <section className="main-section-2">
+            <div>
+              <ServerNav server={server} />
+              <Channel server={server} />
+            </div>
+            <UserNav />
+          </section>
+          {/* Chatbox, ChatNav, and Members List */}
+          <section className="main-section-3">
+            <ChatNav />
+            <div className="chatbox-member-container">
+              <ChatBox />
+              <ServerMemberList server={server} />
+            </div>
+          </section>
+        </>
+      </div>
+    </>
   );
 }
 

@@ -30,9 +30,6 @@ If not, check send message from client to backend for other clients to recieve w
 
 export function startListeners(user) {
   console.log("***LISTENING FOR SEND MESSAGE RESPONSE***");
-  socket.on("chat_update_response", (data) => {
-    console.log(data["Message"]);
-  });
   socket.on("disconnect_response", (data) => {
     console.log(data["Message"]);
     console.log(data["Users"]);
@@ -53,18 +50,25 @@ export function joinServer(user_id) {
   });
 }
 
-export function chatUpdate(server_id, channel_id) {
+export function chatUpdate(payload) {
   console.log("***EMIT CHAT UPDATE***");
-  socket.emit("chat_update", { server_id, channel_id });
+  socket.emit("chat_update", payload);
 }
 
-export function handleChatUpdates(callback, chid) {
+export function handleChatUpdates(callbacks, chid) {
   console.log("***LISTENING FOR CHAT UPDATES***");
+
   socket.on("chat_update_response", (data) => {
-    console.log("***CHAT UPDATES EVENT DATA***");
-    const channel_id = data.channel_id;
-    if (channel_id == chid) {
-      callback(channel_id);
+    const {
+      server_id,
+      channel_id,
+      message_id,
+      Action_Type: actionType,
+      message: message,
+    } = data;
+    if (channel_id == chid && callbacks[actionType]) {
+      console.log(`${actionType} SOCKET EMITTED`);
+      callbacks[actionType](data);
     }
   });
 }
