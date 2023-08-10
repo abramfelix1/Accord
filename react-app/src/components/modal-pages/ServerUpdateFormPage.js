@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { BiImageAdd } from "react-icons/bi";
 import {
   updateServerThunk,
   getAllServersThunk,
@@ -26,8 +27,7 @@ function ServerUpdateFormPage({ server, user, setType }) {
   };
 
   const updateServerHandleSubmit = async (e) => {
-
-    dispatch(updateServerThunk(server.id, serverName))
+    dispatch(updateServerThunk(server.id, serverName));
     if (serverImage) {
       const formData = new FormData();
       formData.append("image_url", serverImage);
@@ -58,20 +58,31 @@ function ServerUpdateFormPage({ server, user, setType }) {
                 {initials(server.name)}
               </div>
             )}
-            <div className="change-avatar-server">
-              <input
-                type="file"
-                className="change-avatar-input"
-                onChange={(e) => setServerImage(e.target.files[0])}
-                accept="image/*"
-                name="server-image"
-              />
-              <div
-                style={{ textAlign: "center", width: "50px", fontSize: "16px" }}
-              >
-                Change Avatar
+            {server.owner_id === user.id && (
+              <div className="server-image-icon-wrapper">
+                <BiImageAdd className="server-image-icon" />
               </div>
-            </div>
+            )}
+            {server.owner_id === user.id && (
+              <div className="change-avatar-server">
+                <input
+                  type="file"
+                  className="change-avatar-input"
+                  onChange={(e) => setServerImage(e.target.files[0])}
+                  accept="image/*"
+                  name="server-image"
+                />
+                <div
+                  style={{
+                    textAlign: "center",
+                    width: "50px",
+                    fontSize: "16px",
+                  }}
+                >
+                  Change Avatar
+                </div>
+              </div>
+            )}
 
             {server.image_url && user.id === server.owner_id && (
               <button className="remove-server-image">Remove</button>
