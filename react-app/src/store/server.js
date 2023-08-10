@@ -12,6 +12,7 @@ export const GET_SERVER = "server/GET_SERVER";
 export const CREATE_SERVER = "server/CREATE_SERVER";
 export const UPDATE_SERVER = "server/UPDATE_SERVER";
 export const DELETE_SERVER = "server/DELETE_SERVER";
+export const UPDATE_SERVER_IMAGE = "server/UPDATE_SERVER_IMAGE"
 
 /*************** ACTIONS CREATOR **************************/
 export const getAllServersAction = (servers) => {
@@ -66,6 +67,16 @@ export const deleteServerAction = (server_id) => {
   };
 };
 
+/******/
+
+export const updateServeImageAction = (server) => {
+  return {
+    type: UPDATE_SERVER_IMAGE,
+    payload: server,
+  };
+};
+
+
 /*************** THUNK ACTIONS CREATOR **************************/
 
 export const getAllServersThunk = () => async (dispatch) => {
@@ -105,7 +116,7 @@ export const getServerThunk = (server_id) => async (dispatch) => {
 
 
 export const createServerThunk =
-  (owner_id, server_name, image_url) => async (dispatch) => {
+  (owner_id, server_name) => async (dispatch) => {
     const res = await fetch("/api/servers/", {
       method: "POST",
       headers: {
@@ -114,7 +125,6 @@ export const createServerThunk =
       body: JSON.stringify({
         owner_id: owner_id,
         server_name: server_name,
-        server_image: image_url,
       }),
     });
 
@@ -180,6 +190,27 @@ export const deleteServerThunk = (server_id) => async (dispatch) => {
     return data
   }
 };
+
+export const uploadServerImageThunk = (server_id, image) => async (dispatch) => {
+    console.log(image, server_id)
+
+    const res = await fetch(`/api/servers/${server_id}/image`, {
+      method: "PUT",
+      body: image,
+    });
+
+    // if the response is good. recall the get all servers thunk
+    // to get the redux updated with all the servers again to
+    // prevent loading issues
+    if (res.ok) {
+      const updatedServer = await res.json();
+      await dispatch(userActions.getUserServers());
+      return updatedServer;
+    } else {
+      const error = await res.json();
+      return error;
+    }
+  };
 
 // REDUCER
 

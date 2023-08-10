@@ -19,7 +19,7 @@ const updateUser = (user) => ({
   payload: user,
 });
 
-const getUserServers = (server) => ({
+export const getUserServers = (server) => ({
   type: GET_USER_SERVERS,
   payload: server,
 });
