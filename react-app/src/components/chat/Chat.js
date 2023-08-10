@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useReducer,
+  useCallback,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import socket from "../utils/Socket";
 import ChatInputField from "./ChatInputField";
@@ -47,7 +53,6 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    //updates the message state every render
     const callback = (data) => {
       dispatch(getMessages(data));
     };

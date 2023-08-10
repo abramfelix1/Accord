@@ -55,6 +55,8 @@ const serversReducer = (state = initialState, action) => {
       }, {});
       return newState;
     case messageActions.POPULATE_MESSAGES:
+      console.log("SERVERS REDUCER!!!!!!!!!!!!!!!!!!");
+      console.log(action.payload);
       action.payload.reduce((messages, message) => {
         if (
           newState[message.server_id] &&
@@ -72,8 +74,10 @@ const serversReducer = (state = initialState, action) => {
             message.id
           ] = message;
         }
+        console.log("MESSAGE IN LOOP:", message);
         return messages;
       }, {});
+      console.log("UPDATED STATE", newState["1"]["channels"]["2"]["messages"]);
       return newState;
     case RESET_SERVERS:
       return { ...newState, isLoading: true };
