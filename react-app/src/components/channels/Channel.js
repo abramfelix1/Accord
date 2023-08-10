@@ -50,12 +50,13 @@ function Channel() {
 
   const channelClickHandler = (event, channel) => {
     // dispatch(resetServers());
+    console.log("TARGETS:", event.target, event.currentTarget);
+
     setChannel(channel);
-    if (event.target.id !== "active-channel") setIsLoaded(false);
+    if (event.currentTarget.id !== "active-channel") setIsLoaded(false);
     const current = document.getElementById("active-channel");
-    const chan = document.getElementsByClassName("channel-box")[0];
     if (current) current.id = "";
-    event.target.id = "active-channel";
+    event.currentTarget.id = "active-channel";
   };
 
   return (
@@ -82,7 +83,10 @@ function Channel() {
                   )}
                   <p
                     className="channel-list-title"
-                    onClick={(e) => setShowTextChannel(!showTextChannel)}
+                    onClick={(e) => {
+                      setShowTextChannel(!showTextChannel);
+                      e.stopPropagation();
+                    }}
                   >
                     Text Channels
                   </p>
@@ -135,6 +139,7 @@ function Channel() {
                               onClick={(e) => {
                                 setChannelCog(channel);
                                 channelSettingModal();
+                                e.stopPropagation();
                               }}
                             />
                           </div>
