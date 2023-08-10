@@ -6,6 +6,7 @@ import * as serverActions from "../../store/server";
 import { useContext } from "react";
 import { ModalContext } from "../../context/modalContext"
 import { useHistory } from "react-router-dom"
+import { FaThumbsUp } from "react-icons/fa";
 
 function CreateServerPage() {
     const dispatch = useDispatch();
@@ -58,8 +59,9 @@ function CreateServerPage() {
                 {/* comment this back in when AWS in provided and comment out image input */}
                 <div className="c-server-image-outer-wrapper">
                     <div className="c-server-image-wrapper">
-                        <BiSolidCamera className="c-server-camera"/>
-                        <p className="c-server-upload-text">UPLOAD</p>
+                        {imageUrl ? <FaThumbsUp className="c-server-thumb-icon" /> : <BiSolidCamera className="c-server-camera"/>}
+                        {!imageUrl && <p className="c-server-upload-text">UPLOAD</p>}
+                        {imageUrl && <p className="c-server-upload-text">IMAGE</p>}
                         <p className="c-cerver-plus"><span>+</span></p>
                     </div>
                     <input 
