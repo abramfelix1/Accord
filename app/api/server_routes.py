@@ -59,7 +59,6 @@ def create_a_servers():
         new_server = Server(
             owner_id=current_user.get_id(),
             name=data["server_name"],
-            image_url=data["server_image"] or None,
         )
         db.session.add(new_server)
         db.session.commit()
@@ -200,6 +199,7 @@ def add_server_image(id):
     form["csrf_token"].data = request.cookies["csrf_token"]
 
     if form.validate_on_submit():
+        print("******************************** made validations ****************************************")
         image = form.data["image_url"]
         image.filename = get_unique_filename(image.filename)
         upload = upload_file_to_s3(image)

@@ -116,7 +116,7 @@ export const getServerThunk = (server_id) => async (dispatch) => {
 
 
 export const createServerThunk =
-  (owner_id, server_name, image_url) => async (dispatch) => {
+  (owner_id, server_name) => async (dispatch) => {
     const res = await fetch("/api/servers/", {
       method: "POST",
       headers: {
@@ -125,7 +125,6 @@ export const createServerThunk =
       body: JSON.stringify({
         owner_id: owner_id,
         server_name: server_name,
-        server_image: image_url,
       }),
     });
 
@@ -192,8 +191,8 @@ export const deleteServerThunk = (server_id) => async (dispatch) => {
   }
 };
 
-export const uploadServerImageThunk =
-  (server_id, image) => async (dispatch) => {
+export const uploadServerImageThunk = (server_id, image) => async (dispatch) => {
+    console.log(image, server_id)
 
     const res = await fetch(`/api/servers/${server_id}/image`, {
       method: "PUT",
