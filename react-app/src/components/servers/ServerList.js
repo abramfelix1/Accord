@@ -86,8 +86,7 @@ function ServerList() {
         <Tooltip text={"Direct Messages"}>
           <NavLink
             to="/app"
-            id={serverid ? "" : `active-server`}
-            className="servers servers-friend-button"
+            className={`servers servers-friend-button ${serverid ? "" : `active-server`}`}
             onClick={(e) => handleActiveButton(e)}
           >
             <img className="server-logo" src={logo} alt="logo" />

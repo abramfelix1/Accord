@@ -207,7 +207,6 @@ def add_server_image(id):
             url = upload["url"]
             server.image_url = url
             db.session.commit()
-            print("***********************************************************************************************************************", server, "***********************************************************************************************************************")
             return server.to_dict()
 
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
