@@ -16,6 +16,7 @@ function CreateChannelPage() {
   const [channelName, setChannelName] = useState("");
 
   const createChannelHandleSubmit = async (e) => {
+    e.preventDefault();
     await dispatch(createChannel(server.id, channelName));
     return setType(null);
   };
