@@ -27,8 +27,6 @@ function DeleteMessagePage() {
   const handleDeleteButton = (channel, message) => {
     (async () => {
       if (message) {
-        console.log("delete message");
-        console.log(message.id);
         await dispatch(
           removeMessage(message.server_id, message.channel_id, message.id)
         );

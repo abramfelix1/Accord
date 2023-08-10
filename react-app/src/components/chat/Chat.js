@@ -28,9 +28,6 @@ const Chat = () => {
   // const isLoaded = useSelector((state) => state.current.isLoading);
   const { isLoaded } = useContext(InfoContext);
   const { serverid, channelid } = useParams();
-  // const messages = useSelector((state) =>
-  //   Object.values(state.current.messages)
-  // );
   const messages = useSelector((state) => {
     if (
       state.servers[serverid] &&

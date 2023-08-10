@@ -55,9 +55,6 @@ const serversReducer = (state = initialState, action) => {
       }, {});
       return newState;
     case messageActions.POPULATE_MESSAGES:
-      console.log("SERVERS REDUCER!!!!!!!!!!!!!!!!!!");
-      console.log(action.payload);
-
       const updatedMessages = {};
 
       action.payload.forEach((message) => {
@@ -74,20 +71,6 @@ const serversReducer = (state = initialState, action) => {
           });
         }
       });
-
-      console.log("UPDATED STATE", newState["1"]["channels"]["2"]["messages"]);
-      return newState;
-    case messageActions.DELETE_MESSAGE:
-      console.log("DELETE MESSAGE ACTION:***************");
-      const { message_id, server_id, channel_id } = action.payload;
-      if (
-        newState[server_id] &&
-        newState[server_id].channels[channel_id] &&
-        newState[server_id].channels[channel_id].messages[message_id]
-      ) {
-        delete newState[server_id].channels[channel_id].messages[message_id];
-      }
-
       return newState;
     case RESET_SERVERS:
       return { ...newState, isLoading: true };

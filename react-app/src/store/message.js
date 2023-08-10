@@ -76,7 +76,7 @@ export const removeMessage =
     });
     if (response.ok) {
       // console.log("IDs:", server_id, channel_id, message_id);
-      dispatch(deleteMessage(server_id, channel_id, message_id));
+      // dispatch(deleteMessage(server_id, channel_id, message_id));
     }
   };
 
