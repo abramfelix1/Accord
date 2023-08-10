@@ -95,6 +95,7 @@ const Chat = () => {
         <ChatLoading />
       ) : (
         <div className="main-chat-and-input-container">
+            {/* <div>hello</div> */}
           <div className="chat-container">
             {messages &&
               reverseArray([...messages]).map((message, idx) => {
@@ -107,12 +108,7 @@ const Chat = () => {
                 return (
                   <div key={`${Math.random()}${idx}${message.id}`}>
                     {isSameUser ? (
-                      <MessageContainer
-                        message={message}
-                        setShowEditField={setShowEditField}
-                      >
                         <MessageOnlyCard message={message} />
-                      </MessageContainer>
                     ) : (
                       <MessageCard message={message} />
                     )}
