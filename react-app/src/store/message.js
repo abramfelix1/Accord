@@ -49,7 +49,7 @@ export const createMessage =
     });
     if (response.ok) {
       const message = await response.json();
-      dispatch(addMessage({ server_id, channel_id, message }));
+      // dispatch(addMessage({ server_id, channel_id, message }));
       return message;
     }
   };
@@ -67,7 +67,7 @@ export const editMessage =
       const message = await response.json();
       // dispatch(updateMessage(data));
       // dispatch(getMessages(data.channel_id));
-      dispatch(updateMessage(server_id, channel_id, message));
+      // dispatch(updateMessage(server_id, channel_id, message));
       return message;
     }
   };
@@ -80,7 +80,7 @@ export const removeMessage =
     });
     if (response.ok) {
       console.log("IDs:", server_id, channel_id, message_id);
-      dispatch(deleteMessage({ server_id, channel_id, message_id }));
+      // dispatch(deleteMessage({ server_id, channel_id, message_id }));
     }
   };
 

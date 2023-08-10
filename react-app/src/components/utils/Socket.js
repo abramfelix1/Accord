@@ -30,10 +30,6 @@ If not, check send message from client to backend for other clients to recieve w
 
 export function startListeners(user) {
   console.log("***LISTENING FOR SEND MESSAGE RESPONSE***");
-  socket.on("chat_update_response", (data) => {
-    // console.log(data["LOGGER"]);
-    console.log(data["Action_Type"]);
-  });
   socket.on("disconnect_response", (data) => {
     console.log(data["Message"]);
     console.log(data["Users"]);
@@ -59,25 +55,6 @@ export function chatUpdate(payload) {
   socket.emit("chat_update", payload);
 }
 
-// export function handleChatUpdates(callbacks, chid) {
-//   console.log("***LISTENING FOR CHAT UPDATES***");
-//   socket.on("chat_update_response", (data) => {
-//     const server_id = data.server_id;
-//     const channel_id = data.channel_id;
-//     const message_id = data.message_id;
-//     const actionType = data.Action_Type;
-//     console.log(server_id, channel_id, message_id, actionType);
-//     if (channel_id == chid && actionType == "CREATE") {
-//       console.log("CREATING SOCKET EMITTED");
-//       callbacks[actionType](channel_id);
-//     }
-//     if (channel_id == chid && actionType == "DELETE") {
-//       console.log("DELETING SOCKET EMITTED");
-//       callbacks[actionType]({ server_id, channel_id, message_id });
-//     }
-//   });
-// }
-
 export function handleChatUpdates(callbacks, chid) {
   console.log("***LISTENING FOR CHAT UPDATES***");
 
@@ -89,9 +66,6 @@ export function handleChatUpdates(callbacks, chid) {
       Action_Type: actionType,
       message: message,
     } = data;
-
-    console.log(server_id, channel_id, message_id, actionType);
-
     if (channel_id == chid && callbacks[actionType]) {
       console.log(`${actionType} SOCKET EMITTED`);
       callbacks[actionType](data);

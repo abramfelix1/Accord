@@ -61,7 +61,7 @@ def handle_chat(data):
             "message": data.get("message", None),
         },
         room=str(data["server_id"]),
-        broadcast=True,
+        broadcast=False,
     )
 
 

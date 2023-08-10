@@ -55,24 +55,28 @@ const serversReducer = (state = initialState, action) => {
       }, {});
       return newState;
     case messageActions.POPULATE_MESSAGES:
-      const updatedMessages = {};
-
-      action.payload.forEach((message) => {
-        updatedMessages[message.id] = message;
-      });
-
-      Object.keys(newState).forEach((server_id) => {
-        if (newState[server_id] && newState[server_id].channels) {
-          Object.keys(newState[server_id].channels).forEach((channel_id) => {
-            if (newState[server_id].channels[channel_id]) {
-              newState[server_id].channels[channel_id].messages =
-                updatedMessages;
-            }
-          });
+      action.payload.reduce((messages, message) => {
+        if (
+          newState[message.server_id] &&
+          newState[message.server_id].channels[message.channel_id] &&
+          !newState[message.server_id].channels[message.channel_id].messages
+        ) {
+          newState[message.server_id].channels[message.channel_id].messages =
+            {};
         }
-      });
+        if (
+          newState[message.server_id] &&
+          newState[message.server_id].channels[message.channel_id]
+        ) {
+          newState[message.server_id].channels[message.channel_id].messages[
+            message.id
+          ] = message;
+        }
+        return messages;
+      }, {});
       return newState;
     case messageActions.DELETE_MESSAGE: {
+      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
       const { server_id, channel_id, message_id } = action.payload;
       if (
         newState[server_id] &&
