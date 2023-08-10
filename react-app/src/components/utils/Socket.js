@@ -84,8 +84,7 @@ export function handleChatUpdates(callbacks, chid) {
     if (channel_id == chid && actionType == "DELETE") {
       console.log("DELETING SOCKET EMITTED");
       console.log("DELETEING:");
-      //dont dispatch the thunk, dispatch the action
-      callbacks[actionType](server_id, channel_id, message_id);
+      callbacks[actionType]({ server_id, channel_id, message_id });
     }
   });
 }

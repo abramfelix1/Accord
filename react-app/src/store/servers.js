@@ -73,6 +73,7 @@ const serversReducer = (state = initialState, action) => {
       });
       return newState;
     case messageActions.DELETE_MESSAGE:
+      console.log("PAYLOAD:", action.payload);
       const { server_id, channel_id, message_id } = action.payload;
       if (
         newState[server_id] &&

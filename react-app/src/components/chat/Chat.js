@@ -8,7 +8,7 @@ import React, {
 import { useDispatch, useSelector } from "react-redux";
 import socket from "../utils/Socket";
 import ChatInputField from "./ChatInputField";
-import { getMessages, createMessage, removeMessage } from "../../store/message";
+import { getMessages, createMessage, deleteMessage } from "../../store/message";
 import { handleChatUpdates, chatUpdate } from "../utils/Socket";
 import "./chat-css/ChatBox.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
@@ -52,7 +52,7 @@ const Chat = () => {
   useEffect(() => {
     const callbacks = {
       CREATE: (data) => dispatch(getMessages(data)),
-      DELETE: (data) => dispatch(removeMessage(data)),
+      DELETE: (data) => dispatch(deleteMessage(data)),
     };
 
     handleChatUpdates(callbacks, channelid);

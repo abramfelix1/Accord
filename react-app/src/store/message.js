@@ -18,12 +18,12 @@ const addMessage = (payload) => ({
   payload,
 });
 
-const updateMessage = (payload) => ({
+export const updateMessage = (payload) => ({
   type: UPDATE_MESSAGE,
   payload,
 });
 
-const deleteMessage = (payload) => ({
+export const deleteMessage = (payload) => ({
   type: DELETE_MESSAGE,
   payload,
 });
