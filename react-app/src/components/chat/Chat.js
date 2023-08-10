@@ -95,7 +95,6 @@ const Chat = () => {
         <ChatLoading />
       ) : (
         <div className="main-chat-and-input-container">
-            {/* <div>hello</div> */}
           <div className="chat-container">
             {messages &&
               reverseArray([...messages]).map((message, idx) => {
