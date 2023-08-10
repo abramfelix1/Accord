@@ -48,14 +48,14 @@ const Chat = () => {
 
   useEffect(() => {
     //updates the message state every render
-    // dispatch(getMessages(channelid));
-    handleChatUpdates((data) => {
+    const callback = (data) => {
       dispatch(getMessages(data));
-    }, channelid);
+    };
+
+    handleChatUpdates(callback, channelid);
+
     return () => {
-      socket.off("chat_update_response", (data) => {
-        dispatch(getMessages(data));
-      });
+      socket.off("chat_update_response", callback);
     };
   }, [dispatch, channelid]);
 
