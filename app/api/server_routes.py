@@ -6,7 +6,7 @@ from app.models import Server, Member, Channel, User, db
 from app.forms import ServerForm, ChannelForm, MembershipForm, ServerImageForm
 from werkzeug.utils import secure_filename
 from app.aws_helpers import *
-
+from ..forms.server_image_form import ServerImageForm
 
 server_routes = Blueprint("servers", __name__)
 

@@ -192,19 +192,19 @@ export const deleteServerThunk = (server_id) => async (dispatch) => {
 };
 
 export const uploadServerImageThunk = (server_id, image) => async (dispatch) => {
-  const res = await fetch(`/api/servers/${server_id}/image`, {
-    method: "PUT",
-    body: image,
-  });
+    const res = await fetch(`/api/servers/${server_id}/image`, {
+      method: "PUT",
+      body: image,
+    });
 
-  if (res.ok) {
-    const updatedServer = await res.json();
-    return updatedServer;
-  } else {
-    const error = await res.json();
-    return error;
-  }
-};
+    if (res.ok) {
+      const updatedServer = await res.json();
+      return updatedServer;
+    } else {
+      const error = await res.json();
+      return error;
+    }
+}
 
 export const removeServerImageThunk = (server_id) => async (dispatch) => {
   const res = await fetch(`/api/servers/${server_id}/image/remove`, {
