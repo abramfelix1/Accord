@@ -13,7 +13,7 @@ const populateMessages = (payload) => ({
   payload,
 });
 
-const addMessage = (payload) => ({
+export const addMessage = (payload) => ({
   type: ADD_MESSAGE,
   payload,
 });
@@ -38,19 +38,21 @@ export const getMessages = (channelId) => async (dispatch) => {
   return response;
 };
 
-export const createMessage = (channel_id, message) => async (dispatch) => {
-  const response = await fetch(`/api/channels/${channel_id}/messages`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ message }),
-  });
-  if (response.ok) {
-    const data = await response.json();
-    // dispatch(addMessage(data.channel_id));
-  }
-};
+export const createMessage =
+  (server_id, channel_id, message) => async (dispatch) => {
+    const response = await fetch(`/api/channels/${channel_id}/messages`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message }),
+    });
+    if (response.ok) {
+      const message = await response.json();
+      dispatch(addMessage({ server_id, channel_id, message }));
+      return message;
+    }
+  };
 
 export const editMessage =
   (channel_id, message_id, message) => async (dispatch) => {
@@ -92,9 +94,9 @@ const messageReducer = (state = initialState, action) => {
     //     return messages;
     //   }, {});
     //   return { messages: { ...messages }, isLoading: false };
-    case ADD_MESSAGE:
-      newState[action.payload.id] = action.payload;
-      return newState;
+    // case ADD_MESSAGE:
+    //   newState[action.payload.id] = action.payload;
+    //   return newState;
     case UPDATE_MESSAGE:
       newState[action.payload.id] = action.payload;
       return newState;

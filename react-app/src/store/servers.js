@@ -72,8 +72,7 @@ const serversReducer = (state = initialState, action) => {
         }
       });
       return newState;
-    case messageActions.DELETE_MESSAGE:
-      console.log("PAYLOAD:", action.payload);
+    case messageActions.DELETE_MESSAGE: {
       const { server_id, channel_id, message_id } = action.payload;
       if (
         newState[server_id] &&
@@ -84,8 +83,22 @@ const serversReducer = (state = initialState, action) => {
       ) {
         delete newState[server_id].channels[channel_id].messages[message_id];
       }
-
       return { ...newState };
+    }
+    case messageActions.ADD_MESSAGE: {
+      console.log("ADD PAYLOAD:", action.payload);
+      const { server_id, channel_id, message } = action.payload;
+      console.log("**************", server_id, channel_id, message);
+      if (
+        newState[server_id] &&
+        newState[server_id].channels &&
+        newState[server_id].channels[channel_id] &&
+        newState[server_id].channels[channel_id].messages
+      ) {
+        newState[server_id].channels[channel_id].messages[message.id] = message;
+      }
+      return { ...newState };
+    }
     case RESET_SERVERS:
       return { ...newState, isLoading: true };
     default:

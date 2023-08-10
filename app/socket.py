@@ -53,11 +53,12 @@ def handle_chat(data):
     emit(
         "chat_update_response",
         {
-            "Message": f"CHAT_UPDATE: SERVER: {data['server_id']} CHANNEL: {data['channel_id']}",
+            # "LOGGER": f"CHAT_UPDATE: SERVER: {data['server_id']} CHANNEL: {data['channel_id']}",
             "channel_id": data["channel_id"],
-            "server_id":data["server_id"],
-            "message_id":data.get("message_id", None),
+            "server_id": data["server_id"],
+            "message_id": data.get("message_id", None),
             "Action_Type": data["action_type"],
+            "message": data.get("message", None),
         },
         room=str(data["server_id"]),
         broadcast=True,

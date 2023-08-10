@@ -8,7 +8,13 @@ import React, {
 import { useDispatch, useSelector } from "react-redux";
 import socket from "../utils/Socket";
 import ChatInputField from "./ChatInputField";
-import { getMessages, createMessage, deleteMessage } from "../../store/message";
+import {
+  getMessages,
+  createMessage,
+  deleteMessage,
+  addMessage,
+  getMessage,
+} from "../../store/message";
 import { handleChatUpdates, chatUpdate } from "../utils/Socket";
 import "./chat-css/ChatBox.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
@@ -51,7 +57,7 @@ const Chat = () => {
 
   useEffect(() => {
     const callbacks = {
-      CREATE: (data) => dispatch(getMessages(data)),
+      CREATE: (data) => dispatch(addMessage(data)),
       DELETE: (data) => dispatch(deleteMessage(data)),
     };
 
@@ -66,11 +72,18 @@ const Chat = () => {
     setChatInput(e.target.value);
   };
 
-  const sendChat = (e) => {
+  const sendChat = async (e) => {
     e.preventDefault();
-    dispatch(createMessage(channelid, chatInput));
+    const message = await dispatch(
+      createMessage(serverid, channelid, chatInput)
+    );
     //emits send_message event for the backend
-    chatUpdate(serverid, channelid, "CREATE");
+    chatUpdate({
+      server_id: serverid,
+      channel_id: channelid,
+      action_type: "CREATE",
+      message: message,
+    });
     setChatInput("");
   };
 

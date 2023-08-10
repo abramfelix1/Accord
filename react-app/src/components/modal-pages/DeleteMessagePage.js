@@ -31,7 +31,12 @@ function DeleteMessagePage() {
         await dispatch(
           removeMessage(message.server_id, message.channel_id, message.id)
         );
-        chatUpdate(serverid, channelid, "DELETE", message.id);
+        chatUpdate({
+          server_id: serverid,
+          channel_id: channelid,
+          action_type: "DELETE",
+          message_id: message.id,
+        });
         setType(null);
       }
     })();
