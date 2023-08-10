@@ -12,6 +12,7 @@ export const GET_SERVER = "server/GET_SERVER";
 export const CREATE_SERVER = "server/CREATE_SERVER";
 export const UPDATE_SERVER = "server/UPDATE_SERVER";
 export const DELETE_SERVER = "server/DELETE_SERVER";
+export const UPDATE_SERVER_IMAGE = "server/UPDATE_SERVER_IMAGE"
 
 /*************** ACTIONS CREATOR **************************/
 export const getAllServersAction = (servers) => {
@@ -66,6 +67,16 @@ export const deleteServerAction = (server_id) => {
   };
 };
 
+/******/
+
+export const updateServeImageAction = (server) => {
+  return {
+    type: UPDATE_SERVER_IMAGE,
+    payload: server,
+  };
+};
+
+
 /*************** THUNK ACTIONS CREATOR **************************/
 
 export const getAllServersThunk = () => async (dispatch) => {
@@ -105,7 +116,7 @@ export const getServerThunk = (server_id) => async (dispatch) => {
 
 
 export const createServerThunk =
-  (owner_id, server_name, image_url) => async (dispatch) => {
+  (owner_id, server_name) => async (dispatch) => {
     const res = await fetch("/api/servers/", {
       method: "POST",
       headers: {
@@ -114,7 +125,6 @@ export const createServerThunk =
       body: JSON.stringify({
         owner_id: owner_id,
         server_name: server_name,
-        server_image: image_url,
       }),
     });
 
@@ -175,9 +185,40 @@ export const deleteServerThunk = (server_id) => async (dispatch) => {
   // to get the redux updated with all the servers again to
   // prevent loading issues
   if (res.ok) {
+    const data = res.json()
     dispatch(deleteServerAction(server_id));
+    return data
   }
 };
+
+export const uploadServerImageThunk = (server_id, image) => async (dispatch) => {
+  const res = await fetch(`/api/servers/${server_id}/image`, {
+    method: "PUT",
+    body: image,
+  });
+
+  if (res.ok) {
+    const updatedServer = await res.json();
+    return updatedServer;
+  } else {
+    const error = await res.json();
+    return error;
+  }
+};
+
+export const removeServerImageThunk = (server_id) => async (dispatch) => {
+  const res = await fetch(`/api/servers/${server_id}/image/remove`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  })
+
+  if (res.ok) {
+    const data = res.json()
+    return data
+  }
+}
 
 // REDUCER
 
