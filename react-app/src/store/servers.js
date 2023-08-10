@@ -99,6 +99,20 @@ const serversReducer = (state = initialState, action) => {
       }
       return { ...newState };
     }
+    case messageActions.UPDATE_MESSAGE: {
+      console.log("EDIT PAYLOAD:", action.payload);
+      const { server_id, channel_id, message } = action.payload;
+      console.log("**************", server_id, channel_id, message);
+      if (
+        newState[server_id] &&
+        newState[server_id].channels &&
+        newState[server_id].channels[channel_id] &&
+        newState[server_id].channels[channel_id].messages
+      ) {
+        newState[server_id].channels[channel_id].messages[message.id] = message;
+      }
+      return { ...newState };
+    }
     case RESET_SERVERS:
       return { ...newState, isLoading: true };
     default:

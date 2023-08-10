@@ -55,7 +55,7 @@ export const createMessage =
   };
 
 export const editMessage =
-  (channel_id, message_id, message) => async (dispatch) => {
+  (server_id, channel_id, message_id, message) => async (dispatch) => {
     const response = await fetch(`/api/messages/${message_id}`, {
       method: "PUT",
       headers: {
@@ -64,10 +64,11 @@ export const editMessage =
       body: JSON.stringify({ message }),
     });
     if (response.ok) {
-      const data = await response.json();
+      const message = await response.json();
       // dispatch(updateMessage(data));
       // dispatch(getMessages(data.channel_id));
-      return data;
+      dispatch(updateMessage(server_id, channel_id, message));
+      return message;
     }
   };
 
@@ -97,9 +98,9 @@ const messageReducer = (state = initialState, action) => {
     // case ADD_MESSAGE:
     //   newState[action.payload.id] = action.payload;
     //   return newState;
-    case UPDATE_MESSAGE:
-      newState[action.payload.id] = action.payload;
-      return newState;
+    // case UPDATE_MESSAGE:
+    //   newState[action.payload.id] = action.payload;
+    //   return newState;
     // case DELETE_MESSAGE:
     //   console.log("DELETE PAYLOAD:", action.payload);
     //   delete newState[action.payload["message_id"]];

@@ -42,12 +42,22 @@ function MessageEditField({ message, setShowEditField }) {
       return;
     }
 
-    await dispatch(
-      messageActions.editMessage(message.channel_id, message.id, messageValue)
+    const updatedMessage = await dispatch(
+      messageActions.editMessage(
+        message.server_id,
+        message.channel_id,
+        message.id,
+        messageValue
+      )
     );
     setShowEditField(false);
     setEditMessageId("");
-    chatUpdate(serverid, channelid);
+    chatUpdate({
+      server_id: serverid,
+      channel_id: channelid,
+      action_type: "CREATE",
+      message: updatedMessage,
+    });
   };
 
   return (
