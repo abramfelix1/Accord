@@ -29,7 +29,9 @@ function DeleteMessagePage() {
       if (message) {
         console.log("delete message");
         console.log(message.id);
-        await dispatch(removeMessage(channel.id, message.id));
+        await dispatch(
+          removeMessage(message.server_id, message.channel_id, message.id)
+        );
         console.log(serverid, channelid);
         chatUpdate(1, 1);
         setType(null);

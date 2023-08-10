@@ -57,27 +57,37 @@ const serversReducer = (state = initialState, action) => {
     case messageActions.POPULATE_MESSAGES:
       console.log("SERVERS REDUCER!!!!!!!!!!!!!!!!!!");
       console.log(action.payload);
-      action.payload.reduce((messages, message) => {
-        if (
-          newState[message.server_id] &&
-          newState[message.server_id].channels[message.channel_id] &&
-          !newState[message.server_id].channels[message.channel_id].messages
-        ) {
-          newState[message.server_id].channels[message.channel_id].messages =
-            {};
+
+      const updatedMessages = {};
+
+      action.payload.forEach((message) => {
+        updatedMessages[message.id] = message;
+      });
+
+      Object.keys(newState).forEach((server_id) => {
+        if (newState[server_id] && newState[server_id].channels) {
+          Object.keys(newState[server_id].channels).forEach((channel_id) => {
+            if (newState[server_id].channels[channel_id]) {
+              newState[server_id].channels[channel_id].messages =
+                updatedMessages;
+            }
+          });
         }
-        if (
-          newState[message.server_id] &&
-          newState[message.server_id].channels[message.channel_id]
-        ) {
-          newState[message.server_id].channels[message.channel_id].messages[
-            message.id
-          ] = message;
-        }
-        console.log("MESSAGE IN LOOP:", message);
-        return messages;
-      }, {});
+      });
+
       console.log("UPDATED STATE", newState["1"]["channels"]["2"]["messages"]);
+      return newState;
+    case messageActions.DELETE_MESSAGE:
+      console.log("DELETE MESSAGE ACTION:***************");
+      const { message_id, server_id, channel_id } = action.payload;
+      if (
+        newState[server_id] &&
+        newState[server_id].channels[channel_id] &&
+        newState[server_id].channels[channel_id].messages[message_id]
+      ) {
+        delete newState[server_id].channels[channel_id].messages[message_id];
+      }
+
       return newState;
     case RESET_SERVERS:
       return { ...newState, isLoading: true };

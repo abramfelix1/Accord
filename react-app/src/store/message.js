@@ -69,15 +69,16 @@ export const editMessage =
     }
   };
 
-export const removeMessage = (channel_id, message_id) => async (dispatch) => {
-  const response = await fetch(`/api/messages/${message_id}`, {
-    method: "DELETE",
-  });
-  if (response.ok) {
-    const msg = dispatch(deleteMessage(message_id));
-    dispatch(getMessages(channel_id));
-  }
-};
+export const removeMessage =
+  (server_id, channel_id, message_id) => async (dispatch) => {
+    const response = await fetch(`/api/messages/${message_id}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      // console.log("IDs:", server_id, channel_id, message_id);
+      dispatch(deleteMessage(server_id, channel_id, message_id));
+    }
+  };
 
 const initialState = { messages: {}, isLoading: true };
 
@@ -96,9 +97,10 @@ const messageReducer = (state = initialState, action) => {
     case UPDATE_MESSAGE:
       newState[action.payload.id] = action.payload;
       return newState;
-    case DELETE_MESSAGE:
-      delete newState[action.payload];
-      return newState;
+    // case DELETE_MESSAGE:
+    //   console.log("DELETE PAYLOAD:", action.payload);
+    //   delete newState[action.payload["message_id"]];
+    //   return newState;
     case RESET_MESSAGES:
       return initialState;
     default:
