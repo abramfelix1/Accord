@@ -1,6 +1,10 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { updateServerThunk, getAllServersThunk } from "../../store/server";
+import {
+  updateServerThunk,
+  getAllServersThunk,
+  uploadServerImageThunk,
+} from "../../store/server";
 import { IoCloseOutline } from "react-icons/io5";
 
 import "./modal-css/ServerUpdateFormPage.css";
@@ -22,15 +26,21 @@ function ServerUpdateFormPage({ server, user, setType }) {
   };
 
   const updateServerHandleSubmit = async (e) => {
-    await dispatch(updateServerThunk(server.id, serverName));
-    await dispatch(getAllServersThunk());
+
+    dispatch(updateServerThunk(server.id, serverName))
+    if (serverImage) {
+      const formData = new FormData();
+      formData.append("image_url", serverImage);
+      dispatch(uploadServerImageThunk(server.id, formData));
+    }
   };
 
   return (
     <>
       <form
-        onSubmit={(e) => updateServerHandleSubmit()}
+        onSubmit={updateServerHandleSubmit}
         className="server-setting-form"
+        encType="multipart/form-data"
       >
         <h3 className="server-setting-header">
           Server Overview{" "}
@@ -49,7 +59,13 @@ function ServerUpdateFormPage({ server, user, setType }) {
               </div>
             )}
             <div className="change-avatar-server">
-              <input type="file" className="change-avatar-input" />
+              <input
+                type="file"
+                className="change-avatar-input"
+                onChange={(e) => setServerImage(e.target.files[0])}
+                accept="image/*"
+                name="server-image"
+              />
               <div
                 style={{ textAlign: "center", width: "50px", fontSize: "16px" }}
               >
