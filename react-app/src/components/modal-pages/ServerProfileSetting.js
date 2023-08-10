@@ -32,7 +32,8 @@ function ServerProfileSetting() {
     })();
   }, []);
 
-  const updateNicknameHandleSubmit = async () => {
+  const updateNicknameHandleSubmit = async (e) => {
+    e.preventDefault();
     console.log(nickname, "dkslajdslkdjlksajdlasjdksaldasd");
     await dispatch(updateServerNicknameThunk(server.id, nickname));
     await dispatch(getServerMembersThunk(server.id));
