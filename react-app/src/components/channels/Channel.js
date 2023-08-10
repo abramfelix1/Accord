@@ -25,9 +25,13 @@ function Channel() {
   const { setIsLoaded } = useContext(InfoContext);
   const server = useSelector((state) => state.current.server);
   const user = useSelector((state) => state.session.user);
-  const channels = Object.values(
-    useSelector((state) => state.channels.channels)
-  );
+  const channels = useSelector((state) => {
+    if (state.servers[serverid]) {
+      return Object.values(state.servers[serverid].channels);
+    } else {
+      return [];
+    }
+  });
 
   // Contexts
   const { setChannel } = useContext(ChannelContext);

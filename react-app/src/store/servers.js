@@ -43,6 +43,21 @@ const serversReducer = (state = initialState, action) => {
         return channels;
       }, {});
       return newState;
+    case channelActions.UPDATE_CHANNEL: {
+      const { server_id, channel_id, channel } = action.payload;
+      if (
+        newState[server_id] &&
+        newState[server_id].channels &&
+        newState[server_id].channels[channel_id] &&
+        newState[server_id].channels[channel_id].messages
+      ) {
+        newState[server_id].channels[channel_id] = {
+          ...channel,
+          messages: newState[server_id].channels[channel_id].messages,
+        };
+      }
+      return { ...newState };
+    }
     case memberActions.GET_SERVER_MEMBERS:
       action.payload.reduce((members, member) => {
         if (newState[member.server_id] && !newState[member.server_id].members) {

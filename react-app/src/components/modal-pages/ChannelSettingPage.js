@@ -14,15 +14,16 @@ function ChannelSettingPage() {
   const { channelCog } = useContext(InfoContext);
   const { setType } = useContext(ModalContext);
   const server = useSelector((state) => state.current.server);
+  const { serverid, channelid } = useParams();
 
   const [channelName, setChannelName] = useState(channelCog.name);
 
   const editChannelHandleSubmit = async (e) => {
     e.preventDefault();
 
-    await dispatch(editChannel(channelCog.id, channelName));
+    await dispatch(editChannel(serverid, channelCog.id, channelName));
     setType(null);
-    await dispatch(getChannels(server.id));
+    // await dispatch(getChannels(serverid));
   };
 
   const deleteChannelHandler = async (e) => {
