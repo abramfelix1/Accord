@@ -1,0 +1,52 @@
+.change-avatar-server {
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0;
+    font-weight: bold;
+}
+
+.change-avatar-server:hover {
+    background-color: #1f212476;
+    opacity: 100%;
+    color: #f2f3f5;
+}
+
+.change-avatar-input {
+    background-color: aqua;
+    position: absolute;
+    z-index: 1;
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0%;
+}
+
+.server-image-icon {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    margin-left: 3px;
+}
+
+.server-image-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #E2E5E8;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    box-shadow: -1px 1px 5px #4F545C;
+    color: #4F545C;
+    top: 75px;
+    left: 350px;
+    z-index: 10;
+    position: absolute;
+}

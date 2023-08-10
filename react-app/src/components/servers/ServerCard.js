@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useContext, useEffect } from "react";
 import { InfoContext, InfoProvider } from "../../context/infoContext";
 
+
 function ServerCard({ handleActiveButton, serverInfo }) {
   const { serverid } = useParams();
   // const { server } = useContext(InfoContext);

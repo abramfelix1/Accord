@@ -192,25 +192,33 @@ export const deleteServerThunk = (server_id) => async (dispatch) => {
 };
 
 export const uploadServerImageThunk = (server_id, image) => async (dispatch) => {
-    console.log(image, server_id)
+  const res = await fetch(`/api/servers/${server_id}/image`, {
+    method: "PUT",
+    body: image,
+  });
 
-    const res = await fetch(`/api/servers/${server_id}/image`, {
-      method: "PUT",
-      body: image,
-    });
+  if (res.ok) {
+    const updatedServer = await res.json();
+    return updatedServer;
+  } else {
+    const error = await res.json();
+    return error;
+  }
+};
 
-    // if the response is good. recall the get all servers thunk
-    // to get the redux updated with all the servers again to
-    // prevent loading issues
-    if (res.ok) {
-      const updatedServer = await res.json();
-      await dispatch(userActions.getUserServers());
-      return updatedServer;
-    } else {
-      const error = await res.json();
-      return error;
+export const removeServerImageThunk = (server_id) => async (dispatch) => {
+  const res = await fetch(`/api/servers/${server_id}/image/remove`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
     }
-  };
+  })
+
+  if (res.ok) {
+    const data = res.json()
+    return data
+  }
+}
 
 // REDUCER
 
