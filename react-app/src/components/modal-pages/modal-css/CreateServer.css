@@ -38,6 +38,7 @@ everything except for bottom div with button */
     justify-content: center;
     align-items: center;
     margin: 15px;
+    position: relative;
 }
 
 .c-server-image-wrapper {
@@ -51,10 +52,37 @@ everything except for bottom div with button */
     padding: 20px;
     cursor: pointer;
     position: relative;
+    /* z-index: 1; */
+    right: 0px;
+}
+
+.c-server-image-input {
+    background-color:  rgb(223, 222, 222);
+    height: 35px;
+    margin-top: 10px;
+    border-style: none;
+    border-radius: 5px;
+    padding-left: 13px;
+    font-size: 15px;
+    margin-bottom: 20px;
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 50px;
+    opacity: 0;
+    cursor: pointer;
 }
 
 .c-server-camera {
     font-size: 25px;
+}
+
+.c-server-thumb-icon {
+    width: 25px;
+    height: 25px;
+    color: black;
+    /* margin-left: 5px; */
+    /* padding: 4px; */
 }
 
 .c-server-upload-text {
@@ -91,18 +119,6 @@ everything except for bottom div with button */
     color: black;
     font-family:Arial, Helvetica, sans-serif;
     margin-top: 25px;
-}
-
-
-.c-server-image-input {
-    background-color:  rgb(223, 222, 222);
-    height: 35px;
-    margin-top: 10px;
-    border-style: none;
-    border-radius: 5px;
-    padding-left: 13px;
-    font-size: 15px;
-    margin-bottom: 20px;
 }
 
 

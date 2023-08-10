@@ -6,6 +6,7 @@ import * as serverActions from "../../store/server";
 import { useContext } from "react";
 import { ModalContext } from "../../context/modalContext"
 import { useHistory } from "react-router-dom"
+import { FaThumbsUp } from "react-icons/fa";
 
 function CreateServerPage() {
     const dispatch = useDispatch();
@@ -27,12 +28,13 @@ function CreateServerPage() {
         const newServer = await dispatch(serverActions.createServerThunk(user.id, serverName))
 
         if (imageUrl && newServer) {
-            console.log(imageUrl)
             const formData = new FormData();
             formData.append("image_url", imageUrl);
-            console.log(formData, "888888888")
             await dispatch(serverActions.uploadServerImageThunk(newServer.id, formData));
-            }
+
+            setType(null);
+            return history.push(`/servers/${newServer.id}/channels/${newServer.firstChannel.id}`)
+        }
 
         if (newServer) {
             // console.log(newServer)
@@ -57,8 +59,9 @@ function CreateServerPage() {
                 {/* comment this back in when AWS in provided and comment out image input */}
                 <div className="c-server-image-outer-wrapper">
                     <div className="c-server-image-wrapper">
-                        <BiSolidCamera className="c-server-camera"/>
-                        <p className="c-server-upload-text">UPLOAD</p>
+                        {imageUrl ? <FaThumbsUp className="c-server-thumb-icon" /> : <BiSolidCamera className="c-server-camera"/>}
+                        {!imageUrl && <p className="c-server-upload-text">UPLOAD</p>}
+                        {imageUrl && <p className="c-server-upload-text">IMAGE</p>}
                         <p className="c-cerver-plus"><span>+</span></p>
                     </div>
                     <input 
