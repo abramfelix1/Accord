@@ -26,6 +26,22 @@ const serversReducer = (state = initialState, action) => {
           })
       );
       return newState;
+    case serverActions.GET_SERVER2: {
+      if (newState[action.payload.id]) {
+        return {
+          ...newState,
+          [action.payload.id]: {
+            ...newState[action.payload.id],
+            ...action.payload,
+          },
+        };
+      } else {
+        return {
+          ...newState,
+          [action.payload.id]: action.payload,
+        };
+      }
+    }
     case channelActions.POPULATE_CHANNELS:
       action.payload.Channels.reduce((channels, channel) => {
         if (
@@ -43,6 +59,28 @@ const serversReducer = (state = initialState, action) => {
         return channels;
       }, {});
       return newState;
+    case channelActions.DELETE_CHANNEL: {
+      const { server_id, channel_id } = action.payload;
+      if (newState[server_id] && newState[server_id].channels) {
+        delete newState[server_id].channels[channel_id];
+      }
+      return { ...newState };
+    }
+    case channelActions.UPDATE_CHANNEL: {
+      const { server_id, channel_id, channel } = action.payload;
+      if (
+        newState[server_id] &&
+        newState[server_id].channels &&
+        newState[server_id].channels[channel_id] &&
+        newState[server_id].channels[channel_id].messages
+      ) {
+        newState[server_id].channels[channel_id] = {
+          ...channel,
+          messages: newState[server_id].channels[channel_id].messages,
+        };
+      }
+      return { ...newState };
+    }
     case memberActions.GET_SERVER_MEMBERS:
       action.payload.reduce((members, member) => {
         if (newState[member.server_id] && !newState[member.server_id].members) {
@@ -76,7 +114,6 @@ const serversReducer = (state = initialState, action) => {
       }, {});
       return newState;
     case messageActions.DELETE_MESSAGE: {
-      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
       const { server_id, channel_id, message_id } = action.payload;
       if (
         newState[server_id] &&

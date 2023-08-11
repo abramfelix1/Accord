@@ -8,6 +8,7 @@ import * as memberActions from "./members";
 export const GET_ALL_SERVERS = "server/GET_ALL_SERVERS";
 // const GET_USER_SERVERS = "server/GET_USER_SERVERS"
 export const GET_SERVER = "server/GET_SERVER";
+export const GET_SERVER2 = "server/GET_SERVER2";
 export const CREATE_SERVER = "server/CREATE_SERVER";
 export const UPDATE_SERVER = "server/UPDATE_SERVER";
 export const DELETE_SERVER = "server/DELETE_SERVER";
@@ -26,6 +27,13 @@ export const getAllServersAction = (servers) => {
 export const getServerAction = (server) => {
   return {
     type: GET_SERVER,
+    payload: server,
+  };
+};
+
+export const getServerAction2 = (server) => {
+  return {
+    type: GET_SERVER2,
     payload: server,
   };
 };
@@ -88,6 +96,16 @@ export const getAllServersThunk = () => async (dispatch) => {
 };
 
 /******/
+
+export const getServer = (server_id) => async (dispatch) => {
+  const res = await fetch(`/api/servers/${server_id}`);
+
+  if (res.ok) {
+    const server = await res.json();
+    dispatch(getServerAction2(server));
+    return server;
+  }
+};
 
 export const getServerThunk = (server_id) => async (dispatch) => {
   const res = await fetch(`/api/servers/${server_id}`);

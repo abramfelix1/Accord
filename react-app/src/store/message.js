@@ -74,12 +74,10 @@ export const editMessage =
 
 export const removeMessage =
   (server_id, channel_id, message_id) => async (dispatch) => {
-    console.log("REMOVEMESSAGE IDS:", server_id, channel_id, message_id);
     const response = await fetch(`/api/messages/${message_id}`, {
       method: "DELETE",
     });
     if (response.ok) {
-      console.log("IDs:", server_id, channel_id, message_id);
       // dispatch(deleteMessage({ server_id, channel_id, message_id }));
     }
   };

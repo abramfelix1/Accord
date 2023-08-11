@@ -25,9 +25,13 @@ function Channel() {
   const { setIsLoaded } = useContext(InfoContext);
   const server = useSelector((state) => state.current.server);
   const user = useSelector((state) => state.session.user);
-  const channels = Object.values(
-    useSelector((state) => state.channels.channels)
-  );
+  const channels = useSelector((state) => {
+    if (state.servers[serverid]) {
+      return Object.values(state.servers[serverid].channels);
+    } else {
+      return [];
+    }
+  });
 
   // Contexts
   const { setChannel } = useContext(ChannelContext);
@@ -51,11 +55,10 @@ function Channel() {
   const channelClickHandler = (event, channel) => {
     // dispatch(resetServers());
     setChannel(channel);
-    if (event.target.id !== "active-channel") setIsLoaded(false);
+    if (event.currentTarget.id !== "active-channel") setIsLoaded(false);
     const current = document.getElementById("active-channel");
-    const chan = document.getElementsByClassName("channel-box")[0];
     if (current) current.id = "";
-    event.target.id = "active-channel";
+    event.currentTarget.id = "active-channel";
   };
 
   return (
@@ -82,7 +85,10 @@ function Channel() {
                   )}
                   <p
                     className="channel-list-title"
-                    onClick={(e) => setShowTextChannel(!showTextChannel)}
+                    onClick={(e) => {
+                      setShowTextChannel(!showTextChannel);
+                      e.stopPropagation();
+                    }}
                   >
                     Text Channels
                   </p>
@@ -135,6 +141,7 @@ function Channel() {
                               onClick={(e) => {
                                 setChannelCog(channel);
                                 channelSettingModal();
+                                e.stopPropagation();
                               }}
                             />
                           </div>
