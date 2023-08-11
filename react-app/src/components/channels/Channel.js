@@ -54,8 +54,6 @@ function Channel() {
 
   const channelClickHandler = (event, channel) => {
     // dispatch(resetServers());
-    console.log("TARGETS:", event.target, event.currentTarget);
-
     setChannel(channel);
     if (event.currentTarget.id !== "active-channel") setIsLoaded(false);
     const current = document.getElementById("active-channel");
