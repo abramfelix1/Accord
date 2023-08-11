@@ -21,12 +21,10 @@ function UserAccountFormPage() {
     } else {
       return <Redirect to="login" />;
     }
-  });
+  }, []);
 
   const [editButton, setEditButton] = useState(true);
-  const [displayName, setDisplayName] = useState(
-    user.display_name || user.username
-  );
+  const [displayName, setDisplayName] = useState("");
 
   const updateUserHandleSubmit = async (e) => {
     await dispatch(updateUserThunk(user.username, displayName));

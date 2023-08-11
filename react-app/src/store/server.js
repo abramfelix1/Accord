@@ -1,4 +1,3 @@
-
 import { getUserServersThunk } from "./user";
 import * as userActions from "./user";
 import * as channelActions from "./channels";
@@ -12,7 +11,7 @@ export const GET_SERVER = "server/GET_SERVER";
 export const CREATE_SERVER = "server/CREATE_SERVER";
 export const UPDATE_SERVER = "server/UPDATE_SERVER";
 export const DELETE_SERVER = "server/DELETE_SERVER";
-export const UPDATE_SERVER_IMAGE = "server/UPDATE_SERVER_IMAGE"
+export const UPDATE_SERVER_IMAGE = "server/UPDATE_SERVER_IMAGE";
 
 /*************** ACTIONS CREATOR **************************/
 export const getAllServersAction = (servers) => {
@@ -76,7 +75,6 @@ export const updateServeImageAction = (server) => {
   };
 };
 
-
 /*************** THUNK ACTIONS CREATOR **************************/
 
 export const getAllServersThunk = () => async (dispatch) => {
@@ -110,10 +108,7 @@ export const getServerThunk = (server_id) => async (dispatch) => {
   }
 };
 
-
-
 /******/
-
 
 export const createServerThunk =
   (owner_id, server_name) => async (dispatch) => {
@@ -143,12 +138,10 @@ export const createServerThunk =
 
 /******/
 
-
 export const updateServerThunk =
-  (server_id, server_name, server_image) => async (dispatch) => {
+  (server_id, server_name) => async (dispatch) => {
     const reqBody = JSON.stringify({
       server_name,
-      server_image,
     });
 
     const res = await fetch(`/api/servers/${server_id}`, {
@@ -164,14 +157,16 @@ export const updateServerThunk =
     // prevent loading issues
     if (res.ok) {
       const updatedServer = await res.json();
-      await dispatch(getAllServersThunk());
+      console.log("DASDWKEKDIWDKWIDKASIDASKDASDSK",updatedServer, 'updated server');
+      await dispatch(updateServerAction(updatedServer));
+      await dispatch(getUserServersThunk())
+      await dispatch(getServerThunk(server_id));
       return updatedServer;
     } else {
       const error = await res.json();
       return error;
     }
   };
-
 
 export const deleteServerThunk = (server_id) => async (dispatch) => {
   const res = await fetch(`/api/servers/${server_id}`, {
@@ -185,13 +180,14 @@ export const deleteServerThunk = (server_id) => async (dispatch) => {
   // to get the redux updated with all the servers again to
   // prevent loading issues
   if (res.ok) {
-    const data = await res.json()
+    const data = await res.json();
     dispatch(deleteServerAction(server_id));
-    return data
+    return data;
   }
 };
 
-export const uploadServerImageThunk = (server_id, image) => async (dispatch) => {
+export const uploadServerImageThunk =
+  (server_id, image) => async (dispatch) => {
     const res = await fetch(`/api/servers/${server_id}/image`, {
       method: "PUT",
       body: image,
@@ -204,21 +200,21 @@ export const uploadServerImageThunk = (server_id, image) => async (dispatch) => 
       const error = await res.json();
       return error;
     }
-}
+  };
 
 export const removeServerImageThunk = (server_id) => async (dispatch) => {
   const res = await fetch(`/api/servers/${server_id}/image/remove`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-    }
-  })
+    },
+  });
 
   if (res.ok) {
-    const data = await res.json()
-    return data
+    const data = await res.json();
+    return data;
   }
-}
+};
 
 // REDUCER
 
@@ -237,8 +233,16 @@ export default function serverReducer(state = initialState, action) {
       });
       return newState;
     case DELETE_SERVER:
-      newState = state;
+      newState = { ...state };
       delete newState[action.payload];
+      return newState;
+    case UPDATE_SERVER:
+      newState = { ...state };
+      console.log(newState, 'newState');
+      newState[action.payload.id] = action.payload;
+      console.log(action.payload, 'action payload');
+      console.log(newState[action.payload.id], 'newstate payload');
+
       return newState;
     default:
       return state;
