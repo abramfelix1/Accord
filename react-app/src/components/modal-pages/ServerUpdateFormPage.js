@@ -5,7 +5,7 @@ import {
   updateServerThunk,
   getAllServersThunk,
   uploadServerImageThunk,
-  removeServerImageThunk
+  removeServerImageThunk,
 } from "../../store/server";
 import { IoCloseOutline } from "react-icons/io5";
 
@@ -28,17 +28,19 @@ function ServerUpdateFormPage({ server, user, setType }) {
   };
 
   const updateServerHandleSubmit = async (e) => {
-    dispatch(updateServerThunk(server.id, serverName));
+    e.preventDefault();
+    await dispatch(updateServerThunk(server.id, serverName));
     if (serverImage) {
       const formData = new FormData();
       formData.append("image_url", serverImage);
-      dispatch(uploadServerImageThunk(server.id, formData));
+      await dispatch(uploadServerImageThunk(server.id, formData));
     }
+    setType(null);
   };
 
   const removeServerImageHandleSubmit = async (e) => {
-    await dispatch(removeServerImageThunk(server.id))
-  }
+    await dispatch(removeServerImageThunk(server.id));
+  };
 
   return (
     <>
@@ -90,7 +92,12 @@ function ServerUpdateFormPage({ server, user, setType }) {
             )}
 
             {server.image_url && user.id === server.owner_id && (
-              <button className="remove-server-image" onClick={removeServerImageHandleSubmit}>Remove</button>
+              <button
+                className="remove-server-image"
+                onClick={removeServerImageHandleSubmit}
+              >
+                Remove
+              </button>
             )}
           </div>
           {user.id === server.owner_id ? (

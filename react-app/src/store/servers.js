@@ -42,6 +42,23 @@ const serversReducer = (state = initialState, action) => {
         };
       }
     }
+    case serverActions.UPDATE_SERVER: {
+      console.log("UPDATESERVER!!!!!:", action.payload);
+      if (newState[action.payload.id]) {
+        return {
+          ...newState,
+          [action.payload.id]: {
+            ...newState[action.payload.id],
+            ...action.payload,
+          },
+        };
+      } else {
+        return {
+          ...newState,
+          [action.payload.id]: action.payload,
+        };
+      }
+    }
     case channelActions.POPULATE_CHANNELS:
       action.payload.Channels.reduce((channels, channel) => {
         if (

@@ -176,7 +176,7 @@ export const updateServerThunk =
     // prevent loading issues
     if (res.ok) {
       const updatedServer = await res.json();
-      await dispatch(getAllServersThunk());
+      await dispatch(updateServerAction(updatedServer));
       return updatedServer;
     } else {
       const error = await res.json();
