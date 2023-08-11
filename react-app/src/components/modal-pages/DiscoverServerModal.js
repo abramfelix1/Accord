@@ -20,7 +20,6 @@ function DiscoverServerModal() {
   const joinServerHandler = async (server_id) => {
     await dispatch(joinServerThunk(server_id))
     setType(null)
-
   }
 
   //   const initials = (serverName) => {

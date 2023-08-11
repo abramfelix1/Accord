@@ -122,7 +122,7 @@ def join_server(id):
         return invalid_route("error")
     # Query if user is a member of server or not
     member = Member.query.filter(
-        Member.server_id.like(id), Member.user_id.like(user_id)
+        Member.server_id == id, Member.user_id == int(user_id)
     ).first()
 
     # If Member is a member, throw error
