@@ -86,8 +86,7 @@ function ServerList() {
         <Tooltip text={"Direct Messages"}>
           <NavLink
             to="/app"
-            id={serverid ? "" : `active-server`}
-            className="servers servers-friend-button"
+            className={`servers servers-friend-button ${serverid ? "" : `active-server`}`}
             onClick={(e) => handleActiveButton(e)}
           >
             <img className="server-logo" src={logo} alt="logo" />
@@ -99,7 +98,7 @@ function ServerList() {
       <ul className="server-bottom-layer">
         {userServers.map((server) => (
           <Tooltip key={server.id} text={server.name}>
-            <li key={server.id} className="server-list-wrapper">
+            <li className="server-list-wrapper">
               {/* need to set proper link to where to navigate too */}
               <ServerCard
                 serverInfo={server}

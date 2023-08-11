@@ -199,6 +199,7 @@ export const uploadServerImageThunk = (server_id, image) => async (dispatch) => 
 
     if (res.ok) {
       const updatedServer = await res.json();
+      dispatch(userActions.getUserServersThunk());
       return updatedServer;
     } else {
       const error = await res.json();
