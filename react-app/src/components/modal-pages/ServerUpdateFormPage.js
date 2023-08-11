@@ -18,7 +18,10 @@ function ServerUpdateFormPage({ server, user, setType }) {
 
   const initials = (serverName) => {
     let res = "";
+    serverName = serverName.trim()
     const serverNameArr = serverName.split(" ");
+
+    console.log(serverNameArr)
 
     for (let i = 0; i < serverNameArr.length; i++) {
       let word = serverNameArr[i];
@@ -28,12 +31,14 @@ function ServerUpdateFormPage({ server, user, setType }) {
   };
 
   const updateServerHandleSubmit = async (e) => {
+    // e.preventDefault()
     dispatch(updateServerThunk(server.id, serverName));
     if (serverImage) {
       const formData = new FormData();
       formData.append("image_url", serverImage);
       dispatch(uploadServerImageThunk(server.id, formData));
     }
+    setType(null)
   };
 
   const removeServerImageHandleSubmit = async (e) => {
