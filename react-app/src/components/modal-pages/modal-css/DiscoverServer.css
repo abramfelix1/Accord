@@ -33,7 +33,7 @@
     padding: 0px 50px 0px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    overflow: scroll;
+    overflow: hidden scroll;
     height: 508px;
 }
 
@@ -79,8 +79,8 @@
 }
 
 .server-discovery-content {
-height: 80px;
-margin: 15px;
+    height: 80px;
+    margin: 15px;
 }
 
 .server-name-discovery {

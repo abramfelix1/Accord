@@ -56,12 +56,12 @@
     border-style: none;
     font-size: 1.25rem;
     margin: 0.625rem;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
-.w1-buttons:hover {
+/* .w1-buttons:hover {
     box-shadow: 0px 0.1rem 0.7rem 0.063rem rgba(0, 0, 0, 0.5);
-}
+} */
 
 
 /* ----------------section 2 wrapper----------------------------- */

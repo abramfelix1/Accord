@@ -58,9 +58,9 @@ function LandingFooter() {
                         </a>
                     </div>
                     <div className="footer-button-wrapper">
-                        <button className="footer-button">
+                        {/* <button className="footer-button">
                             Another Random Button
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             </div>
