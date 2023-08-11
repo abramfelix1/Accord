@@ -7,6 +7,7 @@ import HomePage from "./components/HomePage";
 import LoginPage from "./components/login-signup/login/Login";
 import SignupPage from "./components/login-signup/signup/Signup";
 import LandingPage from "./components/landing/LandingPage";
+import ErrorPage from "./components/errorPage";
 
 import ServerSetting from "./components/modal-pages/ServerSetting";
 
@@ -31,6 +32,7 @@ function App() {
             path="/servers/:serverid/channels/:channelid"
             component={Main}
           />
+          <Route path="" component={ErrorPage}/>
         </Switch>
       )}
     </>

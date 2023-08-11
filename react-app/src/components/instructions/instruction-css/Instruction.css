@@ -8,30 +8,50 @@
     color: white;
 }
 
-.instructions-container > h1 {
+.instructions-container>h1 {
     font-size: 50px;
+    margin: 0px;
 }
 
-.instructions-container > h3 {
-    font-size: 30px;
-    padding-bottom: 50px;
+.instructions-container>h3 {
+    font-size: 24px;
+    color: #b5bac1;
 }
 
-.instructions-container > button {
-    width: 30%;
-    height: 90px;
-    margin: 10px;
-    border-radius: 10px;
-    background-color:#232428;
-    border: none;
-    color: #B6B6B6;
+.discover-server-instruction {
+    width: 350px;
+    border-radius: 5px;
+    background-color: #232428;
+    padding: 20px;
+    margin: 10px 0px;
     cursor: pointer;
-    box-shadow: 1px 1px 5px 2px rgb(62, 62, 62);
-    font-size: 20px;
 }
 
-.instructions-container > button:hover {
-    box-shadow: 1px 1px 5px 2px rgb(23, 23, 23);
-    background-color:#2e2f32;
-    color: #eae8e8;
+.discover-server-instruction:hover {
+    background-color: #383C41;
+    box-shadow: -1px 1px 5px #232428b7;
+}
+
+.instruction-button {
+    display: flex;
+    align-items: center;
+}
+
+.instruction-button > div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.instruction-button > div > p {
+    color: #f2f3f5;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.instructions-icon {
+    height: 40px;
+    width: 40px;
+    margin-right: 20px;
 }
