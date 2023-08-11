@@ -20,10 +20,10 @@ function ChatInputField({ sendChat, chatInput, updateChatInput }) {
         onChange={updateChatInput}
         autoComplete="off"
       ></input>
-      <FaGift className="chat-gift-icon" />
+      {/* <FaGift className="chat-gift-icon" />
       <HiGif className="chat-gif-icon" />
       <LuSticker className="chat-sticker-icon" />
-      <BsFillEmojiSmileFill className="chat-emoji-icon" />
+      <BsFillEmojiSmileFill className="chat-emoji-icon" /> */}
       {/* <button type="submit">Send</button> */}
     </form>
   );
