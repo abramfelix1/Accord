@@ -78,7 +78,7 @@ export const updateServerNicknameThunk =
     });
 
     if (res.ok) {
-      const member = res.json();
+      const member = await res.json();
       dispatch(updateMemberName({ server_id: server_id, member: member }));
       return member;
     }
@@ -127,10 +127,6 @@ export default function memberReducer(state = {}, action) {
         newState[member.id] = member;
       });
       return newState;
-    case UPDATE_NICKNAME:
-      newState = { ...state };
-      newState[action.payload.id] = action.payload;
-      return newState[action.payload.id];
     case GET_SINGLE_MEMBER:
       newState = { ...state };
       newState[action.payload.id] = action.payload;

@@ -125,12 +125,13 @@ const serversReducer = (state = initialState, action) => {
     }
     case memberActions.UPDATE_MEMBER: {
       const { server_id, member } = action.payload;
+      console.log("UPDATE MEMBER PAYLOAD:", action.payload);
       if (
         newState[server_id] &&
         newState[server_id].members &&
         newState[server_id].members[member.id]
       ) {
-        newState[server_id].member[server_id] = {
+        newState[server_id].members[member.id] = {
           ...member,
         };
       }
