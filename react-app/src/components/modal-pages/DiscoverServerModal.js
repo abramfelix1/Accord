@@ -27,18 +27,6 @@ function DiscoverServerModal() {
   }
   console.log(servers,' servers')
 
-  //   const initials = (serverName) => {
-  //     let res = "";
-  //     const serverNameArr = serverName.include(' ') ? serverName.split(" ") : serverName;
-
-  //     for (let i = 0; i < serverNameArr.length; i++) {
-  //       let word = serverNameArr[i];
-  //       res += word[0].toUpperCase();
-  //     }
-  //     if (res.length >= 3) return res.slice(0, 3);
-  //     return res;
-  //   };
-
   return (
     servers && (
       <div className="discover-server">
