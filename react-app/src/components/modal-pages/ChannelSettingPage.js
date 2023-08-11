@@ -12,6 +12,7 @@ import { getServer, getServerThunk } from "../../store/server";
 function ChannelSettingPage() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [deleted, setDeleted] = useState(false);
   const { channelCog, setIsLoaded } = useContext(InfoContext);
   const { setType } = useContext(ModalContext);
   const { serverid, channelid } = useParams();
@@ -27,15 +28,18 @@ function ChannelSettingPage() {
   };
 
   useEffect(() => {
-    if (channelCog.id == channelid) {
+    console.log(channelCog.id, channelid, deleted);
+    if (channelCog.id == channelid && deleted) {
       history.push(`/servers/${server.id}/channels/${server.firstChannel.id}`);
+      setDeleted(false);
     }
-  }, [server]);
+  }, [deleted, server]);
 
   const deleteChannelHandler = async (e) => {
     e.preventDefault();
     await dispatch(removeChannel(serverid, channelCog.id));
     await dispatch(getServer(serverid));
+    setDeleted(true);
     setType(null);
   };
 
