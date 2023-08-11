@@ -15,7 +15,7 @@ function CreateServerPage() {
     const [serverName, setServerName] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const user = useSelector(state => state.session.user);
-    
+
     useEffect(() => {
         if(user) {
             setServerName(`${user.username}'s server`)
@@ -37,7 +37,6 @@ function CreateServerPage() {
         }
 
         if (newServer) {
-            // console.log(newServer)
             setType(null);
             return history.push(`/servers/${newServer.id}/channels/${newServer.firstChannel.id}`)
         }
@@ -64,30 +63,30 @@ function CreateServerPage() {
                         {imageUrl && <p className="c-server-upload-text">IMAGE</p>}
                         <p className="c-cerver-plus"><span>+</span></p>
                     </div>
-                    <input 
-                    className="c-server-image-input" 
-                    type="file" 
+                    <input
+                    className="c-server-image-input"
+                    type="file"
                     accept="image/*"
                     onChange={(e) => setImageUrl(e.target.files[0])}
                     name="serverimage"
                     />
                 </div>
                 {/* <label className="c-server-image-label">IMAGE URL
-                    <input 
-                    className="c-server-image-input" 
-                    type="text" value={imageUrl} 
-                    onChange={e => setImageUrl(e.target.value)} 
+                    <input
+                    className="c-server-image-input"
+                    type="text" value={imageUrl}
+                    onChange={e => setImageUrl(e.target.value)}
                     />
                 </label> */}
                 <label className="c-server-name-label">SERVER NAME *
-                    <input 
-                    className="c-server-name-input" 
-                    type="text" value={serverName} 
-                    onChange={e => setServerName(e.target.value)} 
+                    <input
+                    className="c-server-name-input"
+                    type="text" value={serverName}
+                    onChange={e => setServerName(e.target.value)}
                     maxLength={100}
                     />
                 </label>
-                <p className="c-server-agreement">By creating a server, you agree to Accord's  
+                <p className="c-server-agreement">By creating a server, you agree to Accord's
                     <span className="c-server-guidelines"> Community Guidelines</span>
                 </p>
             </div>
@@ -111,9 +110,9 @@ export default CreateServerPage
 //                         <p className="c-server-upload-text">UPLOAD</p>
 //                         <p className="c-cerver-plus"><span>+</span></p>
 //                     </div>
-//                     <input 
-//                     className="c-server-image-input" 
-//                     type="text"  
+//                     <input
+//                     className="c-server-image-input"
+//                     type="text"
 //                     accept="image/*"
 //                     onChange={(e) => setImageUrl(e.target.files[0])}
 //                     name="server image"
@@ -129,21 +128,21 @@ export default CreateServerPage
 //                     </p>
 //                     {/* comment this back in when AWS in provided and comment out image input */}
 //                     {/* <label className="c-server-image-label">IMAGE URL
-//                         <input 
-//                         className="c-server-image-input" 
-//                         type="text" value={imageUrl} 
-//                         onChange={e => setImageUrl(e.target.value)} 
+//                         <input
+//                         className="c-server-image-input"
+//                         type="text" value={imageUrl}
+//                         onChange={e => setImageUrl(e.target.value)}
 //                         />
 //                     </label> */}
 //                     <label className="c-server-name-label">SERVER NAME *
-//                         <input 
-//                         className="c-server-name-input" 
-//                         type="text" value={serverName} 
-//                         onChange={e => setServerName(e.target.value)} 
+//                         <input
+//                         className="c-server-name-input"
+//                         type="text" value={serverName}
+//                         onChange={e => setServerName(e.target.value)}
 //                         maxLength={100}
 //                         />
 //                     </label>
-//                     <p className="c-server-agreement">By creating a server, you agree to Accord's  
+//                     <p className="c-server-agreement">By creating a server, you agree to Accord's
 //                         <span className="c-server-guidelines"> Community Guidelines</span>
 //                     </p>
 //                 </div>
@@ -156,8 +155,6 @@ export default CreateServerPage
 
 //     )
 // }
-    
-    
+
+
 //     export default CreateServerPage
-
-
