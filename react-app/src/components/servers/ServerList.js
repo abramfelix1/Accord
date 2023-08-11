@@ -34,6 +34,12 @@ function ServerList() {
     useSelector((state) => state.servers)
   ).slice(0, -1);
 
+  // Function to reverse a given array
+  const reverseArray = (array) => {
+    let reverseArray = array.reverse();
+    return reverseArray;
+  };
+
   // calls the dispatch function to set the state up for users servers
   useEffect(() => {
     (async () => {
@@ -86,15 +92,15 @@ function ServerList() {
       </div>
       <div className="server-top-layer">
         {/* not sure what to url for direct messages list is yet */}
-        <Tooltip text={"Direct Messages Feature Coming Soon"}>
+        {/* <Tooltip text={"Direct Messages Feature Coming Soon"}>
           <div
             className={`servers servers-friend-button ${serverid ? "" : `active-server`}`}
             onClick={(e) => handleActiveButton(e)}
           >
             <img className="server-logo" src={logo} alt="logo" />
           </div>
-        </Tooltip>
-        {/* <Tooltip text={"Direct Messages"}>
+        </Tooltip> */}
+        <Tooltip text={"Get Started"}>
           <NavLink
             to="/app"
             className={`servers servers-friend-button ${
@@ -104,12 +110,12 @@ function ServerList() {
           >
             <img className="server-logo" src={logo} alt="logo" />
           </NavLink>
-        </Tooltip> */}
+        </Tooltip>
         {/* <div className="servers" onClick={e => handleActiveButton(e)}>Private Call</div> */}
       </div>
       <div className="border-between-layer"></div>
       <ul className="server-bottom-layer">
-        {userServers.map((server) => (
+        {reverseArray([...userServers]).map((server) => (
           <Tooltip key={server.id} text={server.name}>
             <li className="server-list-wrapper">
               {/* need to set proper link to where to navigate too */}
