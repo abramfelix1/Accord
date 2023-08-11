@@ -13,7 +13,6 @@ function ServerSetting() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { serverid, channelid } = useParams();
-
   const user = useSelector((state) => state.session.user);
   const server = useSelector((state) => state.servers[serverid]);
 
@@ -21,7 +20,6 @@ function ServerSetting() {
 
   const deleteServerHandleSubmit = async () => {
     await dispatch(deleteServerThunk(server.id));
-    await dispatch(getAllServersThunk());
     setType(null);
     return history.push("/app");
   };

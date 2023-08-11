@@ -42,8 +42,14 @@ const serversReducer = (state = initialState, action) => {
         };
       }
     }
+    case serverActions.DELETE_SERVER: {
+      const { server_id } = action.payload;
+      if (newState[server_id]) {
+        delete newState[server_id];
+      }
+      return { ...newState };
+    }
     case serverActions.UPDATE_SERVER: {
-      console.log("UPDATESERVER!!!!!:", action.payload);
       if (newState[action.payload.id]) {
         return {
           ...newState,

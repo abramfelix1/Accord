@@ -67,10 +67,10 @@ export const updateServerAction = (server) => {
 
 /******/
 
-export const deleteServerAction = (server_id) => {
+export const deleteServerAction = (payload) => {
   return {
     type: DELETE_SERVER,
-    payload: server_id,
+    payload,
   };
 };
 
@@ -197,7 +197,7 @@ export const deleteServerThunk = (server_id) => async (dispatch) => {
   // prevent loading issues
   if (res.ok) {
     const data = res.json();
-    dispatch(deleteServerAction(server_id));
+    dispatch(deleteServerAction({ server_id: server_id }));
     return data;
   }
 };
