@@ -39,6 +39,8 @@ function MessageEditField({ message, setShowEditField }) {
     if (messageValue.length === 0) {
       setMessage(message);
       deleteMessageModal();
+      setShowEditField(false);
+      setEditMessageId("");
       return;
     }
 

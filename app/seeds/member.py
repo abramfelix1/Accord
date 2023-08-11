@@ -9,6 +9,8 @@ def seed_members():
         user_id=1, server_id=1)
     member_1 = Member(
         user_id=2, server_id=1)
+    member_62 = Member(
+        user_id=3, server_id=1)
     member_2 = Member(
         user_id=4, server_id=1)
     member_3 = Member(
@@ -169,6 +171,7 @@ def seed_members():
     db.session.add(member_59)
     db.session.add(member_2)
     db.session.add(member_3)
+    db.session.add(member_62)
     db.session.add(member_4)
     db.session.add(member_5)
     db.session.add(member_6)

@@ -13,9 +13,9 @@ function LandingPage() {
             <LandingNavBar />
             <LandingBody />
             <LandingFooter />
-            <button className="return-up" onClick={toTopHandler}>
+            {/* <button className="return-up" onClick={toTopHandler}>
                 🔝
-            </button>
+            </button> */}
         </div>
     )
 }
