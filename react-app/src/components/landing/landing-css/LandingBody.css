@@ -3,13 +3,34 @@
     grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr 1fr;
 }
 
+/* @media (max-width: 930px) {
+    #w1-p1 {
+        font-size: 10px;
+    }
+    
+    #w1-p2 {
+        font-size: 1.188rem;
+    }
+
+    #w2-body > h2 {
+        font-size: 1rem;
+    }
+    
+    #w2-body > p {
+        font-size: 1.25rem;
+    }
+} */
+
 /* ----------------section 1 wrapper----------------------------- */
 .landing-body-wrapper-1 {
     background-color: #4453f4;
     color: white;
     display: flex;
     justify-content: center;
+    background-image: url("../../../images/banner.webp");
+    background-size: 100% 100%;
 }
+
 
 .wrap-1-body {
     display: grid;
@@ -19,8 +40,6 @@
     height: 15.725rem;
     padding: 7.5rem 5rem;
     max-width: 78.75rem;
-    background-image: url("../../../images/discord-image.png");
-    background-size: 1250px;
 }
 
 #w1-p1 {
@@ -106,6 +125,7 @@
     flex-direction: column;
     justify-content: center;
 }
+
 #w2-body > h2 {
     font-size: 3rem;
     margin: 0.313rem;

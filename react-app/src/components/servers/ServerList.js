@@ -83,7 +83,15 @@ function ServerList() {
       </div>
       <div className="server-top-layer">
         {/* not sure what to url for direct messages list is yet */}
-        <Tooltip text={"Direct Messages"}>
+        <Tooltip text={"Direct Messages Feature Coming Soon"}>
+          <div
+            className={`servers servers-friend-button ${serverid ? "" : `active-server`}`}
+            onClick={(e) => handleActiveButton(e)}
+          >
+            <img className="server-logo" src={logo} alt="logo" />
+          </div>
+        </Tooltip>
+        {/* <Tooltip text={"Direct Messages"}>
           <NavLink
             to="/app"
             className={`servers servers-friend-button ${serverid ? "" : `active-server`}`}
@@ -91,7 +99,7 @@ function ServerList() {
           >
             <img className="server-logo" src={logo} alt="logo" />
           </NavLink>
-        </Tooltip>
+        </Tooltip> */}
         {/* <div className="servers" onClick={e => handleActiveButton(e)}>Private Call</div> */}
       </div>
       <div className="border-between-layer"></div>

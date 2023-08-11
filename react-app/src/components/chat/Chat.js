@@ -50,6 +50,12 @@ const Chat = () => {
 
   const dispatch = useDispatch();
 
+  // anytime a channel id is changed or a server id is changed. it will 
+  // reset the chat input value to empty
+  useEffect(() => {
+    setChatInput("");
+  }, [serverid, channelid])
+
   // Function to reverse a given array
   const reverseArray = (array) => {
     let reverseArray = array.reverse();

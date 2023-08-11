@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../../store/session";
@@ -12,7 +12,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser) return <Redirect to="/app" />;
+  if (sessionUser) return <Redirect to={`/app`} />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
