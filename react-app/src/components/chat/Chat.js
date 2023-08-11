@@ -107,12 +107,7 @@ const Chat = () => {
                 return (
                   <div key={`${Math.random()}${idx}${message.id}`}>
                     {isSameUser ? (
-                      <MessageContainer
-                        message={message}
-                        setShowEditField={setShowEditField}
-                      >
                         <MessageOnlyCard message={message} />
-                      </MessageContainer>
                     ) : (
                       <MessageCard message={message} />
                     )}

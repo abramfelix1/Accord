@@ -34,10 +34,10 @@ function ServerCard({ handleActiveButton, serverInfo }) {
 
   return (
     <>
-      {server && (
+      {server && serverInfo && (
         <NavLink
           to={`/servers/${serverInfo.id}/channels/${serverInfo.firstChannel.id}`}
-          className={`servers server-pointer ${
+          className={`${serverInfo.image_url ? "" : "servers"} server-pointer ${
             serverInfo.id == serverid ? "active-server" : ""
           }`}
           onClick={(e) => handleActiveButton(e, serverInfo)}
@@ -45,10 +45,12 @@ function ServerCard({ handleActiveButton, serverInfo }) {
           {serverInfo.image_url !== null && serverInfo.image_url.length >= 3 ? (
             <div>
               <img
-                className="servers-img"
-                src={server.image_url}
+                className={`servers-img ${
+                  serverInfo.id == serverid ? "active-server-img" : ""
+                }`}
+                src={serverInfo.image_url}
                 alt="serverimage"
-                onClick={(e) => handleActiveButton(e)}
+
               />
             </div>
           ) : (
