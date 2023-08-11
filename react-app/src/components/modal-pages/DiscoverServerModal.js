@@ -22,10 +22,8 @@ function DiscoverServerModal() {
   const joinServerHandler = async (server_id) => {
     const server = await dispatch(joinServerThunk(server_id))
     setType(null)
-    console.log(server)
     return history.push(`/servers/${server.server_id}/channels/${server.server.server.firstChannel.id}`)
   }
-  console.log(servers,' servers')
 
   return (
     servers && (
@@ -40,6 +38,7 @@ function DiscoverServerModal() {
         <div className="discover-server-list-wrapper">
           {servers.map((server) => {
             return (
+
               <li key={server.id} className="discover-server-list" onClick={e => joinServerHandler(server.id)}>
                 {server.image_url ? (
                   <div>

@@ -1,15 +1,18 @@
 .nav-outer-container {
-    background-color: #5664f9;
-    display: flex;
-    justify-content: center;
+    background-color: rgb(79,27,245);
+    /* display: flex;
+    justify-content: space-between; */
+    border-bottom: 1px solid rgb(126, 126, 126);
 }
 
 .nav-inner-container {
-    display: grid;
+    /* display: grid;
     grid-template-columns: 1fr 10fr 1fr;
-    padding: 0.625rem 2.5rem;
     color: white;
-    max-width: 78.75rem;
+    max-width: 78.75rem; */
+    padding: 0.625rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
 }
 
 .logo-wrapper {

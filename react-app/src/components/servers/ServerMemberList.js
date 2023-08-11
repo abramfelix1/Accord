@@ -8,7 +8,7 @@ import "./server-css/ServerMemberList.css";
 
 function ServerMemberList({ server }) {
   const dispatch = useDispatch();
-  const { serverid } = useParams();
+  const { serverid, channelid } = useParams();
   const serverMembers = Object.values(
     useSelector((state) => state.current.members)
   );
@@ -19,6 +19,14 @@ function ServerMemberList({ server }) {
   useEffect(() => {
     setShowProfile(true);
   }, [selectedMember]);
+
+
+  
+  // anytime a channel id is changed or a server id is changed. it will 
+  // close the profile when rendering
+  useEffect(() => {
+    setShowProfile(false)
+  }, [serverid, channelid])
 
   // useEffect(() => {
   //   if (server) {

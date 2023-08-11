@@ -123,6 +123,7 @@ def join_server(id):
 
 
     # Query if user is a member of server or not
+    print(type(user_id), type(id))
     member = Member.query.filter(
         Member.server_id == id, Member.user_id == int(user_id)
     ).first()
@@ -138,9 +139,6 @@ def join_server(id):
     member_obj = member.to_dict()
     member_obj["server"] = member.to_dict_first_channel()
     return member_obj
-
-
-
 
 
 @app.errorhandler(404)

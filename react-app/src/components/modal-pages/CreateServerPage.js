@@ -57,10 +57,10 @@ function CreateServerPage() {
                 </p>
                 {/* comment this back in when AWS in provided and comment out image input */}
                 <div className="c-server-image-outer-wrapper">
-                    <div className="c-server-image-wrapper">
+                    <div className="c-server-image-wrapper" style={{backgroundColor: imageUrl ? "rgb(71,82,196)" : ""}}>
                         {imageUrl ? <FaThumbsUp className="c-server-thumb-icon" /> : <BiSolidCamera className="c-server-camera"/>}
                         {!imageUrl && <p className="c-server-upload-text">UPLOAD</p>}
-                        {imageUrl && <p className="c-server-upload-text">IMAGE</p>}
+                        {imageUrl && <p className="c-server-upload-text-confirm">IMAGE</p>}
                         <p className="c-cerver-plus"><span>+</span></p>
                     </div>
                     <input

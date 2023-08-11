@@ -12,8 +12,7 @@ function LandingNavBar() {
             <h2>Accord</h2>
           </NavLink>
         </div>
-        <nav className="nav-box">
-          {/* just placed holders. we can do what ever we want here or delete */}
+        {/* <nav className="nav-box">
           <p href="/">Download</p>
           <p href="/">Nitro</p>
           <p href="/">Discover</p>
@@ -21,8 +20,7 @@ function LandingNavBar() {
           <p href="/">Support</p>
           <p href="/">Blog</p>
           <p href="/">Careers</p>
-          {/* ends here for random links that goes to home with a tag */}
-        </nav>
+        </nav> */}
         <div className="nav-login-wrapper">
           <a className="landing-login-button" href="/login">
             Log in

@@ -23,7 +23,7 @@ function ServerNav({ server }) {
         toggleDropdown();
       }}
       ref={navRef}
-    >
+    > 
       <ServerNavDropDown
         openDropdown={openDropdown}
         toggleDropdown={toggleDropdown}
