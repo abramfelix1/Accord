@@ -87,13 +87,13 @@ export const editChannel =
     }
   };
 
-export const removeChannel = (channelId) => async (dispatch) => {
+export const removeChannel = (serverId, channelId) => async (dispatch) => {
   const response = await fetch(`/api/channels/${channelId}`, {
     method: "DELETE",
   });
   if (response.ok) {
     const data = response.json();
-    dispatch(deleteChannel(channelId));
+    dispatch(deleteChannel({ server_id: serverId, channel_id: channelId }));
     return data;
   }
 };

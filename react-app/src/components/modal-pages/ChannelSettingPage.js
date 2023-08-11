@@ -23,12 +23,12 @@ function ChannelSettingPage() {
 
     await dispatch(editChannel(serverid, channelCog.id, channelName));
     setType(null);
-    // await dispatch(getChannels(serverid));
   };
 
   const deleteChannelHandler = async (e) => {
     e.preventDefault();
-    await dispatch(removeChannel(channelCog.id));
+    await dispatch(removeChannel(serverid, channelCog.id));
+    dispatch(getChannels(serverid));
     setType(null);
     return history.push(
       `/servers/${server.id}/channels/${server.firstChannel.id}`
