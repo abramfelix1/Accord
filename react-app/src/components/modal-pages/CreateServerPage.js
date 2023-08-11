@@ -26,17 +26,21 @@ function CreateServerPage() {
         e.preventDefault()
 
         const newServer = await dispatch(serverActions.createServerThunk(user.id, serverName))
+        let myDiv = document.getElementsByClassName('server-bottom-layer')[0];
+        myDiv.scrollTop = 0;
 
         if (imageUrl && newServer) {
             const formData = new FormData();
             formData.append("image_url", imageUrl);
             await dispatch(serverActions.uploadServerImageThunk(newServer.id, formData));
 
+            myDiv.scrollTop = 0;
             setType(null);
             return history.push(`/servers/${newServer.id}/channels/${newServer.firstChannel.id}`)
         }
 
         if (newServer) {
+            myDiv.scrollTop = 0;
             setType(null);
             return history.push(`/servers/${newServer.id}/channels/${newServer.firstChannel.id}`)
         }
