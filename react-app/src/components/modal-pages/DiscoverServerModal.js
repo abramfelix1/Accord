@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import * as serverActions from "../../store/server";
 import { joinServerThunk } from "../../store/members";
 import "./modal-css/DiscoverServer.css";
-import { ModalContext } from '../../context/modalContext'
+import { ModalContext } from "../../context/modalContext";
 
 function DiscoverServerModal() {
   const dispatch = useDispatch();
-  const { setType } = useContext(ModalContext)
+  const { setType } = useContext(ModalContext);
 
   const servers = Object.values(useSelector((state) => state.server));
 
@@ -18,10 +18,9 @@ function DiscoverServerModal() {
   }, [dispatch]);
 
   const joinServerHandler = async (server_id) => {
-    await dispatch(joinServerThunk(server_id))
-    setType(null)
-
-  }
+    await dispatch(joinServerThunk(server_id));
+    setType(null);
+  };
 
   //   const initials = (serverName) => {
   //     let res = "";
@@ -48,7 +47,10 @@ function DiscoverServerModal() {
         <div className="discover-server-list-wrapper">
           {servers.map((server) => {
             return (
-              <li className="discover-server-list" onClick={e => joinServerHandler(server.id)}>
+              <li
+                className="discover-server-list"
+                onClick={(e) => joinServerHandler(server.id)}
+              >
                 {server.image_url ? (
                   <div>
                     <div className="server-banner"></div>
