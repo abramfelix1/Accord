@@ -127,6 +127,10 @@ export default function memberReducer(state = {}, action) {
         newState[member.id] = member;
       });
       return newState;
+    case UPDATE_NICKNAME:
+      newState = { ...state };
+      newState[action.payload.id] = action.payload;
+      return newState[action.payload.id];
     case GET_SINGLE_MEMBER:
       newState = { ...state };
       newState[action.payload.id] = action.payload;

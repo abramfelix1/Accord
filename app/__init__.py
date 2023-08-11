@@ -121,8 +121,9 @@ def join_server(id):
     if server is None:
         return invalid_route("error")
     # Query if user is a member of server or not
+    print(type(user_id), type(id))
     member = Member.query.filter(
-        Member.server_id.like(id), Member.user_id.like(user_id)
+        Member.server_id.like(id), Member.user_id.like(int(user_id))
     ).first()
 
     # If Member is a member, throw error
@@ -135,9 +136,6 @@ def join_server(id):
     db.session.add(member)
     db.session.commit()
     return member.to_dict()
-
-
-
 
 
 @app.errorhandler(404)

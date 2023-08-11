@@ -80,7 +80,7 @@ everything except for bottom div with button */
 .c-server-thumb-icon {
     width: 25px;
     height: 25px;
-    color: black;
+    color: rgb(247,246,246);
     /* margin-left: 5px; */
     /* padding: 4px; */
 }
@@ -89,6 +89,13 @@ everything except for bottom div with button */
     margin: 0px;
     font-weight: bolder;
     font-size: 11px;
+}
+
+.c-server-upload-text-confirm {
+    margin: 0px;
+    font-weight: bolder;
+    font-size: 11px;
+    color: rgb(247,246,246);
 }
 
 .c-cerver-plus {

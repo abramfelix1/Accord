@@ -124,7 +124,7 @@
 .member-profile-container {
     position: absolute;
     right: 241px;
-    z-index: 10;
+    z-index: 1000;
     background-color: gray;
     border-radius: 13px;
     top: min(100vh - 100px, 10vh);
