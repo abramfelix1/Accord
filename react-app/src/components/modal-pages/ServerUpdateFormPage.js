@@ -8,8 +8,10 @@ import {
   removeServerImageThunk
 } from "../../store/server";
 import { IoCloseOutline } from "react-icons/io5";
-
 import "./modal-css/ServerUpdateFormPage.css";
+
+import {getUserServersThunk } from '../../store/user'
+
 
 function ServerUpdateFormPage({ server, user, setType }) {
   const dispatch = useDispatch();
@@ -31,13 +33,14 @@ function ServerUpdateFormPage({ server, user, setType }) {
   };
 
   const updateServerHandleSubmit = async (e) => {
-    // e.preventDefault()
-    dispatch(updateServerThunk(server.id, serverName));
+    e.preventDefault()
+    await dispatch(updateServerThunk(server.id, serverName));
     if (serverImage) {
       const formData = new FormData();
       formData.append("image_url", serverImage);
-      dispatch(uploadServerImageThunk(server.id, formData));
+      await dispatch(uploadServerImageThunk(server.id, formData));
     }
+    await dispatch(getUserServersThunk())
     setType(null)
   };
 

@@ -47,6 +47,7 @@ class Server(db.Model):
         }
 
     def to_dict_relationships(self):
+
         return {
             "id": self.id,
             "owner_id": self.owner_id,

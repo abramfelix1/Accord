@@ -1,32 +1,43 @@
 import "../../components/servers/server-css/ServerSetting.css";
-import { useContext} from "react";
+import { useContext, useEffect, useState} from "react";
 import { ModalContext } from "../../context/modalContext";
 import { BiSolidTrash } from "react-icons/bi";
 import { InfoContext } from "../../context/infoContext";
 import {
   getAllServersThunk,
   deleteServerThunk,
+  getServerThunk
 } from "../../store/server";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory} from "react-router-dom";
+import { useHistory, useParams} from "react-router-dom";
 import ServerUpdateFormPage from "./ServerUpdateFormPage";
+import { getUserServersThunk } from '../../store/user'
 
 function ServerSetting() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const {serverid} = useParams()
   const user = useSelector((state) => state.session.user);
+  const server = useSelector((state) => state.servers)[serverid]
 
   const { serverProfileSettingModal, setType } = useContext(ModalContext);
-  const { server } = useContext(InfoContext);
+
+  useEffect(() => {
+    (async () => {
+      dispatch(getUserServersThunk())
+    })()
+  }, [dispatch])
 
   const deleteServerHandleSubmit = async () => {
     await dispatch(deleteServerThunk(server.id));
-    await dispatch(getAllServersThunk());
+    await dispatch(getUserServersThunk());
     setType(null);
     return history.push("/app");
   };
 
-  return (
+  console.log(serverid, server)
+
+  return server && (
     <div className="server-setting-container">
       <div className="server-inner">
         <div className="settings-navigation">

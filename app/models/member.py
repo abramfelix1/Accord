@@ -26,6 +26,7 @@ class Member(db.Model):
     server = db.relationship("Server", back_populates="members")
 
     def to_dict(self):
+
         return {
             "id": self.id,
             "user_id": self.user_id,
@@ -37,3 +38,9 @@ class Member(db.Model):
             "image_url": self.user.image_url,
             "username": self.user.username,
         }
+
+    def to_dict_first_channel(self):
+
+        return {
+                "server": self.server.to_dict()
+                }
