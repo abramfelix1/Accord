@@ -120,6 +120,8 @@ def join_server(id):
     # If server not does exist, throw 404 error
     if server is None:
         return invalid_route("error")
+
+
     # Query if user is a member of server or not
     member = Member.query.filter(
         Member.server_id == id, Member.user_id == int(user_id)
@@ -131,10 +133,11 @@ def join_server(id):
 
     # Create member if they are not a member
     member = Member(user_id=user_id, server_id=server.id)
-
     db.session.add(member)
     db.session.commit()
-    return member.to_dict()
+    member_obj = member.to_dict()
+    member_obj["server"] = member.to_dict_first_channel()
+    return member_obj
 
 
 

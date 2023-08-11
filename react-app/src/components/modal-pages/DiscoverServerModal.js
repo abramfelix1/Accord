@@ -4,9 +4,11 @@ import * as serverActions from "../../store/server";
 import { joinServerThunk } from "../../store/members";
 import "./modal-css/DiscoverServer.css";
 import { ModalContext } from '../../context/modalContext'
+import { useHistory } from 'react-router-dom'
 
 function DiscoverServerModal() {
   const dispatch = useDispatch();
+  const history = useHistory()
   const { setType } = useContext(ModalContext)
 
   const servers = Object.values(useSelector((state) => state.server));
@@ -18,9 +20,12 @@ function DiscoverServerModal() {
   }, [dispatch]);
 
   const joinServerHandler = async (server_id) => {
-    await dispatch(joinServerThunk(server_id))
+    const server = await dispatch(joinServerThunk(server_id))
     setType(null)
+    console.log(server)
+    return history.push(`/servers/${server.server_id}/channels/${server.server.server.firstChannel.id}`)
   }
+  console.log(servers,' servers')
 
   //   const initials = (serverName) => {
   //     let res = "";
@@ -47,7 +52,7 @@ function DiscoverServerModal() {
         <div className="discover-server-list-wrapper">
           {servers.map((server) => {
             return (
-              <li className="discover-server-list" onClick={e => joinServerHandler(server.id)}>
+              <li key={server.id} className="discover-server-list" onClick={e => joinServerHandler(server.id)}>
                 {server.image_url ? (
                   <div>
                     <div className="server-banner"></div>
