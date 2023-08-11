@@ -109,6 +109,20 @@ const serversReducer = (state = initialState, action) => {
         return members;
       }, {});
       return newState;
+    case memberActions.UPDATE_MEMBER: {
+      console.log("UPDATE NNAME PAYLOAD:", action.payload);
+      const { server_id, member } = action.payload;
+      if (
+        newState[server_id] &&
+        newState[server_id].members &&
+        newState[server_id].members[member.id]
+      ) {
+        newState[server_id].member[server_id] = {
+          ...member,
+        };
+      }
+      return { ...newState };
+    }
     case messageActions.POPULATE_MESSAGES:
       action.payload.reduce((messages, message) => {
         if (
