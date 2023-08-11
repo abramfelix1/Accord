@@ -1,5 +1,5 @@
 .footer-container {
-    background-color: rgb(28, 27, 27);
+    background-color: #23272A;
     height: 29.75rem;
     display: flex;
     flex-direction: column;
@@ -63,7 +63,7 @@
     grid-column-end: 13;
     grid-row-start: 1;
     grid-row-end: 3;
-} 
+}
 
 .fl > h5 {
     color: #5865FC;
