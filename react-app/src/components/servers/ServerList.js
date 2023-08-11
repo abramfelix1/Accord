@@ -30,9 +30,8 @@ function ServerList() {
 
   // selecting the users state to get users servers
   // const userServers = Object.values(useSelector((state) => state.user));
-  const userServers = Object.values(
-    useSelector((state) => state.servers)
-  ).slice(0, -1);
+  const servers = useSelector((state) => state.servers);
+  const userServers = servers ? Object.values(servers).slice(0, -1) : [];
 
   // Function to reverse a given array
   const reverseArray = (array) => {

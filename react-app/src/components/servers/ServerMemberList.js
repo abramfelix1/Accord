@@ -13,7 +13,7 @@ function ServerMemberList({ server }) {
   //   useSelector((state) => state.current.members)
   // );
   const serverMembers = useSelector((state) => {
-    if (state.servers[serverid]) {
+    if (state.servers[serverid] && state.servers[serverid].members) {
       return Object.values(state.servers[serverid].members);
     } else {
       return [];
