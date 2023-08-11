@@ -68,7 +68,7 @@ function DiscoverServerModal() {
                   <div className="server-members-discovery-wrapper">
                     <div className="member-tiny-circle"></div>
                     <div className="server-members-discovery">
-                      1,034,947 Members
+                      {server.members_count} Members
                     </div>
                   </div>
                 </div>
