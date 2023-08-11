@@ -26,6 +26,23 @@ const serversReducer = (state = initialState, action) => {
           })
       );
       return newState;
+    case serverActions.GET_SERVER2: {
+      console.log("SERVER PAYLOAD:", action.payload);
+      if (newState[action.payload.id]) {
+        return {
+          ...newState,
+          [action.payload.id]: {
+            ...newState[action.payload.id],
+            ...action.payload,
+          },
+        };
+      } else {
+        return {
+          ...newState,
+          [action.payload.id]: action.payload,
+        };
+      }
+    }
     case channelActions.POPULATE_CHANNELS:
       action.payload.Channels.reduce((channels, channel) => {
         if (

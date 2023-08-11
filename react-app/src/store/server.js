@@ -1,4 +1,3 @@
-
 import { getUserServersThunk } from "./user";
 import * as userActions from "./user";
 import * as channelActions from "./channels";
@@ -9,10 +8,11 @@ import * as memberActions from "./members";
 export const GET_ALL_SERVERS = "server/GET_ALL_SERVERS";
 // const GET_USER_SERVERS = "server/GET_USER_SERVERS"
 export const GET_SERVER = "server/GET_SERVER";
+export const GET_SERVER2 = "server/GET_SERVER2";
 export const CREATE_SERVER = "server/CREATE_SERVER";
 export const UPDATE_SERVER = "server/UPDATE_SERVER";
 export const DELETE_SERVER = "server/DELETE_SERVER";
-export const UPDATE_SERVER_IMAGE = "server/UPDATE_SERVER_IMAGE"
+export const UPDATE_SERVER_IMAGE = "server/UPDATE_SERVER_IMAGE";
 
 /*************** ACTIONS CREATOR **************************/
 export const getAllServersAction = (servers) => {
@@ -27,6 +27,13 @@ export const getAllServersAction = (servers) => {
 export const getServerAction = (server) => {
   return {
     type: GET_SERVER,
+    payload: server,
+  };
+};
+
+export const getServerAction2 = (server) => {
+  return {
+    type: GET_SERVER2,
     payload: server,
   };
 };
@@ -76,7 +83,6 @@ export const updateServeImageAction = (server) => {
   };
 };
 
-
 /*************** THUNK ACTIONS CREATOR **************************/
 
 export const getAllServersThunk = () => async (dispatch) => {
@@ -90,6 +96,16 @@ export const getAllServersThunk = () => async (dispatch) => {
 };
 
 /******/
+
+export const getServer = (server_id) => async (dispatch) => {
+  const res = await fetch(`/api/servers/${server_id}`);
+
+  if (res.ok) {
+    const server = await res.json();
+    dispatch(getServerAction2(server));
+    return server;
+  }
+};
 
 export const getServerThunk = (server_id) => async (dispatch) => {
   const res = await fetch(`/api/servers/${server_id}`);
@@ -110,10 +126,7 @@ export const getServerThunk = (server_id) => async (dispatch) => {
   }
 };
 
-
-
 /******/
-
 
 export const createServerThunk =
   (owner_id, server_name) => async (dispatch) => {
@@ -143,7 +156,6 @@ export const createServerThunk =
 
 /******/
 
-
 export const updateServerThunk =
   (server_id, server_name, server_image) => async (dispatch) => {
     const reqBody = JSON.stringify({
@@ -172,7 +184,6 @@ export const updateServerThunk =
     }
   };
 
-
 export const deleteServerThunk = (server_id) => async (dispatch) => {
   const res = await fetch(`/api/servers/${server_id}`, {
     method: "DELETE",
@@ -185,13 +196,14 @@ export const deleteServerThunk = (server_id) => async (dispatch) => {
   // to get the redux updated with all the servers again to
   // prevent loading issues
   if (res.ok) {
-    const data = res.json()
+    const data = res.json();
     dispatch(deleteServerAction(server_id));
-    return data
+    return data;
   }
 };
 
-export const uploadServerImageThunk = (server_id, image) => async (dispatch) => {
+export const uploadServerImageThunk =
+  (server_id, image) => async (dispatch) => {
     const res = await fetch(`/api/servers/${server_id}/image`, {
       method: "PUT",
       body: image,
@@ -204,21 +216,21 @@ export const uploadServerImageThunk = (server_id, image) => async (dispatch) => 
       const error = await res.json();
       return error;
     }
-}
+  };
 
 export const removeServerImageThunk = (server_id) => async (dispatch) => {
   const res = await fetch(`/api/servers/${server_id}/image/remove`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-    }
-  })
+    },
+  });
 
   if (res.ok) {
-    const data = res.json()
-    return data
+    const data = res.json();
+    return data;
   }
-}
+};
 
 // REDUCER
 

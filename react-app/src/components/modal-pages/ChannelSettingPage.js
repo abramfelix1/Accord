@@ -7,14 +7,15 @@ import { ModalContext } from "../../context/modalContext";
 import { editChannel, removeChannel, getChannels } from "../../store/channels";
 
 import { BiSolidTrash } from "react-icons/bi";
+import { getServer, getServerThunk } from "../../store/server";
 
 function ChannelSettingPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { channelCog, setIsLoaded } = useContext(InfoContext);
   const { setType } = useContext(ModalContext);
-  const server = useSelector((state) => state.current.server);
   const { serverid, channelid } = useParams();
+  const server = useSelector((state) => state.servers[serverid]);
 
   const [channelName, setChannelName] = useState(channelCog.name);
 
@@ -25,14 +26,17 @@ function ChannelSettingPage() {
     setType(null);
   };
 
+  useEffect(() => {
+    if (channelCog.id == channelid) {
+      history.push(`/servers/${server.id}/channels/${server.firstChannel.id}`);
+    }
+  }, [server]);
+
   const deleteChannelHandler = async (e) => {
     e.preventDefault();
     await dispatch(removeChannel(serverid, channelCog.id));
-    dispatch(getChannels(serverid));
+    await dispatch(getServer(serverid));
     setType(null);
-    return history.push(
-      `/servers/${server.id}/channels/${server.firstChannel.id}`
-    );
   };
 
   return (
