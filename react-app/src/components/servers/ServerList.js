@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import ServerCard from "./ServerCard";
 import logo from "../../images/accord-logo.png";
 import { useEffect, useState } from "react";
-import { IoCompassSharp } from 'react-icons/io5'
+import { IoCompassSharp } from "react-icons/io5";
 
 import { useSelector, useDispatch } from "react-redux";
 import * as userActions from "../../store/user";
@@ -23,13 +23,16 @@ function ServerList() {
   const { setServer } = useContext(InfoContext);
   const { setChannel } = useContext(ChannelContext);
 
-  const { createServerModal, isModalOpen, discoverServerModal } = useContext(ModalContext);
+  const { createServerModal, isModalOpen, discoverServerModal } =
+    useContext(ModalContext);
   const { setIsLoaded } = useContext(InfoContext);
   const { serverid, channelid } = useParams();
 
-
   // selecting the users state to get users servers
-  const userServers = Object.values(useSelector((state) => state.user));
+  // const userServers = Object.values(useSelector((state) => state.user));
+  const userServers = Object.values(
+    useSelector((state) => state.servers)
+  ).slice(0, -1);
 
   // calls the dispatch function to set the state up for users servers
   useEffect(() => {
@@ -86,7 +89,9 @@ function ServerList() {
         <Tooltip text={"Direct Messages"}>
           <NavLink
             to="/app"
-            className={`servers servers-friend-button ${serverid ? "" : `active-server`}`}
+            className={`servers servers-friend-button ${
+              serverid ? "" : `active-server`
+            }`}
             onClick={(e) => handleActiveButton(e)}
           >
             <img className="server-logo" src={logo} alt="logo" />
@@ -126,7 +131,7 @@ function ServerList() {
               discoverServerModal();
             }}
           >
-            <IoCompassSharp className="compass-icon"/>
+            <IoCompassSharp className="compass-icon" />
           </li>
         </Tooltip>
       </ul>
