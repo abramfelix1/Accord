@@ -27,6 +27,7 @@ function UserAccountFormPage() {
   const [displayName, setDisplayName] = useState("");
 
   const updateUserHandleSubmit = async (e) => {
+    e.preventDefault()
     await dispatch(updateUserThunk(user.username, displayName));
   };
 

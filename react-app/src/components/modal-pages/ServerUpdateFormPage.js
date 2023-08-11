@@ -8,7 +8,6 @@ import {
   removeServerImageThunk,
 } from "../../store/server";
 import { IoCloseOutline } from "react-icons/io5";
-
 import "./modal-css/ServerUpdateFormPage.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
@@ -40,6 +39,7 @@ function ServerUpdateFormPage({ user, setType }) {
     if (serverImage) {
       const formData = new FormData();
       formData.append("image_url", serverImage);
+      await dispatch(uploadServerImageThunk(server.id, formData));
       await dispatch(uploadServerImageThunk(server.id, formData));
     }
     setType(null);

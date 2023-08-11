@@ -25,40 +25,48 @@ function ServerSetting() {
   };
 
   return (
-    <div className="server-setting-container">
-      <div className="server-inner">
-        <div className="settings-navigation">
-          <p className="setting-navigation-title">{server.name}</p>
-          <div>
+    server && (
+      <div className="server-setting-container">
+        <div className="server-inner">
+          <div className="settings-navigation">
+            <p className="setting-navigation-title">{server.name}</p>
             <div>
-              <p className="setting-navigation-section-name highlight-server-setting">
-                Server Settings
-              </p>
-            </div>
-            <div onClick={(e) => serverProfileSettingModal()}>
-              <p className="setting-navigation-section-name">Server Profile</p>
-            </div>
-          </div>
-          {server.owner_id === user.id && (
-            <div>
-              <div className="setting-separator"></div>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <p
-                  className="setting-navigation-section-name delete-server"
-                  onClick={(e) => deleteServerHandleSubmit()}
-                >
-                  Delete Server <BiSolidTrash style={{ marginLeft: "7px" }} />
+              <div>
+                <p className="setting-navigation-section-name highlight-server-setting">
+                  Server Settings
+                </p>
+              </div>
+              <div onClick={(e) => serverProfileSettingModal()}>
+                <p className="setting-navigation-section-name">
+                  Server Profile
                 </p>
               </div>
             </div>
-          )}
-        </div>
+            {server.owner_id === user.id && (
+              <div>
+                <div className="setting-separator"></div>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <p
+                    className="setting-navigation-section-name delete-server"
+                    onClick={(e) => deleteServerHandleSubmit()}
+                  >
+                    Delete Server <BiSolidTrash style={{ marginLeft: "7px" }} />
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
 
-        <div className="server-inner-2">
-          <ServerUpdateFormPage server={server} user={user} setType={setType} />
+          <div className="server-inner-2">
+            <ServerUpdateFormPage
+              server={server}
+              user={user}
+              setType={setType}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 }
 

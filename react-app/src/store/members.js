@@ -106,7 +106,7 @@ export const joinServerThunk = (server_id) => async (dispatch) => {
   });
 
   if (res.ok) {
-    const data = res.json();
+    const data = await res.json();
     dispatch(getUserServersThunk());
     return data;
   }
