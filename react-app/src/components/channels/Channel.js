@@ -27,7 +27,7 @@ function Channel() {
   const server = useSelector((state) => state.current.server);
   const user = useSelector((state) => state.session.user);
   const channels = useSelector((state) => {
-    if (state.servers[serverid]) {
+    if (state.servers[serverid] && state.servers[serverid].channels) {
       return Object.values(state.servers[serverid].channels);
     } else {
       return [];
