@@ -175,10 +175,7 @@ export const updateServerThunk =
     // prevent loading issues
     if (res.ok) {
       const updatedServer = await res.json();
-      console.log("DASDWKEKDIWDKWIDKASIDASKDASDSK",updatedServer, 'updated server');
-      await dispatch(updateServerAction(updatedServer));
-      await dispatch(getUserServersThunk())
-      await dispatch(getServerThunk(server_id));
+      dispatch(updateServerAction(updatedServer));
       return updatedServer;
     } else {
       const error = await res.json();
@@ -200,6 +197,7 @@ export const deleteServerThunk = (server_id) => async (dispatch) => {
   if (res.ok) {
     const data = await res.json();
     dispatch(deleteServerAction(server_id));
+
     return data;
   }
 };
