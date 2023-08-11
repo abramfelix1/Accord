@@ -28,7 +28,9 @@ function ChannelSettingPage() {
 
   useEffect(() => {
     if (channelCog.id == channelid) {
-      history.push(`/servers/${server.id}/channels/${server.firstChannel.id}`);
+      history.push(
+        `/servers/${server.id}/channels/${server?.firstChannel?.id || "null"}`
+      );
     }
   }, [server]);
 
