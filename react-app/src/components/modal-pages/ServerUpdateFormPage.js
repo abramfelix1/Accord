@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { BiImageAdd } from "react-icons/bi";
 import {
@@ -10,9 +10,13 @@ import {
 import { IoCloseOutline } from "react-icons/io5";
 
 import "./modal-css/ServerUpdateFormPage.css";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
-function ServerUpdateFormPage({ server, user, setType }) {
+function ServerUpdateFormPage({ user, setType }) {
   const dispatch = useDispatch();
+  const { serverid, channelid } = useParams();
+  const server = useSelector((state) => state.servers[serverid]);
+
   const [serverName, setServerName] = useState(server.name);
   const [serverImage, setServerImage] = useState("");
 

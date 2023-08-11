@@ -1,23 +1,23 @@
 import "../../components/servers/server-css/ServerSetting.css";
-import { useContext} from "react";
+import { useContext } from "react";
 import { ModalContext } from "../../context/modalContext";
 import { BiSolidTrash } from "react-icons/bi";
 import { InfoContext } from "../../context/infoContext";
-import {
-  getAllServersThunk,
-  deleteServerThunk,
-} from "../../store/server";
+import { getAllServersThunk, deleteServerThunk } from "../../store/server";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ServerUpdateFormPage from "./ServerUpdateFormPage";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function ServerSetting() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { serverid, channelid } = useParams();
+
   const user = useSelector((state) => state.session.user);
+  const server = useSelector((state) => state.servers[serverid]);
 
   const { serverProfileSettingModal, setType } = useContext(ModalContext);
-  const { server } = useContext(InfoContext);
 
   const deleteServerHandleSubmit = async () => {
     await dispatch(deleteServerThunk(server.id));
@@ -57,7 +57,7 @@ function ServerSetting() {
         </div>
 
         <div className="server-inner-2">
-          <ServerUpdateFormPage server={server} user={user} setType={setType}/>
+          <ServerUpdateFormPage server={server} user={user} setType={setType} />
         </div>
       </div>
     </div>
