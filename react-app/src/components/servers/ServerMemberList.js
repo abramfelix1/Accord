@@ -9,9 +9,16 @@ import "./server-css/ServerMemberList.css";
 function ServerMemberList({ server }) {
   const dispatch = useDispatch();
   const { serverid, channelid } = useParams();
-  const serverMembers = Object.values(
-    useSelector((state) => state.current.members)
-  );
+  // const serverMembers = Object.values(
+  //   useSelector((state) => state.current.members)
+  // );
+  const serverMembers = useSelector((state) => {
+    if (state.servers[serverid]) {
+      return Object.values(state.servers[serverid].members);
+    } else {
+      return [];
+    }
+  });
   let isLoading = useSelector((state) => state.current.isLoading);
   const [showProfile, setShowProfile] = useState(false);
   const [selectedMember, setSelectedMember] = useState("");
@@ -20,13 +27,11 @@ function ServerMemberList({ server }) {
     setShowProfile(true);
   }, [selectedMember]);
 
-
-  
-  // anytime a channel id is changed or a server id is changed. it will 
+  // anytime a channel id is changed or a server id is changed. it will
   // close the profile when rendering
   useEffect(() => {
-    setShowProfile(false)
-  }, [serverid, channelid])
+    setShowProfile(false);
+  }, [serverid, channelid]);
 
   // useEffect(() => {
   //   if (server) {

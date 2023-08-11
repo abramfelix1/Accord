@@ -42,6 +42,29 @@ const serversReducer = (state = initialState, action) => {
         };
       }
     }
+    case serverActions.DELETE_SERVER: {
+      const { server_id } = action.payload;
+      if (newState[server_id]) {
+        delete newState[server_id];
+      }
+      return { ...newState };
+    }
+    case serverActions.UPDATE_SERVER: {
+      if (newState[action.payload.id]) {
+        return {
+          ...newState,
+          [action.payload.id]: {
+            ...newState[action.payload.id],
+            ...action.payload,
+          },
+        };
+      } else {
+        return {
+          ...newState,
+          [action.payload.id]: action.payload,
+        };
+      }
+    }
     case channelActions.POPULATE_CHANNELS:
       action.payload.Channels.reduce((channels, channel) => {
         if (
@@ -92,6 +115,28 @@ const serversReducer = (state = initialState, action) => {
         return members;
       }, {});
       return newState;
+    case memberActions.DELETE_MEMBER: {
+      console.log("DELETE MEMBER PAYLOAD:", action.payload);
+      const { server_id } = action.payload;
+      if (newState[server_id]) {
+        delete newState[server_id];
+      }
+      return { ...newState };
+    }
+    case memberActions.UPDATE_MEMBER: {
+      const { server_id, member } = action.payload;
+      console.log("UPDATE MEMBER PAYLOAD:", action.payload);
+      if (
+        newState[server_id] &&
+        newState[server_id].members &&
+        newState[server_id].members[member.id]
+      ) {
+        newState[server_id].members[member.id] = {
+          ...member,
+        };
+      }
+      return { ...newState };
+    }
     case messageActions.POPULATE_MESSAGES:
       action.payload.reduce((messages, message) => {
         if (

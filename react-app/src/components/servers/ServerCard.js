@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { useContext, useEffect } from "react";
 import { InfoContext, InfoProvider } from "../../context/infoContext";
 
-
 function ServerCard({ handleActiveButton, serverInfo }) {
   const { serverid } = useParams();
   // const { server } = useContext(InfoContext);
@@ -20,7 +19,7 @@ function ServerCard({ handleActiveButton, serverInfo }) {
     for (let i = 0; i < serverNameArr.length; i++) {
       let word = serverNameArr[i];
       // console.log(typeof word === "string", "---------------")
-      if(word && typeof word === "string") {
+      if (word && typeof word === "string") {
         res += word[0].toUpperCase();
       }
     }
@@ -36,7 +35,9 @@ function ServerCard({ handleActiveButton, serverInfo }) {
     <>
       {server && serverInfo && (
         <NavLink
-          to={`/servers/${serverInfo.id}/channels/${serverInfo.firstChannel.id}`}
+          to={`/servers/${serverInfo.id}/channels/${
+            serverInfo?.firstChannel?.id || "null"
+          }`}
           className={`${serverInfo.image_url ? "" : "servers"} server-pointer ${
             serverInfo.id == serverid ? "active-server" : ""
           }`}
@@ -50,7 +51,6 @@ function ServerCard({ handleActiveButton, serverInfo }) {
                 }`}
                 src={serverInfo.image_url}
                 alt="serverimage"
-
               />
             </div>
           ) : (

@@ -11,8 +11,7 @@ function ServerNavDropDown(props) {
   let isLoaded = useSelector((state) => state.current.isLoading);
   const { serverid, channelid } = useParams();
   const dropdownRef = useRef(null);
-  const { openDropdown, toggleDropdown, setToggleDropdown, navRef, server } =
-    props;
+  const { openDropdown, toggleDropdown, setToggleDropdown, navRef } = props;
   const {
     serverSettingModal,
     createChannelModal,
@@ -20,7 +19,8 @@ function ServerNavDropDown(props) {
     serverProfileSettingModal,
   } = useContext(ModalContext);
   const user = useSelector((state) => state.session.user);
-  // const server = useSelector((state) => state.current.server);
+  const server = useSelector((state) => state.servers[serverid]);
+  console.log("SERVERNAVE:", server);
 
   const handleClickOutside = (event) => {
     if (navRef.current && navRef.current.contains(event.target)) {

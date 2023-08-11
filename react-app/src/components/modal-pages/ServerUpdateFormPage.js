@@ -1,27 +1,30 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { BiImageAdd } from "react-icons/bi";
 import {
   updateServerThunk,
   getAllServersThunk,
   uploadServerImageThunk,
-  removeServerImageThunk
+  removeServerImageThunk,
 } from "../../store/server";
 import { IoCloseOutline } from "react-icons/io5";
-
 import "./modal-css/ServerUpdateFormPage.css";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
-function ServerUpdateFormPage({ server, user, setType }) {
+function ServerUpdateFormPage({ user, setType }) {
   const dispatch = useDispatch();
+  const { serverid, channelid } = useParams();
+  const server = useSelector((state) => state.servers[serverid]);
+
   const [serverName, setServerName] = useState(server.name);
   const [serverImage, setServerImage] = useState("");
 
   const initials = (serverName) => {
     let res = "";
-    serverName = serverName.trim()
+    serverName = serverName.trim();
     const serverNameArr = serverName.split(" ");
 
-    console.log(serverNameArr)
+    console.log(serverNameArr);
 
     for (let i = 0; i < serverNameArr.length; i++) {
       let word = serverNameArr[i];
@@ -31,19 +34,20 @@ function ServerUpdateFormPage({ server, user, setType }) {
   };
 
   const updateServerHandleSubmit = async (e) => {
-    // e.preventDefault()
-    dispatch(updateServerThunk(server.id, serverName));
+    e.preventDefault();
+    await dispatch(updateServerThunk(server.id, serverName));
     if (serverImage) {
       const formData = new FormData();
       formData.append("image_url", serverImage);
-      dispatch(uploadServerImageThunk(server.id, formData));
+      await dispatch(uploadServerImageThunk(server.id, formData));
+      await dispatch(uploadServerImageThunk(server.id, formData));
     }
-    setType(null)
+    setType(null);
   };
 
   const removeServerImageHandleSubmit = async (e) => {
-    await dispatch(removeServerImageThunk(server.id))
-  }
+    await dispatch(removeServerImageThunk(server.id));
+  };
 
   return (
     <>
@@ -95,7 +99,12 @@ function ServerUpdateFormPage({ server, user, setType }) {
             )}
 
             {server.image_url && user.id === server.owner_id && (
-              <button className="remove-server-image" onClick={removeServerImageHandleSubmit}>Remove</button>
+              <button
+                className="remove-server-image"
+                onClick={removeServerImageHandleSubmit}
+              >
+                Remove
+              </button>
             )}
           </div>
           {user.id === server.owner_id ? (

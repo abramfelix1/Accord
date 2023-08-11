@@ -14,6 +14,7 @@ import { logout } from "../../store/session";
 
 import "./channel-css/Channel.css";
 import { resetServers } from "../../store/servers";
+import { getServer } from "../../store/server";
 
 function Channel() {
   // router doms
@@ -49,6 +50,10 @@ function Channel() {
       })();
     }
   }, [dispatch, server, serverid]);
+
+  useEffect(() => {
+    dispatch(getServer(serverid));
+  }, [channelid]);
 
   // Handlers
 

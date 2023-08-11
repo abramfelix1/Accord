@@ -142,8 +142,7 @@ background: #141414;
 }
 
 .channel-cog-settings {
-    padding-left: 0px;
-    padding: 8px;
+    margin-left: -23px;
     font-size: 16px;
     color: #949ba4;
 }

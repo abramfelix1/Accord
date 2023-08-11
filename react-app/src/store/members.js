@@ -3,7 +3,8 @@ import { getUserServersThunk } from "./user";
 /*************** TYPES **************************/
 export const GET_SERVER_MEMBERS = "server/GET_SERVER_MEMBERS";
 export const GET_SINGLE_MEMBER = "server/GET_SINGLE_MEMBER ";
-export const UPDATE_NICKNAME = "server/UPDATE_NICKNAME"
+export const UPDATE_MEMBER = "server/UPDATE_MEMBER ";
+export const DELETE_MEMBER = "server/DELETE_MEMBER ";
 /*************** ACTIONS CREATOR **************************/
 
 export const getServerMembersAction = (members) => {
@@ -20,12 +21,19 @@ export const getSingleMemberAction = (member) => {
   };
 };
 
-export const updateServerNicknameAction = (member) => {
+export const updateMemberName = (payload) => {
   return {
-    type: UPDATE_NICKNAME,
-    payload: member,
-  }
-}
+    type: UPDATE_MEMBER,
+    payload,
+  };
+};
+
+export const leaveServerAction = (payload) => {
+  return {
+    type: DELETE_MEMBER,
+    payload,
+  };
+};
 
 /*************** THUNK ACTIONS CREATOR **************************/
 
@@ -33,9 +41,9 @@ export const getServerMembersThunk = (server_id) => async (dispatch) => {
   const res = await fetch(`/api/servers/${server_id}/members`);
 
   if (res.ok) {
-    const members = await res.json();
-    dispatch(getServerMembersAction(members));
-    return members;
+    const member = await res.json();
+    dispatch(getServerMembersAction(member));
+    return member;
   }
 };
 
@@ -51,9 +59,9 @@ export const leaveServerThunk = (server_id) => async (dispatch) => {
   // to get the redux updated with all the servers again to
   // prevent loading issues
   if (res.ok) {
-    const data = await res.json()
-    dispatch(getUserServersThunk(server_id));
-    return data
+    const data = res.json();
+    dispatch(leaveServerAction({ server_id: server_id }));
+    return data;
   }
 };
 
@@ -70,11 +78,9 @@ export const updateServerNicknameThunk =
     });
 
     if (res.ok) {
-      const data = await res.json()
-      console.log(data, 'data')
-      dispatch(updateServerNicknameAction(data))
-      dispatch(getUserServersThunk(server_id));
-      return data
+      const member = await res.json();
+      dispatch(updateMemberName({ server_id: server_id, member: member }));
+      return member;
     }
   };
 
@@ -95,16 +101,16 @@ export const joinServerThunk = (server_id) => async (dispatch) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      server_id: server_id
+      server_id: server_id,
     }),
-  })
+  });
 
   if (res.ok) {
-    const data = await res.json()
-    dispatch(getUserServersThunk())
-    return data
+    const data = await res.json();
+    dispatch(getUserServersThunk());
+    return data;
   }
-}
+};
 
 /******/
 
@@ -121,10 +127,6 @@ export default function memberReducer(state = {}, action) {
         newState[member.id] = member;
       });
       return newState;
-    case UPDATE_NICKNAME:
-      newState = { ...state };
-      newState[action.payload.id] = action.payload;
-      return newState[action.payload.id];
     case GET_SINGLE_MEMBER:
       newState = { ...state };
       newState[action.payload.id] = action.payload;

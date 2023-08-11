@@ -67,10 +67,10 @@ export const updateServerAction = (server) => {
 
 /******/
 
-export const deleteServerAction = (server_id) => {
+export const deleteServerAction = (payload) => {
   return {
     type: DELETE_SERVER,
-    payload: server_id,
+    payload,
   };
 };
 
@@ -175,10 +175,7 @@ export const updateServerThunk =
     // prevent loading issues
     if (res.ok) {
       const updatedServer = await res.json();
-      console.log("DASDWKEKDIWDKWIDKASIDASKDASDSK",updatedServer, 'updated server');
       await dispatch(updateServerAction(updatedServer));
-      await dispatch(getUserServersThunk())
-      await dispatch(getServerThunk(server_id));
       return updatedServer;
     } else {
       const error = await res.json();
@@ -198,8 +195,8 @@ export const deleteServerThunk = (server_id) => async (dispatch) => {
   // to get the redux updated with all the servers again to
   // prevent loading issues
   if (res.ok) {
-    const data = await res.json();
-    dispatch(deleteServerAction(server_id));
+    const data = res.json();
+    dispatch(deleteServerAction({ server_id: server_id }));
     return data;
   }
 };
@@ -257,10 +254,10 @@ export default function serverReducer(state = initialState, action) {
       return newState;
     case UPDATE_SERVER:
       newState = { ...state };
-      console.log(newState, 'newState');
+      console.log(newState, "newState");
       newState[action.payload.id] = action.payload;
-      console.log(action.payload, 'action payload');
-      console.log(newState[action.payload.id], 'newstate payload');
+      console.log(action.payload, "action payload");
+      console.log(newState[action.payload.id], "newstate payload");
 
       return newState;
     default:
