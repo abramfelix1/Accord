@@ -1,6 +1,6 @@
 .footer-container {
     background-color: rgb(28, 27, 27);
-    height: 38.75rem;
+    height: 29.75rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -11,7 +11,7 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: 1fr 1fr;
-    height: 28.125rem;
+    height: 21.125rem;
     padding: 2.5rem 0.938rem 0px;
     grid-column-gap: 1.25rem;
     border-bottom: 0.063rem solid rgb(70, 38, 228);

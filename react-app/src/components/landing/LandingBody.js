@@ -1,4 +1,5 @@
 import logo from "../../images/accord-logo.png"
+import study_image from "../../images/discord-image-2.png"
 import "./landing-css/LandingBody.css"
 
 
@@ -24,17 +25,17 @@ function LandingBody() {
             <div className="landing-body-wrapper-2">
                 <div className="wrap-2-body">
                     <div id="w2-img-wrapper">
-                        <img src={logo} alt="Logo"/>
+                        <img src={study_image} alt="Logo"/>
                     </div>
                     <div id="w2-body">
-                        <h2>Create an invite- only where you belong</h2>
+                        <h2>Chat with other members from different servers</h2>
                         <p>
-                            Discord servers are organized into topic-based channels where you can collaborate, share, and just talk about your day without clogging up a group chat.
+                            Accord servers are organized into topic-based channels where you can collaborate, share, and just talk about your day.
                         </p>
                     </div>
                 </div>
             </div>
-            <div className="landing-body-wrapper-3">
+            {/* <div className="landing-body-wrapper-3">
                 <div className="wrap-3-body">
                     <div id="w3-img-wrapper">
                         <img src={logo} alt="Logo"/>
@@ -46,8 +47,8 @@ function LandingBody() {
                         </p>
                     </div>
                 </div>
-            </div>
-            <div className="landing-body-wrapper-4">
+            </div> */}
+            {/* <div className="landing-body-wrapper-4">
                 <div className="wrap-4-body">
                     <div id="w4-img-wrapper">
                         <img src={logo} alt="Logo"/>
@@ -59,8 +60,8 @@ function LandingBody() {
                         </p>
                     </div>
                 </div>
-            </div>
-            <div className="landing-body-wrapper-5">
+            </div> */}
+            {/* <div className="landing-body-wrapper-5">
                 <div className="wrap-5-body">
                     <div id="w5-body">
                         <h2>RELIABLE TECH FOR STAYING CLOSE</h2>
@@ -72,13 +73,13 @@ function LandingBody() {
                         <img src={logo} alt="Logo"/>
                     </div>
                 </div>
-            </div>
-            <div className="landing-body-wrapper-6">
+            </div> */}
+            {/* <div className="landing-body-wrapper-6">
                 <div className="wrap-6-body">
                     <h2>Ready to start your journey?</h2>
-                    {/* <button className="w6-button">Some Random Button</button> */}
+                    <button className="w6-button">Some Random Button</button>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

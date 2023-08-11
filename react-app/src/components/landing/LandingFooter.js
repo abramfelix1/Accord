@@ -33,11 +33,11 @@ function LandingFooter() {
                         <p>Safety</p>
                         <p>Blog</p>
                         <p>Feedback</p>
-                        <p>Build</p>
+                        {/* <p>Build</p>
                         <p>Streamkit</p>
                         <p>Creator</p>
                         <p>Community</p>
-                        <p>Official 3rd Party Merch</p>
+                        <p>Official 3rd Party Merch</p> */}
                     </div>
                     <div className="fl-4 fl">
                         <h5>Policies</h5>
