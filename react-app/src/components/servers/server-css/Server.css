@@ -26,7 +26,7 @@
 .servers:hover {
   border-radius: 15px;
   background-color: #4752c4;
-  color: #DBDEE1;
+  color: #dbdee1;
 }
 
 /* #active-server {
@@ -36,7 +36,7 @@
 } */
 
 .active-server {
-  color: #DBDEE1;
+  color: #dbdee1;
   border-radius: 15px;
   background-color: #4752c4;
 }
@@ -63,7 +63,7 @@
 .servers-initals:hover {
   border-radius: 15px;
   background-color: #4752c4;
-  color: #DBDEE1;
+  color: #dbdee1;
 }
 
 /* -------------------------------------------- */
@@ -106,7 +106,7 @@
 .compass:hover {
   border-radius: 15px;
   /* color: rgb(177, 177, 177); */
-  color: #DBDEE1;
+  color: #dbdee1;
   background-color: green;
 }
 
@@ -118,7 +118,7 @@
 .plus:hover {
   border-radius: 15px;
   /* color: rgb(177, 177, 177); */
-  color: #DBDEE1;
+  color: #dbdee1;
   background-color: green;
 }
 
@@ -126,9 +126,8 @@
   border-radius: 15px;
   background-color: green;
   /* color: rgb(177, 177, 177); */
-  color: #DBDEE1;
+  color: #dbdee1;
   transition: border-radius 5s, background-color 10s;
-
 }
 
 /* ----------------------------------------------------- */
@@ -160,7 +159,7 @@
 }
 
 .active-server-img {
-  color: #DBDEE1;
+  color: #dbdee1;
   border-radius: 15px;
 }
 
@@ -210,4 +209,17 @@ efgweiyufbieu bgeu eir bgij;rgeb;brejbg iub  re;bgerug
   text-decoration: none;
 }
 
+.server-hover {
+  display: flex;
+  position: relative;
+}
 
+.server-line {
+  background-color: white;
+  height: 40px;
+  width: 5px;
+  position: absolute;
+  bottom: 15px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
