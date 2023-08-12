@@ -44,7 +44,7 @@ const serversReducer = (state = initialState, action) => {
     }
     case serverActions.DELETE_SERVER: {
       // const { server_id } = action.payload;
-      console.log(action.payload, "33333333333333333")
+      console.log(action.payload, "33333333333333333");
       if (newState[action.payload]) {
         delete newState[action.payload];
       }
@@ -96,6 +96,7 @@ const serversReducer = (state = initialState, action) => {
         }
         return channels;
       }, {});
+      console.log(newState);
       return newState;
     case channelActions.DELETE_CHANNEL: {
       const { server_id, channel_id } = action.payload;
@@ -211,7 +212,7 @@ const serversReducer = (state = initialState, action) => {
       return { ...newState };
     }
     case RESET_SERVERS:
-      return { ...newState, isLoading: true };
+      return { ...initialState, isLoading: true };
     default:
       return state;
   }
