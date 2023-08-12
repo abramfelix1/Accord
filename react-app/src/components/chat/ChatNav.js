@@ -14,7 +14,7 @@ function ChatNav() {
       state.servers[serverid].channels &&
       state.servers[serverid].channels[channelid]
     ) {
-      return Object.values(state.servers[serverid].channels[channelid]);
+      return state.servers[serverid].channels[channelid];
     } else {
       return [];
     }

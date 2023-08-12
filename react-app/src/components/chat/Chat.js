@@ -50,11 +50,11 @@ const Chat = () => {
 
   const dispatch = useDispatch();
 
-  // anytime a channel id is changed or a server id is changed. it will 
+  // anytime a channel id is changed or a server id is changed. it will
   // reset the chat input value to empty
   useEffect(() => {
     setChatInput("");
-  }, [serverid, channelid])
+  }, [serverid, channelid]);
 
   // Function to reverse a given array
   const reverseArray = (array) => {
@@ -113,7 +113,7 @@ const Chat = () => {
                 return (
                   <div key={`${Math.random()}${idx}${message.id}`}>
                     {isSameUser ? (
-                        <MessageOnlyCard message={message} />
+                      <MessageOnlyCard message={message} />
                     ) : (
                       <MessageCard message={message} />
                     )}
