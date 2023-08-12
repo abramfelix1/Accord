@@ -1,71 +1,54 @@
-import logo from "../../images/accord-logo.png"
-import "./landing-css/LandingFooter.css"
+import logo from "../../images/accord-logo.png";
+import "./landing-css/LandingFooter.css";
+import { NavLink } from "react-router-dom";
+import jon from "../../images/jon.png";
+import abram from "../../images/abram.jpg";
+import randy from "../../images/randy.png";
+import { BsLinkedin, BsGithub } from 'react-icons/bs'
 
 function LandingFooter() {
-    return (
-        <div className="footer-container">
-            <div>
-
-                <div className="top-box">
-                    <div className="footer-logo-wrapper">
-                        <a href="#top">
-                            <img src={logo} alt="Logo"/>
-                        </a>
-                    </div>
-                    <div className="fl-1 fl">
-                        <h5>Product</h5>
-                        <p>Download</p>
-                        <p>Nitro</p>
-                        <p>Status</p>
-                    </div>
-                    <div className="fl-2 fl">
-                        <h5>Company</h5>
-                        <p>About</p>
-                        <p>Jobs</p>
-                        <p>Brand</p>
-                        <p>Newsroom</p>
-
-                    </div>
-                    <div className="fl-3 fl">
-                        <h5>Resources</h5>
-                        <p>College</p>
-                        <p>Support</p>
-                        <p>Safety</p>
-                        <p>Blog</p>
-                        <p>Feedback</p>
-                        {/* <p>Build</p>
-                        <p>Streamkit</p>
-                        <p>Creator</p>
-                        <p>Community</p>
-                        <p>Official 3rd Party Merch</p> */}
-                    </div>
-                    <div className="fl-4 fl">
-                        <h5>Policies</h5>
-                        <p>Privacy</p>
-                        <p>CookieSettings</p>
-                        <p>Guidelines</p>
-                        <p>Acknowledgements</p>
-                        <p>License</p>
-                        <p>Moderation</p>
-                        <p>Company Information</p>
-                    </div>
-                </div>
-                <div className="bottom-box">
-                    <div className="logo-wrapper">
-                        <a href="#top">
-                            <img src={logo} alt="Logo"/>
-                            <h2>Accord</h2>
-                        </a>
-                    </div>
-                    <div className="footer-button-wrapper">
-                        {/* <button className="footer-button">
-                            Another Random Button
-                        </button> */}
-                    </div>
-                </div>
+  return (
+    <div className="footer-container">
+      <div className="inner-footer" style={{ width: "100%", paddingTop: '20px' }}>
+        <h2 className="meet-developers">Meet the Developers</h2>
+        <div className="top-box">
+          <div className="developer-wrapper">
+            <p>Abram Felix</p>
+            <img src={abram} alt="abram" className="developer-image" />
+            <div className="developer-links">
+              <a to="https://github.com/abramfelix1" target="_blank" className="github"><BsGithub /> GitHub</a>
+              <a to="linkedin.com/in/abram-felix-98937b162" target="_blank" className="linkedin"><BsLinkedin /> LinkedIn</a>
             </div>
+          </div>
+          <div className="developer-wrapper">
+            <p>Jonathan Ang</p>
+            <img src={jon} alt="jon" className="developer-image" />
+            <div className="developer-links">
+              <a href="https://github.com/jang55" target="_blank" className="github"><BsGithub /> GitHub</a>
+              <a href="https://www.linkedin.com/in/jonathan-ang-b1508b286/" target="_blank" className="linkedin"><BsLinkedin />LinkedIn</a>
+            </div>
+          </div>
+          <div className="developer-wrapper">
+            <p>Randy Hac</p>
+            <img src={randy} alt="randy" className="developer-image" />
+            <div className="developer-links">
+              <a to="https://github.com/randydhack" target="_blank" className="github"><BsGithub /> GitHub</a>
+              <a to="https://www.linkedin.com/in/randy-hac-4577a71b0/" target="_blank" className="linkedin"><BsLinkedin />LinkedIn</a>
+            </div>
+          </div>
         </div>
-    )
+      </div>
+
+      <div className="bottom-box">
+        <div className="logo-wrapper-footer">
+          <a href="#top">
+            <img src={logo} alt="Logo" />
+            <h2>Accord</h2>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default LandingFooter
+export default LandingFooter;
