@@ -50,27 +50,27 @@ function HomePage() {
     // };
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      if (serverid) {
-        setIsLoaded(false);
-        try {
-          let d = dispatch(memberActions.getServerMembersThunk(serverid));
-          let a = await dispatch(serverActions.getServerThunk(serverid));
-          let b = await dispatch(channelActions.getChannel(channelid));
-          let c = dispatch(messageActions.getMessages(channelid));
-          setServer(a);
-          setChannel(b);
-          setIsLoaded(true);
-          if (!a) {
-            return history.push(`/app`);
-          }
-        } catch (err) {
-          return history.push(`/app`);
-        }
-      }
-    })();
-  }, [serverid, channelid, dispatch, history]);
+  //   useEffect(() => {
+  //     (async () => {
+  //       if (serverid) {
+  //         setIsLoaded(false);
+  //         try {
+  //           let d = dispatch(memberActions.getServerMembersThunk(serverid));
+  //           let a = await dispatch(serverActions.getServerThunk(serverid));
+  //           let b = await dispatch(channelActions.getChannel(channelid));
+  //           let c = dispatch(messageActions.getMessages(channelid));
+  //           setServer(a);
+  //           setChannel(b);
+  //           setIsLoaded(true);
+  //           if (!a) {
+  //             return history.push(`/app`);
+  //           }
+  //         } catch (err) {
+  //           return history.push(`/app`);
+  //         }
+  //       }
+  //     })();
+  //   }, [serverid, channelid, dispatch, history]);
 
   if (!user) return <Redirect to="/login" />;
 

@@ -24,7 +24,7 @@ function Channel() {
   // useSelectors
   // const isLoaded = useSelector((state) => state.current.isLoading);
   const { setIsLoaded } = useContext(InfoContext);
-  const server = useSelector((state) => state.current.server);
+  const server = useSelector((state) => state.servers[serverid]);
   const user = useSelector((state) => state.session.user);
   const channels = useSelector((state) => {
     if (state.servers[serverid] && state.servers[serverid].channels) {
@@ -44,14 +44,6 @@ function Channel() {
 
   // useEffects
   useEffect(() => {
-    if (Object.values(server).length > 1) {
-      (async () => {
-        await dispatch(channelActions.getChannels(serverid));
-      })();
-    }
-  }, [dispatch, server, serverid]);
-
-  useEffect(() => {
     dispatch(getServer(serverid));
   }, [channelid]);
 
@@ -68,7 +60,7 @@ function Channel() {
 
   return (
     <>
-      {user && server && (
+      {user && server && channels && (
         <div className="channel-container">
           <div>
             <ul className="channel-list">

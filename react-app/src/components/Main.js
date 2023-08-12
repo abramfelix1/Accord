@@ -32,8 +32,7 @@ function Main() {
         setIsLoaded(false);
         try {
           let d = dispatch(memberActions.getServerMembersThunk(serverid));
-          let a = await dispatch(serverActions.getServerThunk(serverid));
-          let b = await dispatch(channelActions.getChannel(channelid));
+          await dispatch(channelActions.getChannels(serverid));
           let c = dispatch(messageActions.getMessages(channelid));
           setIsLoaded(true);
           // if (!a) {
