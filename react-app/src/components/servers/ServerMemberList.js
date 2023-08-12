@@ -21,6 +21,7 @@ function ServerMemberList({ server }) {
   });
   const [showProfile, setShowProfile] = useState(false);
   const [selectedMember, setSelectedMember] = useState("");
+  const [activeMember, setActiveMember] = useState(false)
 
   useEffect(() => {
     setShowProfile(true);
@@ -31,6 +32,7 @@ function ServerMemberList({ server }) {
   useEffect(() => {
     setShowProfile(false);
   }, [serverid, channelid]);
+  
 
   return (
     <div
@@ -52,15 +54,19 @@ function ServerMemberList({ server }) {
                   member={member}
                   server={server}
                   selectedMember={selectedMember}
+                  setSelectedMember={setSelectedMember}
                   setShowProfile={setShowProfile}
                   showProfile={showProfile}
+                  activeMember={activeMember}
+                  setActiveMember={setActiveMember}
                 />
                 <div>
-                  {selectedMember == member.id && showProfile && (
+                  {selectedMember == member.id && showProfile && activeMember && (
                     <MemberProfile
                       member={member}
                       setShowProfile={setShowProfile}
                       setSelectedMember={setSelectedMember}
+                      setActiveMember={setActiveMember}
                     />
                   )}
                 </div>

@@ -8,6 +8,8 @@ function ServerMemberCard({
   setShowProfile,
   showProfile,
   server,
+  activeMember,
+  setActiveMember
 }) {
   // toggles to show the profile
 
@@ -16,10 +18,14 @@ function ServerMemberCard({
       setShowProfile(false);
       console.log(false, "111111111111111111111111111111111111111111111111111111")
       return;
-    }
+    } 
+    
     setShowProfile(true);
+    setActiveMember(true)
     console.log(true, "111111111111111111111111111111111111111111111111111111")
   };
+
+  
 
   useEffect(() => {}, [server]);
 
@@ -27,7 +33,7 @@ function ServerMemberCard({
     <>
       <div
         className="member-wrapper"
-        id={selectedMember == member.id && showProfile ? "active-profile" : ""}
+        id={selectedMember == member.id && showProfile && activeMember ? "active-profile" : ""}
         onClick={toggleProfile}
       >
         {member.image_url !== null && member.image_url.length >= 1 ? (
