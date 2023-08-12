@@ -8,24 +8,15 @@ import ServerMemberList from "./servers/ServerMemberList";
 import Modal from "./utils/Modal";
 import { InfoContext } from "../context/infoContext";
 import { ChannelContext } from "../context/channelContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
-import {
-  joinServer,
-  chatUpdate,
-  startListeners,
-  disconnectSockets,
-} from "./utils/Socket";
 import * as serverActions from "../store/server";
 import * as channelActions from "../store/channels";
-import * as currentActions from "../store/current";
 import * as messageActions from "../store/message";
 import * as memberActions from "../store/members";
 import "./Main.css";
-import { getChannels } from "../store/channels";
 import { useHistory } from "react-router-dom/";
-// import { useContext } from "react";
 
 function Main() {
   const history = useHistory();
@@ -34,17 +25,6 @@ function Main() {
   const { channel, setChannel } = useContext(ChannelContext);
   const { server, setServer, setIsLoaded } = useContext(InfoContext);
   const user = useSelector((state) => state.session.user);
-
-  useEffect(() => {
-    if (user) {
-      //
-      startListeners();
-      joinServer(user.id);
-    }
-    // return () => {
-    //   disconnectSockets();
-    // };
-  }, []);
 
   useEffect(() => {
     (async () => {

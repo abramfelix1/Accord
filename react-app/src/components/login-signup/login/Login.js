@@ -26,8 +26,8 @@ function LoginPage() {
 
   const demoLogin = async (e) => {
     e.preventDefault();
-    await dispatch(login('Demo', 'password'));
-  }
+    await dispatch(login("Demo", "password"));
+  };
 
   return (
     <div className="login-container">
@@ -107,7 +107,12 @@ function LoginPage() {
                     </p>
                     <p className="register-container">
                       Login as
-                      <span className="demo-user-link" onClick={e => demoLogin(e)}>Demo User</span>
+                      <span
+                        className="demo-user-link"
+                        onClick={(e) => demoLogin(e)}
+                      >
+                        Demo User
+                      </span>
                     </p>
                   </div>
                 </form>
