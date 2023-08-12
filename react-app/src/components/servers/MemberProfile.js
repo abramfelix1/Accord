@@ -3,7 +3,7 @@ import logo from "../../images/accord-logo.png"
 import "./server-css/ServerMemberList.css"
 
 
-function MemberProfile({ member, setShowProfile }) {
+function MemberProfile({ member, setShowProfile, setSelectedMember }) {
 
     // switches the the background color of each profile to something different
     const generateColor = () => {
@@ -23,13 +23,18 @@ function MemberProfile({ member, setShowProfile }) {
             if(event.target != profile && event.target.parentNode != profile){
                 if (profile && profile.style) {
                     profile.style.display = 'none';
+                    // setSelectedMember("")
                 }
             }
         }); 
     }, [])
 
     return(
-        <div className="member-profile-container" id="member-profile-container">
+        <div 
+        className="member-profile-container" 
+        id="member-profile-container" 
+        onClick={e => setShowProfile(false)}
+        >
             <div className="profile-top-wrap" style={{backgroundColor:generateColor()}}>
 
             {/* <div className="profile-exit" onClick={e => setShowProfile(false)} >X</div> */}

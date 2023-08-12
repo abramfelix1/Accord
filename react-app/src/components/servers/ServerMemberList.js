@@ -60,6 +60,7 @@ function ServerMemberList({ server }) {
                     <MemberProfile
                       member={member}
                       setShowProfile={setShowProfile}
+                      setSelectedMember={setSelectedMember}
                     />
                   )}
                 </div>
