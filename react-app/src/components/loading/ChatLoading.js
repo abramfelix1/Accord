@@ -17,7 +17,11 @@ const MessageBlock = ({ numMessages }) => {
   let messages = [];
   for (let i = 0; i < numMessages; i++) {
     messages.push(
-      <p key={Math.floor(Math.random() * 100000)} className="loading-message" style={{ width: randomWidth() }}>
+      <p
+        key={Math.floor(Math.random() * 100000)}
+        className="loading-message"
+        style={{ width: randomWidth() }}
+      >
         msg
       </p>
     );
@@ -31,12 +35,15 @@ const MessageWrapperBlock = ({ numWrappers }) => {
   const arr = new Array(randomLength()).fill(null);
   for (let i = 0; i < numWrappers; i++) {
     wrappers.push(
-      <div key={Math.floor(Math.random() * 100000)} className="message-wrapper">
+      <div
+        key={Math.floor(Math.random() * 100000)}
+        className="loading-message-wrapper"
+      >
         <div className="loading-logo">
           <div className="loading-img"></div>
         </div>
         <div className="loading-message-info-container">
-          <div className="chat-box-name-date-wrapper">
+          <div className="loading-wrapper">
             <span className="loading-name" style={{ width: randomWidthName() }}>
               name
             </span>
