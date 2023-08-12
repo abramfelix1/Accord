@@ -54,6 +54,6 @@
 }
 
 .chat-container.loading {
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   overflow-x: hidden;
 }
