@@ -50,7 +50,6 @@ function Channel() {
   }, [channelid]);
 
   // Handlers
-
   const channelClickHandler = (event, channel) => {
     // dispatch(resetServers());
     setChannel(channel);
@@ -107,7 +106,7 @@ function Channel() {
               {showTextChannel ? (
                 <li>
                   {channels.map((channel, idx) => {
-                    return channel.id && (
+                    return (channel.id && channel.firstChannel) && (
                       <div
                         key={`${channel.id}${idx}`}
                         className={
