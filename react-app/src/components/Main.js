@@ -33,12 +33,13 @@ function Main() {
         try {
           setIsLoaded(false);
 
-          let d = await dispatch(memberActions.getServerMembersThunk(serverid));
-          await dispatch(channelActions.getChannels(serverid));
-          let c = await dispatch(messageActions.getMessages(channelid));
+          let a = dispatch(memberActions.getServerMembersThunk(serverid));
+          let b = await dispatch(channelActions.getChannels(serverid));
+          let c = dispatch(messageActions.getMessages(channelid));
 
           if (isMounted) {
             setIsLoaded(true);
+            setChannel(b);
           }
           // if (!a) {
           //   return history.push(`/app`);
