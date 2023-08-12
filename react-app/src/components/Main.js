@@ -30,7 +30,6 @@ function Main() {
 
   useEffect(() => {
     if (user) {
-      //
       startListeners();
       joinServer(user.id);
     }
@@ -38,26 +37,30 @@ function Main() {
   }, []);
 
   useEffect(() => {
+    (async () => {
+      try {
+        await dispatch(serverActions.getServerThunk(serverid));
+      } catch (err) {
+        return history.push(`/app`);
+      }
+    })();
+  }, [serverid]);
+
+  useEffect(() => {
     let isMounted = true;
     (async () => {
       if (serverid) {
         try {
           setIsLoaded(false);
-          let e = await dispatch(serverActions.getServerThunk(serverid));
-          let b = dispatch(channelActions.getChannels(serverid));
-          let c = dispatch(messageActions.getMessages(channelid));
-          let d = dispatch(memberActions.getServerMembersThunk(serverid));
-
+          let channel = await dispatch(channelActions.getChannels(serverid));
+          dispatch(messageActions.getMessages(channelid));
+          dispatch(memberActions.getServerMembersThunk(serverid));
           if (isMounted) {
             setIsLoaded(true);
-            setChannel(b);
-            setServer(e);
+            setChannel(channel);
           }
-          // if (!e) {
-          //   return history.push(`/app`);
-          // }
         } catch (err) {
-          if (isMounted) {
+          if (!isMounted) {
             return history.push(`/app`);
           }
         }
@@ -66,7 +69,7 @@ function Main() {
     return () => {
       isMounted = false;
     };
-  }, [serverid, channelid, dispatch, history]);
+  }, [serverid, channelid]);
 
   if (!user) return <Redirect to="/login" />;
 
