@@ -106,7 +106,7 @@ function Channel() {
               {showTextChannel ? (
                 <li>
                   {channels.map((channel, idx) => {
-                    return (channel.id && channel.firstChannel) && (
+                    return channel.id && (
                       <div
                         key={`${channel.id}${idx}`}
                         className={
