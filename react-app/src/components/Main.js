@@ -27,22 +27,33 @@ function Main() {
   const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
+    let isMounted = true;
     (async () => {
       if (serverid) {
-        setIsLoaded(false);
         try {
-          let d = dispatch(memberActions.getServerMembersThunk(serverid));
-          await dispatch(channelActions.getChannels(serverid));
+          setIsLoaded(false);
+
+          let a = dispatch(memberActions.getServerMembersThunk(serverid));
+          let b = await dispatch(channelActions.getChannels(serverid));
           let c = dispatch(messageActions.getMessages(channelid));
-          setIsLoaded(true);
+
+          if (isMounted) {
+            setIsLoaded(true);
+            setChannel(b);
+          }
           // if (!a) {
           //   return history.push(`/app`);
           // }
         } catch (err) {
-          return history.push(`/app`);
+          if (isMounted) {
+            return history.push(`/app`);
+          }
         }
       }
     })();
+    return () => {
+      isMounted = false;
+    };
   }, [serverid, channelid, dispatch, history]);
 
   if (!user) return <Redirect to="/login" />;

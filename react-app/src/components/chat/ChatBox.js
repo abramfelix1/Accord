@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import Chat from "./Chat";
 import MessageContainer from "./MessageContainer";
+import { ChannelContext } from "../../context/channelContext";
 
 function ChatBox() {
+  const { channel } = useContext(ChannelContext);
   // let isLoading = useSelector((state) => state.channels.isLoading);
 
   return (
@@ -15,12 +17,12 @@ function ChatBox() {
         flex: "1 1 auto",
       }}
     >
-      {(
+      {
         <>
           <MessageContainer />
-          <Chat />
+          {channel && <Chat />}
         </>
-      )}
+      }
     </div>
   );
 }
