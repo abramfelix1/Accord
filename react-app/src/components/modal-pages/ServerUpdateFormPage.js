@@ -40,9 +40,7 @@ function ServerUpdateFormPage({ user, setType }) {
     if (serverImage) {
       const formData = new FormData();
       formData.append("image_url", serverImage);
-      await dispatch(uploadServerImageThunk(server.id, formData));
-      await dispatch(uploadServerImageThunk(server.id, formData));
-    }
+      await dispatch(uploadServerImageThunk(server.id, formData));    }
     setType(null);
   };
 

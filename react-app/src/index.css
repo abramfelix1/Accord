@@ -15,6 +15,10 @@ body {
     /* overflow: hidden scroll; */
 }
 
+input {
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
 
 /* body::-webkit-scrollbar {
     display: none;
