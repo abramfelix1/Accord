@@ -150,8 +150,8 @@ function ServerList() {
             </li>
           </Tooltip>
         ))}
-        <ServerHover>
-          <Tooltip text={"Create Server"}>
+        <Tooltip text={"Create Server"}>
+          <ServerHover>
             <li
               id={isModalOpen ? "active-plus" : ""}
               className={`plus`}
@@ -161,10 +161,11 @@ function ServerList() {
             >
               +
             </li>
-          </Tooltip>
-        </ServerHover>
-        <ServerHover>
-          <Tooltip text={"Discover Servers"}>
+          </ServerHover>
+        </Tooltip>
+
+        <Tooltip text={"Discover Servers"}>
+          <ServerHover>
             <li
               id={isModalOpen ? "active-plus" : ""}
               className={`compass`}
@@ -174,8 +175,8 @@ function ServerList() {
             >
               <IoCompassSharp className="compass-icon" />
             </li>
-          </Tooltip>
-        </ServerHover>
+          </ServerHover>
+        </Tooltip>
       </ul>
     </div>
   );
