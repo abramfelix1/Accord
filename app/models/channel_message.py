@@ -16,8 +16,8 @@ class ChannelMessage(db.Model):
     channel_id = db.Column(
         db.Integer(), db.ForeignKey(add_prefix_for_prod("channels.id")), nullable=False
     )
-    created_at = db.Column(db.DateTime(), default=datetime.now)
-    updated_at = db.Column(db.DateTime(), default=datetime.now)
+    created_at = db.Column(db.DateTime(timezone=True), default=db.func.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=db.func.now())
 
     users = db.relationship("User", back_populates="messages")
     channels = db.relationship("Channel", back_populates="messages")

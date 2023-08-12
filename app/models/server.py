@@ -15,8 +15,8 @@ class Server(db.Model):
     )
     name = db.Column(db.String(100), nullable=False)
     image_url = db.Column(db.String())
-    created_at = db.Column(db.DateTime(), default=datetime.now)
-    updated_at = db.Column(db.DateTime(), default=datetime.now)
+    created_at = db.Column(db.DateTime(timezone=True), default=db.func.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=db.func.now())
 
     # many to many with server through members table
     # users = db.relationship("User", secondary="members", cascade="all,delete", back_populates="servers")

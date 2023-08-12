@@ -12,8 +12,8 @@ class PrivateMessage(db.Model):
     message = db.Column(db.String(2000))
     user_id = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     # recipient_id = db.Column(db.Integer(), db.ForeignKey(), nullable=False)
-    created_at = db.Column(db.DateTime(), default=datetime.now)
-    updated_at = db.Column(db.DateTime(), default=datetime.now)
+    created_at = db.Column(db.DateTime(timezone=True), default=db.func.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=db.func.now())
 
 
     def to_dict(self):
