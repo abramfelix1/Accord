@@ -1,18 +1,27 @@
+import eventlet
+eventlet.monkey_patch()
+
 import boto3
+from boto3.s3.transfer import TransferConfig
 import botocore
 import os
 import uuid
 
-
 BUCKET_NAME = os.environ.get("S3_BUCKET")
-S3_LOCATION = f"http://{BUCKET_NAME}.s3.amazonaws.com/"
-ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif"}
+S3_LOCATION = f"https://{BUCKET_NAME}.s3.amazonaws.com/"
+ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif", "svg"}
+CONFIG = TransferConfig(use_threads=False)
 
+# s3 = boto3.client("s3")
 s3 = boto3.client(
    "s3",
    aws_access_key_id=os.environ.get("S3_KEY"),
-   aws_secret_access_key=os.environ.get("S3_SECRET")
+   aws_secret_access_key=os.environ.get("S3_SECRET"),
 )
+
+
+def allowed_file(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 def get_unique_filename(filename):
@@ -22,35 +31,19 @@ def get_unique_filename(filename):
 
 
 def upload_file_to_s3(file, acl="public-read"):
-    print(BUCKET_NAME,'**************************')
-    print(file,'**************************')
+
+    print("IN FILE UPLOAD", file)
+    print("s3 key", os.environ.get("S3_KEY"))
     try:
         s3.upload_fileobj(
             file,
             BUCKET_NAME,
             file.filename,
-            ExtraArgs={
-                "ACL": acl,
-                "ContentType": file.content_type
-            }
+            ExtraArgs={"ACL": acl, "ContentType": file.content_type},
+            Config=CONFIG,
         )
-
     except Exception as e:
-        # in case the your s3 upload fails
+        # in case the our s3 upload fails
         return {"errors": str(e)}
 
-    return {"url": f"{S3_LOCATION}{file.filename}"}
-
-
-def remove_file_from_s3(image_url):
-    # AWS needs the image file name, not the URL,
-    # so you split that out of the URL
-    key = image_url.rsplit("/", 1)[1]
-    try:
-        s3.delete_object(
-        Bucket=BUCKET_NAME,
-        Key=key
-        )
-    except Exception as e:
-        return { "errors": str(e) }
-    return True
+    return {"url": f"{S3_LOCATION}{file.filename}`"}
