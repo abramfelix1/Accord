@@ -12,17 +12,13 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 function ServerSetting() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { deleteServerConfirmationModal } = useContext(ModalContext)
+
   const { serverid, channelid } = useParams();
   const user = useSelector((state) => state.session.user);
   const server = useSelector((state) => state.servers[serverid]);
 
   const { serverProfileSettingModal, setType } = useContext(ModalContext);
-
-  const deleteServerHandleSubmit = async () => {
-    await dispatch(deleteServerThunk(server.id));
-    setType(null);
-    return history.push("/app");
-  };
 
   return (
     server ? (
@@ -48,7 +44,7 @@ function ServerSetting() {
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <p
                     className="setting-navigation-section-name delete-server"
-                    onClick={(e) => deleteServerHandleSubmit()}
+                    onClick={(e) => deleteServerConfirmationModal()}
                   >
                     Delete Server <BiSolidTrash style={{ marginLeft: "7px" }} />
                   </p>
