@@ -55,7 +55,7 @@ def add_server(data):
             "Message": f"Joined Server: {data['server_id']}",
             "Users": f"Online Users: {online_users}",
         },
-        broadcast=True,
+        broadcast=False,
     )
 
 

@@ -53,7 +53,7 @@ function Main() {
         }
       }
     })();
-    addServer();
+    addServer(serverid);
   }, [serverid]);
 
   useEffect(() => {
