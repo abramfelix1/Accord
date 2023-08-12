@@ -114,11 +114,11 @@ export const dateFormat = (date) => {
     const newDate = new Date();
     let newFormattedDate = "";
   // gets the time of the created at date and split between HR/MIN
-    const time = date.slice(17, 22);
+    const time = date.slice(16, 21);
 
   // if the chat was made today, it will set the time today
   // with format of "Today at 1:18 AM"
-    if (newDate.toDateString().slice(0, 3) === date.slice(0, 3)) {
+    if (newDate.toString().slice(0, 3) === date.slice(0, 3)) {
         newFormattedDate += `Today at ${timeConversion(time)}`;
 
         return newFormattedDate;
@@ -126,7 +126,6 @@ export const dateFormat = (date) => {
 
     if (wasItCreatedYesterday(date.toString().slice(0, 3))) {
         newFormattedDate += `Yesterday at ${timeConversion(time)}`;
-
         return newFormattedDate;
     }
 
