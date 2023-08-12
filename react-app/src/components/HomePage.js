@@ -28,18 +28,21 @@ import "./Main.css";
 import { getChannels } from "../store/channels";
 import { useHistory } from "react-router-dom/";
 import { getUserServersThunk } from "../store/user";
-// import { useContext } from "react";
 
 function HomePage() {
   const history = useHistory();
   const { serverid, channelid } = useParams();
   const dispatch = useDispatch();
   const { channel, setChannel } = useContext(ChannelContext);
+  const { serversFetched, setServersFetched } = useContext(InfoContext);
   const { server, setServer, setIsLoaded } = useContext(InfoContext);
   const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
-    if (user) dispatch(getUserServersThunk());
+    if (user && !serversFetched)
+      dispatch(getUserServersThunk()).then(() => {
+        setServersFetched(true);
+      });
   }, []);
 
   if (!user) return <Redirect to="/login" />;
