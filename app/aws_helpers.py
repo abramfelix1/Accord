@@ -1,5 +1,4 @@
 import eventlet
-eventlet.monkey_patch()
 
 import boto3
 from boto3.s3.transfer import TransferConfig
@@ -10,13 +9,17 @@ import uuid
 BUCKET_NAME = os.environ.get("S3_BUCKET")
 S3_LOCATION = f"https://{BUCKET_NAME}.s3.amazonaws.com/"
 ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif", "svg"}
-CONFIG = TransferConfig(use_threads=False)
+CONFIG = None
+
+if os.environ.get("FLASK_ENV") == "production":
+    eventlet.monkey_patch()
+    CONFIG = TransferConfig(use_threads=False)
 
 # s3 = boto3.client("s3")
 s3 = boto3.client(
-   "s3",
-   aws_access_key_id=os.environ.get("S3_KEY"),
-   aws_secret_access_key=os.environ.get("S3_SECRET"),
+    "s3",
+    aws_access_key_id=os.environ.get("S3_KEY"),
+    aws_secret_access_key=os.environ.get("S3_SECRET"),
 )
 
 
@@ -31,7 +34,6 @@ def get_unique_filename(filename):
 
 
 def upload_file_to_s3(file, acl="public-read"):
-
     print("IN FILE UPLOAD", file)
     print("s3 key", os.environ.get("S3_KEY"))
     try:
@@ -40,12 +42,15 @@ def upload_file_to_s3(file, acl="public-read"):
             BUCKET_NAME,
             file.filename,
             ExtraArgs={"ACL": acl, "ContentType": file.content_type},
-            Config=CONFIG,
+            # Config=CONFIG,
         )
     except Exception as e:
         # in case the our s3 upload fails
         return {"errors": str(e)}
 
-    print(file.filename, "&**********&**********&**********&**********&**********&**********&**********&**********&**********")
+    print(
+        file.filename,
+        "&**********&**********&**********&**********&**********&**********&**********&**********&**********",
+    )
 
     return {"url": f"{S3_LOCATION}{file.filename}"}
