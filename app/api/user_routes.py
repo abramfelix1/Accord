@@ -49,7 +49,6 @@ def update_user():
     if form.validate_on_submit():
         current_user.username = form.data['username']
         current_user.display_name = form.data['display_name']
-        current_user.image_url = form.data['image_url']
 
         db.session.commit()
 

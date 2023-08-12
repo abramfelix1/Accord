@@ -67,7 +67,7 @@ export const updateUserThunk =
     if (response.ok) {
       const userData = await response.json();
       dispatch(updateUser(userData));
-
+      dispatch(getAllUsersThunk())
       return userData;
     }
   };
