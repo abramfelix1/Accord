@@ -202,7 +202,7 @@ def add_server_image(id):
         image = form.data["image_url"]
         image.filename = get_unique_filename(image.filename)
         upload = upload_file_to_s3(image)
-        print(upload, "*************************************************************")
+
         if "url" in upload:
             url = upload["url"]
             server.image_url = url

@@ -71,7 +71,6 @@ def get_user_servers():
 
     server_ids = []
     for member in members:
-        print(member)
         server_ids.append(member.to_dict()["server_id"])
 
     servers = [
@@ -84,9 +83,6 @@ def get_user_servers():
 @user_routes.route("/image", methods=["PUT", "PATCH"])
 @login_required
 def add_user_image():
-    print(
-        "********************************* BEFORE THE SUBMIT ***************************"
-    )
 
     form = UserImageForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
@@ -94,9 +90,7 @@ def add_user_image():
     if form.validate_on_submit():
         image = form.data["image_url"]
         image.filename = get_unique_filename(image.filename)
-        print(image)
         upload = upload_file_to_s3(image)
-        print(upload, "DASDSADSADSADSADSADASDADADSADASD")
 
         if "url" in upload:
             url = upload["url"]
@@ -104,5 +98,4 @@ def add_user_image():
             db.session.commit()
             return current_user.to_dict()
 
-    print("DASD NOT THROGIH DASDADSADSADADSA")
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401

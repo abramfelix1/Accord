@@ -36,7 +36,6 @@ def password_check(form, field):
 def display_name_check(form, field):
     display_name = field.data
 
-    print(display_name, len(display_name))
     if len(display_name) > 32:
         raise ValidationError('Display name must be 32 characters or less.')
 
