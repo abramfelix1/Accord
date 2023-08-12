@@ -3,7 +3,7 @@ import "./landing-css/LandingFooter.css";
 import { NavLink } from "react-router-dom";
 import jon from "../../images/jon.png";
 import abram from "../../images/abram.jpg";
-// import randy from "../../images/randy.png";
+import randy from "../../images/randy.png";
 import { BsLinkedin, BsGithub } from 'react-icons/bs'
 
 function LandingFooter() {
@@ -30,7 +30,7 @@ function LandingFooter() {
           </div>
           <div className="developer-wrapper">
             <p>Randy Hac</p>
-            <img src={''} alt="randy" className="developer-image" />
+            <img src={randy} alt="randy" className="developer-image" />
             <div className="developer-links">
               <a to="https://github.com/randydhack" target="_blank" className="github"><BsGithub /> GitHub</a>
               <a to="https://www.linkedin.com/in/randy-hac-4577a71b0/" target="_blank" className="linkedin"><BsLinkedin />LinkedIn</a>
