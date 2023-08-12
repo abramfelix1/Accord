@@ -29,7 +29,9 @@ function DiscoverServerModal() {
   };
 
   const initials = (serverName) => {
+    if (!serverName) return
     let res = "";
+    serverName.trim()
     const serverNameArr = serverName.split(" ");
 
     for (let i = 0; i < serverNameArr.length; i++) {
@@ -88,7 +90,7 @@ function DiscoverServerModal() {
                 ) : (
                   <div>
                     <div className="server-banner"></div>
-                    <div className="discovery-initial-server-name">{initials(server.name)}</div>
+                    <div className="discovery-initial-server-name">{initials(server?.name)}</div>
                   </div>
                 )}
                 <div className="server-discovery-content">
