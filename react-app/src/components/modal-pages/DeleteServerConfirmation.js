@@ -1,10 +1,11 @@
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import { leaveServerThunk } from "../../store/members";
 import { ModalContext } from "../../context/modalContext";
 
 import "./modal-css/DeleteServerConfirmation.css";
+import { deleteServerThunk } from "../../store/server";
 
 function DeleteServerConfirmation({ setType }) {
   const dispatch = useDispatch();
@@ -12,14 +13,14 @@ function DeleteServerConfirmation({ setType }) {
   const { serverid } = useParams();
   const server = useSelector((state) => state.servers[serverid]);
 
-  const { serverSettingModal } = useContext(ModalContext)
+  const { serverSettingModal } = useContext(ModalContext);
 
   const [name, setName] = useState("");
   const [error, setError] = useState(false);
 
-  const leaveServerHandleSubmit = async () => {
+  const deleteServerHandleSubmit = async () => {
     if (name === server.name) {
-      await dispatch(leaveServerThunk(server.id));
+      await dispatch(deleteServerThunk(server.id));
       setType(null);
       return history.push("/app");
     } else {
@@ -50,7 +51,7 @@ function DeleteServerConfirmation({ setType }) {
                 width: "390px",
                 margin: "0px",
                 lineHeight: "20px",
-                fontWeight: 'thin'
+                fontWeight: "thin",
               }}
             >
               Are you sure you want to delete{" "}
@@ -77,12 +78,15 @@ function DeleteServerConfirmation({ setType }) {
 
         <div className="delete-server-cancel-submit">
           <div style={{ display: "flex", padding: "15px 15px 15px 20px" }}>
-            <p className="cancel-leave-server" onClick={(e) => serverSettingModal()}>
+            <p
+              className="cancel-leave-server"
+              onClick={(e) => serverSettingModal()}
+            >
               Cancel
             </p>
             <button
               className="leave-server-button"
-              onClick={(e) => leaveServerHandleSubmit()}
+              onClick={(e) => deleteServerHandleSubmit()}
             >
               Leave Server
             </button>
