@@ -32,7 +32,7 @@ function DeleteServerConfirmation({ setType }) {
       <div className="inner-delete-server">
         <div style={{ padding: "3px 10px 0px 15px" }}>
           <h1 style={{ color: "#F2F3F5", fontSize: "19px", textAlign: "left" }}>
-            Leave '{server.name}'
+            Delete '{server.name}'
           </h1>
         </div>
         <div style={{ padding: "10px 15px 0px 15px" }}>
