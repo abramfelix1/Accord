@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Chat from "./Chat";
 import MessageContainer from "./MessageContainer";
 import { ChannelContext } from "../../context/channelContext";
+import ChatLoading from "../loading/ChatLoading";
 
 function ChatBox() {
   const { channel } = useContext(ChannelContext);

@@ -17,6 +17,8 @@ import * as messageActions from "../store/message";
 import * as memberActions from "../store/members";
 import "./Main.css";
 import { useHistory } from "react-router-dom/";
+import { getUserServersThunk } from "../store/user";
+import { joinServer, startListeners } from "./utils/Socket";
 
 function Main() {
   const history = useHistory();
@@ -27,15 +29,27 @@ function Main() {
   const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
+    if (user) {
+      //
+      startListeners();
+      joinServer(user.id);
+    }
+    dispatch(getUserServersThunk());
+    // return () => {
+    //   disconnectSockets();
+    // };
+  }, []);
+
+  useEffect(() => {
     let isMounted = true;
     (async () => {
       if (serverid) {
         try {
           setIsLoaded(false);
-
-          let a = dispatch(memberActions.getServerMembersThunk(serverid));
-          let b = await dispatch(channelActions.getChannels(serverid));
+          let a = await dispatch(getUserServersThunk());
+          let b = dispatch(channelActions.getChannels(serverid));
           let c = dispatch(messageActions.getMessages(channelid));
+          let d = dispatch(memberActions.getServerMembersThunk(serverid));
 
           if (isMounted) {
             setIsLoaded(true);
