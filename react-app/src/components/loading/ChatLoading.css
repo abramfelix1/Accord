@@ -57,3 +57,9 @@
   /* overflow-y: hidden; */
   overflow-x: hidden;
 }
+
+.chat-container.loading::-webkit-scrollbar-thumb {
+  background: #2d2d2d;
+  border-radius: 15px;
+  display: none;
+}
