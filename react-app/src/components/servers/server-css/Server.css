@@ -216,10 +216,29 @@ efgweiyufbieu bgeu eir bgij;rgeb;brejbg iub  re;bgerug
 
 .server-line {
   background-color: white;
-  height: 40px;
+  height: 20px;
   width: 5px;
   position: absolute;
-  bottom: 15px;
+  bottom: 25px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  opacity: 0; /* Default hidden state */
+  transition: none; /* No transition by default */
+}
+
+.server-hover:hover .server-line {
+  opacity: 1; /* Show it on hover */
+  width: 4px;
+  transition: opacity 0.3s ease-in, width 1.3s ease-in; /* Apply transition only on hover */
+}
+
+/* If you're using classes for showing/hiding, adjust the following */
+.server-line.hidden {
+  opacity: 0;
+  width: 4px; /* Set it back to the default width */
+}
+
+.server-line.visible {
+  opacity: 1;
+  width: 4px;
 }

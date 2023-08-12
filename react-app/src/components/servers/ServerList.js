@@ -119,8 +119,9 @@ function ServerList() {
             <img className="server-logo" src={logo} alt="logo" />
           </div>
         </Tooltip> */}
-        <ServerHover>
-          <Tooltip text={"Get Started"}>
+
+        <Tooltip text={"Get Started"}>
+          <ServerHover>
             <NavLink
               to="/app"
               className={`servers servers-friend-button ${
@@ -130,24 +131,24 @@ function ServerList() {
             >
               <img className="server-logo" src={logo} alt="logo" />
             </NavLink>
-          </Tooltip>
-        </ServerHover>
+          </ServerHover>
+        </Tooltip>
         {/* <div className="servers" onClick={e => handleActiveButton(e)}>Private Call</div> */}
       </div>
       <div className="border-between-layer"></div>
       <ul className="server-bottom-layer">
         {reverseArray([...userServers]).map((server) => (
-          <ServerHover>
-            <Tooltip key={server.id} text={server.name}>
-              <li className="server-list-wrapper">
-                {/* need to set proper link to where to navigate too */}
-                <ServerCard
-                  serverInfo={server}
-                  handleActiveButton={handleActiveButton}
-                />
-              </li>
-            </Tooltip>
-          </ServerHover>
+          <Tooltip key={server.id} text={server.name}>
+            <li className="server-list-wrapper">
+              {/* <ServerHover> */}
+              {/* need to set proper link to where to navigate too */}
+              <ServerCard
+                serverInfo={server}
+                handleActiveButton={handleActiveButton}
+              />
+              {/* </ServerHover> */}
+            </li>
+          </Tooltip>
         ))}
         <ServerHover>
           <Tooltip text={"Create Server"}>

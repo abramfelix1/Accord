@@ -12,7 +12,7 @@ function ServerHover({ children }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {isHovered && <div className="server-line" />}
+      <div className={`server-line ${isHovered ? "visible" : "hidden"}`} />
       {children}
     </div>
   );
