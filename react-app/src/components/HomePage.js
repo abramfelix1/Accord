@@ -38,6 +38,10 @@ function HomePage() {
   const { server, setServer, setIsLoaded } = useContext(InfoContext);
   const user = useSelector((state) => state.session.user);
 
+  useEffect(() => {
+    if (user) dispatch(getUserServersThunk());
+  }, []);
+
   if (!user) return <Redirect to="/login" />;
 
   return (
