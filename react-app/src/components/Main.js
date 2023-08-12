@@ -8,7 +8,7 @@ import ServerMemberList from "./servers/ServerMemberList";
 import Modal from "./utils/Modal";
 import { InfoContext } from "../context/infoContext";
 import { ChannelContext } from "../context/channelContext";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 import * as serverActions from "../store/server";
@@ -23,6 +23,8 @@ import { joinServer, startListeners } from "./utils/Socket";
 function Main() {
   const history = useHistory();
   const { serverid, channelid } = useParams();
+  const [serversFetched, setServersFetched] = useState(false);
+
   const dispatch = useDispatch();
   const { channel, setChannel } = useContext(ChannelContext);
   const { server, setServer, setIsLoaded } = useContext(InfoContext);
@@ -33,43 +35,40 @@ function Main() {
       startListeners();
       joinServer(user.id);
     }
-    dispatch(getUserServersThunk());
+    dispatch(getUserServersThunk()).then(() => {
+      setServersFetched(true);
+    });
   }, []);
 
   useEffect(() => {
     (async () => {
-      try {
-        await dispatch(serverActions.getServerThunk(serverid));
-      } catch (err) {
-        return history.push(`/app`);
+      if (serverid) {
+        try {
+          await dispatch(serverActions.getServerThunk(serverid));
+        } catch (err) {
+          return history.push(`/app`);
+        }
       }
     })();
   }, [serverid]);
 
   useEffect(() => {
-    let isMounted = true;
+    if (!serversFetched) return;
     (async () => {
-      if (serverid) {
+      if (channelid) {
         try {
           setIsLoaded(false);
           let channel = await dispatch(channelActions.getChannels(serverid));
           dispatch(messageActions.getMessages(channelid));
           dispatch(memberActions.getServerMembersThunk(serverid));
-          if (isMounted) {
-            setIsLoaded(true);
-            setChannel(channel);
-          }
+          setIsLoaded(true);
+          setChannel(channel);
         } catch (err) {
-          if (!isMounted) {
-            return history.push(`/app`);
-          }
+          return history.push(`/app`);
         }
       }
     })();
-    return () => {
-      isMounted = false;
-    };
-  }, [serverid, channelid]);
+  }, [serverid, channelid, serversFetched]);
 
   if (!user) return <Redirect to="/login" />;
 
