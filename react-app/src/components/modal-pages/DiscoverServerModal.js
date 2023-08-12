@@ -28,6 +28,23 @@ function DiscoverServerModal() {
     );
   };
 
+  const initials = (serverName) => {
+    let res = "";
+    const serverNameArr = serverName.split(" ");
+
+    for (let i = 0; i < serverNameArr.length; i++) {
+      let word = serverNameArr[i];
+      // console.log(typeof word === "string", "---------------")
+      if (word && typeof word === "string") {
+        res += word[0].toUpperCase();
+      }
+    }
+    if (res.length >= 3) {
+      return res.slice(0, 3);
+    }
+    return res;
+  };
+
   return (
     servers && (
       <div className="discover-server">
@@ -71,7 +88,7 @@ function DiscoverServerModal() {
                 ) : (
                   <div>
                     <div className="server-banner"></div>
-                    <div className="discovery-initial-server-name">{"WTF"}</div>
+                    <div className="discovery-initial-server-name">{initials(server.name)}</div>
                   </div>
                 )}
                 <div className="server-discovery-content">
