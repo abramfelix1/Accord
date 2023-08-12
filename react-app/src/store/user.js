@@ -98,7 +98,7 @@ export const uploadProfileImageThunk = (image) => async (dispatch) => {
 
   if (res.ok) {
     const data = await res.json();
-    dispatch(updateUserImage());
+    dispatch(updateUserImage(data));
     return data;
   }
 };
