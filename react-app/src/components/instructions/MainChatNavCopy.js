@@ -7,6 +7,7 @@ import "../chat/chat-css/ChatNav.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { ModalContext } from "../../context/modalContext";
 import { BiSolidCog } from "react-icons/bi";
+import TooltipTwo from "../utils/TooltipTwo";
 
 function MainChatNavCopy() {
     const { channel, setChannel } = useContext(ChannelContext);
@@ -28,12 +29,14 @@ function MainChatNavCopy() {
                 </div> */}
             </div>
             <div className="instruction-menu-wrapper">
-                <BiSolidCog
-                        className="instruction-cog cog"
-                        style={{ marginRight: "6px" }}
-                        onClick={e => userAccountModal()}
-                    />
-                </div>
+                <TooltipTwo text={"User Settings"}>
+                    <BiSolidCog
+                            className="instruction-cog cog"
+                            style={{ marginRight: "6px" }}
+                            onClick={e => userAccountModal()}
+                        />
+                </TooltipTwo>
+            </div>
         </div>
         </>
     );

@@ -1,0 +1,76 @@
+
+
+/* ------------------ tooltip ------------------------ */
+.tooltip {
+    position: relative;
+    /* display: inline; */
+}
+
+.tooltiptext {
+    position: fixed;
+    color: #b8bdc5;
+    text-align: center;
+    max-width: 300px;
+    padding: 5px 10px;
+    background-color: rgb(18, 18, 18);
+    border-radius: 6px;
+    box-shadow: 1px 1px 7px rgb(10, 10, 10);
+    font-size: 17px;
+    z-index: 1000;
+    width: fit-content;
+    overflow-wrap: break-word;
+    white-space: normal;
+    /* opacity: 0;
+    transition: opacity 1s ; */
+}
+
+
+.tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 30%;
+    left: -8px;
+    margin-left: -5px;
+    border-width: 7px;
+    border-style: solid;
+    border-color: transparent rgb(18, 18, 18) transparent transparent;
+}
+
+
+/* ------------------ TooltipTwo ------------------------ */
+.tooltip-two {
+    position: relative;
+    /* display: inline; */
+}
+
+.tooltiptext-two {
+    position: absolute;
+    color: #b8bdc5;
+    text-align: center;
+    max-width: 300px;
+    padding: 5px 10px;
+    background-color: rgb(18, 18, 18);
+    border-radius: 6px;
+    box-shadow: 1px 1px 7px rgb(10, 10, 10);
+    font-size: 17px;
+    z-index: 1000;
+    width: fit-content;
+    overflow-wrap: break-word;
+    white-space: normal;
+    right: 30px;
+    top: 38px;
+    /* opacity: 0;
+    transition: opacity 1s ; */
+}
+
+
+.tooltiptext-two::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    right: 0px;
+    margin-left: -5px;
+    border-width: 7px;
+    border-style: solid;
+    border-color: transparent transparent rgb(18, 18, 18) transparent;
+}
