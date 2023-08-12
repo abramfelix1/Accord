@@ -34,7 +34,6 @@ function Main() {
       startListeners();
       joinServer(user.id);
     }
-    dispatch(getUserServersThunk());
     // return () => {
     //   disconnectSockets();
     // };
@@ -50,6 +49,7 @@ function Main() {
           let b = dispatch(channelActions.getChannels(serverid));
           let c = dispatch(messageActions.getMessages(channelid));
           let d = dispatch(memberActions.getServerMembersThunk(serverid));
+          let e = dispatch(serverActions.getServer());
 
           if (isMounted) {
             setIsLoaded(true);
