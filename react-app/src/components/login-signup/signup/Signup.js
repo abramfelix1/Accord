@@ -2,6 +2,8 @@ import { Link, Redirect } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../../../store/session";
+import { resetServers } from "../../../store/servers";
+import { getUserServersThunk } from "../../../store/user";
 import "./Signup.css";
 
 function SignupPage() {
@@ -23,6 +25,8 @@ function SignupPage() {
     setErrors({});
 
     const data = await dispatch(signUp(username, displayName, email, password));
+    await dispatch(resetServers());
+    await dispatch(getUserServersThunk());
     if (data) {
       setErrors(data);
       console.log(errors);
