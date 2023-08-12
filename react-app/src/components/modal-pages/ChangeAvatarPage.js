@@ -1,16 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import { Redirect, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect, useContext } from "react";
 import { uploadProfileImageThunk } from "../../store/user";
 import { BiSolidImageAdd } from "react-icons/bi";
 import { IoCloseOutline } from "react-icons/io5";
 import { FaThumbsUp } from "react-icons/fa";
 import { ModalContext } from "../../context/modalContext";
+import { getServerMembersThunk } from "../../store/members";
 
 function ChangeAvatarPage({ setType }) {
   const dispatch = useDispatch();
   const { userAccountModal } = useContext(ModalContext);
   const userSession = useSelector((state) => state.session.user);
+  const { serverid, channelid } = useParams();
   const [imageUrl, setImageUrl] = useState();
   const [user, setUser] = useState("");
 
@@ -30,6 +32,7 @@ function ChangeAvatarPage({ setType }) {
     await dispatch(uploadProfileImageThunk(formData));
     setType(null);
     userAccountModal();
+    dispatch(getServerMembersThunk(serverid));
   };
 
   const exitChangeAvatar = () => {
