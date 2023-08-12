@@ -53,10 +53,10 @@ function DiscoverServerModal() {
         </div>
         {!servers && <h2>No Available Servers</h2>}
         <div className="discover-server-list-wrapper">
-          {servers.map((server) => {
+          {servers.map((server, idx) => {
             return (
               <li
-                key={server.id}
+                key={`${server.id}${idx}`}
                 className="discover-server-list"
                 onClick={(e) => joinServerHandler(server.id)}
               >

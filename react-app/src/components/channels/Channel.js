@@ -34,6 +34,8 @@ function Channel() {
     }
   });
 
+  console.log(channels)
+
   // Contexts
   const { setChannel } = useContext(ChannelContext);
   const { createChannelModal, channelSettingModal } = useContext(ModalContext);
@@ -105,7 +107,7 @@ function Channel() {
               {showTextChannel ? (
                 <li>
                   {channels.map((channel, idx) => {
-                    return (
+                    return channel.id && (
                       <div
                         key={`${channel.id}${idx}`}
                         className={
