@@ -1,6 +1,9 @@
 /* TODO Add site wide styles */
-html, body {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+html,
+body {
+    /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+    font-family: 'Noto Sans JP', sans-serif;
+    /* font-family: 'Open Sans', sans-serif; */
     padding: 0px;
     margin: 0px;
     height: 100%;

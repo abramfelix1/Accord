@@ -62,7 +62,7 @@ function LeaveServerPage() {
       </div>
     </div>
   ) : (
-    <div>hi</div>
+    <div></div>
   );
 }
 

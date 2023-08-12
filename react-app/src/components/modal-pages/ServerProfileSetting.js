@@ -18,7 +18,7 @@ function ServerProfileSetting() {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
-  const { serverSettingModal, setType } = useContext(ModalContext);
+  const { serverSettingModal, setType, deleteServerConfirmationModal } = useContext(ModalContext);
   const { server } = useContext(InfoContext);
   // console.log(user, 'current server members')
   const [nickname, setNickname] = useState("");
@@ -72,7 +72,7 @@ function ServerProfileSetting() {
               <div style={{ display: "flex", alignItems: "center" }}>
                 <p
                   className="setting-navigation-section-name delete-server"
-                  onClick={(e) => deleteServerHandleSubmit()}
+                  onClick={(e) => deleteServerConfirmationModal()}
                 >
                   Delete Server <BiSolidTrash style={{ marginLeft: "7px" }} />
                 </p>
