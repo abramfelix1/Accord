@@ -50,6 +50,11 @@ export function joinServer(user_id) {
   });
 }
 
+export function addServer(server_id) {
+  console.log("***EMIT ADD SERVER***");
+  socket.emit("add_server", { server_id: server_id });
+}
+
 export function chatUpdate(payload) {
   console.log("***EMIT CHAT UPDATE***");
   socket.emit("chat_update", payload);
