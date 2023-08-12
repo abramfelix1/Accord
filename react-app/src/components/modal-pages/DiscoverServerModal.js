@@ -29,7 +29,9 @@ function DiscoverServerModal() {
   };
 
   const initials = (serverName) => {
+    if (!serverName) return
     let res = "";
+    serverName.trim()
     const serverNameArr = serverName.split(" ");
 
     for (let i = 0; i < serverNameArr.length; i++) {
