@@ -9,6 +9,7 @@ export const InfoProvider = ({ children }) => {
   const [editMessageId, setEditMessageId] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const [message, setMessage] = useState(null);
+  const [serversFetched, setServersFetched] = useState(false);
 
   useEffect(() => {
     // console.log("Server Context:");
@@ -34,6 +35,8 @@ export const InfoProvider = ({ children }) => {
         setShowEditField,
         editMessageId,
         setEditMessageId,
+        serversFetched,
+        setServersFetched,
       }}
     >
       {children}

@@ -23,11 +23,11 @@ import { joinServer, startListeners } from "./utils/Socket";
 function Main() {
   const history = useHistory();
   const { serverid, channelid } = useParams();
-  const [serversFetched, setServersFetched] = useState(false);
 
   const dispatch = useDispatch();
   const { channel, setChannel } = useContext(ChannelContext);
-  const { server, setServer, setIsLoaded } = useContext(InfoContext);
+  const { server, setServer, setIsLoaded, serversFetched, setServersFetched } =
+    useContext(InfoContext);
   const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
@@ -35,9 +35,11 @@ function Main() {
       startListeners();
       joinServer(user.id);
     }
-    dispatch(getUserServersThunk()).then(() => {
-      setServersFetched(true);
-    });
+    if (!serversFetched) {
+      dispatch(getUserServersThunk()).then(() => {
+        setServersFetched(true);
+      });
+    }
   }, []);
 
   useEffect(() => {
