@@ -50,17 +50,16 @@ const serversReducer = (state = initialState, action) => {
       return { ...newState };
     }
     case memberActions.JOIN_SERVER: {
-      console.log("JOIN PAYLOAD:", action.payload);
       const { server } = action.payload;
       if (newState[server.id]) {
         return {
           ...newState,
-          [server.id]: { ...server, channels: {messages: {}}, members: {} },
+          [server.id]: { ...server, channels: { messages: {} }, members: {} },
         };
       } else {
         return {
           ...newState,
-          [server.id]: { ...server, channels: {messages: {}}, members: {} },
+          [server.id]: { ...server, channels: { messages: {} }, members: {} },
         };
       }
     }
