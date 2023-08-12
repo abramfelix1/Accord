@@ -2,6 +2,7 @@ export const UPDATE_USER = "user/UPDATE_USER";
 export const GET_USER_SERVERS = "user/GET_USER_SERVERS";
 export const GET_ALL_USERS = "user/GET_ALL_USERS";
 export const GET_USER = "user/GET_USER";
+export const UPDATE_IMAGE = "user/UPDATE_IMAGE";
 
 // -------------------------------- Action Creators --------------------------------
 const getAllUsers = (users) => ({
@@ -22,6 +23,11 @@ export const updateUser = (user) => ({
 export const getUserServers = (server) => ({
   type: GET_USER_SERVERS,
   payload: server,
+});
+
+export const updateUserImage = (payload) => ({
+  type: UPDATE_IMAGE,
+  payload,
 });
 
 // -------------------------------- Thunk Creators --------------------------------
@@ -67,7 +73,7 @@ export const updateUserThunk =
     if (response.ok) {
       const userData = await response.json();
       dispatch(updateUser(userData));
-      dispatch(getAllUsersThunk())
+      dispatch(getAllUsersThunk());
       return userData;
     }
   };
@@ -92,6 +98,7 @@ export const uploadProfileImageThunk = (image) => async (dispatch) => {
 
   if (res.ok) {
     const data = await res.json();
+    dispatch(updateUserImage());
     return data;
   }
 };
