@@ -64,8 +64,8 @@ const MessageWrapperBlock = ({ numWrappers }) => {
 const ChatLoading = () => {
   return (
     <>
-      <div className="main-chat-and-input-container">
-        <div className="chat-container">
+      <div className="main-chat-and-input-container loading">
+        <div className="chat-container loading">
           <div>
             <MessageWrapperBlock numWrappers={10} />
           </div>
