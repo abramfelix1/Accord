@@ -47,6 +47,9 @@ const Chat = () => {
       return [];
     }
   });
+  const channels = useSelector((state) =>
+    Object.values(state.servers[serverid].channels)
+  );
 
   const dispatch = useDispatch();
 
@@ -121,11 +124,13 @@ const Chat = () => {
                 );
               })}
           </div>
-          <ChatInputField
-            sendChat={sendChat}
-            chatInput={chatInput}
-            updateChatInput={updateChatInput}
-          />
+          {channels.length && (
+            <ChatInputField
+              sendChat={sendChat}
+              chatInput={chatInput}
+              updateChatInput={updateChatInput}
+            />
+          )}
         </div>
       )}
     </>

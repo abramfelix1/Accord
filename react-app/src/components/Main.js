@@ -46,7 +46,8 @@ function Main() {
     (async () => {
       if (serverid) {
         try {
-          await dispatch(serverActions.getServerThunk(serverid));
+          const server = await dispatch(serverActions.getServerThunk(serverid));
+          setServer(server);
         } catch (err) {
           return history.push(`/app`);
         }
