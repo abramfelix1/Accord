@@ -47,9 +47,16 @@ const Chat = () => {
       return [];
     }
   });
-  const channels = useSelector((state) =>
-    Object.values(state.servers[serverid].channels)
-  );
+  const channels = useSelector((state) => {
+    if (
+      state.servers[serverid] &&
+      state.servers[serverid].channels[channelid]
+    ) {
+      return Object.values(state.servers[serverid].channels);
+    } else {
+      return [];
+    }
+  });
 
   const dispatch = useDispatch();
 
