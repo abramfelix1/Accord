@@ -33,7 +33,6 @@ function UserNav() {
   const handleMicToggleOn = () => {
     // if both are not on
     if (!micOn && !headsetOn) {
-      // console.log(micOn, headsetOn)
       setMicToggle(false);
       setHeadsetToggle(false);
       setMicOn(false);

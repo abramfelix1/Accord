@@ -189,7 +189,6 @@ export const deleteServerThunk = (server_id) => async (dispatch) => {
   // prevent loading issues
   if (res.ok) {
     const data = await res.json();
-    console.log(data, "4444444444444");
     dispatch(deleteServerAction(server_id));
     return data;
   }
@@ -244,16 +243,11 @@ export default function serverReducer(state = initialState, action) {
       return newState;
     // case DELETE_SERVER:
     //   newState = { ...state };
-    //   console.log(action.payload, "4444444444444444444444")
     //   delete newState[action.payload];
     //   return newState;
     case UPDATE_SERVER:
       newState = { ...state };
-      console.log(newState, "newState");
       newState[action.payload.id] = action.payload;
-      console.log(action.payload, "action payload");
-      console.log(newState[action.payload.id], "newstate payload");
-
       return newState;
     default:
       return state;

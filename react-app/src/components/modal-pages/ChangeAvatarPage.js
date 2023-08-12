@@ -28,7 +28,6 @@ function ChangeAvatarPage({ setType }) {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image_url", imageUrl);
-    console.log(formData);
     await dispatch(uploadProfileImageThunk(formData));
     setType(null);
     userAccountModal();

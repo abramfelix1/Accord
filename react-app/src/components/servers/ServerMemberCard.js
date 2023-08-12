@@ -16,13 +16,11 @@ function ServerMemberCard({
   const toggleProfile = () => {
     if (showProfile && selectedMember == member.id) {
       setShowProfile(false);
-      console.log(false, "111111111111111111111111111111111111111111111111111111")
       return;
     } 
     
     setShowProfile(true);
     setActiveMember(true)
-    console.log(true, "111111111111111111111111111111111111111111111111111111")
   };
 
   
