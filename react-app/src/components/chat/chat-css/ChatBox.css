@@ -84,6 +84,7 @@
   overflow-wrap: break-word;
   margin: 0px;
   color: #dbdee1;
+  font-weight: 200;
 }
 
 /* styling for if a user recently sent a message */
@@ -96,5 +97,6 @@
   /* margin: 5px 17px 0px 75px; */
   margin: 0px;
   color: #dbdee1;
+  font-weight: 200;
 
 }
