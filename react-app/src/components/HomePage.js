@@ -85,7 +85,7 @@ function HomePage() {
             <section className="main-section-3" style={{backgroundColor: "rgb(50,51,56)"}}>
                 <MainChatNavCopy />
                 {/* <div className="chatbox-member-container"> */}
-                    <Instructions />
+                <Instructions />
                 {/* </div> */}
             </section>
             </>

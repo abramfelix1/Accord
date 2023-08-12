@@ -2,10 +2,12 @@ import "./instruction-css/Instruction.css";
 import { ModalContext } from "../../context/modalContext";
 import { useContext } from "react";
 import { MdGroups, MdKeyboardArrowRight } from "react-icons/md";
-import { BsGlobe} from 'react-icons/bs'
+import { BsGlobe } from 'react-icons/bs'
+
+
 
 function Instructions() {
-  const { setType, createServerModal, discoverServerModal } =
+  const { setType, createServerModal, discoverServerModal} =
     useContext(ModalContext);
 
   return (
