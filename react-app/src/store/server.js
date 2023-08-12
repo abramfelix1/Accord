@@ -70,7 +70,7 @@ export const updateServerAction = (server) => {
 export const deleteServerAction = (server_id) => {
   return {
     type: DELETE_SERVER,
-    payload: server_id
+    payload: server_id,
   };
 };
 
@@ -114,6 +114,8 @@ export const getServerThunk = (server_id) => async (dispatch) => {
   if (res.ok) {
     const server = await res.json();
     const userServers = await res2.json();
+    console.log("ASDFDASFASDFASDFSDa");
+    console.log(server, userServers);
     let isAllowed = userServers.find((server) => server.id == server_id);
     if (isAllowed) {
       dispatch(getServerAction(server));
@@ -196,7 +198,7 @@ export const deleteServerThunk = (server_id) => async (dispatch) => {
   // prevent loading issues
   if (res.ok) {
     const data = await res.json();
-    console.log(data, "4444444444444")
+    console.log(data, "4444444444444");
     dispatch(deleteServerAction(server_id));
     return data;
   }

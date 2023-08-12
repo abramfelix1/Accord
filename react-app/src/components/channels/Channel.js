@@ -52,7 +52,7 @@ function Channel() {
   const channelClickHandler = (event, channel) => {
     // dispatch(resetServers());
     setChannel(channel);
-    if (event.currentTarget.id !== "active-channel") setIsLoaded(false);
+    // if (event.currentTarget.id !== "active-channel") setIsLoaded(false);
     const current = document.getElementById("active-channel");
     if (current) current.id = "";
     event.currentTarget.id = "active-channel";
@@ -60,7 +60,7 @@ function Channel() {
 
   return (
     <>
-      {user && server && channels && (
+      {user && server && (
         <div className="channel-container">
           <div>
             <ul className="channel-list">
