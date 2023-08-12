@@ -38,18 +38,6 @@ function HomePage() {
   const { server, setServer, setIsLoaded } = useContext(InfoContext);
   const user = useSelector((state) => state.session.user);
 
-  useEffect(() => {
-    if (user) {
-      //
-      startListeners();
-      joinServer(user.id);
-    }
-    dispatch(getUserServersThunk());
-    // return () => {
-    //   disconnectSockets();
-    // };
-  }, []);
-
   if (!user) return <Redirect to="/login" />;
 
   return (
