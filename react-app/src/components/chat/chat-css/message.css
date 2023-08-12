@@ -61,6 +61,14 @@
   border-bottom-right-radius: 6px;
 }
 
+.message-wrapper {
+  margin: 25px 17px 0px 17px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  position: relative;
+  width: 98%;
+}
+
 
 .message-only-wrapper {
   margin: 0px 17px 0px 75px;

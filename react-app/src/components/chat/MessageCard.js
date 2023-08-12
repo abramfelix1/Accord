@@ -20,17 +20,17 @@ function MessageCard({ message }) {
       setEditMessageId={setEditMessageId}
     >
       <div className="message-wrapper">
-        {message.image_url !== null && message.image_url.length >= 1 ? (
-          <img
-            className="chatbox-image"
-            src={message.image_url}
-            alt="chatbox-user-img"
-          />
-        ) : (
-          <div className="chatbox-logo-wrapper">
-            <img className="chatbox-logo" src={logo} alt="logo" />
-          </div>
-        )}
+          {message.image_url !== null && message.image_url.length >= 1 ? (
+            <img
+              className="chatbox-image"
+              src={message.image_url}
+              alt="chatbox-user-img"
+            />
+          ) : (
+            <div className="chatbox-logo-wrapper">
+              <img className="chatbox-logo" src={logo} alt="logo" />
+            </div>
+          )}
         <div className="chat-box-name-date-message-wrapper">
           <div className="chat-box-name-date-wrapper">
             <span className="chat-box-name">
