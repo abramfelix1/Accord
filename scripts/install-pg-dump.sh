@@ -9,7 +9,7 @@ if [[ -z "$POSTGRES_VERSION" ]]; then
 fi
 
 if [[ "$POSTGRES_VERSION" != @(11|12|13|14) ]]; then
-  echo "POSTGRES_VERSION must be one of 11, 12, 13, 14"
+  echo "POSTGRES_VERSION must be one of 11, 12, 13, 14, 15"
   exit 1
 fi
 
