@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "./modal-css/UserAccountPage.css";
 import { IoCloseOutline } from "react-icons/io5";
 import logo from "../../images/accord-logo.png";
-import { BiImageAdd } from 'react-icons/bi'
+import { BiImageAdd } from "react-icons/bi";
 import { ModalContext } from "../../context/modalContext";
 import { getAllServersThunk } from "../../store/server";
 import { updateUserThunk, uploadProfileImageThunk } from "../../store/user";
@@ -27,9 +27,9 @@ function UserAccountFormPage() {
   const [displayName, setDisplayName] = useState("");
 
   const updateUserHandleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     await dispatch(updateUserThunk(user.username, displayName));
-    setType(null)
+    setType(null);
   };
 
   return (
@@ -62,7 +62,7 @@ function UserAccountFormPage() {
                 className="user-profile-picture-setting"
               />
               <div className="add-pfp-icon">
-                <BiImageAdd className="image-edit-icon"/>
+                <BiImageAdd className="image-edit-icon" />
               </div>
             </div>
           )}
@@ -124,7 +124,10 @@ function UserAccountFormPage() {
                       {user.display_name || user.username}
                     </div>
                   </div>
-                  <div className="user-profile-display-form" style={{marginTop: '25px'}}>
+                  <div
+                    className="user-profile-display-form"
+                    style={{ marginTop: "25px" }}
+                  >
                     <label className="user-display-label">Username</label>
                     <div style={{ fontSize: "16px" }}>{user.username}</div>
                   </div>
@@ -139,11 +142,16 @@ function UserAccountFormPage() {
                       type="text"
                       className="account-user-input-field"
                       value={displayName}
-                      placeholder={displayName || user.display_name || user.username}
+                      placeholder={
+                        displayName || user.display_name || user.username
+                      }
                       onChange={(e) => setDisplayName(e.target.value)}
                     />
                   </div>
-                  <div className="user-profile-form-field" style={{marginTop: '5px'}}>
+                  <div
+                    className="user-profile-form-field"
+                    style={{ marginTop: "5px" }}
+                  >
                     <label
                       className="user-display-input-label"
                       style={{
@@ -152,7 +160,9 @@ function UserAccountFormPage() {
                     >
                       Username
                     </label>
-                    <div style={{ fontSize: "16px", marginTop: '2px' }}>{user.username}</div>
+                    <div style={{ fontSize: "16px", marginTop: "2px" }}>
+                      {user.username}
+                    </div>
                   </div>
                 </div>
               )}

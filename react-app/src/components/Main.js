@@ -9,7 +9,7 @@ import Modal from "./utils/Modal";
 import { InfoContext } from "../context/infoContext";
 import { ChannelContext } from "../context/channelContext";
 import { useContext, useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, batch } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 import * as serverActions from "../store/server";
 import * as channelActions from "../store/channels";
@@ -57,16 +57,18 @@ function Main() {
   }, [serverid]);
 
   useEffect(() => {
+    setIsLoaded(false);
     if (!serversFetched) return;
     (async () => {
       if (channelid) {
         try {
-          setIsLoaded(false);
           let channel = await dispatch(channelActions.getChannels(serverid));
-          dispatch(messageActions.getMessages(channelid));
-          dispatch(memberActions.getServerMembersThunk(serverid));
-          setIsLoaded(true);
-          setChannel(channel);
+          batch(() => {
+            dispatch(messageActions.getMessages(channelid));
+            dispatch(memberActions.getServerMembersThunk(serverid));
+            setChannel(channel);
+            setIsLoaded(true);
+          });
         } catch (err) {
           return history.push(`/app`);
         }

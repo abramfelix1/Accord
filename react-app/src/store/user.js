@@ -14,7 +14,7 @@ const getUser = (user) => ({
   payload: user,
 });
 
-const updateUser = (user) => ({
+export const updateUser = (user) => ({
   type: UPDATE_USER,
   payload: user,
 });
@@ -87,15 +87,14 @@ export const getUserServersThunk = () => async (dispatch) => {
 export const uploadProfileImageThunk = (image) => async (dispatch) => {
   const res = await fetch(`/api/users/image`, {
     method: "PUT",
-    body: image
-  })
+    body: image,
+  });
 
   if (res.ok) {
-    const data = await res.json()
-    return data
+    const data = await res.json();
+    return data;
   }
-
-}
+};
 
 // -------------------------------- Reducer --------------------------------
 
@@ -108,9 +107,6 @@ export default function userReducer(state = {}, action) {
       return newState;
 
     case GET_USER:
-      return { user: action.payload };
-
-    case UPDATE_USER:
       return { user: action.payload };
 
     case GET_USER_SERVERS:
