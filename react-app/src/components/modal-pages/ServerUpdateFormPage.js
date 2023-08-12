@@ -20,8 +20,9 @@ function ServerUpdateFormPage({ user, setType }) {
   const [serverImage, setServerImage] = useState("");
 
   const initials = (serverName) => {
+    if (!serverName) return
     let res = "";
-    serverName = serverName.trim();
+    serverName.trim()
     const serverNameArr = serverName.split(" ");
 
     console.log(serverNameArr);
