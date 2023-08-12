@@ -7,15 +7,23 @@ import "./chat-css/ChatNav.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function ChatNav() {
-  const { channel, setChannel } = useContext(ChannelContext);
   const { serverid, channelid } = useParams();
-  const isLoading = useSelector((state) => state.current.isLoading);
-  // const channel = useSelector((state) => state.current.channel);
+  const channel = useSelector((state) => {
+    if (
+      state.servers[serverid] &&
+      state.servers[serverid].channels &&
+      state.servers[serverid].channels[channelid]
+    ) {
+      return state.servers[serverid].channels[channelid];
+    } else {
+      return [];
+    }
+  });
 
   return (
     <>
       <div className="live-chat-container">
-        {!isLoading && channel && serverid && (
+        {
           <div className="inner-live-chat-container">
             <div style={{ display: "flex", alignItems: "center" }}>
               <RiHashtag
@@ -25,14 +33,14 @@ function ChatNav() {
                   fontSize: "26px",
                 }}
               />{" "}
-              <span>{channel.name}</span>
+              {channel && <span>{channel.name}</span>}
             </div>
-            <div>
+            {/* <div>
               <RiInboxFill className="inbox-icon" />
               <AiFillQuestionCircle className="question-icon " />
-            </div>
+            </div> */}
           </div>
-        )}
+        }
       </div>
     </>
   );

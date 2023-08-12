@@ -19,7 +19,7 @@ const updateUser = (user) => ({
   payload: user,
 });
 
-const getUserServers = (server) => ({
+export const getUserServers = (server) => ({
   type: GET_USER_SERVERS,
   payload: server,
 });
@@ -91,7 +91,7 @@ export const uploadProfileImageThunk = (image) => async (dispatch) => {
   })
 
   if (res.ok) {
-    const data = res.json()
+    const data = await res.json()
     return data
   }
 

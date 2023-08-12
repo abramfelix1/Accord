@@ -7,31 +7,38 @@ import { ModalContext } from "../../context/modalContext";
 import { editChannel, removeChannel, getChannels } from "../../store/channels";
 
 import { BiSolidTrash } from "react-icons/bi";
+import { getServer, getServerThunk } from "../../store/server";
 
 function ChannelSettingPage() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { channelCog } = useContext(InfoContext);
+  const { channelCog, setIsLoaded } = useContext(InfoContext);
   const { setType } = useContext(ModalContext);
-  const server = useSelector((state) => state.current.server);
+  const { serverid, channelid } = useParams();
+  const server = useSelector((state) => state.servers[serverid]);
 
   const [channelName, setChannelName] = useState(channelCog.name);
 
   const editChannelHandleSubmit = async (e) => {
     e.preventDefault();
 
-    await dispatch(editChannel(channelCog.id, channelName));
+    await dispatch(editChannel(serverid, channelCog.id, channelName));
     setType(null);
-    await dispatch(getChannels(server.id));
   };
+
+  useEffect(() => {
+    if (channelCog.id == channelid) {
+      history.push(
+        `/servers/${server.id}/channels/${server?.firstChannel?.id || "null"}`
+      );
+    }
+  }, [server]);
 
   const deleteChannelHandler = async (e) => {
     e.preventDefault();
-    await dispatch(removeChannel(channelCog.id));
+    await dispatch(removeChannel(serverid, channelCog.id));
+    await dispatch(getServer(serverid));
     setType(null);
-    return history.push(
-      `/servers/${server.id}/channels/${server.firstChannel.id}`
-    );
   };
 
   return (

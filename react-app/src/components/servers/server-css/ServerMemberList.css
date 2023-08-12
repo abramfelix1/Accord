@@ -48,7 +48,8 @@
 /* css for each member card */
 .member-wrapper {
     padding-right: 5px;
-    margin-right: 7px;
+    margin-right: 3px;
+    margin-left: 5px;
     cursor: pointer;
     padding: 7px 7px 7px 10px;
     display: flex;
@@ -60,12 +61,14 @@
 .member-wrapper:hover {
     background-color: rgb(50, 51, 56);
     color: #DBDEE1;
+    margin-left: 5px;
 }
 
 #active-profile {
     background-color: rgb(74, 74, 77);
     padding-right: 5px;
-    margin-right: 7px;
+    margin-right: 3px;
+    margin-left: 5px;
     cursor: pointer;
     padding: 7px 7px 7px 10px;
     display: flex;
@@ -78,7 +81,7 @@
     margin: 0px;
     font-size: 18px;
     margin-left: 10px;
-    font-weight: 100;
+    font-weight: bolder;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -124,7 +127,7 @@
 .member-profile-container {
     position: absolute;
     right: 241px;
-    z-index: 10;
+    z-index: 1000;
     background-color: gray;
     border-radius: 13px;
     top: min(100vh - 100px, 10vh);

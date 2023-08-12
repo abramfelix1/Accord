@@ -18,7 +18,10 @@ function ServerCard({ handleActiveButton, serverInfo }) {
 
     for (let i = 0; i < serverNameArr.length; i++) {
       let word = serverNameArr[i];
-      res += word[0].toUpperCase();
+      // console.log(typeof word === "string", "---------------")
+      if (word && typeof word === "string") {
+        res += word[0].toUpperCase();
+      }
     }
 
     if (res.length >= 3) {
@@ -30,10 +33,12 @@ function ServerCard({ handleActiveButton, serverInfo }) {
 
   return (
     <>
-      {server && (
+      {server && serverInfo && (
         <NavLink
-          to={`/servers/${serverInfo.id}/channels/${serverInfo.firstChannel.id}`}
-          className={`servers server-pointer ${
+          to={`/servers/${serverInfo.id}/channels/${
+            serverInfo?.firstChannel?.id || "null"
+          }`}
+          className={`${serverInfo.image_url ? "" : "servers"} server-pointer ${
             serverInfo.id == serverid ? "active-server" : ""
           }`}
           onClick={(e) => handleActiveButton(e, serverInfo)}
@@ -41,10 +46,11 @@ function ServerCard({ handleActiveButton, serverInfo }) {
           {serverInfo.image_url !== null && serverInfo.image_url.length >= 3 ? (
             <div>
               <img
-                className="servers-img"
-                src={server.image_url}
+                className={`servers-img ${
+                  serverInfo.id == serverid ? "active-server-img" : ""
+                }`}
+                src={serverInfo.image_url}
                 alt="serverimage"
-                onClick={(e) => handleActiveButton(e)}
               />
             </div>
           ) : (

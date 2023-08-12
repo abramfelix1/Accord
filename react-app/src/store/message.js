@@ -13,17 +13,17 @@ const populateMessages = (payload) => ({
   payload,
 });
 
-const addMessage = (payload) => ({
+export const addMessage = (payload) => ({
   type: ADD_MESSAGE,
   payload,
 });
 
-const updateMessage = (payload) => ({
+export const updateMessage = (payload) => ({
   type: UPDATE_MESSAGE,
   payload,
 });
 
-const deleteMessage = (payload) => ({
+export const deleteMessage = (payload) => ({
   type: DELETE_MESSAGE,
   payload,
 });
@@ -38,22 +38,24 @@ export const getMessages = (channelId) => async (dispatch) => {
   return response;
 };
 
-export const createMessage = (channel_id, message) => async (dispatch) => {
-  const response = await fetch(`/api/channels/${channel_id}/messages`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ message }),
-  });
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(addMessage(data.channel_id));
-  }
-};
+export const createMessage =
+  (server_id, channel_id, message) => async (dispatch) => {
+    const response = await fetch(`/api/channels/${channel_id}/messages`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message }),
+    });
+    if (response.ok) {
+      const message = await response.json();
+      // dispatch(addMessage({ server_id, channel_id, message }));
+      return message;
+    }
+  };
 
 export const editMessage =
-  (channel_id, message_id, message) => async (dispatch) => {
+  (server_id, channel_id, message_id, message) => async (dispatch) => {
     const response = await fetch(`/api/messages/${message_id}`, {
       method: "PUT",
       headers: {
@@ -62,22 +64,23 @@ export const editMessage =
       body: JSON.stringify({ message }),
     });
     if (response.ok) {
-      const data = await response.json();
-      dispatch(updateMessage(data));
-      dispatch(getMessages(data.channel_id));
-      return data;
+      const message = await response.json();
+      // dispatch(updateMessage(data));
+      // dispatch(getMessages(data.channel_id));
+      // dispatch(updateMessage(server_id, channel_id, message));
+      return message;
     }
   };
 
-export const removeMessage = (channel_id, message_id) => async (dispatch) => {
-  const response = await fetch(`/api/messages/${message_id}`, {
-    method: "DELETE",
-  });
-  if (response.ok) {
-    const msg = dispatch(deleteMessage(message_id));
-    dispatch(getMessages(channel_id));
-  }
-};
+export const removeMessage =
+  (server_id, channel_id, message_id) => async (dispatch) => {
+    const response = await fetch(`/api/messages/${message_id}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      // dispatch(deleteMessage({ server_id, channel_id, message_id }));
+    }
+  };
 
 const initialState = { messages: {}, isLoading: true };
 
@@ -90,15 +93,16 @@ const messageReducer = (state = initialState, action) => {
     //     return messages;
     //   }, {});
     //   return { messages: { ...messages }, isLoading: false };
-    case ADD_MESSAGE:
-      newState[action.payload.id] = action.payload;
-      return newState;
-    case UPDATE_MESSAGE:
-      newState[action.payload.id] = action.payload;
-      return newState;
-    case DELETE_MESSAGE:
-      delete newState[action.payload];
-      return newState;
+    // case ADD_MESSAGE:
+    //   newState[action.payload.id] = action.payload;
+    //   return newState;
+    // case UPDATE_MESSAGE:
+    //   newState[action.payload.id] = action.payload;
+    //   return newState;
+    // case DELETE_MESSAGE:
+    //   console.log("DELETE PAYLOAD:", action.payload);
+    //   delete newState[action.payload["message_id"]];
+    //   return newState;
     case RESET_MESSAGES:
       return initialState;
     default:

@@ -1,8 +1,11 @@
 import logo from "../../images/accord-logo.png";
 import { NavLink } from "react-router-dom";
 import "./landing-css/LandingNav.css";
+import { useSelector} from "react-redux";
 
 function LandingNavBar() {
+  const user = useSelector((state) => state.session.user);
+
   return (
     <div className="nav-outer-container">
       <div className="nav-inner-container">
@@ -12,8 +15,7 @@ function LandingNavBar() {
             <h2>Accord</h2>
           </NavLink>
         </div>
-        <nav className="nav-box">
-          {/* just placed holders. we can do what ever we want here or delete */}
+        {/* <nav className="nav-box">
           <p href="/">Download</p>
           <p href="/">Nitro</p>
           <p href="/">Discover</p>
@@ -21,11 +23,10 @@ function LandingNavBar() {
           <p href="/">Support</p>
           <p href="/">Blog</p>
           <p href="/">Careers</p>
-          {/* ends here for random links that goes to home with a tag */}
-        </nav>
+        </nav> */}
         <div className="nav-login-wrapper">
           <a className="landing-login-button" href="/login">
-            Log in
+            {user ? "Open Accord" : "Log in"}
           </a>
         </div>
       </div>

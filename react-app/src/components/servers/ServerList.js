@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import ServerCard from "./ServerCard";
 import logo from "../../images/accord-logo.png";
 import { useEffect, useState } from "react";
-import { IoCompassSharp } from 'react-icons/io5'
+import { IoCompassSharp } from "react-icons/io5";
 
 import { useSelector, useDispatch } from "react-redux";
 import * as userActions from "../../store/user";
@@ -23,20 +23,21 @@ function ServerList() {
   const { setServer } = useContext(InfoContext);
   const { setChannel } = useContext(ChannelContext);
 
-  const { createServerModal, isModalOpen, discoverServerModal } = useContext(ModalContext);
+  const { createServerModal, isModalOpen, discoverServerModal } =
+    useContext(ModalContext);
   const { setIsLoaded } = useContext(InfoContext);
   const { serverid, channelid } = useParams();
 
-
   // selecting the users state to get users servers
-  const userServers = Object.values(useSelector((state) => state.user));
+  // const userServers = Object.values(useSelector((state) => state.user));
+  const servers = useSelector((state) => state.servers);
+  const userServers = servers ? Object.values(servers).slice(0, -1) : [];
 
-  // calls the dispatch function to set the state up for users servers
-  useEffect(() => {
-    (async () => {
-      await dispatch(userActions.getUserServersThunk());
-    })();
-  }, [dispatch]);
+  // Function to reverse a given array
+  const reverseArray = (array) => {
+    let reverseArray = array.reverse();
+    return reverseArray;
+  };
 
   const handleActiveButton = (event, server) => {
     // event.preventDefault();
@@ -76,6 +77,32 @@ function ServerList() {
     }
   };
 
+  const handleActiveHomeButton = (event) => {
+    // event.preventDefault();
+    // event.stopPropagation();
+
+    // gets the tag with the current button that is pressed to see the server
+    const current = document.getElementById("active-server");
+    // gets the img tag with the server logo
+    const serverLogo = document.getElementsByClassName("server-logo")[0];
+    // gets the div tag wrapped around the server logo
+    let serverFriendButton = document.getElementsByClassName(
+      "servers-friend-button"
+    )[0];
+    // gets the current tag and sets the id to nothing
+    if (current) {
+      current.id = "";
+    }
+    // compares the server logo to the current event clicked
+    if (serverLogo === event.target) {
+      // sets the outer div wrapped around the server logo to proper css styling
+      serverFriendButton.id = "active-server";
+    } else {
+      // sets the new targeted server to show that it is on that server
+      event.target.id = "active-server";
+    }
+  };
+
   return (
     <div className="server-list-container">
       <div style={{ color: "white", marginTop: "4px", fontSize: "13px" }}>
@@ -83,12 +110,21 @@ function ServerList() {
       </div>
       <div className="server-top-layer">
         {/* not sure what to url for direct messages list is yet */}
-        <Tooltip text={"Direct Messages"}>
+        {/* <Tooltip text={"Direct Messages Feature Coming Soon"}>
+          <div
+            className={`servers servers-friend-button ${serverid ? "" : `active-server`}`}
+            onClick={(e) => handleActiveButton(e)}
+          >
+            <img className="server-logo" src={logo} alt="logo" />
+          </div>
+        </Tooltip> */}
+        <Tooltip text={"Get Started"}>
           <NavLink
             to="/app"
-            id={serverid ? "" : `active-server`}
-            className="servers servers-friend-button"
-            onClick={(e) => handleActiveButton(e)}
+            className={`servers servers-friend-button ${
+              serverid ? "" : `active-server`
+            }`}
+            onClick={(e) => handleActiveHomeButton(e)}
           >
             <img className="server-logo" src={logo} alt="logo" />
           </NavLink>
@@ -97,9 +133,9 @@ function ServerList() {
       </div>
       <div className="border-between-layer"></div>
       <ul className="server-bottom-layer">
-        {userServers.map((server) => (
+        {reverseArray([...userServers]).map((server) => (
           <Tooltip key={server.id} text={server.name}>
-            <li key={server.id} className="server-list-wrapper">
+            <li className="server-list-wrapper">
               {/* need to set proper link to where to navigate too */}
               <ServerCard
                 serverInfo={server}
@@ -127,7 +163,7 @@ function ServerList() {
               discoverServerModal();
             }}
           >
-            <IoCompassSharp className="compass-icon"/>
+            <IoCompassSharp className="compass-icon" />
           </li>
         </Tooltip>
       </ul>

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../../store/session";
 import "./Login.css";
+import { resetServers } from "../../../store/servers";
+import { getUserServersThunk } from "../../../store/user";
 
 function LoginPage() {
   const dispatch = useDispatch();
@@ -12,13 +14,15 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser) return <Redirect to="/app" />;
+  if (sessionUser) return <Redirect to={`/app`} />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
 
     const data = await dispatch(login(credentials, password));
+    await dispatch(resetServers());
+    await dispatch(getUserServersThunk());
     if (data) {
       setErrors(data);
     }
@@ -26,8 +30,8 @@ function LoginPage() {
 
   const demoLogin = async (e) => {
     e.preventDefault();
-    await dispatch(login('Demo', 'password'));
-  }
+    await dispatch(login("Demo", "password"));
+  };
 
   return (
     <div className="login-container">
@@ -107,7 +111,12 @@ function LoginPage() {
                     </p>
                     <p className="register-container">
                       Login as
-                      <span className="demo-user-link" onClick={e => demoLogin(e)}>Demo User</span>
+                      <span
+                        className="demo-user-link"
+                        onClick={(e) => demoLogin(e)}
+                      >
+                        Demo User
+                      </span>
                     </p>
                   </div>
                 </form>

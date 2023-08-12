@@ -45,6 +45,21 @@ def join_server(data):
     )
 
 
+@socketio.on("add_server")
+def add_server(data):
+    print("**************************ADD SERVER DATA START**************************")
+    join_room(str(data["server_id"]))
+    print("**************************ADD SERVER DATA END**************************")
+    emit(
+        "join_server_response",
+        {
+            "Message": f"Joined Server: {data['server_id']}",
+            "Users": f"Online Users: {online_users}",
+        },
+        broadcast=False,
+    )
+
+
 # handle chat messages when message_update event is emitted from the frontend
 @socketio.on("chat_update")
 def handle_chat(data):
@@ -54,15 +69,20 @@ def handle_chat(data):
     emit(
         "chat_update_response",
         {
-            "Message": f"CHAT_UPDATE: SERVER: {data['server_id']} CHANNEL: {data['channel_id']}",
+            # "LOGGER": f"CHAT_UPDATE: SERVER: {data['server_id']} CHANNEL: {data['channel_id']}",
             "channel_id": data["channel_id"],
+            "server_id": data["server_id"],
+            "message_id": data.get("message_id", None),
+            "Action_Type": data["action_type"],
+            "message": data.get("message", None),
         },
         room=str(data["server_id"]),
+        broadcast=False,
     )
 
 
 @socketio.on("disconnect")
-def handle_disconnect(data):
+def handle_disconnect():
     emit(
         "disconnect_response",
         {

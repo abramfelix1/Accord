@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "./modal-css/UserAccountPage.css";
 import { IoCloseOutline } from "react-icons/io5";
 import logo from "../../images/accord-logo.png";
+import { BiImageAdd } from 'react-icons/bi'
 import { ModalContext } from "../../context/modalContext";
 import { getAllServersThunk } from "../../store/server";
 import { updateUserThunk, uploadProfileImageThunk } from "../../store/user";
@@ -10,7 +11,7 @@ import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 function UserAccountFormPage() {
   const dispatch = useDispatch();
-  const { setType } = useContext(ModalContext);
+  const { setType, changeAvatarModal } = useContext(ModalContext);
   const userSession = useSelector((state) => state.session.user);
   const [user, setUser] = useState("");
 
@@ -20,29 +21,14 @@ function UserAccountFormPage() {
     } else {
       return <Redirect to="login" />;
     }
-  });
+  }, []);
 
   const [editButton, setEditButton] = useState(true);
-  const [displayName, setDisplayName] = useState(
-    user.display_name || user.username
-  );
-  const [imageUrl, setImageUrl] = useState(user.image_url);
-  const [errors, setErrors] = useState({});
+  const [displayName, setDisplayName] = useState("");
 
   const updateUserHandleSubmit = async (e) => {
-    setErrors({});
-    const data = await dispatch(
-      updateUserThunk(user.username, displayName, imageUrl)
-    );
-    if (data) {
-      setErrors(data);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    const formData = new FormData();
-    formData.append("image_url", imageUrl);
-    await dispatch(uploadProfileImageThunk(formData));
+    e.preventDefault()
+    await dispatch(updateUserThunk(user.username, displayName));
   };
 
   return (
@@ -63,24 +49,21 @@ function UserAccountFormPage() {
               className="user-profile-picture-setting"
             />
           ) : (
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
-              <label
-                className="user-display-input-label"
-                style={{
-                  marginTop: "8px",
-                }}
+            <div>
+              <div
+                className="change-avatar"
+                onClick={(e) => changeAvatarModal()}
               >
-                Profile Image
-              </label>
-              <input
-                type="file"
-                className="account-user-input-field"
-                accept="image/*"
-                onChange={(e) => setImageUrl(e.target.files[0])}
-                name="pfp"
+                Change Avatar
+              </div>
+              <img
+                src={user.image_url || logo}
+                className="user-profile-picture-setting"
               />
-              <button type="submit">add photo</button>
-            </form>
+              <div className="add-pfp-icon">
+                <BiImageAdd className="image-edit-icon"/>
+              </div>
+            </div>
           )}
           <div className="user-name-edit-profile">
             <div style={{ height: "0px" }}>
@@ -93,7 +76,7 @@ function UserAccountFormPage() {
                   marginTop: "5px",
                 }}
               >
-                {user.display_name || user.username}
+                {displayName || user.display_name || user.username}
               </p>
             </div>
             {editButton ? (
@@ -110,7 +93,6 @@ function UserAccountFormPage() {
                   onClick={(e) => {
                     setEditButton(!editButton);
                     setDisplayName(user.display_name || user.username);
-                    setImageUrl(user.image_url);
                   }}
                 >
                   Cancel
@@ -141,18 +123,9 @@ function UserAccountFormPage() {
                       {user.display_name || user.username}
                     </div>
                   </div>
-                  <div className="user-profile-display-form">
+                  <div className="user-profile-display-form" style={{marginTop: '25px'}}>
                     <label className="user-display-label">Username</label>
                     <div style={{ fontSize: "16px" }}>{user.username}</div>
-                  </div>
-                  <div className="user-profile-display-form">
-                    <label className="user-display-label">Profile Image</label>
-                    <div
-                      style={{ fontSize: "16px" }}
-                      className="account-profile-image"
-                    >
-                      {user.image_url || "No Image Provided"}
-                    </div>
                   </div>
                 </div>
               ) : (
@@ -165,11 +138,11 @@ function UserAccountFormPage() {
                       type="text"
                       className="account-user-input-field"
                       value={displayName}
-                      placeholder={displayName}
+                      placeholder={displayName || user.display_name || user.username}
                       onChange={(e) => setDisplayName(e.target.value)}
                     />
                   </div>
-                  <div className="user-profile-form-field">
+                  <div className="user-profile-form-field" style={{marginTop: '5px'}}>
                     <label
                       className="user-display-input-label"
                       style={{
@@ -178,12 +151,7 @@ function UserAccountFormPage() {
                     >
                       Username
                     </label>
-                    <input
-                      type="text"
-                      className="account-user-input-field"
-                      placeholder={user.username}
-                      disabled
-                    />
+                    <div style={{ fontSize: "16px", marginTop: '2px' }}>{user.username}</div>
                   </div>
                 </div>
               )}

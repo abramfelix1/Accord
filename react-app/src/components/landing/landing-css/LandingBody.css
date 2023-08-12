@@ -3,20 +3,41 @@
     grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr 1fr;
 }
 
+/* @media (max-width: 930px) {
+    #w1-p1 {
+        font-size: 10px;
+    }
+    
+    #w1-p2 {
+        font-size: 1.188rem;
+    }
+
+    #w2-body > h2 {
+        font-size: 1rem;
+    }
+    
+    #w2-body > p {
+        font-size: 1.25rem;
+    }
+} */
+
 /* ----------------section 1 wrapper----------------------------- */
 .landing-body-wrapper-1 {
-    background-color: #5865FC;
+    background-color: rgb(79,27,245);
     color: white;
     display: flex;
     justify-content: center;
+    background-image: url("../../../images/banner.webp");
+    background-size: 100% 100%;
 }
+
 
 .wrap-1-body {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(3, 0.5fr);
     grid-column-gap: 1.25rem;
-    height: 23.125rem;
+    height: 15.725rem;
     padding: 7.5rem 5rem;
     max-width: 78.75rem;
 }
@@ -56,12 +77,12 @@
     border-style: none;
     font-size: 1.25rem;
     margin: 0.625rem;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
-.w1-buttons:hover {
+/* .w1-buttons:hover {
     box-shadow: 0px 0.1rem 0.7rem 0.063rem rgba(0, 0, 0, 0.5);
-}
+} */
 
 
 /* ----------------section 2 wrapper----------------------------- */
@@ -74,7 +95,7 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    height: 31.25rem;
+    height: 25.25rem;
     padding: 7.5rem 5rem;
     grid-column-gap: 1.25rem;
     max-width: 78.75rem;
@@ -82,10 +103,11 @@
 
 #w2-img-wrapper {
     grid-column-start: 1;
-    grid-column-end: 7;
+    grid-column-end: 8;
     grid-row-start: 1;
     grid-row-end: 3;
-    max-height: 90%;
+    max-height: 85%;
+    margin-top: 40px;
 }
 
 #w2-img-wrapper > img{
@@ -103,8 +125,9 @@
     flex-direction: column;
     justify-content: center;
 }
+
 #w2-body > h2 {
-    font-size: 3.125rem;
+    font-size: 3rem;
     margin: 0.313rem;
 }
 

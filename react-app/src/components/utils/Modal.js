@@ -11,6 +11,8 @@ import ChannelSettingPage from "../modal-pages/ChannelSettingPage";
 import UserAccountPage from "../modal-pages/UserAccountPage";
 import DiscoverServerModal from "../modal-pages/DiscoverServerModal";
 import DeleteMessagePage from "../modal-pages/DeleteMessagePage";
+import ChangeAvatarPage from "../modal-pages/ChangeAvatarPage";
+import DeleteServerConfirmation from "../modal-pages/DeleteServerConfirmation";
 
 export default function Modal(props) {
   const { type, setType } = useContext(ModalContext);
@@ -49,6 +51,8 @@ export default function Modal(props) {
           {type === "User Account" && <UserAccountPage />}
           {type === "Discover Server" && <DiscoverServerModal />}
           {type === "Delete Message" && <DeleteMessagePage />}
+          {type === "Change Avatar" && <ChangeAvatarPage setType={setType}/>}
+          {type === "Delete Server Confirmation" && <DeleteServerConfirmation setType={setType}/>}
         </div>
         <div className="modalBackdrop" onClick={handleContent} />
       </div>

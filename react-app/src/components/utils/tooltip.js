@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./tooltip.css"
 
 function Tooltip({ text, children }) {
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -22,7 +23,7 @@ function Tooltip({ text, children }) {
           <div
             id="tooltip"
             className="tooltiptext"
-            style={{ left: 95, top: position.y -10}}
+            style={{ left: 110, top: position.y -10}}
             // style={{ left: position.x + 100, top: position.y -10}}
           >
             {text}

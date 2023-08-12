@@ -6,12 +6,14 @@ import { leaveServerThunk } from "../../store/members";
 import { useHistory } from "react-router-dom";
 
 import "./modal-css/LeaveServerPage.css";
+import { useParams } from "react-router-dom";
 
 function LeaveServerPage() {
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const { server } = useContext(InfoContext);
+  const { serverid, channelid } = useParams();
+  // const { server } = useContext(InfoContext);
+  const server = useSelector((state) => state.servers[serverid]);
   const { setType } = useContext(ModalContext);
 
   const leaveServerHandleSubmit = async () => {
@@ -20,7 +22,7 @@ function LeaveServerPage() {
     return history.push("/app");
   };
 
-  return (
+  return server ? (
     <div className="leave-server-container">
       <div className="inner-leave-server">
         <div style={{ padding: "3px 10px 0px 15px" }}>
@@ -59,6 +61,8 @@ function LeaveServerPage() {
         </div>
       </div>
     </div>
+  ) : (
+    <div></div>
   );
 }
 

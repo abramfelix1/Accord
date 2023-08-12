@@ -13,8 +13,8 @@ class Channel(db.Model):
     server_id = db.Column(
         db.Integer(), db.ForeignKey(add_prefix_for_prod("servers.id")), nullable=False
     )
-    created_at = db.Column(db.DateTime(), default=datetime.now)
-    updated_at = db.Column(db.DateTime(), default=datetime.now)
+    created_at = db.Column(db.DateTime(timezone=True), default=db.func.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=db.func.now())
 
     # one to many with servers
     server = db.relationship("Server", back_populates="channels")

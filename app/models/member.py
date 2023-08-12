@@ -19,13 +19,14 @@ class Member(db.Model):
     nickname = db.Column(
         db.String()
     )
-    created_at = db.Column(db.DateTime(), default=datetime.now)
-    updated_at = db.Column(db.DateTime(), default=datetime.now)
+    created_at = db.Column(db.DateTime(timezone=True), default=db.func.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=db.func.now())
 
     user = db.relationship("User", back_populates="memberships")
     server = db.relationship("Server", back_populates="members")
 
     def to_dict(self):
+
         return {
             "id": self.id,
             "user_id": self.user_id,
@@ -37,3 +38,9 @@ class Member(db.Model):
             "image_url": self.user.image_url,
             "username": self.user.username,
         }
+
+    def to_dict_first_channel(self):
+
+        return {
+                "server": self.server.to_dict()
+                }

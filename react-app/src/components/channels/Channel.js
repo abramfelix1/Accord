@@ -14,6 +14,7 @@ import { logout } from "../../store/session";
 
 import "./channel-css/Channel.css";
 import { resetServers } from "../../store/servers";
+import { getServer } from "../../store/server";
 
 function Channel() {
   // router doms
@@ -21,13 +22,19 @@ function Channel() {
   const dispatch = useDispatch();
 
   // useSelectors
-  const isLoaded = useSelector((state) => state.current.isLoading);
+  // const isLoaded = useSelector((state) => state.current.isLoading);
   const { setIsLoaded } = useContext(InfoContext);
-  const server = useSelector((state) => state.current.server);
+  const server = useSelector((state) => state.servers[serverid]);
   const user = useSelector((state) => state.session.user);
-  const channels = Object.values(
-    useSelector((state) => state.channels.channels)
-  );
+  const channels = useSelector((state) => {
+    if (state.servers[serverid] && state.servers[serverid].channels) {
+      return Object.values(state.servers[serverid].channels);
+    } else {
+      return [];
+    }
+  });
+
+  console.log(channels)
 
   // Contexts
   const { setChannel } = useContext(ChannelContext);
@@ -39,28 +46,23 @@ function Channel() {
 
   // useEffects
   useEffect(() => {
-    if (Object.values(server).length > 1) {
-      (async () => {
-        await dispatch(channelActions.getChannels(serverid));
-      })();
-    }
-  }, [dispatch, server, serverid]);
+    dispatch(getServer(serverid));
+  }, [channelid]);
 
   // Handlers
 
   const channelClickHandler = (event, channel) => {
     // dispatch(resetServers());
     setChannel(channel);
-    if (event.target.id !== "active-channel") setIsLoaded(false);
+    // if (event.currentTarget.id !== "active-channel") setIsLoaded(false);
     const current = document.getElementById("active-channel");
-    const chan = document.getElementsByClassName("channel-box")[0];
     if (current) current.id = "";
-    event.target.id = "active-channel";
+    event.currentTarget.id = "active-channel";
   };
 
   return (
     <>
-      {user && !isLoaded && server && (
+      {user && server && (
         <div className="channel-container">
           <div>
             <ul className="channel-list">
@@ -82,7 +84,10 @@ function Channel() {
                   )}
                   <p
                     className="channel-list-title"
-                    onClick={(e) => setShowTextChannel(!showTextChannel)}
+                    onClick={(e) => {
+                      setShowTextChannel(!showTextChannel);
+                      e.stopPropagation();
+                    }}
                   >
                     Text Channels
                   </p>
@@ -102,7 +107,7 @@ function Channel() {
               {showTextChannel ? (
                 <li>
                   {channels.map((channel, idx) => {
-                    return (
+                    return channel.id && (
                       <div
                         key={`${channel.id}${idx}`}
                         className={
@@ -135,6 +140,7 @@ function Channel() {
                               onClick={(e) => {
                                 setChannelCog(channel);
                                 channelSettingModal();
+                                e.stopPropagation();
                               }}
                             />
                           </div>
