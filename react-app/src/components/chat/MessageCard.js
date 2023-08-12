@@ -37,7 +37,7 @@ function MessageCard({ message }) {
               {message.display_name ? message.display_name : message.username}
             </span>
             <span className="chat-box-date">
-              {dateFormat(message.created_at)}
+              {dateFormat(new Date(message.created_at).toString())}
             </span>
           </div>
           {showEditField &&

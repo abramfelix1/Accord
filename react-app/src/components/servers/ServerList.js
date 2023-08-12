@@ -77,6 +77,32 @@ function ServerList() {
     }
   };
 
+  const handleActiveHomeButton = (event) => {
+    // event.preventDefault();
+    // event.stopPropagation();
+
+    // gets the tag with the current button that is pressed to see the server
+    const current = document.getElementById("active-server");
+    // gets the img tag with the server logo
+    const serverLogo = document.getElementsByClassName("server-logo")[0];
+    // gets the div tag wrapped around the server logo
+    let serverFriendButton = document.getElementsByClassName(
+      "servers-friend-button"
+    )[0];
+    // gets the current tag and sets the id to nothing
+    if (current) {
+      current.id = "";
+    }
+    // compares the server logo to the current event clicked
+    if (serverLogo === event.target) {
+      // sets the outer div wrapped around the server logo to proper css styling
+      serverFriendButton.id = "active-server";
+    } else {
+      // sets the new targeted server to show that it is on that server
+      event.target.id = "active-server";
+    }
+  };
+
   return (
     <div className="server-list-container">
       <div style={{ color: "white", marginTop: "4px", fontSize: "13px" }}>
@@ -98,7 +124,7 @@ function ServerList() {
             className={`servers servers-friend-button ${
               serverid ? "" : `active-server`
             }`}
-            onClick={(e) => handleActiveButton(e)}
+            onClick={(e) => handleActiveHomeButton(e)}
           >
             <img className="server-logo" src={logo} alt="logo" />
           </NavLink>

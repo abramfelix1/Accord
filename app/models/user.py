@@ -16,8 +16,8 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     display_name = db.Column(db.String(32))
     image_url = db.Column(db.String())
-    created_at = db.Column(db.DateTime(), default=datetime.now)
-    updated_at = db.Column(db.DateTime(), default=datetime.now)
+    created_at = db.Column(db.DateTime(timezone=True), default=db.func.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=db.func.now())
 
     # many to many with server through members table
     # servers = db.relationship("Server", secondary="members", back_populates="users")
