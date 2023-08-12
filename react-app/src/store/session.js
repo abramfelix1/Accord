@@ -105,6 +105,8 @@ export default function reducer(state = initialState, action) {
       return { user: null };
     case userActions.UPDATE_USER:
       return { user: action.payload };
+    case userActions.UPDATE_IMAGE:
+      return { user: action.payload };
     default:
       return state;
   }
