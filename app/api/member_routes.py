@@ -29,7 +29,7 @@ def leave_server(id):
         return jsonify({"message": "Server not found"}), 404
 
     member = Member.query.filter(
-        Member.user_id.like(int(user)), Member.server_id.like(int(id))
+        Member.user_id == (int(user)), Member.server_id == (int(id))
     ).first()
 
     if not member:
