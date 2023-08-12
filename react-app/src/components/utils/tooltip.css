@@ -108,7 +108,7 @@
 .tooltiptext-three::after {
     content: "";
     position: absolute;
-    top: 23px;
+    top: 27px;
     right: 35px;
     margin-left: -5px;
     border-width: 7px;
