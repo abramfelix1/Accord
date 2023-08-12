@@ -20,7 +20,6 @@ function ServerCard({ handleActiveButton, serverInfo }) {
 
     for (let i = 0; i < serverNameArr.length; i++) {
       let word = serverNameArr[i];
-      // console.log(typeof word === "string", "---------------")
       if (word && typeof word === "string") {
         res += word[0].toUpperCase();
       }

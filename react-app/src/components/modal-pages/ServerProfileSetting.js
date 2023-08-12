@@ -20,7 +20,6 @@ function ServerProfileSetting() {
   const user = useSelector(state => state.session.user)
   const { serverSettingModal, setType, deleteServerConfirmationModal } = useContext(ModalContext);
   const { server } = useContext(InfoContext);
-  // console.log(user, 'current server members')
   const [nickname, setNickname] = useState("");
   const [currentNickname, setCurrentNickname] = useState("");
 
@@ -37,7 +36,6 @@ function ServerProfileSetting() {
 
   const updateNicknameHandleSubmit = async (e) => {
     e.preventDefault();
-    console.log(nickname, "dkslajdslkdjlksajdlasjdksaldasd");
 
     await dispatch(updateServerNicknameThunk(server.id, nickname));
     // await dispatch(getServerMembersThunk(server.id));

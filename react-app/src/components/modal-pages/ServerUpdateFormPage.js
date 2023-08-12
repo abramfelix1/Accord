@@ -25,7 +25,6 @@ function ServerUpdateFormPage({ user, setType }) {
     serverName.trim()
     const serverNameArr = serverName.split(" ");
 
-    console.log(serverNameArr);
 
     for (let i = 0; i < serverNameArr.length; i++) {
       let word = serverNameArr[i];

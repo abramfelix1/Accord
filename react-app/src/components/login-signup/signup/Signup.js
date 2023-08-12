@@ -28,11 +28,9 @@ function SignupPage() {
     await dispatch(getUserServersThunk());
     if (data) {
       setErrors(data);
-      console.log(errors);
     }
   };
 
-  console.log(errors, displayName);
   return (
     <div className="signup-container">
       <div className="signup-container-2">

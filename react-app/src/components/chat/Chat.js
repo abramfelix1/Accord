@@ -120,6 +120,8 @@ const Chat = () => {
                     ? false
                     : messages[tempIndex].user_id ===
                       messages[tempIndex - 1].user_id;
+
+                // const isWithinThreeMin = 
                 return (
                   <div key={`${Math.random()}${idx}${message.id}`}>
                     {isSameUser ? (

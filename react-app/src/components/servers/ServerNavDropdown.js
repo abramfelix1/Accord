@@ -19,7 +19,6 @@ function ServerNavDropDown(props) {
   } = useContext(ModalContext);
   const user = useSelector((state) => state.session.user);
   const server = useSelector((state) => state.servers[serverid]);
-  console.log("SERVERNAVE:", server);
 
   const handleClickOutside = (event) => {
     if (navRef.current && navRef.current.contains(event.target)) {
