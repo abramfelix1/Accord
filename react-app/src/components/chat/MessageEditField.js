@@ -14,22 +14,22 @@ function MessageEditField({ message, setShowEditField }) {
   const [messageValue, setMessageValue] = useState(message.message);
   const { serverid, channelid } = useParams();
   const dispatch = useDispatch();
+  
 
   useEffect(() => {
     const handleEsc = (event) => {
-      if (event.keyCode === 27) {
+      if (event.key === 'Escape') {
         setShowEditField(false);
         setEditMessageId("");
       }
     };
-    const cancelKey = document.getElementById("message-edit-cancel-save");
-
-    cancelKey.addEventListener("keydown", handleEsc);
+    document.addEventListener('keydown', handleEsc);
 
     return () => {
-      cancelKey.removeEventListener("keydown", handleEsc);
+      document.removeEventListener('keydown', handleEsc);
     };
   }, []);
+
 
   const editMessageHandler = async (e) => {
     e.preventDefault();
@@ -74,7 +74,7 @@ function MessageEditField({ message, setShowEditField }) {
         <p className="message-edit-cancel-save" id="message-edit-cancel-save">
           escape to{" "}
           <span
-            className="message-edit-cancel"
+            className="message-edit-cancel "
             onClick={(e) => {
               setShowEditField(false);
               setEditMessageId("");

@@ -13,7 +13,9 @@ function ServerCard({ handleActiveButton, serverInfo }) {
 
   // gets the initals of the server name and return them capitalize
   const initials = (serverName) => {
+    if (!serverName) return
     let res = "";
+    serverName.trim()
     const serverNameArr = serverName.split(" ");
 
     for (let i = 0; i < serverNameArr.length; i++) {

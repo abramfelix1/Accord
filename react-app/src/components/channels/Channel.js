@@ -34,6 +34,8 @@ function Channel() {
     }
   });
 
+  console.log(channels)
+
   // Contexts
   const { setChannel } = useContext(ChannelContext);
   const { createChannelModal, channelSettingModal } = useContext(ModalContext);
@@ -48,7 +50,6 @@ function Channel() {
   }, [channelid]);
 
   // Handlers
-
   const channelClickHandler = (event, channel) => {
     // dispatch(resetServers());
     setChannel(channel);
@@ -105,7 +106,7 @@ function Channel() {
               {showTextChannel ? (
                 <li>
                   {channels.map((channel, idx) => {
-                    return (
+                    return channel.id && (
                       <div
                         key={`${channel.id}${idx}`}
                         className={
