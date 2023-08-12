@@ -58,7 +58,8 @@
 }
 
 .landing-login-button {
-    width: 6.25rem;
+    width: max-content;
+    padding: 0px 20px;
     height: 2.313rem;
     border-radius: 1.875rem;
     background-color: white;

@@ -6,16 +6,30 @@ import { HiGif } from "react-icons/hi2";
 import { LuSticker } from "react-icons/lu";
 import { BsFillEmojiSmileFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 function ChatInputField({ sendChat, chatInput, updateChatInput }) {
-  const channel = useSelector((state) => state.current.channel);
-  // const { channel } = useContext(ChannelContext);
+  
+  const { serverid, channelid } = useParams();
+  const channel = useSelector((state) => {
+    if (
+      state.servers[serverid] &&
+      state.servers[serverid].channels &&
+      state.servers[serverid].channels[channelid]
+    ) {
+      return state.servers[serverid].channels[channelid];
+    } else {
+      return [];
+    }
+  });
+
+
 
   return (
     <form id="chat-form-input-container" onSubmit={sendChat}>
       <input
         id="chat-input"
-        placeholder={`Message #${channel.name}`}
+        placeholder={`Message #${channel.name ? channel.name : ""}`}
         value={chatInput}
         onChange={updateChatInput}
         autoComplete="off"
