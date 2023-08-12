@@ -239,33 +239,33 @@ const initialState = {
   state: {},
 };
 
-// export default function serverReducer(state = initialState, action) {
-//   let newState = { ...state };
-//   switch (action.type) {
-//     case GET_ALL_SERVERS:
-//       newState = {};
-//       const allServers = action.payload;
-//       allServers.forEach((server) => {
-//         newState[server.id] = server;
-//       });
-//       return newState;
-//     case DELETE_SERVER:
-//       newState = { ...state };
-//       console.log(action.payload, "4444444444444444444444")
-//       delete newState[action.payload];
-//       return newState;
-//     case UPDATE_SERVER:
-//       newState = { ...state };
-//       console.log(newState, "newState");
-//       newState[action.payload.id] = action.payload;
-//       console.log(action.payload, "action payload");
-//       console.log(newState[action.payload.id], "newstate payload");
+export default function serverReducer(state = initialState, action) {
+  let newState = { ...state };
+  switch (action.type) {
+    case GET_ALL_SERVERS:
+      newState = {};
+      const allServers = action.payload;
+      allServers.forEach((server) => {
+        newState[server.id] = server;
+      });
+      return newState;
+    // case DELETE_SERVER:
+    //   newState = { ...state };
+    //   console.log(action.payload, "4444444444444444444444")
+    //   delete newState[action.payload];
+    //   return newState;
+    case UPDATE_SERVER:
+      newState = { ...state };
+      console.log(newState, "newState");
+      newState[action.payload.id] = action.payload;
+      console.log(action.payload, "action payload");
+      console.log(newState[action.payload.id], "newstate payload");
 
-//       return newState;
-//     default:
-//       return state;
-//   }
-// }
+      return newState;
+    default:
+      return state;
+  }
+}
 
 // window.store.dispatch(window.serverActions.getAllServersThunk());
 // window.store.dispatch(window.serverActions.createServerThunk("1", "NEWNAME"));

@@ -12,7 +12,7 @@ function DiscoverServerModal() {
   const history = useHistory();
   const { setType } = useContext(ModalContext);
 
-  const servers = Object.values(useSelector((state) => state.server));
+  const servers = Object.values(useSelector((state) => state.allServers));
 
   useEffect(() => {
     (async () => {
