@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import logo from "../../images/accord-logo.png"
 import "./server-css/ServerMemberList.css"
 
@@ -15,11 +16,24 @@ function MemberProfile({ member, setShowProfile }) {
         return `#${randomNum}`;
     };
 
+
+    useEffect(() => {
+        document.addEventListener('mouseup',function(event){
+            const profile = document.getElementById('member-profile-container');
+            if(event.target != profile && event.target.parentNode != profile){
+                console.log(profile)
+                if (profile && profile.style) {
+                    profile.style.display = 'none';
+                }
+            }
+        }); 
+    }, [])
+
     return(
-        <div className="member-profile-container">
+        <div className="member-profile-container" id="member-profile-container">
             <div className="profile-top-wrap" style={{backgroundColor:generateColor()}}>
 
-            <div className="profile-exit" onClick={e => setShowProfile(false)} >X</div>
+            {/* <div className="profile-exit" onClick={e => setShowProfile(false)} >X</div> */}
             </div>
             <div className="profile-logo-outer-wrapper">
                 {member.image_url !== null && member.image_url.length >= 1
@@ -32,8 +46,8 @@ function MemberProfile({ member, setShowProfile }) {
                 }
             </div>
             <div className="profile-bottom-wrap">
-                <div className="profile-info-wrap">
-                    <div className="profile-name">
+                <div className="profile-info-wrap" >
+                    <div className="profile-name" >
                         <p id="profile-username">{member.username}</p>
                         <p id="profile-display-name">{member.display_name ? member.display_name : member.username}</p>
                     </div>
