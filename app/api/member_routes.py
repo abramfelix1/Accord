@@ -60,7 +60,6 @@ def update_member_nickname(id):
     if not member:
         return jsonify({"message": "Member not found"}), 404
 
-    print(member, "dasdsadasdsadasdda")
     if form.validate_on_submit():
         member.nickname = form.data["nickname"]
         db.session.commit()

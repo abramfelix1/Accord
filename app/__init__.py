@@ -123,7 +123,6 @@ def join_server(id):
 
 
     # Query if user is a member of server or not
-    print(type(user_id), type(id))
     member = Member.query.filter(
         Member.server_id == id, Member.user_id == int(user_id)
     ).first()
