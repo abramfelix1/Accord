@@ -10,7 +10,6 @@ function SignupPage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
 
-  // const []
   const [username, setUsername] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [displayNameMessage, setDisplayNameMessage] = useState(false);
