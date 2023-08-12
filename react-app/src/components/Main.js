@@ -18,7 +18,7 @@ import * as memberActions from "../store/members";
 import "./Main.css";
 import { useHistory } from "react-router-dom/";
 import { getUserServersThunk } from "../store/user";
-import { joinServer, startListeners } from "./utils/Socket";
+import { addServer, joinServer, startListeners } from "./utils/Socket";
 
 function Main() {
   const history = useHistory();
@@ -53,6 +53,7 @@ function Main() {
         }
       }
     })();
+    addServer();
   }, [serverid]);
 
   useEffect(() => {
