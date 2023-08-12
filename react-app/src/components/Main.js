@@ -26,8 +26,14 @@ function Main() {
 
   const dispatch = useDispatch();
   const { channel, setChannel } = useContext(ChannelContext);
-  const { server, setServer, setIsLoaded, serversFetched, setServersFetched } =
-    useContext(InfoContext);
+  const {
+    server,
+    setServer,
+    isLoaded,
+    setIsLoaded,
+    serversFetched,
+    setServersFetched,
+  } = useContext(InfoContext);
   const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
@@ -75,6 +81,11 @@ function Main() {
       }
     })();
   }, [serverid, channelid, serversFetched]);
+
+  useEffect(() => {
+    console.log("LOADING TEST:");
+    console.log(isLoaded);
+  }, [isLoaded, channelid]);
 
   if (!user) return <Redirect to="/login" />;
 
