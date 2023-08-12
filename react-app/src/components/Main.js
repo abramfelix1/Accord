@@ -34,9 +34,7 @@ function Main() {
       startListeners();
       joinServer(user.id);
     }
-    // return () => {
-    //   disconnectSockets();
-    // };
+    dispatch(getUserServersThunk());
   }, []);
 
   useEffect(() => {
@@ -46,7 +44,6 @@ function Main() {
         try {
           setIsLoaded(false);
           let e = await dispatch(serverActions.getServerThunk(serverid));
-          let a = await dispatch(getUserServersThunk());
           let b = dispatch(channelActions.getChannels(serverid));
           let c = dispatch(messageActions.getMessages(channelid));
           let d = dispatch(memberActions.getServerMembersThunk(serverid));
@@ -56,9 +53,9 @@ function Main() {
             setChannel(b);
             setServer(e);
           }
-          if (!a) {
-            return history.push(`/app`);
-          }
+          // if (!e) {
+          //   return history.push(`/app`);
+          // }
         } catch (err) {
           if (isMounted) {
             return history.push(`/app`);
