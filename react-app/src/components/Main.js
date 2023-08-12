@@ -45,15 +45,16 @@ function Main() {
       if (serverid) {
         try {
           setIsLoaded(false);
+          let e = await dispatch(serverActions.getServerThunk(serverid));
           let a = await dispatch(getUserServersThunk());
           let b = dispatch(channelActions.getChannels(serverid));
           let c = dispatch(messageActions.getMessages(channelid));
           let d = dispatch(memberActions.getServerMembersThunk(serverid));
-          let e = dispatch(serverActions.getServerThunk());
 
           if (isMounted) {
             setIsLoaded(true);
             setChannel(b);
+            setServer(e);
           }
           if (!a) {
             return history.push(`/app`);
