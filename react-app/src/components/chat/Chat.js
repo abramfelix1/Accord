@@ -124,12 +124,14 @@ const Chat = () => {
                 );
               })}
           </div>
-          {channels.length && (
+          {channels.length ? (
             <ChatInputField
               sendChat={sendChat}
               chatInput={chatInput}
               updateChatInput={updateChatInput}
             />
+          ) : (
+            <></>
           )}
         </div>
       )}
