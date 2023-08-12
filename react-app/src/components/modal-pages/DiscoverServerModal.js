@@ -90,7 +90,7 @@ function DiscoverServerModal() {
                 ) : (
                   <div>
                     <div className="server-banner"></div>
-                    <div className="discovery-initial-server-name">{initials(server.name)}</div>
+                    <div className="discovery-initial-server-name">{initials(server?.name)}</div>
                   </div>
                 )}
                 <div className="server-discovery-content">
