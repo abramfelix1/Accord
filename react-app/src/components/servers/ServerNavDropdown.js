@@ -8,7 +8,6 @@ import { ModalContext } from "../../context/modalContext";
 import { InfoContext } from "../../context/infoContext";
 
 function ServerNavDropDown(props) {
-  let isLoaded = useSelector((state) => state.current.isLoading);
   const { serverid, channelid } = useParams();
   const dropdownRef = useRef(null);
   const { openDropdown, toggleDropdown, setToggleDropdown, navRef } = props;
@@ -41,7 +40,7 @@ function ServerNavDropDown(props) {
 
   return (
     <>
-      {!isLoaded && server && (
+      {server && (
         <div className="inner-server-nav">
           <div className="server-nav-title">
             <div className="server-name-nav-bar">{server.name}</div>

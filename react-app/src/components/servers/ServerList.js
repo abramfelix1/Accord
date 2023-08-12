@@ -39,13 +39,6 @@ function ServerList() {
     return reverseArray;
   };
 
-  // calls the dispatch function to set the state up for users servers
-  useEffect(() => {
-    (async () => {
-      await dispatch(userActions.getUserServersThunk());
-    })();
-  }, [dispatch]);
-
   const handleActiveButton = (event, server) => {
     // event.preventDefault();
     event.stopPropagation();
