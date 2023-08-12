@@ -27,8 +27,11 @@ function ServerProfileSetting() {
   useEffect(() => {
     (async (e) => {
       const member = await dispatch(getSingleMemberThunk(server.id));
-      setCurrentNickname(member.nickname);
-      setNickname(member.nickname);
+
+      if (member.nickname) {
+        setCurrentNickname(member.nickname);
+        setNickname(member.nickname);
+      }
     })();
   }, []);
 

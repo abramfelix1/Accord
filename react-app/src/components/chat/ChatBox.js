@@ -4,7 +4,7 @@ import Chat from "./Chat";
 import MessageContainer from "./MessageContainer";
 
 function ChatBox() {
-  let isLoading = useSelector((state) => state.channels.isLoading);
+  // let isLoading = useSelector((state) => state.channels.isLoading);
 
   return (
     <div
@@ -15,7 +15,7 @@ function ChatBox() {
         flex: "1 1 auto",
       }}
     >
-      {!isLoading && (
+      {(
         <>
           <MessageContainer />
           <Chat />

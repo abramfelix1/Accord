@@ -67,10 +67,10 @@ export const updateServerAction = (server) => {
 
 /******/
 
-export const deleteServerAction = (payload) => {
+export const deleteServerAction = (server_id) => {
   return {
     type: DELETE_SERVER,
-    payload,
+    payload: server_id
   };
 };
 
@@ -195,8 +195,9 @@ export const deleteServerThunk = (server_id) => async (dispatch) => {
   // to get the redux updated with all the servers again to
   // prevent loading issues
   if (res.ok) {
-    const data = res.json();
-    dispatch(deleteServerAction({ server_id: server_id }));
+    const data = await res.json();
+    console.log(data, "4444444444444")
+    dispatch(deleteServerAction(server_id));
     return data;
   }
 };
@@ -238,32 +239,33 @@ const initialState = {
   state: {},
 };
 
-export default function serverReducer(state = initialState, action) {
-  let newState = { ...state };
-  switch (action.type) {
-    case GET_ALL_SERVERS:
-      newState = {};
-      const allServers = action.payload;
-      allServers.forEach((server) => {
-        newState[server.id] = server;
-      });
-      return newState;
-    case DELETE_SERVER:
-      newState = { ...state };
-      delete newState[action.payload];
-      return newState;
-    case UPDATE_SERVER:
-      newState = { ...state };
-      console.log(newState, "newState");
-      newState[action.payload.id] = action.payload;
-      console.log(action.payload, "action payload");
-      console.log(newState[action.payload.id], "newstate payload");
+// export default function serverReducer(state = initialState, action) {
+//   let newState = { ...state };
+//   switch (action.type) {
+//     case GET_ALL_SERVERS:
+//       newState = {};
+//       const allServers = action.payload;
+//       allServers.forEach((server) => {
+//         newState[server.id] = server;
+//       });
+//       return newState;
+//     case DELETE_SERVER:
+//       newState = { ...state };
+//       console.log(action.payload, "4444444444444444444444")
+//       delete newState[action.payload];
+//       return newState;
+//     case UPDATE_SERVER:
+//       newState = { ...state };
+//       console.log(newState, "newState");
+//       newState[action.payload.id] = action.payload;
+//       console.log(action.payload, "action payload");
+//       console.log(newState[action.payload.id], "newstate payload");
 
-      return newState;
-    default:
-      return state;
-  }
-}
+//       return newState;
+//     default:
+//       return state;
+//   }
+// }
 
 // window.store.dispatch(window.serverActions.getAllServersThunk());
 // window.store.dispatch(window.serverActions.createServerThunk("1", "NEWNAME"));
