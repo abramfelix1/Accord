@@ -21,7 +21,6 @@ function MemberProfile({ member, setShowProfile }) {
         document.addEventListener('mouseup',function(event){
             const profile = document.getElementById('member-profile-container');
             if(event.target != profile && event.target.parentNode != profile){
-                console.log(profile)
                 if (profile && profile.style) {
                     profile.style.display = 'none';
                 }
