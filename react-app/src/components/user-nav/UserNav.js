@@ -11,6 +11,7 @@ import {
 import { MdHeadset, MdHeadsetOff } from "react-icons/md";
 import logo from '../../images/accord-logo.png'
 import { ModalContext } from "../../context/modalContext";
+import TooltipThree from "../utils/TooltipThree";
 
 
 function UserNav() {
@@ -107,40 +108,50 @@ function UserNav() {
         </div>
         <div className="usermenu-icons-container">
           {micToggle ? (
-            <BiSolidMicrophoneOff
-              className="mic-off-icon"
-              onClick={(e) => {
-                handleMicToggleOn();
-              }}
-            />
+            <TooltipThree text={"Feature coming soon"}>
+              <BiSolidMicrophoneOff
+                className="mic-off-icon"
+                onClick={(e) => {
+                  handleMicToggleOn();
+                }}
+              />
+            </TooltipThree>
           ) : (
-            <BiSolidMicrophone
-              className="usermenu-icons"
-              onClick={(e) => {
-                handleMicToggleOff();
-              }}
-            />
+            <TooltipThree text={"Feature coming soon"}>
+              <BiSolidMicrophone
+                className="usermenu-icons"
+                onClick={(e) => {
+                  handleMicToggleOff();
+                }}
+              />
+            </TooltipThree>
           )}
           {headsetToggle ? (
-            <MdHeadsetOff
-              className="mic-off-icon"
-              onClick={(e) => {
-                handleHeadsetToggleOn();
-              }}
-            />
+            <TooltipThree text={"Feature coming soon"}>
+              <MdHeadsetOff
+                className="mic-off-icon"
+                onClick={(e) => {
+                  handleHeadsetToggleOn();
+                }}
+              />
+            </TooltipThree>
           ) : (
-            <MdHeadset
-              className="usermenu-icons"
-              onClick={(e) => {
-                handleHeadsetToggleOff();
-              }}
-            />
+            <TooltipThree text={"Feature coming soon"}>
+              <MdHeadset
+                className="usermenu-icons"
+                onClick={(e) => {
+                  handleHeadsetToggleOff();
+                }}
+              />
+            </TooltipThree>
           )}
-          <BiSolidCog
-            className="usermenu-icons cog"
-            style={{ marginRight: "6px" }}
-            onClick={e => userAccountModal()}
-          />
+          <TooltipThree text={"User Settings"}>
+            <BiSolidCog
+              className="usermenu-icons cog"
+              style={{ marginRight: "6px" }}
+              onClick={e => userAccountModal()}
+            />
+          </TooltipThree>
         </div>
       </div>
     </div>

@@ -85,6 +85,9 @@
 
 .server-name-discovery {
     color: #F2F3F5;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
 }
 
 .server-members-discovery-wrapper {

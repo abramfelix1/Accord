@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./tooltip.css"
 
-function Tooltip({ text, children }) {
+function TooltipThree({ text, children }) {
     const [position, setPosition] = useState({ x: 0, y: 0 });
   
     const handleMouseMove = (e) => {
@@ -14,16 +14,16 @@ function Tooltip({ text, children }) {
   
     return (
       <div
-        className="tooltip"
-        onMouseMove={handleMouseMove}
+        className="tooltip-three"
+        onMouseEnter={handleMouseMove}
         onMouseLeave={() => setPosition({ x: 0, y: 0 })}
       >
         {children}
         {position.x !== 0 && position.y !== 0 && (
           <div
-            id="tooltip"
-            className="tooltiptext"
-            style={{ left: 110, top: position.y -10}}
+            id="tooltip-three"
+            className="tooltiptext-three"
+            // style={{ left: 110, top: position.y -10}}
             // style={{ left: position.x + 100, top: position.y -10}}
           >
             {text}
@@ -34,4 +34,4 @@ function Tooltip({ text, children }) {
   };
 
 
-export default Tooltip
+export default TooltipThree
