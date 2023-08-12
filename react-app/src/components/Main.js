@@ -35,12 +35,10 @@ function Main() {
           let a = await dispatch(serverActions.getServerThunk(serverid));
           let b = await dispatch(channelActions.getChannel(channelid));
           let c = dispatch(messageActions.getMessages(channelid));
-          setServer(a);
-          setChannel(b);
           setIsLoaded(true);
-          if (!a) {
-            return history.push(`/app`);
-          }
+          // if (!a) {
+          //   return history.push(`/app`);
+          // }
         } catch (err) {
           return history.push(`/app`);
         }

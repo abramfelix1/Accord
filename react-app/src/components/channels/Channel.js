@@ -22,7 +22,7 @@ function Channel() {
   const dispatch = useDispatch();
 
   // useSelectors
-  const isLoaded = useSelector((state) => state.current.isLoading);
+  // const isLoaded = useSelector((state) => state.current.isLoading);
   const { setIsLoaded } = useContext(InfoContext);
   const server = useSelector((state) => state.current.server);
   const user = useSelector((state) => state.session.user);
@@ -68,7 +68,7 @@ function Channel() {
 
   return (
     <>
-      {user && !isLoaded && server && (
+      {user && server && (
         <div className="channel-container">
           <div>
             <ul className="channel-list">
