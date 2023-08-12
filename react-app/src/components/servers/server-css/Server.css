@@ -220,13 +220,16 @@ efgweiyufbieu bgeu eir bgij;rgeb;brejbg iub  re;bgerug
   position: fixed;
   color: #b8bdc5;
   text-align: center;
-  max-width: 500px;
+  max-width: 300px;
   padding: 5px 10px;
   background-color: rgb(18, 18, 18);
   border-radius: 6px;
   box-shadow: 1px 1px 7px rgb(10, 10, 10);
   font-size: 17px;
   z-index: 1000;
+  width: fit-content;
+  overflow-wrap: break-word;
+  white-space: normal;
   /* opacity: 0;
   transition: opacity 1s ; */
 }
