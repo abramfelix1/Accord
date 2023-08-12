@@ -20,10 +20,10 @@ function MainChatNavCopy() {
                 <div style={{ display: "flex", alignItems: "center",justifyContent:"center", fontSize: "30px" }}>
                     {/* <span>{"ACCORD"}</span> */}
                 </div>
-                <div>
+                {/* <div>
                     <RiInboxFill className="inbox-icon" />
                     <AiFillQuestionCircle className="question-icon " />
-                </div>
+                </div> */}
             </div>
             )}
         </div>

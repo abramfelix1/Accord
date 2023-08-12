@@ -25,7 +25,7 @@ function ServerSetting() {
   };
 
   return (
-    server && (
+    server ? (
       <div className="server-setting-container">
         <div className="server-inner">
           <div className="settings-navigation">
@@ -66,7 +66,7 @@ function ServerSetting() {
           </div>
         </div>
       </div>
-    )
+    ) : <div>hi</div>
   );
 }
 

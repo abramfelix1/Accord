@@ -27,10 +27,10 @@ function ChatNav() {
               />{" "}
               <span>{channel.name}</span>
             </div>
-            <div>
+            {/* <div>
               <RiInboxFill className="inbox-icon" />
               <AiFillQuestionCircle className="question-icon " />
-            </div>
+            </div> */}
           </div>
         )}
       </div>
