@@ -31,6 +31,8 @@ function LoginPage() {
   const demoLogin = async (e) => {
     e.preventDefault();
     await dispatch(login("Demo", "password"));
+    await dispatch(resetServers());
+    await dispatch(getUserServersThunk());
   };
 
   return (
