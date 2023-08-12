@@ -5,6 +5,7 @@ export const GET_SERVER_MEMBERS = "server/GET_SERVER_MEMBERS";
 export const GET_SINGLE_MEMBER = "server/GET_SINGLE_MEMBER ";
 export const UPDATE_MEMBER = "server/UPDATE_MEMBER ";
 export const DELETE_MEMBER = "server/DELETE_MEMBER ";
+export const JOIN_SERVER = "server/JOIN_SERVER";
 /*************** ACTIONS CREATOR **************************/
 
 export const getServerMembersAction = (members) => {
@@ -31,6 +32,13 @@ export const updateMemberName = (payload) => {
 export const leaveServerAction = (payload) => {
   return {
     type: DELETE_MEMBER,
+    payload,
+  };
+};
+
+export const joinServerAction = (payload) => {
+  return {
+    type: JOIN_SERVER,
     payload,
   };
 };
@@ -107,7 +115,7 @@ export const joinServerThunk = (server_id) => async (dispatch) => {
 
   if (res.ok) {
     const data = await res.json();
-    dispatch(getUserServersThunk());
+    dispatch(joinServerAction({ server: data.server.server }));
     return data;
   }
 };

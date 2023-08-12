@@ -84,14 +84,13 @@ function DeleteMessagePage() {
         </div>
         <div className="delete-message-footer">
           <div className="delete-buttons-container">
-            <button className="delete-message-button">
-              <p
-                onClick={() => {
-                  handleDeleteButton(channel, message);
-                }}
-              >
-                Delete
-              </p>
+            <button
+              className="delete-message-button"
+              onClick={() => {
+                handleDeleteButton(channel, message);
+              }}
+            >
+              <p>Delete</p>
             </button>
             <button className="cancel-message-button">
               <p
