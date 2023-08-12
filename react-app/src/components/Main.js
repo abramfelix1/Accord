@@ -82,13 +82,6 @@ function Main() {
     })();
   }, [serverid, channelid, serversFetched]);
 
-  useEffect(() => {
-    console.log("LOADING TEST:");
-    console.log(isLoaded);
-  }, [isLoaded, channelid]);
-
-  if (!user) return <Redirect to="/login" />;
-
   return (
     <>
       <Modal />
