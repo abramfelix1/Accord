@@ -6,8 +6,8 @@ export const ChannelProvider = ({ children }) => {
   const [channel, setChannel] = useState(null);
 
   useEffect(() => {
-    console.log("Channel Context:");
-    console.log(channel);
+    // console.log("Channel Context:");
+    // console.log(channel);
   }, [channel]);
 
   return (

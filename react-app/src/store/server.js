@@ -107,22 +107,13 @@ export const getServer = (server_id) => async (dispatch) => {
   }
 };
 
+//update get server route
 export const getServerThunk = (server_id) => async (dispatch) => {
   const res = await fetch(`/api/servers/${server_id}`);
-  const res2 = await fetch(`/api/users/servers`);
 
   if (res.ok) {
     const server = await res.json();
-    const userServers = await res2.json();
-    console.log("ASDFDASFASDFASDFSDa");
-    console.log(server, userServers);
-    let isAllowed = userServers.find((server) => server.id == server_id);
-    if (isAllowed) {
-      dispatch(getServerAction(server));
-      return server;
-    } else {
-      throw new Error("NOT ALLOWED");
-    }
+    return server;
   } else {
     throw new Error("NOT ALLOWED");
   }

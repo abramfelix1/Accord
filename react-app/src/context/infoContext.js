@@ -9,14 +9,15 @@ export const InfoProvider = ({ children }) => {
   const [editMessageId, setEditMessageId] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const [message, setMessage] = useState(null);
+  const [serversFetched, setServersFetched] = useState(false);
 
   useEffect(() => {
-    console.log("Server Context:");
-    console.log(server);
-    console.log("Is Loaded:");
-    console.log(isLoaded);
-    console.log("Message Context:");
-    console.log(message);
+    // console.log("Server Context:");
+    // console.log(server);
+    // console.log("Is Loaded:");
+    // console.log(isLoaded);
+    // console.log("Message Context:");
+    // console.log(message);
   }, [server, isLoaded, message]);
 
   return (
@@ -32,8 +33,10 @@ export const InfoProvider = ({ children }) => {
         setMessage,
         showEditField,
         setShowEditField,
-        editMessageId, 
+        editMessageId,
         setEditMessageId,
+        serversFetched,
+        setServersFetched,
       }}
     >
       {children}

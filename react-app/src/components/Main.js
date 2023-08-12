@@ -8,7 +8,7 @@ import ServerMemberList from "./servers/ServerMemberList";
 import Modal from "./utils/Modal";
 import { InfoContext } from "../context/infoContext";
 import { ChannelContext } from "../context/channelContext";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 import * as serverActions from "../store/server";
@@ -23,53 +23,55 @@ import { joinServer, startListeners } from "./utils/Socket";
 function Main() {
   const history = useHistory();
   const { serverid, channelid } = useParams();
+
   const dispatch = useDispatch();
   const { channel, setChannel } = useContext(ChannelContext);
-  const { server, setServer, setIsLoaded } = useContext(InfoContext);
+  const { server, setServer, setIsLoaded, serversFetched, setServersFetched } =
+    useContext(InfoContext);
   const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
     if (user) {
-      //
       startListeners();
       joinServer(user.id);
     }
-    // return () => {
-    //   disconnectSockets();
-    // };
+    if (!serversFetched) {
+      dispatch(getUserServersThunk()).then(() => {
+        setServersFetched(true);
+      });
+    }
   }, []);
 
   useEffect(() => {
-    let isMounted = true;
     (async () => {
       if (serverid) {
         try {
-          setIsLoaded(false);
-          let e = await dispatch(serverActions.getServerThunk(serverid));
-          let a = await dispatch(getUserServersThunk());
-          let b = dispatch(channelActions.getChannels(serverid));
-          let c = dispatch(messageActions.getMessages(channelid));
-          let d = dispatch(memberActions.getServerMembersThunk(serverid));
-
-          if (isMounted) {
-            setIsLoaded(true);
-            setChannel(b);
-            setServer(e);
-          }
-          if (!a) {
-            return history.push(`/app`);
-          }
+          const server = await dispatch(serverActions.getServerThunk(serverid));
+          setServer(server);
         } catch (err) {
-          if (isMounted) {
-            return history.push(`/app`);
-          }
+          return history.push(`/app`);
         }
       }
     })();
-    return () => {
-      isMounted = false;
-    };
-  }, [serverid, channelid, dispatch, history]);
+  }, [serverid]);
+
+  useEffect(() => {
+    if (!serversFetched) return;
+    (async () => {
+      if (channelid) {
+        try {
+          setIsLoaded(false);
+          let channel = await dispatch(channelActions.getChannels(serverid));
+          dispatch(messageActions.getMessages(channelid));
+          dispatch(memberActions.getServerMembersThunk(serverid));
+          setIsLoaded(true);
+          setChannel(channel);
+        } catch (err) {
+          return history.push(`/app`);
+        }
+      }
+    })();
+  }, [serverid, channelid, serversFetched]);
 
   if (!user) return <Redirect to="/login" />;
 

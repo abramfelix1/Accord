@@ -93,7 +93,7 @@ function ServerUpdateFormPage({ user, setType }) {
                     fontSize: "16px",
                   }}
                 >
-                  Change Avatar
+                  Change Icon
                 </div>
               </div>
             )}

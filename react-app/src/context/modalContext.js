@@ -53,6 +53,10 @@ export const ModalProvider = ({ children }) => {
     setType("Change Avatar")
   }
 
+  const deleteServerConfirmationModal = () => {
+    setType('Delete Server Confirmation')
+  }
+
   return (
     <ModalContext.Provider
       value={{
@@ -70,6 +74,7 @@ export const ModalProvider = ({ children }) => {
         discoverServerModal,
         deleteMessageModal,
         changeAvatarModal,
+        deleteServerConfirmationModal
         // toggleLogin,
       }}
     >
