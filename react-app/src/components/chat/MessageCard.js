@@ -13,6 +13,8 @@ function MessageCard({ message }) {
     useContext(InfoContext);
   const user = useSelector((state) => state.session.user);
 
+  // console.log(new Date(message.created_at).toString())
+
   return (
     <MessageContainer
       message={message}
