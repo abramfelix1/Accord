@@ -69,6 +69,7 @@ function MessageEditField({ message, setShowEditField }) {
           className="message-edit-input"
           value={messageValue}
           onChange={(e) => setMessageValue(e.target.value)}
+          maxLength={2000}
         ></input>
         {/* <BsFillEmojiSmileFill className="message-edit-chat-emoji-icon" /> */}
         <p className="message-edit-cancel-save" id="message-edit-cancel-save">
