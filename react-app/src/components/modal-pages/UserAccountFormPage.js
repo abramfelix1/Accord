@@ -7,10 +7,13 @@ import { BiImageAdd } from "react-icons/bi";
 import { ModalContext } from "../../context/modalContext";
 import { getAllServersThunk } from "../../store/server";
 import { updateUserThunk, uploadProfileImageThunk } from "../../store/user";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import { Redirect, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import * as messageActions from "../../store/message";
+import * as memberActions from "../../store/members";
 
 function UserAccountFormPage() {
   const dispatch = useDispatch();
+  const { serverid, channelid } = useParams();
   const { setType, changeAvatarModal } = useContext(ModalContext);
   const userSession = useSelector((state) => state.session.user);
   const [user, setUser] = useState("");
@@ -29,6 +32,8 @@ function UserAccountFormPage() {
   const updateUserHandleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(updateUserThunk(user.username, displayName));
+    dispatch(messageActions.getMessages(channelid));
+    dispatch(memberActions.getServerMembersThunk(serverid));
     setType(null);
   };
 
