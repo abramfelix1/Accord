@@ -26,7 +26,7 @@ function CreateServerPage() {
     e.preventDefault();
 
     const newServer = await dispatch(
-      serverActions.createServerThunk(user.id, serverName)
+      serverActions.createServerThunk(user.id, serverName.trim())
     );
     let myDiv = document.getElementsByClassName("server-bottom-layer")[0];
     myDiv.scrollTop = 0;
