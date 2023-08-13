@@ -51,6 +51,9 @@ export const createMessage =
       const message = await response.json();
       // dispatch(addMessage({ server_id, channel_id, message }));
       return message;
+    } else {
+      const error = await response.json()
+      return error
     }
   };
 
