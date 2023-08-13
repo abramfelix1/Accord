@@ -12,15 +12,14 @@ function ForgotPassword() {
 
   const [credentials, setCredentials] = useState("");
   const [password, setPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("")
+  const [newPassword, setNewPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
   if (sessionUser) return <Redirect to={`/app`} />;
 
   const handleSubmit = (e) => {
 
-
-  }
+  };
 
   return (
     <div className="password-container">
@@ -37,19 +36,10 @@ function ForgotPassword() {
             <div className="password-container-5">
               <div className="password-container-6">
                 {/* FORM SECTION */}
-                <form onSubmit={'handleSubmit'}>
-                  {errors.length ? (
-                    <p className="form-input-label-error">
-                      Email or Username{" "}
-                      <span className="form-input-label-error-span">
-                        - Login or Password is invalid.
-                      </span>
-                    </p>
-                  ) : (
-                    <p className="form-input-label">
-                      Email or Username <span>*</span>
-                    </p>
-                  )}
+                <form onSubmit={"handleSubmit"}>
+                  <p className="form-input-label">
+                    Email or Username <span>*</span>
+                  </p>
                   <input
                     type="text"
                     className="form-input-field"
@@ -59,19 +49,9 @@ function ForgotPassword() {
                       setCredentials(e.target.value);
                     }}
                   />
-                  {errors.length ? (
-                    <p className="form-input-label-error">
-                      Password -{" "}
-                      <span className="form-input-label-error-span">
-                        {" "}
-                        Login or Password is invalid.
-                      </span>
-                    </p>
-                  ) : (
-                    <p className="form-input-label">
-                      Password <span>*</span>
-                    </p>
-                  )}
+                  <p className="form-input-label">
+                    Password <span>*</span>
+                  </p>
                   <input
                     type="password"
                     className="form-input-field"
@@ -84,7 +64,7 @@ function ForgotPassword() {
                       Password -{" "}
                       <span className="form-input-label-error-span">
                         {" "}
-                        Login or Password is invalid.
+                        Password must be at least 8 characters long.
                       </span>
                     </p>
                   ) : (
