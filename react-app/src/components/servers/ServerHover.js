@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 
 function ServerHover({ children }) {
   const [isHovered, setIsHovered] = useState(false);
-  useEffect(() => {
-    console.log("IS HOVERED:", isHovered);
-  }, [isHovered]);
 
   return (
     <div

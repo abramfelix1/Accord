@@ -92,6 +92,11 @@ const Chat = () => {
 
   const sendChat = async (e) => {
     e.preventDefault();
+
+    if (chatInput.trim().length < 1) {
+      return;
+    }
+
     const message = await dispatch(
       createMessage(serverid, channelid, chatInput)
     );

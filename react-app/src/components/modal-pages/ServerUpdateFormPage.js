@@ -20,16 +20,22 @@ function ServerUpdateFormPage({ user, setType }) {
   const [serverImage, setServerImage] = useState("");
 
   const initials = (serverName) => {
-    if (!serverName) return
+    if (!serverName) return;
     let res = "";
-    serverName.trim()
+    serverName.trim();
     const serverNameArr = serverName.split(" ");
-
 
     for (let i = 0; i < serverNameArr.length; i++) {
       let word = serverNameArr[i];
-      res += word[0].toUpperCase();
+      if (word && typeof word === "string") {
+        res += word[0].toUpperCase();
+      }
     }
+
+    if (res.length >= 3) {
+      return res.slice(0, 3);
+    }
+
     return res;
   };
 
