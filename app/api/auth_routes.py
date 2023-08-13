@@ -105,6 +105,7 @@ def forgot_password():
     if form.validate_on_submit():
         user.password = form.data["new_password"]
         db.session.commit()
+        return user.to_dict()
 
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 

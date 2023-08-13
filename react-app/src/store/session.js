@@ -97,15 +97,15 @@ export const signUp =
     }
   };
 
-export const forgotPasswordThunk = (credentials, password, new_password) => async (dispatch) => {
+export const forgotPasswordThunk = (email, username, new_password) => async (dispatch) => {
   const res = await fetch(`/api/auth/forgot-password`, {
     method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        credentials,
-        password,
+        email,
+        username,
         new_password
       }),
   })
