@@ -10,8 +10,8 @@ function ForgotPassword() {
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
 
-  const [credentials, setCredentials] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [errors, setErrors] = useState("");
 
@@ -23,7 +23,7 @@ function ForgotPassword() {
     if (newPassword.length < 8) {
       setErrors("Password must be at least 8 characters long.");
     } else {
-      await dispatch(forgotPasswordThunk(credentials, password, newPassword));
+      await dispatch(forgotPasswordThunk(email, username, newPassword));
       return history.push("/login");
     }
   };
@@ -36,7 +36,7 @@ function ForgotPassword() {
           <div>
             <h1 className="form-password-header">Reset your Password</h1>
             <p className="form-login-message">
-              Login and Password must be valid for password update
+              Email and Username must exist for password update
             </p>
           </div>
           <div className="password-container-4">
@@ -45,30 +45,30 @@ function ForgotPassword() {
                 {/* FORM SECTION */}
                 <form onSubmit={handleSubmit}>
                   <p className="form-input-label">
-                    Email or Username <span>*</span>
+                    Email<span>*</span>
+                  </p>
+                  <input
+                    type="email"
+                    className="form-input-field"
+                    value={email}
+                    required
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                  />
+                  <p className="form-input-label">
+                    Username <span>*</span>
                   </p>
                   <input
                     type="text"
                     className="form-input-field"
-                    value={credentials}
+                    value={username}
                     required
-                    onChange={(e) => {
-                      setCredentials(e.target.value);
-                    }}
-                  />
-                  <p className="form-input-label">
-                    Password <span>*</span>
-                  </p>
-                  <input
-                    type="password"
-                    className="form-input-field"
-                    value={password}
-                    required
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setUsername(e.target.value)}
                   />{" "}
                   {errors.length ? (
                     <p className="form-input-label-error">
-                      Password -{" "}
+                      New Password -{" "}
                       <span className="form-input-label-error-span">
                         {" "}
                         Password must be at least 8 characters long.

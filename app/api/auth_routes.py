@@ -95,11 +95,11 @@ def forgot_password():
     form["csrf_token"].data = request.cookies["csrf_token"]
 
     user = User.query.filter(
-            (User.email == form.data["credentials"])
-            | (User.username == form.data["credentials"])
+            (User.email == form.data["email"])
+            , (User.username == form.data["username"])
         ).first()
 
-    if not user.check_password(form.data['password']):
+    if not user:
         return {"errors": "invalid"}
 
     if form.validate_on_submit():

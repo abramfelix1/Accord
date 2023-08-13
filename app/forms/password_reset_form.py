@@ -10,6 +10,6 @@ def password_check(form, field):
         raise ValidationError('Password must be at least 8 characters long.')
 
 class PasswordResetForm(FlaskForm):
-    credentials = StringField("Credentials", validators=[DataRequired()])
-    password = StringField("Password", validators=[DataRequired()])
+    email = StringField("Credentials", validators=[DataRequired()])
+    username = StringField("Password", validators=[DataRequired()])
     new_password = StringField("New Password", validators=[DataRequired(), password_check])
