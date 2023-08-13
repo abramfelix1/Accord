@@ -12,19 +12,20 @@ function LoginPage() {
 
   const [credentials, setCredentials] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
 
   if (sessionUser) return <Redirect to={`/app`} />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors([]);
+    setErrors({});
 
     const data = await dispatch(login(credentials, password));
     await dispatch(resetServers());
     await dispatch(getUserServersThunk());
+
     if (data) {
-      setErrors(data);
+      setErrors(data)
     }
   };
 
@@ -34,6 +35,8 @@ function LoginPage() {
     await dispatch(resetServers());
     await dispatch(getUserServersThunk());
   };
+
+
 
   return (
     <div className="login-container">
@@ -51,11 +54,12 @@ function LoginPage() {
               <div className="login-container-6">
                 {/* FORM SECTION */}
                 <form onSubmit={handleSubmit}>
-                  {errors.length ? (
+                  {errors.length || errors.password ? (
                     <p className="form-input-label-error">
                       Email or Username{" "}
                       <span className="form-input-label-error-span">
-                        - Login or Password is invalid.
+                        - Login or password is invalid.
+                        {!errors && errors.password}
                       </span>
                     </p>
                   ) : (
@@ -72,7 +76,7 @@ function LoginPage() {
                       setCredentials(e.target.value);
                     }}
                   />
-                  {errors.length ? (
+                  {errors.length || errors.password ? (
                     <p className="form-input-label-error">
                       Password -{" "}
                       <span className="form-input-label-error-span">
