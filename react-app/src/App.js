@@ -10,6 +10,7 @@ import LandingPage from "./components/landing/LandingPage";
 import ErrorPage from "./components/errorPage";
 
 import ServerSetting from "./components/modal-pages/ServerSetting";
+import ForgotPassword from "./components/login-signup/forgot-password/ForgotPassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function App() {
           <Route exact path="/" component={LandingPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignupPage} />
+          <Route path="/forgot-password" component={ForgotPassword} />
 
           <Route path="/app" component={HomePage} />
           <Route

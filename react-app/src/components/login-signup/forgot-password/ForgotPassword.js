@@ -2,55 +2,42 @@ import React, { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../../store/session";
-import "./Login.css";
+import "./ForgotPassword.css";
 import { resetServers } from "../../../store/servers";
 import { getUserServersThunk } from "../../../store/user";
 
-function LoginPage() {
+function ForgotPassword() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
 
   const [credentials, setCredentials] = useState("");
   const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("")
   const [errors, setErrors] = useState([]);
 
   if (sessionUser) return <Redirect to={`/app`} />;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErrors([]);
+  const handleSubmit = (e) => {
 
-    const data = await dispatch(login(credentials, password));
-    await dispatch(resetServers());
-    await dispatch(getUserServersThunk());
-    if (data) {
-      setErrors(data);
-    }
-  };
 
-  const demoLogin = async (e) => {
-    e.preventDefault();
-    await dispatch(login("Demo", "password"));
-    await dispatch(resetServers());
-    await dispatch(getUserServersThunk());
-  };
+  }
 
   return (
-    <div className="login-container">
-      <div className="login-container-2">
-        <div className="login-container-3">
+    <div className="password-container">
+      <div className="password-container-2">
+        <div className="password-container-3">
           {/* HEADING AND WELCOME BACK MESSAGE */}
           <div>
-            <h1 className="form-login-header">Welcome back!</h1>
+            <h1 className="form-password-header">Reset your Password</h1>
             <p className="form-login-message">
-              We're so excited to see you again!
+              Login and Password must be valid for password update
             </p>
           </div>
-          <div className="login-container-4">
-            <div className="login-container-5">
-              <div className="login-container-6">
+          <div className="password-container-4">
+            <div className="password-container-5">
+              <div className="password-container-6">
                 {/* FORM SECTION */}
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={'handleSubmit'}>
                   {errors.length ? (
                     <p className="form-input-label-error">
                       Email or Username{" "}
@@ -92,12 +79,32 @@ function LoginPage() {
                     required
                     onChange={(e) => setPassword(e.target.value)}
                   />{" "}
-                  <Link to="/forgot-password" className="forgot-password">
-                    Forgot your password?
+                  {errors.length ? (
+                    <p className="form-input-label-error">
+                      Password -{" "}
+                      <span className="form-input-label-error-span">
+                        {" "}
+                        Login or Password is invalid.
+                      </span>
+                    </p>
+                  ) : (
+                    <p className="form-input-label">
+                      New Password <span>*</span>
+                    </p>
+                  )}
+                  <input
+                    type="password"
+                    className="form-input-field"
+                    value={newPassword}
+                    required
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  />{" "}
+                  <Link to="/login" className="forgot-password">
+                    Already have an account?
                   </Link>
                   <div className="login-button-container">
                     <button type="submit" className="login-button">
-                      Log in
+                      Reset Password
                     </button>
                   </div>
                   <div
@@ -111,15 +118,6 @@ function LoginPage() {
                         </Link>
                       </span>
                     </p>
-                    <p className="register-container">
-                      Login as
-                      <span
-                        className="demo-user-link"
-                        onClick={(e) => demoLogin(e)}
-                      >
-                        Demo User
-                      </span>
-                    </p>
                   </div>
                 </form>
               </div>
@@ -131,4 +129,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default ForgotPassword;
