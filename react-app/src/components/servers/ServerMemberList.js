@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ServerMemberCard from "./ServerMemberCard";
 import { useParams } from "react-router-dom/";
 import MemberProfile from "./MemberProfile";
+import MemberContainer from "./MemberContainer";
 import "./server-css/ServerMemberList.css";
 
 function ServerMemberList({ server }) {
@@ -21,7 +22,7 @@ function ServerMemberList({ server }) {
   });
   const [showProfile, setShowProfile] = useState(false);
   const [selectedMember, setSelectedMember] = useState("");
-  const [activeMember, setActiveMember] = useState(false)
+  const [activeMember, setActiveMember] = useState(false);
 
   useEffect(() => {
     setShowProfile(true);
@@ -32,7 +33,6 @@ function ServerMemberList({ server }) {
   useEffect(() => {
     setShowProfile(false);
   }, [serverid, channelid]);
-  
 
   return (
     <div
@@ -49,6 +49,7 @@ function ServerMemberList({ server }) {
               <div
                 key={member.id}
                 onClick={(e) => setSelectedMember(member.id)}
+                className="sever-member-parent-container"
               >
                 <ServerMemberCard
                   member={member}
@@ -60,16 +61,20 @@ function ServerMemberList({ server }) {
                   activeMember={activeMember}
                   setActiveMember={setActiveMember}
                 />
-                <div>
-                  {selectedMember == member.id && showProfile && activeMember && (
-                    <MemberProfile
-                      member={member}
-                      setShowProfile={setShowProfile}
-                      setSelectedMember={setSelectedMember}
-                      setActiveMember={setActiveMember}
-                    />
-                  )}
-                </div>
+                <MemberContainer>
+                  <div>
+                    {selectedMember == member.id &&
+                      showProfile &&
+                      activeMember && (
+                        <MemberProfile
+                          member={member}
+                          setShowProfile={setShowProfile}
+                          setSelectedMember={setSelectedMember}
+                          setActiveMember={setActiveMember}
+                        />
+                      )}
+                  </div>
+                </MemberContainer>
               </div>
             ))}
           </div>

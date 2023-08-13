@@ -1,8 +1,8 @@
 /* css for the whole member container */
 .member-container {
-    overflow: hidden scroll;
-    height: calc(100vh - 50px);
-    max-height: 100vh;
+  overflow: hidden scroll;
+  height: calc(100vh - 50px);
+  max-height: 100vh;
 }
 
 /* .member-container::-webkit-scrollbar {
@@ -11,24 +11,24 @@
 
 /* width */
 .member-container::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 /* Track */
 .member-container::-webkit-scrollbar-track {
-    background: #2d2d2d;
-    border-radius: 15px;
+  background: #2d2d2d;
+  border-radius: 15px;
 }
 
 /* Handle */
 .member-container::-webkit-scrollbar-thumb {
-    border-radius: 15px;
-    background: #141414;
+  border-radius: 15px;
+  background: #141414;
 }
 
 .member-container > ul {
-    padding-left: 10px;
-    margin-top: 0px;
+  padding-left: 10px;
+  margin-top: 0px;
 }
 
 /* .member-container > ul > li{
@@ -38,80 +38,79 @@
 
 /* css for members total */
 .member-total {
-    padding-left: 20px;
-    color: #949ba4;
-    margin-bottom: 5px;
-    font-size: 13px;
+  padding-left: 20px;
+  color: #949ba4;
+  margin-bottom: 5px;
+  font-size: 13px;
 }
 
-
 /* css for each member card */
+.sever-member-parent-container {
+  display: flex;
+}
+.member-parent-container {
+  position: absolute;
+  right: 250px;
+}
+
 .member-wrapper {
-    padding-right: 5px;
-    margin-right: 3px;
-    margin-left: 5px;
-    cursor: pointer;
-    padding: 7px 7px 7px 10px;
-    display: flex;
-    align-items: center;
-    border-radius: 7px;
-    color: #949ba4;
+  padding-right: 5px;
+  margin-right: 3px;
+  margin-left: 5px;
+  cursor: pointer;
+  padding: 7px 7px 7px 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 7px;
+  color: #949ba4;
 }
 
 .member-wrapper:hover {
-    background-color: rgb(50, 51, 56);
-    color: #DBDEE1;
-    margin-left: 5px;
+  background-color: rgb(50, 51, 56);
+  color: #dbdee1;
+  margin-left: 5px;
 }
 
 #active-profile {
-    background-color: rgb(74, 74, 77);
-    padding-right: 5px;
-    margin-right: 3px;
-    margin-left: 5px;
-    cursor: pointer;
-    padding: 7px 7px 7px 10px;
-    display: flex;
-    align-items: center;
-    border-radius: 7px;
-    color: #DBDEE1;
+  background-color: rgb(74, 74, 77);
+  padding-right: 5px;
+  margin-right: 3px;
+  margin-left: 5px;
+  cursor: pointer;
+  padding: 7px 7px 7px 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 7px;
+  color: #dbdee1;
 }
 
 .member-name {
-    margin: 0px;
-    font-size: 18px;
-    margin-left: 10px;
-    font-weight: bolder;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 150px;
+  margin: 0px;
+  font-size: 18px;
+  margin-left: 10px;
+  font-weight: bolder;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 150px;
 }
-
-
-
 
 /* css for the image of each member */
 .member-logo-wrapper,
 .member-image {
-    width: 34px;
-    height: 34px;
-    background-color: rgb(218, 46, 46);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 25px;
+  width: 34px;
+  height: 34px;
+  background-color: rgb(218, 46, 46);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
 }
 
 .member-logo {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
-
-
-
-
-
 
 /* Profile css when pressing a members name */
 
@@ -124,136 +123,135 @@
     position: relative;
 } */
 
-.member-profile-container {
-    position: absolute;
-    right: 241px;
-    z-index: 1000;
-    background-color: gray;
-    border-radius: 13px;
-    top: min(100vh - 100px, 10vh);
-    width: 16%;
-    box-shadow: -5px 14px 12px rgb(39, 39, 40, 0.6);
-}
+/* .member-profile-container {
+  position: absolute;
+  right: 241px;
+  z-index: 1000;
+  background-color: gray;
+  border-radius: 13px;
+  top: min(100vh - 100px, 10vh);
+  width: 16%;
+  box-shadow: -5px 14px 12px rgb(39, 39, 40, 0.6);
+} */
 
 .profile-top-wrap {
-    /* background-color: rgb(218, 46, 46); */
-    height: 58px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
+  /* background-color: rgb(218, 46, 46); */
+  height: 58px;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
 }
 
 .profile-exit {
-    position: absolute;
-    top: 7px;
-    right: 10px;
-    width: 15px;
-    height: 20px;
-    background-color: rgb(39, 39, 40);
-    box-shadow: 0px 0px 2px black;
-    border-radius: 26px;
-    color: rgb(158, 156, 156);
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 3px;
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  width: 15px;
+  height: 20px;
+  background-color: rgb(39, 39, 40);
+  box-shadow: 0px 0px 2px black;
+  border-radius: 26px;
+  color: rgb(158, 156, 156);
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
 }
 
 .profile-exit:hover {
-    background-color: rgb(41, 36, 36);
-    color: rgb(234, 232, 232);
+  background-color: rgb(41, 36, 36);
+  color: rgb(234, 232, 232);
 }
 
 .profile-logo-outer-wrapper {
-    position: absolute;
-    width: 90px;
-    height: 90px;
-    background-color: rgb(39, 39, 40);
-    border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    bottom: 183px;
-    left: 15px;
-    z-index: 2;
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  background-color: rgb(39, 39, 40);
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 183px;
+  left: 15px;
+  z-index: 2;
 }
 
 .profile-logo-inner-wrapper,
 .profile-image {
-    width: 78px;
-    height: 78px;
-    background-color: rgb(218, 46, 46);
-    border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+  width: 78px;
+  height: 78px;
+  background-color: rgb(218, 46, 46);
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-logo {
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 
 .profile-bottom-wrap {
-    background-color: rgb(37, 37, 37);
-    padding: 60px 8px 15px 8px;
-    border-bottom-left-radius: 9px;
-    border-bottom-right-radius: 9px;
+  background-color: rgb(37, 37, 37);
+  padding: 60px 8px 15px 8px;
+  border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px;
 }
 
 .profile-info-wrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    margin: 0px 10px 0px 10px;
-    padding-top: 10px;
-    padding-left: 8px;
-    padding-right: 10px;
-    background-color: rgb(18, 18, 18);
-    border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0px 10px 0px 10px;
+  padding-top: 10px;
+  padding-left: 8px;
+  padding-right: 10px;
+  background-color: rgb(18, 18, 18);
+  border-radius: 7px;
 }
 
 .profile-info-wrap > p {
-    margin: 3px 0px;
+  margin: 3px 0px;
 }
 
 .profile-name > p {
-    margin: 5px;
+  margin: 5px;
 }
 
 .profile-name {
-    border-bottom: 0.1px solid rgb(39, 39, 40);
+  border-bottom: 0.1px solid rgb(39, 39, 40);
 }
 
 #profile-username {
-    font-size: 23px;
-    padding-top: 0px;
+  font-size: 23px;
+  padding-top: 0px;
 }
 
 #profile-display-name {
-    font-size: 13px;
-    padding-bottom: 10px;
+  font-size: 13px;
+  padding-bottom: 10px;
 }
 
 #member-since {
-    font-size: 11px;
-    margin-bottom: 5px;
+  font-size: 11px;
+  margin-bottom: 5px;
 }
 
 #server-start-date {
-    margin-top: 4px;
-    color: rgb(158, 156, 156);
+  margin-top: 4px;
+  color: rgb(158, 156, 156);
 }
 
 .profile-date {
-    margin: 5px;
+  margin: 5px;
 }
 
 .members-crown {
-    color: rgb(228, 166, 68);
-    margin-left: 6px;
-    padding-top: 3px;
-    font-size: 13px;
+  color: rgb(228, 166, 68);
+  margin-left: 6px;
+  padding-top: 3px;
+  font-size: 13px;
 }
