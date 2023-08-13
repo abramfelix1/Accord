@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../../store/session";
 import "./ForgotPassword.css";
-import { resetServers } from "../../../store/servers";
-import { getUserServersThunk } from "../../../store/user";
+import { forgotPasswordThunk } from "../../../store/session";
 
 function ForgotPassword() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
 
   const [credentials, setCredentials] = useState("");
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState("");
 
   if (sessionUser) return <Redirect to={`/app`} />;
 
-  const handleSubmit = (e) => {
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrors("")
+    if (newPassword.length < 8) {
+      setErrors("Password must be at least 8 characters long.");
+    } else {
+      await dispatch(forgotPasswordThunk(credentials, password, newPassword));
+      return history.push("/login");
+    }
   };
 
   return (
@@ -36,7 +43,7 @@ function ForgotPassword() {
             <div className="password-container-5">
               <div className="password-container-6">
                 {/* FORM SECTION */}
-                <form onSubmit={"handleSubmit"}>
+                <form onSubmit={handleSubmit}>
                   <p className="form-input-label">
                     Email or Username <span>*</span>
                   </p>

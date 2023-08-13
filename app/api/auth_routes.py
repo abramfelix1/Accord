@@ -94,24 +94,17 @@ def forgot_password():
     form = PasswordResetForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
 
-    print(form.data)
     user = User.query.filter(
-        (User.email == form.data["credentials"])
-        | (User.username == form.data["credentials"])
-    ).first()
+            (User.email == form.data["credentials"])
+            | (User.username == form.data["credentials"])
+        ).first()
 
-    check_password = user.check_password(form.data["new_password"])
-
-    print(check_password)
-    print(user, "DADSADASDASDADASD")
-
-    if not user:
-        return "not a user"
+    if not user.check_password(form.data['password']):
+        return {"errors": "invalid"}
 
     if form.validate_on_submit():
         user.password = form.data["new_password"]
         db.session.commit()
-        return user.to_dict()
 
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 

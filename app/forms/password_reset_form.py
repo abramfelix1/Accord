@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import DataRequired, ValidationError
-
+from app.models import User
 
 def password_check(form, field):
     new_password = field.data

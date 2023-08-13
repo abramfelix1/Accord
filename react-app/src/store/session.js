@@ -97,6 +97,33 @@ export const signUp =
     }
   };
 
+export const forgotPasswordThunk = (credentials, password, new_password) => async (dispatch) => {
+  const res = await fetch(`/api/auth/forgot-password`, {
+    method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        credentials,
+        password,
+        new_password
+      }),
+  })
+
+  if (res.ok) {
+    const data = await res.json()
+    setUser(data)
+    return null
+  } else if (res.status < 500) {
+    const data = await res.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ["An error occurred. Please try again."];
+  }
+}
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
