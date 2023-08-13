@@ -120,9 +120,18 @@ const Chat = () => {
                     ? false
                     : messages[tempIndex].user_id ===
                       messages[tempIndex - 1].user_id;
+
+                let isWithinThreeMin = false;
+                if (isSameUser) {
+                  isWithinThreeMin = 
+                  Math.abs(new Date(messages[tempIndex].created_at).getMinutes() -
+                  new Date(messages[tempIndex - 1].created_at).getMinutes())
+                  >= 2
+                }
                 return (
                   <div key={`${Math.random()}${idx}${message.id}`}>
-                    {isSameUser ? (
+                    {isSameUser ? isWithinThreeMin 
+                      ? <MessageCard message={message} /> : (
                       <MessageOnlyCard message={message} />
                     ) : (
                       <MessageCard message={message} />

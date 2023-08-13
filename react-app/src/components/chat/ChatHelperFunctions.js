@@ -141,36 +141,25 @@ export const dateFormat = (date) => {
 
 export function isItANewDay(prevMessage, currMessage) {
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const prevMonth = new Date(prevMessage.created_at).toUTCString().slice(8, 11);
-    const currMonth = new Date(currMessage.created_at).toUTCString().slice(8, 11);
-    const prevDay = Number(new Date(prevMessage.created_at).toUTCString().slice(5, 7))
-    const currDay = Number(new Date(currMessage.created_at).toUTCString().slice(5, 7))
+    const prevMonth = new Date(prevMessage.created_at).toString().slice(8, 11);
+    const currMonth = new Date(currMessage.created_at).toString().slice(8, 11);
+    const prevDay = Number(new Date(prevMessage.created_at).toString().slice(5, 7))
+    const currDay = Number(new Date(currMessage.created_at).toString().slice(5, 7))
     const prevMonthIndex = months.indexOf(prevMonth);
     const currMonthIndex = months.indexOf(currMonth);
-    console.log("prev", prevMonth)
-    console.log("curr", currMonth)
-    console.log("prevDay", prevDay)
-    console.log("currDay", currDay)
-    console.log("prevIndex", prevMonthIndex)
-    console.log("currIndex", currMonthIndex)
 
     if (prevMonth === "Dec" && currMonth === "Jan") {
-        console.log(true)
         return true
     }
 
     if (prevMonthIndex < currMonthIndex) {
-        console.log(true)
         return true
     }
 
     if (prevMonthIndex === currMonthIndex && prevDay < currDay) {
-        console.log(true)
         return true
     }
 
-    console.log(false)
-    console.log("------------------------------------------")
     return false
 }
 

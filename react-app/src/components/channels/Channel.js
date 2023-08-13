@@ -34,7 +34,6 @@ function Channel() {
     }
   });
 
-  console.log(channels)
 
   // Contexts
   const { setChannel } = useContext(ChannelContext);

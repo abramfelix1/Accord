@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useContext, useEffect } from "react";
 import { InfoContext, InfoProvider } from "../../context/infoContext";
+import ServerHover from "./ServerHover";
 
 function ServerCard({ handleActiveButton, serverInfo }) {
   const { serverid } = useParams();
@@ -13,14 +14,13 @@ function ServerCard({ handleActiveButton, serverInfo }) {
 
   // gets the initals of the server name and return them capitalize
   const initials = (serverName) => {
-    if (!serverName) return
+    if (!serverName) return;
     let res = "";
-    serverName.trim()
+    serverName.trim();
     const serverNameArr = serverName.split(" ");
 
     for (let i = 0; i < serverNameArr.length; i++) {
       let word = serverNameArr[i];
-      // console.log(typeof word === "string", "---------------")
       if (word && typeof word === "string") {
         res += word[0].toUpperCase();
       }
@@ -56,15 +56,17 @@ function ServerCard({ handleActiveButton, serverInfo }) {
               />
             </div>
           ) : (
-            <div
-              className="server-initials"
-              onClick={(e) => {
-                // e.stopPropagation();
-                e.preventDefault();
-              }}
-            >
-              {initials(serverInfo.name)}
-            </div>
+            <ServerHover>
+              <div
+                className="server-initials"
+                onClick={(e) => {
+                  // e.stopPropagation();
+                  e.preventDefault();
+                }}
+              >
+                {initials(serverInfo.name)}
+              </div>
+            </ServerHover>
           )}
         </NavLink>
       )}
