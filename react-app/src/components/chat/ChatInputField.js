@@ -33,6 +33,7 @@ function ChatInputField({ sendChat, chatInput, updateChatInput }) {
         value={chatInput}
         onChange={updateChatInput}
         autoComplete="off"
+        maxLength={2000}
       ></input>
       {/* <FaGift className="chat-gift-icon" />
       <HiGif className="chat-gif-icon" />
