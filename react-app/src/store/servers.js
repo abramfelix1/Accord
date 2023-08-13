@@ -191,9 +191,6 @@ const serversReducer = (state = initialState, action) => {
         newState[server_id].channels[channel_id] &&
         newState[server_id].channels[channel_id].messages
       ) {
-        console.log("server ID: ", server_id)
-        console.log("channel ID: ", channel_id)
-        console.log("message ID: ", message.id)
         newState[server_id].channels[channel_id].messages[message.id] = message;
       }
       return { ...newState };
