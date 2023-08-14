@@ -6,7 +6,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import { BiSolidTrash } from "react-icons/bi";
 import "./modal-css/ServerProfileSetting.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { deleteServerThunk, getAllServersThunk } from "../../store/server";
 import {
   updateServerNicknameThunk,
@@ -16,6 +16,7 @@ import {
 
 function ServerProfileSetting() {
   const history = useHistory();
+  const { serverid } = useParams()
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
   const { serverSettingModal, setType, deleteServerConfirmationModal } = useContext(ModalContext);
@@ -25,7 +26,7 @@ function ServerProfileSetting() {
 
   useEffect(() => {
     (async (e) => {
-      const member = await dispatch(getSingleMemberThunk(server.id));
+      const member = await dispatch(getSingleMemberThunk(serverid));
 
       if (member && member.nickname) {
         setCurrentNickname(member.nickname);
