@@ -8,6 +8,8 @@ function MemberContainer({ children, cardPosition }) {
     <div
       className="member-parent-container"
       style={{
+        top:
+          cardPosition + profileHeight > viewportHeight ? "auto" : cardPosition,
         bottom: cardPosition + profileHeight > viewportHeight ? 0 : "auto",
       }}
     >
