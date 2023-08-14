@@ -17,7 +17,7 @@ function LandingFooter() {
             <img src={abram} alt="abram" className="developer-image" />
             <div className="developer-links">
               <a href="https://github.com/abramfelix1" target="_blank" className="github"><BsGithub /> GitHub</a>
-              <a href="linkedin.com/in/abram-felix-98937b162" target="_blank" className="linkedin"><BsLinkedin /> LinkedIn</a>
+              <a href="https://www.linkedin.com/in/abram-felix-98937b162" target="_blank" className="linkedin"><BsLinkedin /> LinkedIn</a>
             </div>
           </div>
           <div className="developer-wrapper">
