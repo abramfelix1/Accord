@@ -4,14 +4,12 @@ import { useEffect, useState } from "react";
 import ServerMemberCard from "./ServerMemberCard";
 import { useParams } from "react-router-dom/";
 import MemberProfile from "./MemberProfile";
+import MemberContainer from "./MemberContainer";
 import "./server-css/ServerMemberList.css";
 
 function ServerMemberList({ server }) {
   const dispatch = useDispatch();
   const { serverid, channelid } = useParams();
-  // const serverMembers = Object.values(
-  //   useSelector((state) => state.current.members)
-  // );
   const serverMembers = useSelector((state) => {
     if (state.servers[serverid] && state.servers[serverid].members) {
       return Object.values(state.servers[serverid].members);
@@ -21,7 +19,13 @@ function ServerMemberList({ server }) {
   });
   const [showProfile, setShowProfile] = useState(false);
   const [selectedMember, setSelectedMember] = useState("");
-  const [activeMember, setActiveMember] = useState(false)
+  const [activeMember, setActiveMember] = useState(false);
+  const [cardPosition, setCardPosition] = useState(null);
+
+  const handleCardClick = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setCardPosition(rect.top);
+  };
 
   useEffect(() => {
     setShowProfile(true);
@@ -32,7 +36,6 @@ function ServerMemberList({ server }) {
   useEffect(() => {
     setShowProfile(false);
   }, [serverid, channelid]);
-  
 
   return (
     <div
@@ -49,6 +52,7 @@ function ServerMemberList({ server }) {
               <div
                 key={member.id}
                 onClick={(e) => setSelectedMember(member.id)}
+                className="sever-member-parent-container"
               >
                 <ServerMemberCard
                   member={member}
@@ -59,17 +63,22 @@ function ServerMemberList({ server }) {
                   showProfile={showProfile}
                   activeMember={activeMember}
                   setActiveMember={setActiveMember}
+                  onCardClick={handleCardClick}
                 />
-                <div>
-                  {selectedMember == member.id && showProfile && activeMember && (
-                    <MemberProfile
-                      member={member}
-                      setShowProfile={setShowProfile}
-                      setSelectedMember={setSelectedMember}
-                      setActiveMember={setActiveMember}
-                    />
-                  )}
-                </div>
+                <MemberContainer cardPosition={cardPosition}>
+                  <div>
+                    {selectedMember == member.id &&
+                      showProfile &&
+                      activeMember && (
+                        <MemberProfile
+                          member={member}
+                          setShowProfile={setShowProfile}
+                          setSelectedMember={setSelectedMember}
+                          setActiveMember={setActiveMember}
+                        />
+                      )}
+                  </div>
+                </MemberContainer>
               </div>
             ))}
           </div>
