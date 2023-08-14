@@ -128,9 +128,55 @@ Enjoy Accord!
 
 ## Technical Implementation Details
 
+
+### Abram - (Redux State & Sockets)
+Before implementing sockets, we had a reducer for each model (Servers, Channels, Messages, Members) which worked perfectly fine for a single user. We realized that the sockets won't dispatch updates properly given the data the emitter sends to the response. So we rebuilt the redux state to only have one reducer with about 20 action creators that contains and updates all data for "Servers". Which is a deeply nested state that contains data about each server that belongs to the current user,containing "Channels", "Messages", and "Members" in each server.
+After rebuilding the redux state, figuiring out how to implement sockets was the next challenge. We created a dynamic function that emits an event based on an action type of "CREATE", "DELETE", and "EDIT" that will dispatch the corressponding action creator for the corresponding request. The function is then called in submit handlers for messages, channels, and members. EX: Chats
+```javascript
+export function chatUpdate(payload) {
+  socket.emit("chat_update", payload);
+}
+
+export function handleChatUpdates(callbacks, chid) {
+  socket.on("chat_update_response", (data) => {
+    const {
+      server_id,
+      channel_id,
+      message_id,
+      Action_Type: actionType,
+      message: message,
+    } = data;
+    if (channel_id == chid && callbacks[actionType]) {
+      callbacks[actionType](data);
+    }
+  });
+}
 ```
-ADD HERE
+
+```javascript
+  useEffect(() => {
+    const callbacks = {
+      CREATE: (data) => dispatch(addMessage(data)),
+      DELETE: (data) => dispatch(deleteMessage(data)),
+      EDIT: (data) => dispatch(updateMessage(data)),
+    };
+
+    handleChatUpdates(callbacks, channelid);
+
+    return () => {
+      socket.off("chat_update_response");
+    };
+  }, [dispatch, channelid]);
+
+  const updateChatInput = (e) => {
+    setChatInput(e.target.value);
+  };
 ```
+
+
+### Johnathan - (Organizing the Messaging Output System) Write about the chat HERE
+
+### Randy - (AWS) Write about AWS HERE
 
 ## Authors
 * Abram's [Github](https://github.com/abramfelix1) and [LinkedIn](https://www.linkedin.com/in/abram-felix-98937b162/)
