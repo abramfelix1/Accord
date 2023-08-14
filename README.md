@@ -1,163 +1,138 @@
 
-<h1 align="center">Welcome to Accord 👋</h1>
-<p>
-  <a href="https://github.com/abramfelix1/Accord/wiki" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a>
-</p>
+<h1 align="center">Accord <a href="https://accord-ajr.onrender.com/"><img align="right" src="https://i.imgur.com/QBeByit.png" alt="image description" height="135"></a></h1>
 
-> [Accord](https://accord-ajr.onrender.com/) (Discord Clone) is a social platform that specializes in instant messaging. Users have the ability to create "Servers" for other users to join, "Channels" associated with the server which allows users to create and read live messages, and the ability to "Discover Communities" to join.
+[Accord](https://accord-ajr.onrender.com/) is a collaborative effort by Abram Felix, Jonathan Ang, and Randy Hac, crafted as part of AppAcademy's group project. Modeled after Discord, Accord offers users a platform to engage, interact, and join diverse communities.
+
+![](https://github.com/abramfelix1/Accord/assets/62622410/b7695786-c825-41f8-97f5-39edacf3c047)
 
 ## Technologies Used
-
 Accord was built using the following technologies:
 
-- Python
-- Flask
-- SQLAlchemy/Alembic
-- WTForms
-- JavaScript
-- React
-- Redux
-- Socket.io
-- AWS
+### Backend:
+- **Python**
+- **Flask**
+  - flask-sqlalchemy
+  - flask-socketio
+- **SQLAlchemy** (with Alembic for database migrations)
 
-![image](<img width="1433" alt="image" src="https://github.com/abramfelix1/Accord/assets/113399691/2b228c59-2e6c-4b3b-b5db-f9b63c963f09">
-)
+### Frontend:
+- **JavaScript**
+- **React**
+- **Redux**
+- **Socket.io**
 
-### 🏠 [Homepage](https://accord-ajr.onrender.com/)
+### Others:
+- **AWS**: Cloud infrastructure and services
+- **WTForms**: Forms handling
 
 ## Table of Contents
-
- - [Installing/Getting Started](https://github.com/abramfelix1/Accord#readme#installation)
-	 - [Initial Configuration](https://github.com/abramfelix1/Accord#readme#initial-configuration)
-- [Screenshots](https://github.com/abramfelix1/Accord#readme#screenshots)
-- [Wiki Documents](https://github.com/abramfelix1/Accord#readme#wiki-documents)
- 	- Database Schema
- 	- Features
- 	- Backend Routes
-	- User Stories
-- [To-Dos/Future Features](https://github.com/abramfelix1/Accord#readme#to-dosfuture-features)
-- [Technical Implementation Details](https://github.com/abramfelix1/Accord#readme#technical-implementation-details)
-	- Socket.io
-- [Authors](https://github.com/abramfelix1/Accord#readme#authors)
-- [Show your support](https://github.com/abramfelix1/Accord#readme#show-your-support)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+  - [Backend Setup: Flask](#backend-setup-flask)
+  - [Frontend Setup: React](#frontend-setup-react)
+- [Operating](#operating)
+- [Accord Showcase!](#accord-showcase)
+- [Wiki Documents](#wiki-documents)
+- [Future Features](#future-features)
+- [Technical Implementation Details](#technical-implementation-details)
+- [Authors](#authors)
 
 ## Installation
 
-### Initial Configuration
-#### Flask
-To install and run this project locally, start off with your backend server.
+### Backend Setup: Flask
 
-1. Clone this repository
+1. **Clone the Repository**
     ```bash
     git clone https://github.com/abramfelix1/Accord.git
     ```
 
-2. Install dependencies
+2. **Install Dependencies**
     ```bash
     pipenv install -r requirements.txt
     ```
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
-    - Make sure the SQLite3 database connection URL is in the **.env** file
-    - The env example organizes all tables inside the `flask_schema` schema, defined
-        by the `SCHEMA` environment variable.  Replace the value for
-        `SCHEMA` with a unique name, **making sure you use the snake_case
-        convention**.
-    <br></br>
+3. **Configure Environment Settings**
+    - Create a `.env` file using the provided example, adjusting settings suitable for your development environment.
+    - Ensure the SQLite3 database connection URL is present in the `.env` file.
+    - Set a unique name for the `SCHEMA` environment variable, using the `snake_case` convention.
 
-4. Get into your pipenv, migrate your database, seed your database, and run your Flask app
+4. **Setup and Start the Flask Server**
+    ```bash
+    pipenv shell
+    flask db upgrade
+    flask seed all
+    flask run
+    ```
 
-   ```bash
-   pipenv shell
-   ```
-   and then
-   ```bash
-   flask db upgrade &&
-   flask seed all &&
-   flask run
-   ```
+### Frontend Setup: React
 
-5. Now that you have your backend Flask server running. You need to run the React App in development in a different terminal instance.
-
-#### React
-1. Make sure you have a new terminal instance separate from your terminal for your backend. Navigate into the Accord project folder and then into the react-app folder.
+1. **Navigate to the React App Folder**
     ```bash
     cd react-app
     ```
 
-2. Install all your dependencies before starting up the application.
+2. **Install Dependencies and Start the App**
     ```bash
-    npm install &&
+    npm install
     npm start
     ```
 
-3. Now that you have both your Flask backend and React App frontend running, enjoy using Pour'd. Cheers!
+3. With both backend and frontend running, you're ready to experience Accord. Cheers!
 
-### Operating
-To run the application, navigate into the project folder in two separate terminal windows.
+## Operating
 
-1. Ensure that the database has already been migrated and seeded. If it hasn't been done yet, refer to [Intitial Configuration](https://github.com/abramfelix1/Accord#readme#initial-configuration)
+For subsequent sessions, ensure you have two terminal windows:
 
-2. In one terminal, go into pipenv and run the Flask app
+1. **Backend Server** (ensure database is migrated and seeded as mentioned in the installation process)
     ```bash
-    pipenv shell && flask run
+    pipenv shell
+    flask run
     ```
 
-3. In the other terminal, start the React app.
+2. **Frontend Server**
+    ```bash
+    cd react-app
+    npm start
+    ```
 
-4. Pour'd will open in your browser and you can now enjoy using Pour'd. Cheers!
+Enjoy Accord!
 
-## Screenshots
+## Accord Showcase!
+![LogRegFor](https://github.com/abramfelix1/Accord/assets/62622410/dca799ac-7997-4f01-89d2-62c3af04d7cc)
+![Welcome](https://github.com/abramfelix1/Accord/assets/62622410/2ba38185-2aa5-4861-bb6e-78903f10338d)
+![ChatDash](https://github.com/abramfelix1/Accord/assets/62622410/c4c60d58-a30d-463a-a0e2-fc295f9c0ad1)
 
-### Login
 
-https://user-images.githubusercontent.com/113399691/260408060-f7bf7db5-d6fe-4cd9-9996-7f844cad940d.png
-
-### Application Home
-
-https://user-images.githubusercontent.com/113399691/260408344-97eb2f59-4143-4b7a-b8c8-edb5044793ee.png
-
-### Servers, Channels, Members, Live Chat
-
-https://user-images.githubusercontent.com/113399691/260408488-c61de139-b8a7-4c7c-a854-a5546a838209.png
-
-## [Wiki Documents](https://github.com/nicolyoshikawa/pour-d/wiki)
+## [Wiki Documents](https://github.com/abramfelix1/Accord/wiki)
 - [Database Schema](https://github.com/abramfelix1/Accord/wiki/Database-Schema)
 - [Features](https://github.com/abramfelix1/Accord/wiki/Feature-List)
 - [Backend Routes](https://github.com/abramfelix1/Accord/wiki/Backend-Routes)
 - [User Stories](https://github.com/abramfelix1/Accord/wiki/User-Stories)
 
 
-## To-Dos/Future Features
+## Future Features
 
-The project is fully functional in its current state, but some other features we would like to implement in the future include:
+### Communication Enhancements:
+- **Live Voice Chat**: Enable users to join voice channels for real-time conversation.
+- **Screen Sharing**: Allow users to share their screens within voice channels.
+- **Direct Messaging**: Provide a feature for users to message friends directly.
+- **Private Group Chats**: Introduce the ability for users to have private group conversations.
 
-- Live Voice Chat that allows users to join a "Voice Channel".
-- Share screen that allows users to share screen while in a Voice Channel.
-- Friends List to add users.
-- Direct Message that allows the user to message friends.
+### Social Interactions:
+- **Friends System**: A list or system for adding and managing friends.
+- **Online/Offline Statuses**: Display user availability status, showing whether they are online, offline, busy, etc.
+- **Server Invite Links**: Facilitate the growth of communities by providing server invite links for easy sharing and joining.
+
+### Technical Implementations:
+- **WebRTC Integration**: For enhanced voice, video, and screenshare capabilities.
 
 ## Technical Implementation Details
 
-### Code Snippets
-
-**Search box component**
 ```
 ADD HERE
 ```
 
 ## Authors
-
-👤 **Abram Felix, Randy Hac, and Jonathan Ang**
-
-* Eric's [Github](https://github.com/abramfelix1) and [LinkedIn](https://www.linkedin.com/in/abram-felix-98937b162/)
-* Nicol's [Github](https://github.com/randydhack) and [LinkedIn](https://www.linkedin.com/in/randy-hac-4577a71b0/)
-* Huey's [Github](https://github.com/jang55) and [LinkedIn](https://www.linkedin.com/in/jonathan-ang-b1508b286/)
-
-
-## Show your support
-
-Give a ⭐️ if this project helped you!
+* Abram's [Github](https://github.com/abramfelix1) and [LinkedIn](https://www.linkedin.com/in/abram-felix-98937b162/)
+* Johnathan's [Github](https://github.com/jang55) and [LinkedIn](https://www.linkedin.com/in/jonathan-ang-b1508b286/)
+* Randy's [Github](https://github.com/randydhack) and [LinkedIn](https://www.linkedin.com/in/randy-hac-4577a71b0/)
