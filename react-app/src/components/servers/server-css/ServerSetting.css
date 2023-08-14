@@ -57,6 +57,7 @@
   padding-top: 10px;
   padding-bottom: 0px;
   align-items: center;
+  flex-direction: column;
   margin-bottom: 12px;
 }
 
@@ -106,11 +107,38 @@
   text-decoration: underline;
 }
 
+.remove-server-banner {
+  position: absolute;
+  top: 210px;
+  right: 195px;
+  border: none;
+  background-color: transparent;
+  color: var(--color-ADADAD);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.remove-server-banner:hover {
+  color: var(--color-font-names);
+  text-decoration: underline;
+}
+
+
+.upload-server-banner {
+  position: absolute;
+  top: 210px;
+  right: 170px;
+  border: none;
+  background-color: transparent;
+  color: var(--color-ADADAD);
+  cursor: pointer;
+  font-weight: bold;
+}
+
 .server-setting-input-field {
-  width: 85%;
   height: 20px;
   padding: 10px;
-  margin-right: 150px;
+  width: 250px;
   font-size: 15px;
   border-radius: 2px;
   border: none;
@@ -121,7 +149,6 @@
 
 .server-setting-save-delete-button {
   display: flex;
-  height: 43%;
   align-items: flex-end;
   justify-content: end;
   width: 88%;
@@ -141,6 +168,26 @@
   background-color: #248046b5;
   cursor: pointer;
 }
+
+.server-banner-update {
+  width: 100%;
+}
+
+.server-banner-default {
+  background-color: #4D5057;
+  width: 300px;
+  height: 92%;
+  border-radius: 5px;
+  margin-left: 60px;
+}
+
+.server-banner-image-update {
+  width: 300px;
+  height: 124.2px;
+  border-radius: 5px;
+  margin-left: 60px;
+}
+
 
 /* ------------------------ NAVIGATION -------------------------------- */
 

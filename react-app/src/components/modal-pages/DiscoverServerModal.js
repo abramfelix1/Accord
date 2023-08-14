@@ -79,16 +79,23 @@ function DiscoverServerModal() {
                 onClick={(e) => joinServerHandler(server.id)}
               >
                 {server.image_url ? (
-                  <div>
+                  <div style={{height: '75px', marginBottom: '35px'}}>
+                    {server.banner_image ?
+                    <img className="server-banner" src={server.banner_image}/> :
                     <div className="server-banner"></div>
+
+                    }
                     <img
                       src={server.image_url}
                       className="discovery-initial-server-name"
                     />
                   </div>
                 ) : (
-                  <div>
+                  <div style={{height: '75px', marginBottom: '35px'}}>
+                    {server.banner_image ?
+                    <img className="server-banner" src={server.banner_image}/> :
                     <div className="server-banner"></div>
+                    }
                     <div className="discovery-initial-server-name">{initials(server?.name)}</div>
                   </div>
                 )}

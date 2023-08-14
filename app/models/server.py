@@ -14,6 +14,7 @@ class Server(db.Model):
         db.Integer(), db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False
     )
     name = db.Column(db.String(100), nullable=False)
+    banner_image = db.Column(db.String())
     image_url = db.Column(db.String())
     created_at = db.Column(db.DateTime(timezone=True), default=db.func.now())
     updated_at = db.Column(db.DateTime(timezone=True), default=db.func.now())
@@ -39,6 +40,7 @@ class Server(db.Model):
             "id": self.id,
             "owner_id": self.owner_id,
             "name": self.name,
+            "banner_image": self.banner_image,
             "image_url": self.image_url,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
@@ -52,6 +54,7 @@ class Server(db.Model):
             "id": self.id,
             "owner_id": self.owner_id,
             "name": self.name,
+            "banner_image": self.banner_image,
             "image_url": self.image_url,
             "created_at": self.created_at,
             "updated_at": self.updated_at,

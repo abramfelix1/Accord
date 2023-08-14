@@ -97,6 +97,7 @@ function ServerProfileSetting() {
                 style={{
                   display: "flex",
                   flexDirection: "column",
+                  width: '100%'
                 }}
               >
                 <label
