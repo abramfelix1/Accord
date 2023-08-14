@@ -225,6 +225,23 @@ export const removeServerImageThunk = (server_id) => async (dispatch) => {
   }
 };
 
+export const uploadServerBannerThunk =
+  (server_id, image) => async (dispatch) => {
+    const res = await fetch(`/api/servers/${server_id}/banner`, {
+      method: "PUT",
+      body: image,
+    });
+
+    if (res.ok) {
+      const updatedServer = await res.json();
+      await dispatch(getUserServersThunk());
+      return updatedServer;
+    } else {
+      const error = await res.json();
+      return error;
+    }
+  };
+
 // REDUCER
 
 const initialState = {

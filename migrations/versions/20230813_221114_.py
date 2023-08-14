@@ -1,21 +1,16 @@
 """empty message
 
-Revision ID: 002b1d70ff77
+Revision ID: 25a89324dc68
 Revises: 
-Create Date: 2023-08-12 00:42:37.418286
+Create Date: 2023-08-13 22:11:14.197674
 
 """
 from alembic import op
 import sqlalchemy as sa
 
-# add import and set variable to access flask environment
-import os
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get('SCHEMA')
-
 
 # revision identifiers, used by Alembic.
-revision = '002b1d70ff77'
+revision = '25a89324dc68'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -49,6 +44,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=False),
+    sa.Column('banner_image', sa.String(), nullable=True),
     sa.Column('image_url', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(timezone=True), nullable=True),
     sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
@@ -86,13 +82,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE private_messages SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE servers SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE channels SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE members SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE channel_messages SET SCHEMA {SCHEMA};")
+    # ### end Alembic commands ###
 
 
 def downgrade():
