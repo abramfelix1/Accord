@@ -68,7 +68,9 @@ export const leaveServerThunk = (server_id) => async (dispatch) => {
   // prevent loading issues
   if (res.ok) {
     const data = res.json();
-    dispatch(leaveServerAction({ server_id: server_id }));
+    dispatch(
+      leaveServerAction({ server_id: server_id, member_id: data.member_id })
+    );
     return data;
   }
 };

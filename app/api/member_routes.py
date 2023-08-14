@@ -37,7 +37,7 @@ def leave_server(id):
 
     db.session.delete(member)
     db.session.commit()
-    return jsonify({"message": "Leave server succesful!"}), 200
+    return jsonify({"member_id": user}), 200
 
 
 @member_routes.route('/server/<int:id>', methods=["PUT", "PATCH"])
