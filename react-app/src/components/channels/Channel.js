@@ -34,7 +34,6 @@ function Channel() {
     }
   });
 
-
   // Contexts
   const { setChannel } = useContext(ChannelContext);
   const { createChannelModal, channelSettingModal } = useContext(ModalContext);
@@ -50,9 +49,7 @@ function Channel() {
 
   // Handlers
   const channelClickHandler = (event, channel) => {
-    // dispatch(resetServers());
     setChannel(channel);
-    // if (event.currentTarget.id !== "active-channel") setIsLoaded(false);
     const current = document.getElementById("active-channel");
     if (current) current.id = "";
     event.currentTarget.id = "active-channel";
@@ -105,45 +102,47 @@ function Channel() {
               {showTextChannel ? (
                 <li>
                   {channels.map((channel, idx) => {
-                    return channel.id && (
-                      <div
-                        key={`${channel.id}${idx}`}
-                        className={
-                          channelid == channel.id
-                            ? "channel-box-active"
-                            : "channel-box"
-                        }
-                        onClick={(e) => {
-                          channelClickHandler(e, channel);
-                        }}
-                      >
-                        <NavLink
-                          key={channel.id}
-                          to={`/servers/${server.id}/channels/${channel.id}`}
-                          className={`channel-flex `}
+                    return (
+                      channel.id && (
+                        <div
+                          key={`${channel.id}${idx}`}
+                          className={
+                            channelid == channel.id
+                              ? "channel-box-active"
+                              : "channel-box"
+                          }
+                          onClick={(e) => {
+                            channelClickHandler(e, channel);
+                          }}
                         >
-                          <FaHashtag style={{ color: "#949ba4" }} />
-                          <p
-                            className={`channel-name ${
-                              channelid == channel.id ? "channel-white" : ""
-                            }`}
+                          <NavLink
+                            key={channel.id}
+                            to={`/servers/${server.id}/channels/${channel.id}`}
+                            className={`channel-flex `}
                           >
-                            {channel.name}
-                          </p>
-                        </NavLink>
-                        {user.id === server.owner_id && (
-                          <div className="cog-container">
-                            <BiSolidCog
-                              className="channel-cog-settings"
-                              onClick={(e) => {
-                                setChannelCog(channel);
-                                channelSettingModal();
-                                e.stopPropagation();
-                              }}
-                            />
-                          </div>
-                        )}
-                      </div>
+                            <FaHashtag style={{ color: "#949ba4" }} />
+                            <p
+                              className={`channel-name ${
+                                channelid == channel.id ? "channel-white" : ""
+                              }`}
+                            >
+                              {channel.name}
+                            </p>
+                          </NavLink>
+                          {user.id === server.owner_id && (
+                            <div className="cog-container">
+                              <BiSolidCog
+                                className="channel-cog-settings"
+                                onClick={(e) => {
+                                  setChannelCog(channel);
+                                  channelSettingModal();
+                                  e.stopPropagation();
+                                }}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      )
                     );
                   })}
                 </li>
