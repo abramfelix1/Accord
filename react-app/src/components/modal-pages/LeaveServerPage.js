@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { InfoContext } from "../../context/infoContext";
 import { useContext } from "react";
 import { ModalContext } from "../../context/modalContext";
-import { leaveServerThunk } from "../../store/members";
+import { leaveServerThunk, removeServerAction } from "../../store/members";
 import { useHistory } from "react-router-dom";
 
 import "./modal-css/LeaveServerPage.css";
@@ -22,10 +22,10 @@ function LeaveServerPage() {
     const member = await dispatch(leaveServerThunk(server.id));
     memberUpdate({
       server_id: serverid,
-      member_id: member.member_id,
+      member_id: member.id,
       action_type: "DELETE",
     });
-    dispatch(getUserServersThunk());
+    await dispatch(removeServerAction({ server_id: serverid }));
     setType(null);
     return history.push("/app");
   };

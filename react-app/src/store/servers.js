@@ -138,6 +138,7 @@ const serversReducer = (state = initialState, action) => {
       }, {});
       return newState;
     case memberActions.DELETE_MEMBER: {
+      console.log("DELETE MEMBER PAYLOAD:", action.payload);
       const { server_id, member_id } = action.payload;
       if (newState[server_id]) {
         delete newState[server_id].members[member_id];
@@ -154,6 +155,13 @@ const serversReducer = (state = initialState, action) => {
         newState[server_id].members[member.id] = {
           ...member,
         };
+      }
+      return { ...newState };
+    }
+    case memberActions.REMOVE_SERVER: {
+      const { server_id } = action.payload;
+      if (newState[server_id]) {
+        delete newState[server_id];
       }
       return { ...newState };
     }
