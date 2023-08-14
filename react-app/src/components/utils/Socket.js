@@ -56,12 +56,10 @@ export function addServer(server_id) {
 }
 
 export function chatUpdate(payload) {
-  console.log("***EMIT CHAT UPDATE***");
   socket.emit("chat_update", payload);
 }
 
 export function handleChatUpdates(callbacks, chid) {
-  console.log("***LISTENING FOR CHAT UPDATES***");
   socket.on("chat_update_response", (data) => {
     const {
       server_id,
@@ -71,7 +69,6 @@ export function handleChatUpdates(callbacks, chid) {
       message: message,
     } = data;
     if (channel_id == chid && callbacks[actionType]) {
-      console.log(`${actionType} CHAT SOCKET EMITTED`);
       callbacks[actionType](data);
     }
   });
