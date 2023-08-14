@@ -129,7 +129,7 @@ def seed_members():
         user_id=11, server_id=2)
     member_59 = Member(
         user_id=1, server_id=2)
-    
+
     # Members of marvel
     member_47 = Member(
         user_id=36, server_id=5)
@@ -198,8 +198,6 @@ def seed_members():
     member_50 = Member(
         user_id=24, server_id=8)
     member_89 = Member(
-        user_id=9, server_id=8)
-    member_90 = Member(
         user_id=9, server_id=8)
     member_91 = Member(
         user_id=10, server_id=8)
@@ -419,7 +417,6 @@ def seed_members():
     db.session.add(member_87)
     db.session.add(member_88)
     db.session.add(member_89)
-    db.session.add(member_90)
     db.session.add(member_91)
     db.session.add(member_93)
     db.session.add(member_94)
