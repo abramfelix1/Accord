@@ -7,7 +7,9 @@ import {
   uploadServerImageThunk,
   removeServerImageThunk,
   uploadServerBannerThunk,
+  removeServerBannerThunk,
 } from "../../store/server";
+import { getUserServersThunk } from "../../store/user";
 import { IoCloseOutline } from "react-icons/io5";
 import "./modal-css/ServerUpdateFormPage.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
@@ -18,8 +20,8 @@ function ServerUpdateFormPage({ user, setType }) {
   const server = useSelector((state) => state.servers[serverid]);
 
   const [serverName, setServerName] = useState(server.name);
-  const [serverImage, setServerImage] = useState("");
-  const [serverBanner, setServerBanner] = useState("");
+  const [serverImage, setServerImage] = useState(null);
+  const [serverBanner, setServerBanner] = useState(null);
 
   const initials = (serverName) => {
     if (!serverName) return;
@@ -44,27 +46,33 @@ function ServerUpdateFormPage({ user, setType }) {
   const updateServerHandleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(updateServerThunk(server.id, serverName));
+    const formData = new FormData();
+
     if (serverImage) {
-      const formData = new FormData();
+      console.log("images");
       formData.append("image_url", serverImage);
       await dispatch(uploadServerImageThunk(server.id, formData));
     }
 
     if (serverBanner) {
-      const formData = new FormData();
       formData.append("banner_image", serverBanner);
       await dispatch(uploadServerBannerThunk(server.id, formData));
     }
+
+    await dispatch(getUserServersThunk());
 
     setType(null);
   };
 
   const removeServerImageHandleSubmit = async (e) => {
-    await dispatch(removeServerImageThunk(server.id));
+    await dispatch(removeServerImageThunk(serverid));
   };
 
-  console.log(server, serverBanner)
+  const removeServerBannerHandleSubmit = async (e) => {
+    await dispatch(removeServerBannerThunk(serverid));
+  };
 
+  console.log(server, serverBanner, serverImage, Number(serverid));
 
   return (
     <>
@@ -121,6 +129,11 @@ function ServerUpdateFormPage({ user, setType }) {
                     </div>
                   </div>
                 )}
+                {server.owner_id === user.id && (
+                  <button className="upload-avatar-button" disabled >
+                    Upload Avatar
+                  </button>
+                )}
 
                 {server.image_url && user.id === server.owner_id && (
                   <button
@@ -140,24 +153,26 @@ function ServerUpdateFormPage({ user, setType }) {
                   <BiImageAdd className="server-image-icon" />
                 </div>
               )}
-              <div className="change-banner-server">
-                <input
-                  type="file"
-                  className="change-banner-input"
-                  onChange={(e) => setServerBanner(e.target.files[0])}
-                  accept="image/*"
-                  name="server-image"
-                />
-                <div
-                  style={{
-                    textAlign: "center",
-                    width: "300px",
-                    fontSize: "16px",
-                  }}
-                >
-                  Change Banner
+              {server.owner_id === user.id && (
+                <div className="change-banner-server">
+                  <input
+                    type="file"
+                    className="change-banner-input"
+                    onChange={(e) => setServerBanner(e.target.files[0])}
+                    accept="image/*"
+                    name="server-image"
+                  />
+                  <div
+                    style={{
+                      textAlign: "center",
+                      width: "300px",
+                      fontSize: "16px",
+                    }}
+                  >
+                    Change Banner
+                  </div>
                 </div>
-              </div>
+              )}
               {server.banner_image ? (
                 <div>
                   <img
@@ -167,7 +182,7 @@ function ServerUpdateFormPage({ user, setType }) {
                   {server.banner_image && user.id === server.owner_id && (
                     <button
                       className="remove-server-banner"
-                      onClick={removeServerImageHandleSubmit}
+                      onClick={removeServerBannerHandleSubmit}
                     >
                       Remove
                     </button>
@@ -175,13 +190,14 @@ function ServerUpdateFormPage({ user, setType }) {
                 </div>
               ) : (
                 <div className="server-banner-default">
-                  {server.image_url && user.id === server.owner_id && (
-                    <button
-                      className="upload-server-banner"
-                    >
+                  {server.banner_image && user.id === server.owner_id && (
+                    <button className="upload-server-banner">
                       Upload Banner
                     </button>
                   )}
+                  <button className="upload-banner-button" disabled>
+                    Upload Banner
+                  </button>
                 </div>
               )}
             </div>
@@ -219,9 +235,11 @@ function ServerUpdateFormPage({ user, setType }) {
           ) : (
             <div
               style={{
+                marginTop: "30px",
                 display: "flex",
                 flexDirection: "column",
                 marginLeft: "10px",
+                width: "95%",
               }}
             >
               <label

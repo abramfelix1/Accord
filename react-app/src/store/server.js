@@ -242,6 +242,20 @@ export const uploadServerBannerThunk =
     }
   };
 
+  export const removeServerBannerThunk = (server_id) => async (dispatch) => {
+    const res = await fetch(`/api/servers/${server_id}/banner/remove`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      return data;
+    }
+  };
+
 // REDUCER
 
 const initialState = {

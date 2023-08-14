@@ -95,3 +95,27 @@
     z-index: 10;
     position: absolute;
 }
+
+
+.upload-banner-button {
+    position: absolute;
+    top: 210px;
+    right: 170px;
+    border: none;
+    background-color: transparent;
+    color: var(--color-ADADAD);
+    cursor: pointer;
+    font-weight: bold;
+    cursor: default;
+}
+
+.upload-avatar-button {
+    position: absolute;
+    top: 212px;
+    border: none;
+    background-color: transparent;
+    color: var(--color-ADADAD);
+    cursor: pointer;
+    font-weight: bold;
+    cursor: default;
+}

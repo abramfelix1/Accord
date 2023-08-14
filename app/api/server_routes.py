@@ -101,7 +101,6 @@ def edit_a_server(id):
     if form.validate_on_submit():
         data = form.data
         server.name = data["server_name"]
-        server.image_url = data["server_image"]
         db.session.commit()
         return server.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
@@ -212,9 +211,9 @@ def add_server_image(id):
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
-@server_routes.route("/<int:id>/image/remove", methods=["PUT"])
+@server_routes.route("/<int:id>/image/remove", methods=["PUT", "PATCH"])
 @login_required
-def remove_server_image():
+def remove_server_image(id):
     server = Server.query.get(id)
 
     server.image_url = None
@@ -234,7 +233,6 @@ def add_server_banner(id):
     form = ServerBannerForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
 
-    print(form , "2312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123")
     if form.validate_on_submit():
         image = form.data["banner_image"]
         image.filename = get_unique_filename(image.filename)
@@ -250,10 +248,12 @@ def add_server_banner(id):
 
 
 
-@server_routes.route("/<int:id>/banner/remove", methods=["PUT"])
+@server_routes.route("/<int:id>/banner/remove", methods=["PUT", "PATCH"])
 @login_required
-def remove_server_banner():
-    server = Server.query.get(id)
+def remove_server_banner(id):
+    server = Server.query.get(int(id))
+
+    print(server, "2312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123")
 
     server.banner_image = None
     db.session.commit()
