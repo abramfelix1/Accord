@@ -64,13 +64,13 @@ export const createChannel = (serverId, channel_name) => async (dispatch) => {
   });
   if (response.ok) {
     const channel = await response.json();
-    dispatch(
-      addChannel({
-        server_id: serverId,
-        channel_id: channel.id,
-        channel: channel,
-      })
-    );
+    // dispatch(
+    //   addChannel({
+    //     server_id: serverId,
+    //     channel_id: channel.id,
+    //     channel: channel,
+    //   })
+    // );
     return channel;
   }
 };
@@ -86,9 +86,9 @@ export const editChannel =
     });
     if (response.ok) {
       const channel = await response.json();
-      dispatch(
-        updateChannel({ server_id: serverId, channel_id: channelId, channel })
-      );
+      // dispatch(
+      //   updateChannel({ server_id: serverId, channel_id: channelId, channel })
+      // );
       return channel;
     }
   };
