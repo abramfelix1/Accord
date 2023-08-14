@@ -89,8 +89,6 @@ def seed_members():
         user_id=11, server_id=4)
     member_57 = Member(
         user_id=1, server_id=4)
-    member_61 = Member(
-        user_id=7, server_id=4)
     member_143 = Member(
         user_id=12, server_id=4)
     member_144 = Member(
@@ -134,7 +132,7 @@ def seed_members():
     
     # Members of marvel
     member_47 = Member(
-        user_id=44, server_id=5)
+        user_id=36, server_id=5)
     member_63 = Member(
         user_id=20, server_id=5)
     member_64 = Member(
@@ -262,7 +260,7 @@ def seed_members():
 
     # Members of davy jones locker
     member_51 = Member(
-        user_id=42, server_id=9)
+        user_id=18, server_id=9)
     member_117 = Member(
         user_id=1, server_id=9)
     member_118 = Member(
@@ -278,7 +276,7 @@ def seed_members():
 
     # Members of meow
     member_52 = Member(
-        user_id=36, server_id=10)
+        user_id=12, server_id=10)
     member_125 = Member(
         user_id=1, server_id=10)
     member_126 = Member(
@@ -298,7 +296,7 @@ def seed_members():
     member_133 = Member(
         user_id=33, server_id=10)
     member_134 = Member(
-        user_id=40, server_id=10)
+        user_id=22, server_id=10)
 
     # Members of app academy
     member_53 = Member(
@@ -331,20 +329,24 @@ def seed_members():
 
 #current num: 150
 
+# server owners
     db.session.add(member_56)
-    db.session.add(member_47)
+    db.session.add(member_15)
+    db.session.add(member_5)
+    db.session.add(member_10)
+    db.session.add(member_47)   #broken
     db.session.add(member_48)
     db.session.add(member_49)
     db.session.add(member_50)
-    db.session.add(member_51)
+    db.session.add(member_51)   #broken
     db.session.add(member_52)
     db.session.add(member_53)
     db.session.add(member_54)
     db.session.add(member_55)
+
+# server members
     db.session.add(member_1)
-    db.session.add(member_15)
     db.session.add(member_60)
-    db.session.add(member_61)
     db.session.add(member_57)
     db.session.add(member_58)
     db.session.add(member_59)
@@ -352,12 +354,10 @@ def seed_members():
     db.session.add(member_3)
     db.session.add(member_62)
     db.session.add(member_4)
-    db.session.add(member_5)
     db.session.add(member_6)
     db.session.add(member_7)
     db.session.add(member_8)
     db.session.add(member_9)
-    db.session.add(member_10)
     db.session.add(member_11)
     db.session.add(member_12)
     db.session.add(member_13)
@@ -433,7 +433,6 @@ def seed_members():
     db.session.add(member_102)
     db.session.add(member_103)
     db.session.add(member_104)
-    db.session.add(member_105)
     db.session.add(member_106)
     db.session.add(member_107)
     db.session.add(member_108)
@@ -464,7 +463,7 @@ def seed_members():
     db.session.add(member_134)
     db.session.add(member_135)
     db.session.add(member_136)
-    db.session.add(member_137)
+    db.session.add(member_137)   #broken
     db.session.add(member_138)
     db.session.add(member_139)
     db.session.add(member_140)
@@ -478,6 +477,7 @@ def seed_members():
     db.session.add(member_148)
     db.session.add(member_149)
     db.session.add(member_150)
+
 
 
     db.session.commit()

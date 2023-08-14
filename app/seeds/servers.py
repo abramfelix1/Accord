@@ -2,61 +2,61 @@ from app.models import db, Server, environment, SCHEMA
 from sqlalchemy.sql import text
 
 
-def seed_servers():
-    demo_server = Server(
-        owner_id=1, name='Demo Server')
-    krusty_krabs= Server(
-        owner_id=10, name='Krust Krabs')
-    chum_bucket= Server(
-        owner_id=6, name='Chum Bucket')
-    bikini_bottom = Server(
-        owner_id=7, name='Bikini Bottom')
-    marvel = Server(
-        owner_id=44, name='Marvel')
-    stark_industries = Server(
-        owner_id=34, name='Stark Industries')
-    smash_club = Server(
-        owner_id=20, name='Smash Club')
-    i_am_groot = Server(
-        owner_id=24, name='I AM GROOT')
-    davy_jones_locker = Server(
-        owner_id=42, name='Davy Jones Locker')
-    meow = Server(
-        owner_id=36, name='Meow')
-    app_academy = Server(
-        owner_id=1, name='App Academy')
-    study_group = Server(
-        owner_id=4, name='Study Group')
-    atlantis = Server(
-        owner_id=19, name='Atlantis')
-
 # def seed_servers():
 #     demo_server = Server(
 #         owner_id=1, name='Demo Server')
 #     krusty_krabs= Server(
-#         owner_id=10, name='Krust Krabs', image_url="https://i.imgur.com/UIXaU42.jpg")
+#         owner_id=10, name='Krust Krabs')
 #     chum_bucket= Server(
-#         owner_id=6, name='Chum Bucket', image_url="https://i.imgur.com/IHwLwmD.jpg")
+#         owner_id=6, name='Chum Bucket')
 #     bikini_bottom = Server(
-#         owner_id=7, name='Bikini Bottom', image_url="https://i.imgur.com/bxvu2Vl.jpg")
+#         owner_id=7, name='Bikini Bottom')
 #     marvel = Server(
-#         owner_id=44, name='Marvel', image_url="https://i.imgur.com/OdT0cLl.jpg")
+#         owner_id=44, name='Marvel')
 #     stark_industries = Server(
 #         owner_id=34, name='Stark Industries')
 #     smash_club = Server(
 #         owner_id=20, name='Smash Club')
 #     i_am_groot = Server(
-#         owner_id=24, name='I AM GROOT', image_url="https://i.imgur.com/9hi25cU.jpg")
+#         owner_id=24, name='I AM GROOT')
 #     davy_jones_locker = Server(
 #         owner_id=42, name='Davy Jones Locker')
 #     meow = Server(
-#         owner_id=36, name='Meow', image_url="https://i.imgur.com/1H1NeH3.jpg")
+#         owner_id=36, name='Meow')
 #     app_academy = Server(
-#         owner_id=1, name='App Academy', image_url="https://i.imgur.com/EtcV4uQ.png")
+#         owner_id=1, name='App Academy')
 #     study_group = Server(
 #         owner_id=4, name='Study Group')
 #     atlantis = Server(
 #         owner_id=19, name='Atlantis')
+
+def seed_servers():
+    demo_server = Server(
+        owner_id=1, name='Demo Server')
+    krusty_krabs= Server(
+        owner_id=10, name='Krust Krabs', image_url="https://i.imgur.com/UIXaU42.jpg")
+    chum_bucket= Server(
+        owner_id=6, name='Chum Bucket', image_url="https://i.imgur.com/IHwLwmD.jpg")
+    bikini_bottom = Server(
+        owner_id=7, name='Bikini Bottom', image_url="https://i.imgur.com/bxvu2Vl.jpg")
+    marvel = Server(
+        owner_id=36, name='Marvel', image_url="https://i.imgur.com/OdT0cLl.jpg")
+    stark_industries = Server(
+        owner_id=34, name='Stark Industries')
+    smash_club = Server(
+        owner_id=20, name='Smash Club')
+    i_am_groot = Server(
+        owner_id=24, name='I AM GROOT', image_url="https://i.imgur.com/9hi25cU.jpg")
+    davy_jones_locker = Server(
+        owner_id=18, name='Davy Jones Locker')
+    meow = Server(
+        owner_id=12, name='Meow', image_url="https://i.imgur.com/1H1NeH3.jpg")
+    app_academy = Server(
+        owner_id=1, name='App Academy', image_url="https://i.imgur.com/EtcV4uQ.png")
+    study_group = Server(
+        owner_id=4, name='Study Group')
+    atlantis = Server(
+        owner_id=19, name='Atlantis')
 
     db.session.add(demo_server)
     db.session.add(krusty_krabs)

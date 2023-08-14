@@ -111,15 +111,7 @@ def seed_users():
     db.session.add(black_panther)
     db.session.add(iron_man)
     db.session.add(gamora)          #35
-    db.session.add(gary)
-    db.session.add(pearl)
-    db.session.add(puff)
-    db.session.add(larry)
-    db.session.add(karen)           #40
-    db.session.add(man_ray)
-    db.session.add(flying_dutchman)
-    db.session.add(king_neptune)
-    db.session.add(stan_lee)        #44
+    db.session.add(stan_lee)        #36
 
     db.session.commit()
 
