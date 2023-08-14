@@ -68,12 +68,30 @@ def handle_chat(data):
     emit(
         "chat_update_response",
         {
-            # "LOGGER": f"CHAT_UPDATE: SERVER: {data['server_id']} CHANNEL: {data['channel_id']}",
             "channel_id": data["channel_id"],
             "server_id": data["server_id"],
             "message_id": data.get("message_id", None),
             "Action_Type": data["action_type"],
             "message": data.get("message", None),
+        },
+        room=str(data["server_id"]),
+        broadcast=False,
+    )
+
+
+@socketio.on("channel_update")
+def handle_channel(data):
+    print("**************************SEND_MESSAGE DATA START**************************")
+    print(data)
+    print("**************************SEND_MESSAGE DATA END**************************")
+    emit(
+        "channel_update_response",
+        {
+            "channel_id": data["channel_id"],
+            "server_id": data["server_id"],
+            "Action_Type": data["action_type"],
+            "channel": data.get("channel", None),
+            "channel_name": data.get("channel_name", None),
         },
         room=str(data["server_id"]),
         broadcast=False,
