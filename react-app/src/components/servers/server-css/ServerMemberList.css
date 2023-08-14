@@ -52,6 +52,7 @@
 .member-parent-container {
   position: absolute;
   right: 250px;
+  z-index: 99;
 }
 
 .member-wrapper {
