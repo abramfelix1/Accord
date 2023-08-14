@@ -98,6 +98,24 @@ def handle_channel(data):
     )
 
 
+@socketio.on("member_update")
+def handle_channel(data):
+    print("**************************SEND_MESSAGE DATA START**************************")
+    print(data)
+    print("**************************SEND_MESSAGE DATA END**************************")
+    emit(
+        "member_update_response",
+        {
+            "server_id": data["server_id"],
+            "member_id": data.get("member_id", None),
+            "Action_Type": data["action_type"],
+            "member": data.get("member", None),
+        },
+        room=str(data["server_id"]),
+        broadcast=False,
+    )
+
+
 @socketio.on("disconnect")
 def handle_disconnect():
     emit(

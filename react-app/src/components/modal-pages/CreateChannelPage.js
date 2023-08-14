@@ -18,14 +18,13 @@ function CreateChannelPage() {
   const history = useHistory();
   const { setType } = useContext(ModalContext);
   const { server } = useContext(InfoContext);
-  const { serverid, channelid } = useParams();
+  const { serverid } = useParams();
   //   const user = useSelector(state => state.session.user)
   const [channelName, setChannelName] = useState("");
 
   const createChannelHandleSubmit = async (e) => {
     e.preventDefault();
     const newChannel = await dispatch(createChannel(server.id, channelName));
-    const channel_id2 = newChannel.id.toString();
     setType(null);
     channelUpdate({
       server_id: serverid,
@@ -34,7 +33,7 @@ function CreateChannelPage() {
       channel: newChannel,
       channel_name: channelName,
     });
-    // return history.push(`/servers/${serverid}/channels/${newChannel.id}`);
+    return history.push(`/servers/${serverid}/channels/${newChannel.id}`);
   };
 
   return (

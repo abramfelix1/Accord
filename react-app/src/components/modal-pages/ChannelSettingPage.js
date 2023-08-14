@@ -4,21 +4,16 @@ import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { InfoContext } from "../../context/infoContext";
 import { ModalContext } from "../../context/modalContext";
-import {
-  editChannel,
-  removeChannel,
-  getChannels,
-  updateChannel,
-} from "../../store/channels";
+import { editChannel, removeChannel } from "../../store/channels";
 
 import { BiSolidTrash } from "react-icons/bi";
-import { getServer, getServerThunk } from "../../store/server";
+import { getServer } from "../../store/server";
 import { channelUpdate } from "../utils/Socket";
 
 function ChannelSettingPage() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { channelCog, setIsLoaded } = useContext(InfoContext);
+  const { channelCog } = useContext(InfoContext);
   const { setType } = useContext(ModalContext);
   const { serverid, channelid } = useParams();
   const server = useSelector((state) => state.servers[serverid]);

@@ -62,7 +62,6 @@ export function chatUpdate(payload) {
 
 export function handleChatUpdates(callbacks, chid) {
   console.log("***LISTENING FOR CHAT UPDATES***");
-
   socket.on("chat_update_response", (data) => {
     const {
       server_id,
@@ -80,7 +79,6 @@ export function handleChatUpdates(callbacks, chid) {
 
 export function channelUpdate(payload) {
   console.log("***EMIT CHANNEL UPDATE***");
-  console.log(payload);
   socket.emit("channel_update", payload);
 }
 
@@ -97,6 +95,29 @@ export function handleChannelUpdates(callbacks, chid) {
     } = data;
     if (callbacks[actionType]) {
       console.log(`${actionType} CHANNEL SOCKET EMITTED`);
+      callbacks[actionType](data);
+    }
+  });
+}
+
+export function memberUpdate(payload) {
+  console.log("***EMIT MEMBER UPDATE***");
+  console.log(payload);
+  socket.emit("member_update", payload);
+}
+
+export function handleMemberUpdates(callbacks, chid) {
+  console.log("***LISTENING FOR MEMBER UPDATES***");
+
+  socket.on("member_update_response", (data) => {
+    const {
+      server_id,
+      member_id: member_id,
+      Action_Type: actionType,
+      member: member,
+    } = data;
+    if (callbacks[actionType]) {
+      console.log(`${actionType} MEMBER SOCKET EMITTED`);
       callbacks[actionType](data);
     }
   });

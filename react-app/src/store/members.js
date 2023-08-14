@@ -6,6 +6,8 @@ export const GET_SINGLE_MEMBER = "server/GET_SINGLE_MEMBER ";
 export const UPDATE_MEMBER = "server/UPDATE_MEMBER ";
 export const DELETE_MEMBER = "server/DELETE_MEMBER ";
 export const JOIN_SERVER = "server/JOIN_SERVER";
+export const REMOVE_SERVER = "server/REMOVE_SERVER";
+export const ADD_MEMBER = "server/ADD_MEMBER";
 /*************** ACTIONS CREATOR **************************/
 
 export const getServerMembersAction = (members) => {
@@ -43,6 +45,20 @@ export const joinServerAction = (payload) => {
   };
 };
 
+export const removeServerAction = (payload) => {
+  return {
+    type: REMOVE_SERVER,
+    payload,
+  };
+};
+
+export const addMemberAction = (payload) => {
+  return {
+    type: ADD_MEMBER,
+    payload,
+  };
+};
+
 /*************** THUNK ACTIONS CREATOR **************************/
 
 export const getServerMembersThunk = (server_id) => async (dispatch) => {
@@ -55,7 +71,7 @@ export const getServerMembersThunk = (server_id) => async (dispatch) => {
   }
 };
 
-export const leaveServerThunk = (server_id) => async (dispatch) => {
+export const leaveServerThunk = (server_id, member_id) => async (dispatch) => {
   const res = await fetch(`/api/members/server/${server_id}`, {
     method: "DELETE",
     headers: {
@@ -67,8 +83,11 @@ export const leaveServerThunk = (server_id) => async (dispatch) => {
   // to get the redux updated with all the servers again to
   // prevent loading issues
   if (res.ok) {
-    const data = res.json();
-    dispatch(leaveServerAction({ server_id: server_id }));
+    const data = await res.json();
+    await dispatch(
+      leaveServerAction({ server_id: server_id, member_id: data.id })
+    );
+
     return data;
   }
 };
