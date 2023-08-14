@@ -1,4 +1,5 @@
 import { getUserServersThunk } from "./user";
+import { getChannels } from "./channels";
 import * as userActions from "./user";
 import * as channelActions from "./channels";
 import * as messageActions from "./message";
@@ -203,7 +204,7 @@ export const uploadServerImageThunk =
 
     if (res.ok) {
       const updatedServer = await res.json();
-      await dispatch(getUserServersThunk());
+      await dispatch(updateServerAction(updatedServer));
       return updatedServer;
     } else {
       const error = await res.json();
@@ -224,6 +225,37 @@ export const removeServerImageThunk = (server_id) => async (dispatch) => {
     return data;
   }
 };
+
+export const uploadServerBannerThunk =
+  (server_id, image) => async (dispatch) => {
+    const res = await fetch(`/api/servers/${server_id}/banner`, {
+      method: "PUT",
+      body: image,
+    });
+
+    if (res.ok) {
+      const updatedServer = await res.json();
+      await dispatch(updateServerAction(updatedServer));
+      return updatedServer;
+    } else {
+      const error = await res.json();
+      return error;
+    }
+  };
+
+  export const removeServerBannerThunk = (server_id) => async (dispatch) => {
+    const res = await fetch(`/api/servers/${server_id}/banner/remove`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      return data;
+    }
+  };
 
 // REDUCER
 

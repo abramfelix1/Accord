@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import joinedload
 from app.models import Server, Member, Channel, User, db
-from app.forms import ServerForm, ChannelForm, MembershipForm, ServerImageForm
+from app.forms import ServerForm, ChannelForm, MembershipForm, ServerImageForm, ServerBannerForm
 from werkzeug.utils import secure_filename
 from app.aws_helpers import *
 
@@ -101,7 +101,6 @@ def edit_a_server(id):
     if form.validate_on_submit():
         data = form.data
         server.name = data["server_name"]
-        server.image_url = data["server_image"]
         db.session.commit()
         return server.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
@@ -212,12 +211,51 @@ def add_server_image(id):
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
-@server_routes.route("/<int:id>/image/remove", methods=["PUT"])
+@server_routes.route("/<int:id>/image/remove", methods=["PUT", "PATCH"])
 @login_required
-def remove_server_image():
+def remove_server_image(id):
     server = Server.query.get(id)
 
     server.image_url = None
+    db.session.commit()
+
+    return server.to_dict()
+
+
+
+@server_routes.route("/<int:id>/banner", methods=["PUT", "PATCH"])
+@login_required
+def add_server_banner(id):
+    server = Server.query.get(id)
+    if not server:
+        return jsonify({"message": "Server not found"}), 404
+
+    form = ServerBannerForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    if form.validate_on_submit():
+        image = form.data["banner_image"]
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+
+        if "url" in upload:
+            url = upload["url"]
+            server.banner_image = url
+            db.session.commit()
+            return server.to_dict()
+
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
+
+@server_routes.route("/<int:id>/banner/remove", methods=["PUT", "PATCH"])
+@login_required
+def remove_server_banner(id):
+    server = Server.query.get(int(id))
+
+    print(server, "2312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123231232312323123")
+
+    server.banner_image = None
     db.session.commit()
 
     return server.to_dict()
