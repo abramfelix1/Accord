@@ -130,7 +130,7 @@ Enjoy Accord!
 
 
 ### Abram - (Redux State & Sockets)
-Before implementing sockets, we had a reducer for each model (Servers, Channels, Messages, Members) which worked perfectly fine for a single user. We realized that the sockets won't dispatch updates properly given the data the emitter sends to the response. So we rebuilt the redux state to only have one reducer with about 20 action creators that contains and updates all data for "Servers". Which is a deeply nested state that contains data about each server that belongs to the current user,containing "Channels", "Messages", and "Members" in each server.
+Before implementing sockets, we had a reducer for each model (Servers, Channels, Messages, Members) which worked perfectly fine for a single user. We realized that the sockets won't dispatch updates properly given the data the emitter sends to the response. So we rebuilt the redux state to only have one reducer with about 20 action creators that contains and updates all data for "Servers". Which is a deeply nested state that contains data about each server that belongs to the current user,containing "Channels", "Messages", and "Members" in each server. Making this change greatly increased the efficiency of the flow of data in our frontend and decreased the amount of request to the backend.
 After rebuilding the redux state, figuiring out how to implement sockets was the next challenge. We created a dynamic function that emits an event based on an action type of "CREATE", "DELETE", and "EDIT" that will dispatch the corressponding action creator for the corresponding request. The function is then called in submit handlers for messages, channels, and members. EX: Chats
 ```javascript
 export function chatUpdate(payload) {
