@@ -27,7 +27,7 @@ function ServerProfileSetting() {
     (async (e) => {
       const member = await dispatch(getSingleMemberThunk(server.id));
 
-      if (member.nickname) {
+      if (member && member.nickname) {
         setCurrentNickname(member.nickname);
         setNickname(member.nickname);
       }
