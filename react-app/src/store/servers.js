@@ -103,6 +103,14 @@ const serversReducer = (state = initialState, action) => {
       }
       return { ...newState };
     }
+    case channelActions.ADD_CHANNEL: {
+      console.log("CREATE CHANNEL PAYLOAD:", action.payload);
+      const { server_id, channel_id, channel } = action.payload;
+      if (newState[server_id] && newState[server_id].channels) {
+        newState[server_id].channels[channel_id] = { ...channel, messages: {} };
+      }
+      return { ...newState };
+    }
     case channelActions.UPDATE_CHANNEL: {
       const { server_id, channel_id, channel } = action.payload;
       if (

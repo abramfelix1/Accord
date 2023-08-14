@@ -79,7 +79,8 @@ export function handleChatUpdates(callbacks, chid) {
 }
 
 export function channelUpdate(payload) {
-  console.log("***EMIT CHAT UPDATE***");
+  console.log("***EMIT CHANNEL UPDATE***");
+  console.log(payload);
   socket.emit("channel_update", payload);
 }
 
@@ -91,9 +92,10 @@ export function handleChannelUpdates(callbacks, chid) {
       server_id,
       channel_id,
       Action_Type: actionType,
+      channel: channel,
       channel_name: channel_name,
     } = data;
-    if (channel_id == chid && callbacks[actionType]) {
+    if (callbacks[actionType]) {
       console.log(`${actionType} CHANNEL SOCKET EMITTED`);
       callbacks[actionType](data);
     }

@@ -1,7 +1,7 @@
 import { NavLink, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useParams, Redirect, useHistory } from "react-router-dom";
-import * as channelActions from "../../store/channels";
+import { addChannel, deleteChannel, updateChannel } from "../../store/channels";
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { FaHashtag } from "react-icons/fa";
 import { BiPlus, BiSolidCog } from "react-icons/bi";
@@ -15,6 +15,7 @@ import { logout } from "../../store/session";
 import "./channel-css/Channel.css";
 import { resetServers } from "../../store/servers";
 import { getServer } from "../../store/server";
+import socket, { handleChannelUpdates } from "../utils/Socket";
 
 function Channel() {
   // router doms
@@ -44,8 +45,18 @@ function Channel() {
 
   // useEffects
   useEffect(() => {
-    dispatch(getServer(serverid));
-  }, [channelid]);
+    const callbacks = {
+      CREATE: (data) => dispatch(addChannel(data)),
+      DELETE: (data) => dispatch(deleteChannel(data)),
+      EDIT: (data) => dispatch(updateChannel(data)),
+    };
+
+    handleChannelUpdates(callbacks, channelid);
+
+    return () => {
+      socket.off("channel_update_response");
+    };
+  }, [dispatch, channelid]);
 
   // Handlers
   const channelClickHandler = (event, channel) => {
