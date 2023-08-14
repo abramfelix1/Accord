@@ -10,9 +10,6 @@ import "./server-css/ServerMemberList.css";
 function ServerMemberList({ server }) {
   const dispatch = useDispatch();
   const { serverid, channelid } = useParams();
-  // const serverMembers = Object.values(
-  //   useSelector((state) => state.current.members)
-  // );
   const serverMembers = useSelector((state) => {
     if (state.servers[serverid] && state.servers[serverid].members) {
       return Object.values(state.servers[serverid].members);
@@ -23,6 +20,12 @@ function ServerMemberList({ server }) {
   const [showProfile, setShowProfile] = useState(false);
   const [selectedMember, setSelectedMember] = useState("");
   const [activeMember, setActiveMember] = useState(false);
+  const [cardPosition, setCardPosition] = useState(null);
+
+  const handleCardClick = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setCardPosition(rect.top);
+  };
 
   useEffect(() => {
     setShowProfile(true);
@@ -60,8 +63,9 @@ function ServerMemberList({ server }) {
                   showProfile={showProfile}
                   activeMember={activeMember}
                   setActiveMember={setActiveMember}
+                  onCardClick={handleCardClick}
                 />
-                <MemberContainer>
+                <MemberContainer cardPosition={cardPosition}>
                   <div>
                     {selectedMember == member.id &&
                       showProfile &&

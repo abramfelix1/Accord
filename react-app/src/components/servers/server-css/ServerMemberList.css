@@ -115,14 +115,9 @@
 
 /* Profile css when pressing a members name */
 
-/* .member-profile-container {
-    position: sticky;
-    right: 50px;
-    z-index: 10;
-    background-color: gray;
-    border-radius: 7px;
-    position: relative;
-} */
+.member-profile-container {
+  height: 305px;
+}
 
 /* .member-profile-container {
   position: absolute;
