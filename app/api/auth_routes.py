@@ -2,7 +2,9 @@ from flask import Blueprint, jsonify, session, request
 from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
+from app.forms import PasswordResetForm
 from flask_login import current_user, login_user, logout_user, login_required
+from sqlalchemy import and_
 
 auth_routes = Blueprint("auth", __name__)
 
@@ -37,6 +39,7 @@ def login():
     # Get the csrf_token from the request cookie and put it into the
     # form manually to validate_on_submit can be used
     form["csrf_token"].data = request.cookies["csrf_token"]
+
     if form.validate_on_submit():
         # Add the user to the session, we are logged in!
         user = User.query.filter(
@@ -45,6 +48,7 @@ def login():
         ).first()
         login_user(user)
         return user.to_dict()
+
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -64,23 +68,46 @@ def sign_up():
     """
     form = SignUpForm()
 
-    form['csrf_token'].data = request.cookies['csrf_token']
+    form["csrf_token"].data = request.cookies["csrf_token"]
 
     if form.validate_on_submit():
         user = User(
-            username=form.data['username'],
-            display_name=form.data['display_name'],
-            email=form.data['email'],
-            password=form.data['password']
-
+            username=form.data["username"],
+            display_name=form.data["display_name"],
+            email=form.data["email"],
+            password=form.data["password"],
         )
         db.session.add(user)
         db.session.commit()
         login_user(user)
         return user.to_dict()
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
+
+@auth_routes.route("/forgot-password", methods=["PUT", "PATCH"])
+def forgot_password():
+    """
+    Update password
+    """
+
+    form = PasswordResetForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    user = User.query.filter(
+            (User.email == form.data["email"])
+            , (User.username == form.data["username"])
+        ).first()
+
+    if not user:
+        return {"errors": "invalid"}
+
+    if form.validate_on_submit():
+        user.password = form.data["new_password"]
+        db.session.commit()
+        return user.to_dict()
+
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
 @auth_routes.route("/unauthorized")
