@@ -32,9 +32,9 @@ function DiscoverServerModal() {
       member: server,
     });
     setType(null);
-    // return history.push(
-    //   `/servers/${server.server_id}/channels/${server.server.server.firstChannel.id}`
-    // );
+    return history.push(
+      `/servers/${server.server_id}/channels/${server.server.server.firstChannel.id}`
+    );
   };
 
   const initials = (serverName) => {

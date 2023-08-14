@@ -104,7 +104,6 @@ const serversReducer = (state = initialState, action) => {
       return { ...newState };
     }
     case channelActions.ADD_CHANNEL: {
-      console.log("CREATE CHANNEL PAYLOAD:", action.payload);
       const { server_id, channel_id, channel } = action.payload;
       if (newState[server_id] && newState[server_id].channels) {
         newState[server_id].channels[channel_id] = { ...channel, messages: {} };
@@ -138,7 +137,6 @@ const serversReducer = (state = initialState, action) => {
       }, {});
       return newState;
     case memberActions.DELETE_MEMBER: {
-      console.log("DELETE MEMBER PAYLOAD:", action.payload);
       const { server_id, member_id } = action.payload;
       if (newState[server_id]) {
         delete newState[server_id].members[member_id];
@@ -146,7 +144,6 @@ const serversReducer = (state = initialState, action) => {
       return { ...newState };
     }
     case memberActions.ADD_MEMBER: {
-      console.log("ADD MEMBER PAYLAOD", action.payload);
       const { server_id, member_id, member } = action.payload;
       if (newState[server_id] && newState[server_id].members) {
         newState[server_id].members[member_id] = member;

@@ -34,7 +34,7 @@ function CreateChannelPage() {
       channel: newChannel,
       channel_name: channelName,
     });
-    // return history.push(`/servers/${serverid}/channels/${newChannel.id}`);
+    return history.push(`/servers/${serverid}/channels/${newChannel.id}`);
   };
 
   return (
