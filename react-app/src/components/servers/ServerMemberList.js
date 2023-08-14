@@ -27,14 +27,14 @@ function ServerMemberList({ server }) {
     setCardPosition(rect.top);
   };
 
-  useEffect(() => {
-    const callbacks = {
-      CREATE: (data) => dispatch(addChannel(data)),
-      DELETE: (data) => dispatch(deleteChannel(data)),
-      EDIT: (data) => dispatch(updateChannel(data)),
-    };
-    handleMemberUpdates(callbacks);
-  }, [dispatch, serverid]);
+  // useEffect(() => {
+  //   const callbacks = {
+  //     CREATE: (data) => dispatch(addChannel(data)),
+  //     DELETE: (data) => dispatch(deleteChannel(data)),
+  //     EDIT: (data) => dispatch(updateChannel(data)),
+  //   };
+  //   handleMemberUpdates(callbacks);
+  // }, [dispatch, serverid]);
 
   useEffect(() => {
     setShowProfile(true);
