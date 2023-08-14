@@ -55,7 +55,7 @@ export const getServerMembersThunk = (server_id) => async (dispatch) => {
   }
 };
 
-export const leaveServerThunk = (server_id) => async (dispatch) => {
+export const leaveServerThunk = (server_id, member_id) => async (dispatch) => {
   const res = await fetch(`/api/members/server/${server_id}`, {
     method: "DELETE",
     headers: {
@@ -67,10 +67,11 @@ export const leaveServerThunk = (server_id) => async (dispatch) => {
   // to get the redux updated with all the servers again to
   // prevent loading issues
   if (res.ok) {
-    const data = res.json();
-    dispatch(
+    const data = await res.json();
+    await dispatch(
       leaveServerAction({ server_id: server_id, member_id: data.member_id })
     );
+
     return data;
   }
 };

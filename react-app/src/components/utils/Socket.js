@@ -109,7 +109,7 @@ export function memberUpdate(payload) {
 }
 
 export function handleMemberUpdates(callbacks, chid) {
-  console.log("***LISTENING FOR CHANNEL UPDATES***");
+  console.log("***LISTENING FOR MEMBER UPDATES***");
 
   socket.on("member_update_response", (data) => {
     const {
@@ -119,7 +119,7 @@ export function handleMemberUpdates(callbacks, chid) {
       member: member,
     } = data;
     if (callbacks[actionType]) {
-      console.log(`${actionType} CHANNEL SOCKET EMITTED`);
+      console.log(`${actionType} MEMBER SOCKET EMITTED`);
       callbacks[actionType](data);
     }
   });

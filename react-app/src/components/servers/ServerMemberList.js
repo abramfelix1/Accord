@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import * as memberActions from "../../store/members";
+import { leaveServerAction } from "../../store/members";
 import { useEffect, useState } from "react";
 import ServerMemberCard from "./ServerMemberCard";
 import { useParams } from "react-router-dom/";
 import MemberProfile from "./MemberProfile";
 import MemberContainer from "./MemberContainer";
 import "./server-css/ServerMemberList.css";
+import { handleMemberUpdates } from "../utils/Socket";
 
 function ServerMemberList({ server }) {
   const dispatch = useDispatch();
@@ -27,14 +28,14 @@ function ServerMemberList({ server }) {
     setCardPosition(rect.top);
   };
 
-  // useEffect(() => {
-  //   const callbacks = {
-  //     CREATE: (data) => dispatch(addChannel(data)),
-  //     DELETE: (data) => dispatch(deleteChannel(data)),
-  //     EDIT: (data) => dispatch(updateChannel(data)),
-  //   };
-  //   handleMemberUpdates(callbacks);
-  // }, [dispatch, serverid]);
+  useEffect(() => {
+    const callbacks = {
+      // CREATE: (data) => dispatch(addChannel(data)),
+      DELETE: (data) => dispatch(leaveServerAction(data)),
+      // EDIT: (data) => dispatch(updateChannel(data)),
+    };
+    handleMemberUpdates(callbacks);
+  }, [dispatch, serverid]);
 
   useEffect(() => {
     setShowProfile(true);

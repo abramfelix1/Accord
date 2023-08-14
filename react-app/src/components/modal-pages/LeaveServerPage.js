@@ -7,6 +7,8 @@ import { useHistory } from "react-router-dom";
 
 import "./modal-css/LeaveServerPage.css";
 import { useParams } from "react-router-dom";
+import { memberUpdate } from "../utils/Socket";
+import { getUserServersThunk } from "../../store/user";
 
 function LeaveServerPage() {
   const dispatch = useDispatch();
@@ -17,7 +19,13 @@ function LeaveServerPage() {
   const { setType } = useContext(ModalContext);
 
   const leaveServerHandleSubmit = async () => {
-    await dispatch(leaveServerThunk(server.id));
+    const member = await dispatch(leaveServerThunk(server.id));
+    memberUpdate({
+      server_id: serverid,
+      member_id: member.member_id,
+      action_type: "DELETE",
+    });
+    dispatch(getUserServersThunk());
     setType(null);
     return history.push("/app");
   };
