@@ -99,7 +99,7 @@ export const removeChannel = (serverId, channelId) => async (dispatch) => {
   });
   if (response.ok) {
     const data = response.json();
-    dispatch(deleteChannel({ server_id: serverId, channel_id: channelId }));
+    // dispatch(deleteChannel({ server_id: serverId, channel_id: channelId }));
     return data;
   }
 };

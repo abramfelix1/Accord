@@ -90,7 +90,7 @@ def handle_channel(data):
             "channel_id": data["channel_id"],
             "server_id": data["server_id"],
             "Action_Type": data["action_type"],
-            "channel": data["channel"],
+            "channel": data.get("channel", None),
             "channel_name": data.get("channel_name", None),
         },
         room=str(data["server_id"]),

@@ -52,6 +52,11 @@ function ChannelSettingPage() {
     e.preventDefault();
     await dispatch(removeChannel(serverid, channelCog.id));
     await dispatch(getServer(serverid));
+    channelUpdate({
+      server_id: serverid,
+      channel_id: channelCog.id,
+      action_type: "DELETE",
+    });
     setType(null);
   };
 
