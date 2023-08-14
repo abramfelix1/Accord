@@ -49,7 +49,6 @@ function ServerUpdateFormPage({ user, setType }) {
     const formData = new FormData();
 
     if (serverImage) {
-      console.log("images");
       formData.append("image_url", serverImage);
       await dispatch(uploadServerImageThunk(server.id, formData));
     }
@@ -71,8 +70,6 @@ function ServerUpdateFormPage({ user, setType }) {
   const removeServerBannerHandleSubmit = async (e) => {
     await dispatch(removeServerBannerThunk(serverid));
   };
-
-  console.log(server, serverBanner, serverImage, Number(serverid));
 
   return (
     <>
@@ -129,7 +126,7 @@ function ServerUpdateFormPage({ user, setType }) {
                     </div>
                   </div>
                 )}
-                {server.owner_id === user.id && (
+                {server.owner_id === user.id && !server.image_url && (
                   <button className="upload-avatar-button" disabled >
                     Upload Avatar
                   </button>
