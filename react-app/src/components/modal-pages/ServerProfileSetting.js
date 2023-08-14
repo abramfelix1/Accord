@@ -14,11 +14,9 @@ import {
   getServerMembersThunk,
 } from "../../store/members";
 import { memberUpdate } from "../utils/Socket";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function ServerProfileSetting() {
   const history = useHistory();
-  const { serverid } = useParams()
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const { serverSettingModal, setType, deleteServerConfirmationModal } =
