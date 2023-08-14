@@ -72,7 +72,31 @@ export function handleChatUpdates(callbacks, chid) {
       message: message,
     } = data;
     if (channel_id == chid && callbacks[actionType]) {
-      console.log(`${actionType} SOCKET EMITTED`);
+      console.log(`${actionType} CHAT SOCKET EMITTED`);
+      callbacks[actionType](data);
+    }
+  });
+}
+
+export function channelUpdate(payload) {
+  console.log("***EMIT CHANNEL UPDATE***");
+  console.log(payload);
+  socket.emit("channel_update", payload);
+}
+
+export function handleChannelUpdates(callbacks, chid) {
+  console.log("***LISTENING FOR CHANNEL UPDATES***");
+
+  socket.on("channel_update_response", (data) => {
+    const {
+      server_id,
+      channel_id,
+      Action_Type: actionType,
+      channel: channel,
+      channel_name: channel_name,
+    } = data;
+    if (callbacks[actionType]) {
+      console.log(`${actionType} CHANNEL SOCKET EMITTED`);
       callbacks[actionType](data);
     }
   });

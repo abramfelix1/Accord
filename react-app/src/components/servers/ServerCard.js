@@ -5,6 +5,7 @@ import { useContext, useEffect } from "react";
 import { InfoContext, InfoProvider } from "../../context/infoContext";
 import ServerHover from "./ServerHover";
 
+
 function ServerCard({ handleActiveButton, serverInfo }) {
   const { serverid } = useParams();
   // const { server } = useContext(InfoContext);
@@ -40,13 +41,13 @@ function ServerCard({ handleActiveButton, serverInfo }) {
           to={`/servers/${serverInfo.id}/channels/${
             serverInfo?.firstChannel?.id || "null"
           }`}
-          className={`${serverInfo.image_url ? "" : "servers"} server-pointer ${
-            serverInfo.id == serverid ? "active-server" : ""
-          }`}
+          className={`${
+            serverInfo.image_url ? "image-container" : "servers"
+          } server-pointer ${serverInfo.id == serverid ? "active-server" : ""}`}
           onClick={(e) => handleActiveButton(e, serverInfo)}
         >
           {serverInfo.image_url !== null && serverInfo.image_url.length >= 3 ? (
-            <div>
+            <ServerHover>
               <img
                 className={`servers-img ${
                   serverInfo.id == serverid ? "active-server-img" : ""
@@ -54,7 +55,7 @@ function ServerCard({ handleActiveButton, serverInfo }) {
                 src={serverInfo.image_url}
                 alt="serverimage"
               />
-            </div>
+            </ServerHover>
           ) : (
             <ServerHover>
               <div
@@ -73,4 +74,6 @@ function ServerCard({ handleActiveButton, serverInfo }) {
     </>
   );
 }
+
+
 export default ServerCard;

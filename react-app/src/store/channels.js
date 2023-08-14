@@ -63,9 +63,15 @@ export const createChannel = (serverId, channel_name) => async (dispatch) => {
     }),
   });
   if (response.ok) {
-    const data = await response.json();
-    dispatch(getChannels(data.server_id));
-    return data;
+    const channel = await response.json();
+    // dispatch(
+    //   addChannel({
+    //     server_id: serverId,
+    //     channel_id: channel.id,
+    //     channel: channel,
+    //   })
+    // );
+    return channel;
   }
 };
 
@@ -80,9 +86,9 @@ export const editChannel =
     });
     if (response.ok) {
       const channel = await response.json();
-      dispatch(
-        updateChannel({ server_id: serverId, channel_id: channelId, channel })
-      );
+      // dispatch(
+      //   updateChannel({ server_id: serverId, channel_id: channelId, channel })
+      // );
       return channel;
     }
   };
@@ -93,7 +99,7 @@ export const removeChannel = (serverId, channelId) => async (dispatch) => {
   });
   if (response.ok) {
     const data = response.json();
-    dispatch(deleteChannel({ server_id: serverId, channel_id: channelId }));
+    // dispatch(deleteChannel({ server_id: serverId, channel_id: channelId }));
     return data;
   }
 };

@@ -11,6 +11,7 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
+import { channelUpdate } from "../utils/Socket";
 
 function CreateChannelPage() {
   const dispatch = useDispatch();
@@ -24,8 +25,16 @@ function CreateChannelPage() {
   const createChannelHandleSubmit = async (e) => {
     e.preventDefault();
     const newChannel = await dispatch(createChannel(server.id, channelName));
+    const channel_id2 = newChannel.id.toString();
     setType(null);
-    return history.push(`/servers/${serverid}/channels/${newChannel.id}`);
+    channelUpdate({
+      server_id: serverid,
+      channel_id: newChannel.id,
+      action_type: "CREATE",
+      channel: newChannel,
+      channel_name: channelName,
+    });
+    // return history.push(`/servers/${serverid}/channels/${newChannel.id}`);
   };
 
   return (
