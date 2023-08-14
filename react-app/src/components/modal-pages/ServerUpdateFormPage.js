@@ -8,7 +8,9 @@ import {
   removeServerImageThunk,
   uploadServerBannerThunk,
   removeServerBannerThunk,
+  getServerThunk
 } from "../../store/server";
+import { getChannels } from "../../store/channels";
 import { getUserServersThunk } from "../../store/user";
 import { IoCloseOutline } from "react-icons/io5";
 import "./modal-css/ServerUpdateFormPage.css";
@@ -45,8 +47,10 @@ function ServerUpdateFormPage({ user, setType }) {
 
   const updateServerHandleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(updateServerThunk(server.id, serverName));
     const formData = new FormData();
+    if (serverName) {
+      await dispatch(updateServerThunk(server.id, serverName));
+    }
 
     if (serverImage) {
       formData.append("image_url", serverImage);
@@ -57,8 +61,6 @@ function ServerUpdateFormPage({ user, setType }) {
       formData.append("banner_image", serverBanner);
       await dispatch(uploadServerBannerThunk(server.id, formData));
     }
-
-    await dispatch(getUserServersThunk());
 
     setType(null);
   };
