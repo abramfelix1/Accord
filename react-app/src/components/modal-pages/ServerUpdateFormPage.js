@@ -127,7 +127,7 @@ function ServerUpdateFormPage({ user, setType }) {
                   </div>
                 )}
                 {server.owner_id === user.id && !server.image_url && (
-                  <button className="upload-avatar-button" disabled >
+                  <button className="upload-avatar-button" disabled>
                     Upload Avatar
                   </button>
                 )}
@@ -192,9 +192,11 @@ function ServerUpdateFormPage({ user, setType }) {
                       Upload Banner
                     </button>
                   )}
-                  <button className="upload-banner-button" disabled>
-                    Upload Banner
-                  </button>
+                  {server.owner_id === user.id && !server.banner_image && (
+                    <button className="upload-banner-button" disabled>
+                      Upload Banner
+                    </button>
+                  )}
                 </div>
               )}
             </div>
