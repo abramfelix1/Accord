@@ -54,7 +54,7 @@ def update_member_nickname(id):
         return jsonify({"message": "Server not found"}), 404
 
     member = Member.query.filter(
-        Member.user_id.like(user), Member.server_id.like(id)
+        Member.user_id == user, Member.server_id == id
     ).first()
 
     if not member:
@@ -84,7 +84,7 @@ def get_current_server_member(id):
         return jsonify({"message": "Server not found"}), 403
 
     member = Member.query.filter(
-        Member.server_id.like(id), Member.user_id.like(user)
+        Member.server_id == id, Member.user_id == user
     ).first()
 
     if not member:
