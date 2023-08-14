@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useContext, useEffect } from "react";
 import { InfoContext, InfoProvider } from "../../context/infoContext";
+import ServerHover from "./ServerHover";
+
 
 function ServerCard({ handleActiveButton, serverInfo }) {
   const { serverid } = useParams();
@@ -13,12 +15,13 @@ function ServerCard({ handleActiveButton, serverInfo }) {
 
   // gets the initals of the server name and return them capitalize
   const initials = (serverName) => {
+    if (!serverName) return;
     let res = "";
+    serverName.trim();
     const serverNameArr = serverName.split(" ");
 
     for (let i = 0; i < serverNameArr.length; i++) {
       let word = serverNameArr[i];
-      // console.log(typeof word === "string", "---------------")
       if (word && typeof word === "string") {
         res += word[0].toUpperCase();
       }
@@ -38,13 +41,13 @@ function ServerCard({ handleActiveButton, serverInfo }) {
           to={`/servers/${serverInfo.id}/channels/${
             serverInfo?.firstChannel?.id || "null"
           }`}
-          className={`${serverInfo.image_url ? "" : "servers"} server-pointer ${
-            serverInfo.id == serverid ? "active-server" : ""
-          }`}
+          className={`${
+            serverInfo.image_url ? "image-container" : "servers"
+          } server-pointer ${serverInfo.id == serverid ? "active-server" : ""}`}
           onClick={(e) => handleActiveButton(e, serverInfo)}
         >
           {serverInfo.image_url !== null && serverInfo.image_url.length >= 3 ? (
-            <div>
+            <ServerHover>
               <img
                 className={`servers-img ${
                   serverInfo.id == serverid ? "active-server-img" : ""
@@ -52,21 +55,25 @@ function ServerCard({ handleActiveButton, serverInfo }) {
                 src={serverInfo.image_url}
                 alt="serverimage"
               />
-            </div>
+            </ServerHover>
           ) : (
-            <div
-              className="server-initials"
-              onClick={(e) => {
-                // e.stopPropagation();
-                e.preventDefault();
-              }}
-            >
-              {initials(serverInfo.name)}
-            </div>
+            <ServerHover>
+              <div
+                className="server-initials"
+                onClick={(e) => {
+                  // e.stopPropagation();
+                  e.preventDefault();
+                }}
+              >
+                {initials(serverInfo.name)}
+              </div>
+            </ServerHover>
           )}
         </NavLink>
       )}
     </>
   );
 }
+
+
 export default ServerCard;

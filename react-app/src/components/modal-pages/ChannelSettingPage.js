@@ -4,15 +4,16 @@ import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { InfoContext } from "../../context/infoContext";
 import { ModalContext } from "../../context/modalContext";
-import { editChannel, removeChannel, getChannels } from "../../store/channels";
+import { editChannel, removeChannel } from "../../store/channels";
 
 import { BiSolidTrash } from "react-icons/bi";
-import { getServer, getServerThunk } from "../../store/server";
+import { getServer } from "../../store/server";
+import { channelUpdate } from "../utils/Socket";
 
 function ChannelSettingPage() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { channelCog, setIsLoaded } = useContext(InfoContext);
+  const { channelCog } = useContext(InfoContext);
   const { setType } = useContext(ModalContext);
   const { serverid, channelid } = useParams();
   const server = useSelector((state) => state.servers[serverid]);
@@ -22,7 +23,15 @@ function ChannelSettingPage() {
   const editChannelHandleSubmit = async (e) => {
     e.preventDefault();
 
-    await dispatch(editChannel(serverid, channelCog.id, channelName));
+    const channel = await dispatch(
+      editChannel(serverid, channelCog.id, channelName)
+    );
+    channelUpdate({
+      server_id: serverid,
+      channel_id: channel.id,
+      action_type: "EDIT",
+      channel: channel,
+    });
     setType(null);
   };
 
@@ -38,6 +47,11 @@ function ChannelSettingPage() {
     e.preventDefault();
     await dispatch(removeChannel(serverid, channelCog.id));
     await dispatch(getServer(serverid));
+    channelUpdate({
+      server_id: serverid,
+      channel_id: channelCog.id,
+      action_type: "DELETE",
+    });
     setType(null);
   };
 
@@ -48,7 +62,6 @@ function ChannelSettingPage() {
           <h2 className="channel-edit-nav-title-section">{channelCog.name}</h2>
           <div className="edit-channel-nav-name">Edit Channel</div>
           <div className="edit-channel-setting-separator"></div>
-          {channelCog.name !== "General" && (
             <div className="delete-channel-div">
               <div
                 className="delete-channel"
@@ -57,7 +70,6 @@ function ChannelSettingPage() {
                 Delete Channel <BiSolidTrash />
               </div>
             </div>
-          )}
         </div>
       </div>
       <div className="inner-channel-setting">

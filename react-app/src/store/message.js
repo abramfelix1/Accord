@@ -51,6 +51,9 @@ export const createMessage =
       const message = await response.json();
       // dispatch(addMessage({ server_id, channel_id, message }));
       return message;
+    } else {
+      const error = await response.json()
+      return error
     }
   };
 
@@ -100,7 +103,6 @@ const messageReducer = (state = initialState, action) => {
     //   newState[action.payload.id] = action.payload;
     //   return newState;
     // case DELETE_MESSAGE:
-    //   console.log("DELETE PAYLOAD:", action.payload);
     //   delete newState[action.payload["message_id"]];
     //   return newState;
     case RESET_MESSAGES:

@@ -2,6 +2,7 @@ export const UPDATE_USER = "user/UPDATE_USER";
 export const GET_USER_SERVERS = "user/GET_USER_SERVERS";
 export const GET_ALL_USERS = "user/GET_ALL_USERS";
 export const GET_USER = "user/GET_USER";
+export const UPDATE_IMAGE = "user/UPDATE_IMAGE";
 
 // -------------------------------- Action Creators --------------------------------
 const getAllUsers = (users) => ({
@@ -14,7 +15,7 @@ const getUser = (user) => ({
   payload: user,
 });
 
-const updateUser = (user) => ({
+export const updateUser = (user) => ({
   type: UPDATE_USER,
   payload: user,
 });
@@ -22,6 +23,11 @@ const updateUser = (user) => ({
 export const getUserServers = (server) => ({
   type: GET_USER_SERVERS,
   payload: server,
+});
+
+export const updateUserImage = (payload) => ({
+  type: UPDATE_IMAGE,
+  payload,
 });
 
 // -------------------------------- Thunk Creators --------------------------------
@@ -67,7 +73,7 @@ export const updateUserThunk =
     if (response.ok) {
       const userData = await response.json();
       dispatch(updateUser(userData));
-
+      dispatch(getAllUsersThunk());
       return userData;
     }
   };
@@ -87,15 +93,15 @@ export const getUserServersThunk = () => async (dispatch) => {
 export const uploadProfileImageThunk = (image) => async (dispatch) => {
   const res = await fetch(`/api/users/image`, {
     method: "PUT",
-    body: image
-  })
+    body: image,
+  });
 
   if (res.ok) {
-    const data = await res.json()
-    return data
+    const data = await res.json();
+    dispatch(updateUserImage(data));
+    return data;
   }
-
-}
+};
 
 // -------------------------------- Reducer --------------------------------
 
@@ -108,9 +114,6 @@ export default function userReducer(state = {}, action) {
       return newState;
 
     case GET_USER:
-      return { user: action.payload };
-
-    case UPDATE_USER:
       return { user: action.payload };
 
     case GET_USER_SERVERS:

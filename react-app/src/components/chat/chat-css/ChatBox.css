@@ -15,6 +15,7 @@
   margin-right: 3px;
   display: flex;
   flex-direction: column-reverse;
+  overflow-x: hidden;
 }
 
 /* width */
@@ -39,7 +40,6 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 } */
-
 
 /* css for the image of each chatbox */
 .chatbox-logo-wrapper,
@@ -73,7 +73,7 @@
 .chat-box-date {
   color: #949ba4;
   margin-left: 10px;
-  font-size: 11px;
+  font-size: 10px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bolder;
 }
@@ -84,6 +84,7 @@
   overflow-wrap: break-word;
   margin: 0px;
   color: #dbdee1;
+  font-weight: 200;
 }
 
 /* styling for if a user recently sent a message */
@@ -96,5 +97,5 @@
   /* margin: 5px 17px 0px 75px; */
   margin: 0px;
   color: #dbdee1;
-
+  font-weight: 200;
 }

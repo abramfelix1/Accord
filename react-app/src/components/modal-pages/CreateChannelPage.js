@@ -11,13 +11,14 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
+import { channelUpdate } from "../utils/Socket";
 
 function CreateChannelPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { setType } = useContext(ModalContext);
   const { server } = useContext(InfoContext);
-  const { serverid, channelid } = useParams();
+  const { serverid } = useParams();
   //   const user = useSelector(state => state.session.user)
   const [channelName, setChannelName] = useState("");
 
@@ -25,6 +26,13 @@ function CreateChannelPage() {
     e.preventDefault();
     const newChannel = await dispatch(createChannel(server.id, channelName));
     setType(null);
+    channelUpdate({
+      server_id: serverid,
+      channel_id: newChannel.id,
+      action_type: "CREATE",
+      channel: newChannel,
+      channel_name: channelName,
+    });
     return history.push(`/servers/${serverid}/channels/${newChannel.id}`);
   };
 

@@ -6,6 +6,9 @@
   justify-content: center;
   align-items: center;
   border-radius: 30px;
+  position: absolute;
+  top: -4px;
+  left: -40px;
 }
 
 .loading-img {
@@ -36,4 +39,27 @@
   background-color: rgb(66, 69, 73);
   border-radius: 8px;
   max-width: calc(100vw - 700px);
+}
+
+.loading-wrapper {
+  /* margin-left: 17px; */
+}
+
+.loading-message-wrapper {
+  margin: 25px 17px 0px 59px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  position: relative;
+  width: 98%;
+}
+
+.chat-container.loading {
+  /* overflow-y: hidden; */
+  overflow-x: hidden;
+}
+
+.chat-container.loading::-webkit-scrollbar-thumb {
+  background: #2d2d2d;
+  border-radius: 15px;
+  display: none;
 }

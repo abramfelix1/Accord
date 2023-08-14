@@ -5,7 +5,8 @@ from app.forms import UserSettingsForm, UserImageForm
 from werkzeug.utils import secure_filename
 from app.aws_helpers import *
 
-user_routes = Blueprint('users', __name__)
+user_routes = Blueprint("users", __name__)
+
 
 def validation_errors_to_error_messages(validation_errors):
     """
@@ -17,17 +18,18 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages[field] = error
     return errorMessages
 
-@user_routes.route('/')
+
+@user_routes.route("/")
 @login_required
 def users():
     """
     Query for all users and returns them in a list of user dictionaries
     """
     users = User.query.all()
-    return {'users': [user.to_dict() for user in users]}
+    return {"users": [user.to_dict() for user in users]}
 
 
-@user_routes.route('/<int:id>')
+@user_routes.route("/<int:id>")
 @login_required
 def user(id):
     """
@@ -37,25 +39,24 @@ def user(id):
     return user.to_dict()
 
 
-@user_routes.route("/profile", methods=['PUT', 'PATCH'])
+@user_routes.route("/profile", methods=["PUT", "PATCH"])
 @login_required
 def update_user():
     """
     Update current user's username, display_name, image_url and returns that user in a dictionary
     """
     form = UserSettingsForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
+    form["csrf_token"].data = request.cookies["csrf_token"]
 
     if form.validate_on_submit():
-        current_user.username = form.data['username']
-        current_user.display_name = form.data['display_name']
-        current_user.image_url = form.data['image_url']
+        current_user.username = form.data["username"]
+        current_user.display_name = form.data["display_name"]
 
         db.session.commit()
 
         return current_user.to_dict()
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
 @user_routes.route("/servers")
@@ -70,17 +71,18 @@ def get_user_servers():
 
     server_ids = []
     for member in members:
-        print(member)
         server_ids.append(member.to_dict()["server_id"])
 
-    servers = [server.to_dict() for server in Server.query.filter(Server.id.in_(server_ids)).all()]
+    servers = [
+        server.to_dict()
+        for server in Server.query.filter(Server.id.in_(server_ids)).all()
+    ]
     return servers
 
 
 @user_routes.route("/image", methods=["PUT", "PATCH"])
 @login_required
 def add_user_image():
-    print("********************************* BEFORE THE SUBMIT ***************************")
 
     form = UserImageForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
@@ -88,14 +90,12 @@ def add_user_image():
     if form.validate_on_submit():
         image = form.data["image_url"]
         image.filename = get_unique_filename(image.filename)
-        print(image)
         upload = upload_file_to_s3(image)
-        print(upload, "DASDSADSADSADSADSADASDADADSADASD")
 
         if "url" in upload:
             url = upload["url"]
             current_user.image_url = url
             db.session.commit()
+            return current_user.to_dict()
 
-    print("DASD NOT THROGIH DASDADSADSADADSA")
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401

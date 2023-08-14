@@ -114,11 +114,11 @@ export const dateFormat = (date) => {
     const newDate = new Date();
     let newFormattedDate = "";
   // gets the time of the created at date and split between HR/MIN
-    const time = date.slice(17, 22);
+    const time = date.slice(16, 21);
 
   // if the chat was made today, it will set the time today
   // with format of "Today at 1:18 AM"
-    if (newDate.toDateString().slice(0, 3) === date.slice(0, 3)) {
+    if (newDate.toString().slice(0, 3) === date.slice(0, 3)) {
         newFormattedDate += `Today at ${timeConversion(time)}`;
 
         return newFormattedDate;
@@ -126,7 +126,6 @@ export const dateFormat = (date) => {
 
     if (wasItCreatedYesterday(date.toString().slice(0, 3))) {
         newFormattedDate += `Yesterday at ${timeConversion(time)}`;
-
         return newFormattedDate;
     }
 
@@ -142,36 +141,25 @@ export const dateFormat = (date) => {
 
 export function isItANewDay(prevMessage, currMessage) {
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const prevMonth = new Date(prevMessage.created_at).toUTCString().slice(8, 11);
-    const currMonth = new Date(currMessage.created_at).toUTCString().slice(8, 11);
-    const prevDay = Number(new Date(prevMessage.created_at).toUTCString().slice(5, 7))
-    const currDay = Number(new Date(currMessage.created_at).toUTCString().slice(5, 7))
+    const prevMonth = new Date(prevMessage.created_at).toString().slice(8, 11);
+    const currMonth = new Date(currMessage.created_at).toString().slice(8, 11);
+    const prevDay = Number(new Date(prevMessage.created_at).toString().slice(5, 7))
+    const currDay = Number(new Date(currMessage.created_at).toString().slice(5, 7))
     const prevMonthIndex = months.indexOf(prevMonth);
     const currMonthIndex = months.indexOf(currMonth);
-    console.log("prev", prevMonth)
-    console.log("curr", currMonth)
-    console.log("prevDay", prevDay)
-    console.log("currDay", currDay)
-    console.log("prevIndex", prevMonthIndex)
-    console.log("currIndex", currMonthIndex)
 
     if (prevMonth === "Dec" && currMonth === "Jan") {
-        console.log(true)
         return true
     }
 
     if (prevMonthIndex < currMonthIndex) {
-        console.log(true)
         return true
     }
 
     if (prevMonthIndex === currMonthIndex && prevDay < currDay) {
-        console.log(true)
         return true
     }
 
-    console.log(false)
-    console.log("------------------------------------------")
     return false
 }
 

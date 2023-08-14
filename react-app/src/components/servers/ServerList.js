@@ -16,6 +16,7 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom/";
 import Tooltip from "../utils/tooltip";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import ServerHover from "./ServerHover";
 
 function ServerList() {
   const dispatch = useDispatch();
@@ -118,16 +119,19 @@ function ServerList() {
             <img className="server-logo" src={logo} alt="logo" />
           </div>
         </Tooltip> */}
+
         <Tooltip text={"Get Started"}>
-          <NavLink
-            to="/app"
-            className={`servers servers-friend-button ${
-              serverid ? "" : `active-server`
-            }`}
-            onClick={(e) => handleActiveHomeButton(e)}
-          >
-            <img className="server-logo" src={logo} alt="logo" />
-          </NavLink>
+          <ServerHover>
+            <NavLink
+              to="/app"
+              className={`servers servers-friend-button ${
+                serverid ? "" : `active-server`
+              }`}
+              onClick={(e) => handleActiveHomeButton(e)}
+            >
+              <img className="server-logo" src={logo} alt="logo" />
+            </NavLink>
+          </ServerHover>
         </Tooltip>
         {/* <div className="servers" onClick={e => handleActiveButton(e)}>Private Call</div> */}
       </div>
@@ -136,35 +140,42 @@ function ServerList() {
         {reverseArray([...userServers]).map((server) => (
           <Tooltip key={server.id} text={server.name}>
             <li className="server-list-wrapper">
+              {/* <ServerHover> */}
               {/* need to set proper link to where to navigate too */}
               <ServerCard
                 serverInfo={server}
                 handleActiveButton={handleActiveButton}
               />
+              {/* </ServerHover> */}
             </li>
           </Tooltip>
         ))}
         <Tooltip text={"Create Server"}>
-          <li
-            id={isModalOpen ? "active-plus" : ""}
-            className={`plus`}
-            onClick={(e) => {
-              createServerModal();
-            }}
-          >
-            +
-          </li>
+          <ServerHover>
+            <li
+              id={isModalOpen ? "active-plus" : ""}
+              className={`plus`}
+              onClick={(e) => {
+                createServerModal();
+              }}
+            >
+              +
+            </li>
+          </ServerHover>
         </Tooltip>
+
         <Tooltip text={"Discover Servers"}>
-          <li
-            id={isModalOpen ? "active-plus" : ""}
-            className={`compass`}
-            onClick={(e) => {
-              discoverServerModal();
-            }}
-          >
-            <IoCompassSharp className="compass-icon" />
-          </li>
+          <ServerHover>
+            <li
+              id={isModalOpen ? "active-plus" : ""}
+              className={`compass`}
+              onClick={(e) => {
+                discoverServerModal();
+              }}
+            >
+              <IoCompassSharp className="compass-icon" />
+            </li>
+          </ServerHover>
         </Tooltip>
       </ul>
     </div>

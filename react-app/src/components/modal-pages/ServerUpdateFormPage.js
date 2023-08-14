@@ -6,7 +6,12 @@ import {
   getAllServersThunk,
   uploadServerImageThunk,
   removeServerImageThunk,
+  uploadServerBannerThunk,
+  removeServerBannerThunk,
+  getServerThunk
 } from "../../store/server";
+import { getChannels } from "../../store/channels";
+import { getUserServersThunk } from "../../store/user";
 import { IoCloseOutline } from "react-icons/io5";
 import "./modal-css/ServerUpdateFormPage.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
@@ -17,36 +22,55 @@ function ServerUpdateFormPage({ user, setType }) {
   const server = useSelector((state) => state.servers[serverid]);
 
   const [serverName, setServerName] = useState(server.name);
-  const [serverImage, setServerImage] = useState("");
+  const [serverImage, setServerImage] = useState(null);
+  const [serverBanner, setServerBanner] = useState(null);
 
   const initials = (serverName) => {
+    if (!serverName) return;
     let res = "";
-    serverName = serverName.trim();
+    serverName.trim();
     const serverNameArr = serverName.split(" ");
-
-    console.log(serverNameArr);
 
     for (let i = 0; i < serverNameArr.length; i++) {
       let word = serverNameArr[i];
-      res += word[0].toUpperCase();
+      if (word && typeof word === "string") {
+        res += word[0].toUpperCase();
+      }
     }
+
+    if (res.length >= 3) {
+      return res.slice(0, 3);
+    }
+
     return res;
   };
 
   const updateServerHandleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(updateServerThunk(server.id, serverName));
+    const formData = new FormData();
+    if (serverName) {
+      await dispatch(updateServerThunk(server.id, serverName));
+    }
+
     if (serverImage) {
-      const formData = new FormData();
       formData.append("image_url", serverImage);
       await dispatch(uploadServerImageThunk(server.id, formData));
-      await dispatch(uploadServerImageThunk(server.id, formData));
     }
+
+    if (serverBanner) {
+      formData.append("banner_image", serverBanner);
+      await dispatch(uploadServerBannerThunk(server.id, formData));
+    }
+
     setType(null);
   };
 
   const removeServerImageHandleSubmit = async (e) => {
-    await dispatch(removeServerImageThunk(server.id));
+    await dispatch(removeServerImageThunk(serverid));
+  };
+
+  const removeServerBannerHandleSubmit = async (e) => {
+    await dispatch(removeServerBannerThunk(serverid));
   };
 
   return (
@@ -63,56 +87,132 @@ function ServerUpdateFormPage({ user, setType }) {
             onClick={(e) => setType(null)}
           />
         </h3>
-        <div className="server-setting-form-main">
-          <div className="server-setting-image-container">
-            {server.image_url ? (
-              <img className="server-setting-image" src={server.image_url} />
-            ) : (
-              <div className="server-setting-image-initials">
-                {initials(server.name)}
-              </div>
-            )}
-            {server.owner_id === user.id && (
-              <div className="server-image-icon-wrapper">
-                <BiImageAdd className="server-image-icon" />
-              </div>
-            )}
-            {server.owner_id === user.id && (
-              <div className="change-avatar-server">
-                <input
-                  type="file"
-                  className="change-avatar-input"
-                  onChange={(e) => setServerImage(e.target.files[0])}
-                  accept="image/*"
-                  name="server-image"
-                />
-                <div
-                  style={{
-                    textAlign: "center",
-                    width: "50px",
-                    fontSize: "16px",
-                  }}
-                >
-                  Change Icon
-                </div>
-              </div>
-            )}
 
-            {server.image_url && user.id === server.owner_id && (
-              <button
-                className="remove-server-image"
-                onClick={removeServerImageHandleSubmit}
-              >
-                Remove
-              </button>
-            )}
+        {/* FORM */}
+        <div className="server-setting-form-main">
+          <div style={{ width: "100%", display: "flex" }}>
+            <div>
+              <div className="server-setting-image-container">
+                {server.image_url ? (
+                  <img
+                    className="server-setting-image"
+                    src={server.image_url}
+                  />
+                ) : (
+                  <div className="server-setting-image-initials">
+                    {initials(server.name)}
+                  </div>
+                )}
+                {server.owner_id === user.id && (
+                  <div className="server-image-icon-wrapper">
+                    <BiImageAdd className="server-image-icon" />
+                  </div>
+                )}
+                {server.owner_id === user.id && (
+                  <div className="change-avatar-server">
+                    <input
+                      type="file"
+                      className="change-avatar-input"
+                      onChange={(e) => setServerImage(e.target.files[0])}
+                      accept="image/*"
+                      name="server-image"
+                    />
+                    <div
+                      style={{
+                        textAlign: "center",
+                        width: "50px",
+                        fontSize: "16px",
+                      }}
+                    >
+                      Change Icon
+                    </div>
+                  </div>
+                )}
+                {server.owner_id === user.id && !server.image_url && (
+                  <button className="upload-avatar-button" disabled>
+                    Upload Avatar
+                  </button>
+                )}
+
+                {server.image_url && user.id === server.owner_id && (
+                  <button
+                    className="remove-server-image"
+                    onClick={removeServerImageHandleSubmit}
+                  >
+                    Remove
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* SERVER BANNER */}
+            <div className="server-banner-update">
+              {server.owner_id === user.id && (
+                <div className="server-banner-icon-wrapper">
+                  <BiImageAdd className="server-image-icon" />
+                </div>
+              )}
+              {server.owner_id === user.id && (
+                <div className="change-banner-server">
+                  <input
+                    type="file"
+                    className="change-banner-input"
+                    onChange={(e) => setServerBanner(e.target.files[0])}
+                    accept="image/*"
+                    name="server-image"
+                  />
+                  <div
+                    style={{
+                      textAlign: "center",
+                      width: "300px",
+                      fontSize: "16px",
+                    }}
+                  >
+                    Change Banner
+                  </div>
+                </div>
+              )}
+              {server.banner_image ? (
+                <div>
+                  <img
+                    src={server.banner_image}
+                    className="server-banner-image-update"
+                  />
+                  {server.banner_image && user.id === server.owner_id && (
+                    <button
+                      className="remove-server-banner"
+                      onClick={removeServerBannerHandleSubmit}
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <div className="server-banner-default">
+                  {server.banner_image && user.id === server.owner_id && (
+                    <button className="upload-server-banner">
+                      Upload Banner
+                    </button>
+                  )}
+                  {server.owner_id === user.id && !server.banner_image && (
+                    <button className="upload-banner-button" disabled>
+                      Upload Banner
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
+
+          {/* FORM */}
           {user.id === server.owner_id ? (
             <div
               style={{
+                marginTop: "50px",
                 display: "flex",
                 flexDirection: "column",
                 marginLeft: "10px",
+                width: "95%",
               }}
             >
               <label
@@ -136,9 +236,11 @@ function ServerUpdateFormPage({ user, setType }) {
           ) : (
             <div
               style={{
+                marginTop: "30px",
                 display: "flex",
                 flexDirection: "column",
                 marginLeft: "10px",
+                width: "95%",
               }}
             >
               <label
@@ -161,7 +263,7 @@ function ServerUpdateFormPage({ user, setType }) {
             </div>
           )}
         </div>
-        {(server.name !== serverName || serverImage) && (
+        {(server.name !== serverName || serverImage || serverBanner) && (
           <div className="server-setting-save-delete-button">
             <button type="submit" className="server-save-button">
               Save Changes

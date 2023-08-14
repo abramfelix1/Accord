@@ -16,8 +16,8 @@ function LandingFooter() {
             <p>Abram Felix</p>
             <img src={abram} alt="abram" className="developer-image" />
             <div className="developer-links">
-              <a to="https://github.com/abramfelix1" target="_blank" className="github"><BsGithub /> GitHub</a>
-              <a to="linkedin.com/in/abram-felix-98937b162" target="_blank" className="linkedin"><BsLinkedin /> LinkedIn</a>
+              <a href="https://github.com/abramfelix1" target="_blank" className="github"><BsGithub /> GitHub</a>
+              <a href="https://www.linkedin.com/in/abram-felix-98937b162" target="_blank" className="linkedin"><BsLinkedin /> LinkedIn</a>
             </div>
           </div>
           <div className="developer-wrapper">
@@ -32,8 +32,8 @@ function LandingFooter() {
             <p>Randy Hac</p>
             <img src={randy} alt="randy" className="developer-image" />
             <div className="developer-links">
-              <a to="https://github.com/randydhack" target="_blank" className="github"><BsGithub /> GitHub</a>
-              <a to="https://www.linkedin.com/in/randy-hac-4577a71b0/" target="_blank" className="linkedin"><BsLinkedin />LinkedIn</a>
+              <a href="https://github.com/randydhack" target="_blank" className="github"><BsGithub /> GitHub</a>
+              <a href="https://www.linkedin.com/in/randy-hac-4577a71b0/" target="_blank" className="linkedin"><BsLinkedin />LinkedIn</a>
             </div>
           </div>
         </div>

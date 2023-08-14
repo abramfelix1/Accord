@@ -11,14 +11,6 @@ export const InfoProvider = ({ children }) => {
   const [message, setMessage] = useState(null);
   const [serversFetched, setServersFetched] = useState(false);
 
-  useEffect(() => {
-    // console.log("Server Context:");
-    // console.log(server);
-    // console.log("Is Loaded:");
-    // console.log(isLoaded);
-    // console.log("Message Context:");
-    // console.log(message);
-  }, [server, isLoaded, message]);
 
   return (
     <InfoContext.Provider
