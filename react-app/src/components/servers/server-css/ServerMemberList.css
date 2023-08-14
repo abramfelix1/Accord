@@ -203,7 +203,7 @@
   flex-direction: column;
   justify-content: flex-start;
   margin: 0px 10px 0px 10px;
-  width: 250px;
+  min-width: 345px;
   padding-top: 10px;
   padding-left: 8px;
   padding-right: 10px;
