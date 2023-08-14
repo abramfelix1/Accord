@@ -34,23 +34,23 @@ def seed_servers():
     demo_server = Server(
         owner_id=1, name='Demo Server')
     krusty_krabs= Server(
-        owner_id=10, name='Krust Krabs', image_url="https://i.imgur.com/UIXaU42.jpg")
+        owner_id=10, name='Krust Krabs', image_url="https://i.imgur.com/UIXaU42.jpg", banner_image ='https://i.imgur.com/w4R3rYI.png')
     chum_bucket= Server(
-        owner_id=6, name='Chum Bucket', image_url="https://i.imgur.com/IHwLwmD.jpg")
+        owner_id=6, name='Chum Bucket', image_url="https://i.imgur.com/IHwLwmD.jpg", banner_image='https://i.imgur.com/BMks5VE.jpeg')
     bikini_bottom = Server(
-        owner_id=7, name='Bikini Bottom', image_url="https://i.imgur.com/bxvu2Vl.jpg")
+        owner_id=7, name='Bikini Bottom', image_url="https://i.imgur.com/bxvu2Vl.jpg", banner_image='https://i.imgur.com/Tnemoe4.jpeg')
     marvel = Server(
         owner_id=36, name='Marvel', image_url="https://i.imgur.com/OdT0cLl.jpg")
     stark_industries = Server(
-        owner_id=34, name='Stark Industries')
+        owner_id=34, name='Stark Industries', banner_image='https://i.imgur.com/QljYaI1.png')
     smash_club = Server(
-        owner_id=20, name='Smash Club')
+        owner_id=20, name='Smash Club', banner_image='https://i.imgur.com/aegvdGV.png')
     i_am_groot = Server(
         owner_id=24, name='I AM GROOT', image_url="https://i.imgur.com/9hi25cU.jpg")
     davy_jones_locker = Server(
         owner_id=18, name='Davy Jones Locker')
     meow = Server(
-        owner_id=12, name='Meow', image_url="https://i.imgur.com/1H1NeH3.jpg")
+        owner_id=12, name='Meow', image_url="https://i.imgur.com/1H1NeH3.jpg", banner_image='https://i.imgur.com/mtbl1cr.jpeg')
     app_academy = Server(
         owner_id=1, name='App Academy', image_url="https://i.imgur.com/EtcV4uQ.png")
     study_group = Server(
