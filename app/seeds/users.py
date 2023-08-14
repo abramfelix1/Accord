@@ -73,50 +73,53 @@ def seed_users():
         username='Iron_Man', email='iron_man@aa.io', password='password', image_url="https://i.imgur.com/qp7IMJd.jpg")
     gamora = User(
         username='Gamora', email='gamora@aa.io', password='password', image_url="https://i.imgur.com/uEbuxRG.jpg")
+    stan_lee = User(
+        username='Stan_Lee', email='stan_lee@aa.io', password='password', image_url="https://i.imgur.com/XjmxGzZ.jpg")
     
     db.session.add(demo)
     db.session.add(abram)
     db.session.add(randy)
     db.session.add(jonathan)
-    db.session.add(mermaid_man)
+    db.session.add(mermaid_man)     #5
     db.session.add(plankton)
     db.session.add(spongebob)
     db.session.add(patrick)
     db.session.add(squidward)
-    db.session.add(mrkrab)
+    db.session.add(mrkrab)          #10
     db.session.add(sandy)
     db.session.add(gary)
     db.session.add(pearl)
     db.session.add(puff)
-    db.session.add(larry)
+    db.session.add(larry)           #15
     db.session.add(karen)
     db.session.add(man_ray)
     db.session.add(flying_dutchman)
     db.session.add(king_neptune)
-    db.session.add(hulk)
+    db.session.add(hulk)            #20
     db.session.add(spiderman)
     db.session.add(thor)
     db.session.add(daredevil)
     db.session.add(groot)
-    db.session.add(deadpool)
+    db.session.add(deadpool)        #25
     db.session.add(loki)
     db.session.add(blade)
     db.session.add(hawkeye)
     db.session.add(captian_america)
-    db.session.add(captian_marvel)
+    db.session.add(captian_marvel)  #30
     db.session.add(wolverine)
     db.session.add(black_widow)
     db.session.add(black_panther)
     db.session.add(iron_man)
-    db.session.add(gamora)
+    db.session.add(gamora)          #35
     db.session.add(gary)
     db.session.add(pearl)
     db.session.add(puff)
     db.session.add(larry)
-    db.session.add(karen)
+    db.session.add(karen)           #40
     db.session.add(man_ray)
     db.session.add(flying_dutchman)
     db.session.add(king_neptune)
+    db.session.add(stan_lee)        #44
 
     db.session.commit()
 
