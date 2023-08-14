@@ -7,6 +7,7 @@ export const UPDATE_MEMBER = "server/UPDATE_MEMBER ";
 export const DELETE_MEMBER = "server/DELETE_MEMBER ";
 export const JOIN_SERVER = "server/JOIN_SERVER";
 export const REMOVE_SERVER = "server/REMOVE_SERVER";
+export const ADD_MEMBER = "server/ADD_MEMBER";
 /*************** ACTIONS CREATOR **************************/
 
 export const getServerMembersAction = (members) => {
@@ -47,6 +48,13 @@ export const joinServerAction = (payload) => {
 export const removeServerAction = (payload) => {
   return {
     type: REMOVE_SERVER,
+    payload,
+  };
+};
+
+export const addMemberAction = (payload) => {
+  return {
+    type: ADD_MEMBER,
     payload,
   };
 };

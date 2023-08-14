@@ -1,5 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { leaveServerAction } from "../../store/members";
+import {
+  addMemberAction,
+  leaveServerAction,
+  updateMemberName,
+} from "../../store/members";
 import { useEffect, useState } from "react";
 import ServerMemberCard from "./ServerMemberCard";
 import { useParams } from "react-router-dom/";
@@ -30,9 +34,9 @@ function ServerMemberList({ server }) {
 
   useEffect(() => {
     const callbacks = {
-      // CREATE: (data) => dispatch(addChannel(data)),
+      CREATE: (data) => dispatch(addMemberAction(data)),
       DELETE: (data) => dispatch(leaveServerAction(data)),
-      // EDIT: (data) => dispatch(updateChannel(data)),
+      EDIT: (data) => dispatch(updateMemberName(data)),
     };
     handleMemberUpdates(callbacks);
   }, [dispatch, serverid]);

@@ -13,15 +13,19 @@ import {
   getSingleMemberThunk,
   getServerMembersThunk,
 } from "../../store/members";
+import { memberUpdate } from "../utils/Socket";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function ServerProfileSetting() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector(state => state.session.user)
-  const { serverSettingModal, setType, deleteServerConfirmationModal } = useContext(ModalContext);
+  const user = useSelector((state) => state.session.user);
+  const { serverSettingModal, setType, deleteServerConfirmationModal } =
+    useContext(ModalContext);
   const { server } = useContext(InfoContext);
   const [nickname, setNickname] = useState("");
   const [currentNickname, setCurrentNickname] = useState("");
+  const { serverid, channelid } = useParams();
 
   useEffect(() => {
     (async (e) => {
@@ -37,7 +41,15 @@ function ServerProfileSetting() {
   const updateNicknameHandleSubmit = async (e) => {
     e.preventDefault();
 
-    await dispatch(updateServerNicknameThunk(server.id, nickname));
+    const member = await dispatch(
+      updateServerNicknameThunk(server.id, nickname)
+    );
+    memberUpdate({
+      server_id: serverid,
+      member_id: member.id,
+      action_type: "EDIT",
+      member: member,
+    });
     // await dispatch(getServerMembersThunk(server.id));
     setType(null);
   };
@@ -64,7 +76,7 @@ function ServerProfileSetting() {
               </p>
             </div>
           </div>
-          {server.owner_id === user.id &&
+          {server.owner_id === user.id && (
             <div>
               <div className="setting-separator"></div>
               <div style={{ display: "flex", alignItems: "center" }}>
@@ -76,7 +88,7 @@ function ServerProfileSetting() {
                 </p>
               </div>
             </div>
-          }
+          )}
         </div>
 
         <div className="server-profile-inner-2">
@@ -97,7 +109,7 @@ function ServerProfileSetting() {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  width: '100%'
+                  width: "100%",
                 }}
               >
                 <label

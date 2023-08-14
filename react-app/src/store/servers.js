@@ -145,6 +145,14 @@ const serversReducer = (state = initialState, action) => {
       }
       return { ...newState };
     }
+    case memberActions.ADD_MEMBER: {
+      console.log("ADD MEMBER PAYLAOD", action.payload);
+      const { server_id, member_id, member } = action.payload;
+      if (newState[server_id] && newState[server_id].members) {
+        newState[server_id].members[member_id] = member;
+      }
+      return { ...newState };
+    }
     case memberActions.UPDATE_MEMBER: {
       const { server_id, member } = action.payload;
       if (
