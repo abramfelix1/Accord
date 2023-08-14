@@ -21,7 +21,7 @@ function ServerUpdateFormPage({ user, setType }) {
   const { serverid, channelid } = useParams();
   const server = useSelector((state) => state.servers[serverid]);
 
-  const [serverName, setServerName] = useState("");
+  const [serverName, setServerName] = useState(server.name);
   const [serverImage, setServerImage] = useState(null);
   const [serverBanner, setServerBanner] = useState(null);
 
@@ -48,19 +48,19 @@ function ServerUpdateFormPage({ user, setType }) {
   const updateServerHandleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    // if (serverName) {
-    //   await dispatch(updateServerThunk(server.id, serverName));
-    // }
+    if (serverName) {
+      await dispatch(updateServerThunk(server.id, serverName));
+    }
 
     if (serverImage) {
       formData.append("image_url", serverImage);
       await dispatch(uploadServerImageThunk(server.id, formData));
     }
 
-    // if (serverBanner) {
-    //   formData.append("banner_image", serverBanner);
-    //   await dispatch(uploadServerBannerThunk(server.id, formData));
-    // }
+    if (serverBanner) {
+      formData.append("banner_image", serverBanner);
+      await dispatch(uploadServerBannerThunk(server.id, formData));
+    }
 
     setType(null);
   };
