@@ -67,7 +67,6 @@ function ChannelSettingPage() {
           <h2 className="channel-edit-nav-title-section">{channelCog.name}</h2>
           <div className="edit-channel-nav-name">Edit Channel</div>
           <div className="edit-channel-setting-separator"></div>
-          {channelCog.name !== "General" && (
             <div className="delete-channel-div">
               <div
                 className="delete-channel"
@@ -76,7 +75,6 @@ function ChannelSettingPage() {
                 Delete Channel <BiSolidTrash />
               </div>
             </div>
-          )}
         </div>
       </div>
       <div className="inner-channel-setting">
