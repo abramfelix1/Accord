@@ -1,4 +1,5 @@
 import { getUserServersThunk } from "./user";
+import { getChannels } from "./channels";
 import * as userActions from "./user";
 import * as channelActions from "./channels";
 import * as messageActions from "./message";
@@ -203,7 +204,7 @@ export const uploadServerImageThunk =
 
     if (res.ok) {
       const updatedServer = await res.json();
-      await dispatch(getUserServersThunk());
+      await dispatch(updateServerAction(updatedServer));
       return updatedServer;
     } else {
       const error = await res.json();
@@ -234,7 +235,7 @@ export const uploadServerBannerThunk =
 
     if (res.ok) {
       const updatedServer = await res.json();
-      await dispatch(getUserServersThunk());
+      await dispatch(updateServerAction(updatedServer));
       return updatedServer;
     } else {
       const error = await res.json();
