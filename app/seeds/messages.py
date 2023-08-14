@@ -4,10 +4,10 @@ from sqlalchemy.sql import text
 
 def seed_messages():
     # Demo Channel Messages
-    message1 = ChannelMessage(message="asdfg", channel_id=1, user_id=2)
-    message2 = ChannelMessage(message="gfdsa", channel_id=1, user_id=4)
-    message3 = ChannelMessage(message="qwers", channel_id=1, user_id=5)
-    message4 = ChannelMessage(message="rewq", channel_id=1, user_id=6)
+    message1 = ChannelMessage(message="hello", channel_id=1, user_id=2)
+    message2 = ChannelMessage(message="HI", channel_id=1, user_id=4)
+    message3 = ChannelMessage(message="What's going on here", channel_id=1, user_id=5)
+    message4 = ChannelMessage(message="This is cool", channel_id=1, user_id=6)
 
     db.session.add(message1)
     db.session.add(message2)
@@ -26,9 +26,9 @@ def seed_messages():
 def undo_messages():
     if environment == "production":
         db.session.execute(
-            f"TRUNCATE table {SCHEMA}.channels RESTART IDENTITY CASCADE;"
+            f"TRUNCATE table {SCHEMA}.channel_messages RESTART IDENTITY CASCADE;"
         )
     else:
-        db.session.execute(text("DELETE FROM channels"))
+        db.session.execute(text("DELETE FROM channel_messages"))
 
     db.session.commit()
