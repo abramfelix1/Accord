@@ -83,7 +83,7 @@ Accord was built using the following technologies:
 
 For subsequent sessions, ensure you have two terminal windows:
 
-1. **Backend Server** (ensure database is migrated and seeded as mentioned in the installation process)
+1. **Backend Server** (ensure the database is migrated and seeded as mentioned in the installation process)
     ```bash
     pipenv shell
     flask run
@@ -124,14 +124,14 @@ Enjoy Accord!
 - **Server Invite Links**: Facilitate the growth of communities by providing server invite links for easy sharing and joining.
 
 ### Technical Implementations:
-- **WebRTC Integration**: For enhanced voice, video, and screenshare capabilities.
+- **WebRTC Integration**: For enhanced voice, video, and screen share capabilities.
 
 ## Technical Implementation Details
 
 
 ### Abram - (Redux State & Sockets)
-Before implementing sockets, we had a reducer for each model (Servers, Channels, Messages, Members) which worked perfectly fine for a single user. We realized that the sockets won't dispatch updates properly given the data the emitter sends to the response. So we rebuilt the redux state to only have one reducer with about 20 action creators that contains and updates all data for "Servers". Which is a deeply nested state that contains data about each server that belongs to the current user,containing "Channels", "Messages", and "Members" in each server. Making this change greatly increased the efficiency of the flow of data in our frontend and decreased the amount of request to the backend.
-After rebuilding the redux state, figuiring out how to implement sockets was the next challenge. We created a dynamic function that emits an event based on an action type of "CREATE", "DELETE", and "EDIT" that will dispatch the corressponding action creator for the corresponding request. The function is then called in submit handlers for messages, channels, and members. EX: Chats
+Before implementing sockets, we had a reducer for each model (Servers, Channels, Messages, Members) which worked perfectly fine for a single user. We realized that the sockets won't dispatch updates properly given the data the emitter sends to the response. So we rebuilt the redux state to only have one reducer with about 20 action creators that contain and update all data for "Servers". Which is a deeply nested state that contains data about each server that belongs to the current user, containing "Channels", "Messages", and "Members" in each server. Making this change greatly increased the efficiency of the flow of data in our frontend and decreased the amount of requests to the backend.
+After rebuilding the redux state, figuring out how to implement sockets was the next challenge. We created a dynamic function that emits an event based on an action type of "CREATE", "DELETE", and "EDIT" that will dispatch the corresponding action creator for the corresponding request. The function is then called in submit handlers for messages, channels, and members. EX: Chats
 ```javascript
 export function chatUpdate(payload) {
   socket.emit("chat_update", payload);
@@ -174,13 +174,13 @@ export function handleChatUpdates(callbacks, chid) {
 ```
 
 
-### Jonathan - (Organizing the Messaging Output System) Write about the chat HERE
+### Jonathan - (Organizing the Messaging Output System)
 Before we implemented the layout for chat, we were thinking it was going to be an easy setup to due. It turned out to be a bit tougher than we thought. The first task was to compare each message and determine if they use was the same user from the last message sent in the chat. Once the logic was figured out and able to determine whether it needed a full message card or just a message text only for the user sending the message. We wanted to make the message go from the bottom up just like how most chat rooms behave. Finding a way to make the messages go in that direction didn't take too long, but the messages were coming in the wrong direction. So we had the order of the messages coming in as well. From there, were had to determine a new logic and check the messages coming in backward and compare it there. The dates and times were another tough issue we had to work with. We didn't want it just to show the date and time, but to let the user know whether the message was sent "Today", "Yesterday", or anytime before that as a certain format MM/DD/YYYY. Each time should also be set to the exact local time you are writing the messages out. Now we have a functional chat that styles each message correctly as if it was a real discord chatting system. Ex: Message ChatBox
 
 <img width="298" alt="image" src="https://github.com/abramfelix1/Accord/assets/95331968/2da47e06-bf85-4d72-abb8-9eb67c0f6b38">
 
 
-### Randy - (AWS) Write about AWS HERE
+### Randy - (AWS)
 When following the instructions to implement AWS in our projects. Everything was working fine on the local host and was able to upload images to our ("Server Profile" and "User Profile"), however, when it came to deploying the application to a live server, it was not working the way we wanted as it kept crashing the website due to a recursion error.
 
 I spent a day trying to figure out the issue and ended up doing something different that wasn't related to the fix. After spending hours, we noticed that the socket and AWS had compatibility issues due to threading. To fix the issue, all we needed to do was to install eventlet, and invoke a built-in method "eventlet.monkey_patch()", create a variable called "CONFIG" that invokes "TransferConfig(use_threads=False)", provide the config to the upload function to AWS server.
