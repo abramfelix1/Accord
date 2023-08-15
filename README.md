@@ -174,7 +174,11 @@ export function handleChatUpdates(callbacks, chid) {
 ```
 
 
-### Johnathan - (Organizing the Messaging Output System) Write about the chat HERE
+### Jonathan - (Organizing the Messaging Output System) Write about the chat HERE
+Before we implemented the layout for chat, we were thinking it was going to be an easy set up to. It turned out to be a bit tougher than we thought. The first task was to compare each message and determine if they use was the same user from the last message sent in the chat. Once the logic was figured out and able to determine whether it needed a full message card or just a message text only for the user sending the message. We wanted to make the message go from bottom up just like how most chat rooms behave. Finding a way to make the messages go in that direction didn't to take to long, but the messages were comming in at the wrong direction. So we had order of the messages coming in as well. From there, were had to determine a new logic and check the messages coming in backwards and compare it there. The dates and time were another tough issue we had to work with. We didn't want it just to show the date and time, but to let the user know whether the message was sent "Today", "Yesterday", or anytime before that as a certain format MM/DD/YYYY. Each time should also be set to the exact local time you are writing the mssages out. Now we have a functional chat that styles each message correctly as if it was a real discord chatting system. Ex: Message ChatBox
+
+<img width="298" alt="image" src="https://github.com/abramfelix1/Accord/assets/95331968/2da47e06-bf85-4d72-abb8-9eb67c0f6b38">
+
 
 ### Randy - (AWS) Write about AWS HERE
 
