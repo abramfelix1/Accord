@@ -175,12 +175,56 @@ export function handleChatUpdates(callbacks, chid) {
 
 
 ### Jonathan - (Organizing the Messaging Output System) Write about the chat HERE
-Before we implemented the layout for chat, we were thinking it was going to be an easy set up to. It turned out to be a bit tougher than we thought. The first task was to compare each message and determine if they use was the same user from the last message sent in the chat. Once the logic was figured out and able to determine whether it needed a full message card or just a message text only for the user sending the message. We wanted to make the message go from bottom up just like how most chat rooms behave. Finding a way to make the messages go in that direction didn't to take to long, but the messages were comming in at the wrong direction. So we had order of the messages coming in as well. From there, were had to determine a new logic and check the messages coming in backwards and compare it there. The dates and time were another tough issue we had to work with. We didn't want it just to show the date and time, but to let the user know whether the message was sent "Today", "Yesterday", or anytime before that as a certain format MM/DD/YYYY. Each time should also be set to the exact local time you are writing the mssages out. Now we have a functional chat that styles each message correctly as if it was a real discord chatting system. Ex: Message ChatBox
+Before we implemented the layout for chat, we were thinking it was going to be an easy setup to due. It turned out to be a bit tougher than we thought. The first task was to compare each message and determine if they use was the same user from the last message sent in the chat. Once the logic was figured out and able to determine whether it needed a full message card or just a message text only for the user sending the message. We wanted to make the message go from the bottom up just like how most chat rooms behave. Finding a way to make the messages go in that direction didn't take too long, but the messages were coming in the wrong direction. So we had the order of the messages coming in as well. From there, were had to determine a new logic and check the messages coming in backward and compare it there. The dates and times were another tough issue we had to work with. We didn't want it just to show the date and time, but to let the user know whether the message was sent "Today", "Yesterday", or anytime before that as a certain format MM/DD/YYYY. Each time should also be set to the exact local time you are writing the messages out. Now we have a functional chat that styles each message correctly as if it was a real discord chatting system. Ex: Message ChatBox
 
 <img width="298" alt="image" src="https://github.com/abramfelix1/Accord/assets/95331968/2da47e06-bf85-4d72-abb8-9eb67c0f6b38">
 
 
 ### Randy - (AWS) Write about AWS HERE
+When following the instructions to implement AWS in our projects. Everything was working fine on the local host and was able to upload images to our ("Server Profile" and "User Profile"), however, when it came to deploying the application to a live server, it was not working the way we wanted as it kept crashing the website due to a recursion error.
+
+I spent a day trying to figure out the issue and ended up doing something different that wasn't related to the fix. After spending hours, we noticed that the socket and AWS had compatibility issues due to threading. To fix the issue, all we needed to do was to install eventlet, and invoke a built-in method "eventlet.monkey_patch()", create a variable called "CONFIG" that invokes "TransferConfig(use_threads=False)", provide the config to the upload function to AWS server.
+
+```Python monkey_patch()
+import eventlet <--
+eventlet.monkey_patch() <--
+
+import boto3
+from boto3.s3.transfer import TransferConfig <--
+import botocore
+import os
+import uuid
+
+BUCKET_NAME = os.environ.get("S3_BUCKET")
+S3_LOCATION = f"https://{BUCKET_NAME}.s3.amazonaws.com/"
+ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif", "svg"}
+CONFIG = TransferConfig(use_threads=False) <--
+```
+
+``` Python
+
+def upload_file_to_s3(file, acl="public-read"):
+    # print("IN FILE UPLOAD", file)
+    # print("s3 key", os.environ.get("S3_KEY"))
+    try:
+        s3.upload_fileobj(
+            file,
+            BUCKET_NAME,
+            file.filename,
+            ExtraArgs={"ACL": acl, "ContentType": file.content_type},
+            Config=CONFIG, <----
+        )
+    except Exception as e:
+        # in case the our s3 upload fails
+        return {"errors": str(e)}
+
+    print(
+        file.filename,
+        "&**********&**********&**********&**********&**********&**********&**********&**********&**********",
+    )
+
+```
+
 
 ## Authors
 * Abram's [Github](https://github.com/abramfelix1) and [LinkedIn](https://www.linkedin.com/in/abram-felix-98937b162/)
