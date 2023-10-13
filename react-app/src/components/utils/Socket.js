@@ -58,7 +58,7 @@ export function addServer(server_id) {
 export function chatUpdate(payload) {
 
   // console.log("***EMIT CHAT UPDATE***");
-  // socket.emit("chat_update", payload);
+  socket.emit("chat_update", payload);
 }
 
 export function handleChatUpdates(callbacks, chid) {
@@ -89,9 +89,9 @@ export function channelUpdate(payload) {
 
   // console.log("***EMIT CHANNEL UPDATE***");
   // console.log(payload);
-  // socket.emit("channel_update", payload);
+  socket.emit("channel_update", payload);
 
-  console.log("***EMIT CHANNEL UPDATE***");
+  // console.log("***EMIT CHANNEL UPDATE***");
   socket.emit("channel_update", payload);
 
 }
@@ -115,13 +115,13 @@ export function handleChannelUpdates(callbacks, chid) {
 }
 
 export function memberUpdate(payload) {
-  console.log("***EMIT MEMBER UPDATE***");
-  console.log(payload);
+  // console.log("***EMIT MEMBER UPDATE***");
+  // console.log(payload);
   socket.emit("member_update", payload);
 }
 
 export function handleMemberUpdates(callbacks, chid) {
-  console.log("***LISTENING FOR MEMBER UPDATES***");
+  // console.log("***LISTENING FOR MEMBER UPDATES***");
 
   socket.on("member_update_response", (data) => {
     const {
@@ -131,7 +131,7 @@ export function handleMemberUpdates(callbacks, chid) {
       member: member,
     } = data;
     if (callbacks[actionType]) {
-      console.log(`${actionType} MEMBER SOCKET EMITTED`);
+      // console.log(`${actionType} MEMBER SOCKET EMITTED`);
       callbacks[actionType](data);
     }
   });
