@@ -29,10 +29,10 @@ If not, check send message from client to backend for other clients to recieve w
 */
 
 export function startListeners(user) {
-  console.log("***LISTENING FOR SEND MESSAGE RESPONSE***");
+  // console.log("***LISTENING FOR SEND MESSAGE RESPONSE***");
   socket.on("disconnect_response", (data) => {
-    console.log(data["Message"]);
-    console.log(data["Users"]);
+    // console.log(data["Message"]);
+    // console.log(data["Users"]);
   });
 }
 
@@ -41,25 +41,35 @@ export function disconnectSockets() {
 }
 
 export function joinServer(user_id) {
-  console.log("***EMIT JOIN SERVER***");
+  // console.log("***EMIT JOIN SERVER***");
   socket.emit("join_server", { user_id });
-  console.log("***LISTENING FOR JOIN SERVER RESPONSE***");
+  // console.log("***LISTENING FOR JOIN SERVER RESPONSE***");
   socket.on("join_server_response", (data) => {
-    console.log(data["Message"]);
-    console.log(data["Users"]);
+    // console.log(data["Message"]);
+    // console.log(data["Users"]);
   });
 }
 
 export function addServer(server_id) {
-  console.log("***EMIT ADD SERVER***");
+  // console.log("***EMIT ADD SERVER***");
   socket.emit("add_server", { server_id: server_id });
 }
 
 export function chatUpdate(payload) {
+
+  // console.log("***EMIT CHAT UPDATE***");
+  // socket.emit("chat_update", payload);
+}
+
+export function handleChatUpdates(callbacks, chid) {
+  // console.log("***LISTENING FOR CHAT UPDATES***");
+
+
   socket.emit("chat_update", payload);
 }
 
 export function handleChatUpdates(callbacks, chid) {
+
   socket.on("chat_update_response", (data) => {
     const {
       server_id,
@@ -69,18 +79,25 @@ export function handleChatUpdates(callbacks, chid) {
       message: message,
     } = data;
     if (channel_id == chid && callbacks[actionType]) {
+      // console.log(`${actionType} CHAT SOCKET EMITTED`);
       callbacks[actionType](data);
     }
   });
 }
 
 export function channelUpdate(payload) {
+
+  // console.log("***EMIT CHANNEL UPDATE***");
+  // console.log(payload);
+  // socket.emit("channel_update", payload);
+
   console.log("***EMIT CHANNEL UPDATE***");
   socket.emit("channel_update", payload);
+
 }
 
 export function handleChannelUpdates(callbacks, chid) {
-  console.log("***LISTENING FOR CHANNEL UPDATES***");
+  // console.log("***LISTENING FOR CHANNEL UPDATES***");
 
   socket.on("channel_update_response", (data) => {
     const {
@@ -91,7 +108,7 @@ export function handleChannelUpdates(callbacks, chid) {
       channel_name: channel_name,
     } = data;
     if (callbacks[actionType]) {
-      console.log(`${actionType} CHANNEL SOCKET EMITTED`);
+      // console.log(`${actionType} CHANNEL SOCKET EMITTED`);
       callbacks[actionType](data);
     }
   });
