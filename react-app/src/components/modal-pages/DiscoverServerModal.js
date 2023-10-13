@@ -6,11 +6,14 @@ import "./modal-css/DiscoverServer.css";
 import { ModalContext } from "../../context/modalContext";
 import { useHistory } from "react-router-dom";
 import { IoCloseOutline } from "react-icons/io5";
+import { memberUpdate } from "../utils/Socket";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function DiscoverServerModal() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { setType } = useContext(ModalContext);
+  const { serverid, channelid } = useParams();
 
   const servers = Object.values(useSelector((state) => state.allServers));
 
@@ -22,6 +25,12 @@ function DiscoverServerModal() {
 
   const joinServerHandler = async (server_id) => {
     const server = await dispatch(joinServerThunk(server_id));
+    memberUpdate({
+      server_id: server.server.server.id,
+      member_id: server.id,
+      action_type: "CREATE",
+      member: server,
+    });
     setType(null);
     return history.push(
       `/servers/${server.server_id}/channels/${server.server.server.firstChannel.id}`
@@ -29,9 +38,9 @@ function DiscoverServerModal() {
   };
 
   const initials = (serverName) => {
-    if (!serverName) return
+    if (!serverName) return;
     let res = "";
-    serverName.trim()
+    serverName.trim();
     const serverNameArr = serverName.split(" ");
 
     for (let i = 0; i < serverNameArr.length; i++) {
@@ -62,7 +71,7 @@ function DiscoverServerModal() {
                 color: "#dbdee1",
                 cursor: "pointer",
               }}
-              onClick={e => setType(null)}
+              onClick={(e) => setType(null)}
             />
           </div>
           <p className="discover-description">
@@ -79,24 +88,33 @@ function DiscoverServerModal() {
                 onClick={(e) => joinServerHandler(server.id)}
               >
                 {server.image_url ? (
-                  <div style={{height: '75px', marginBottom: '35px'}}>
-                    {server.banner_image ?
-                    <img className="server-banner" src={server.banner_image}/> :
-                    <div className="server-banner"></div>
-
-                    }
+                  <div style={{ height: "75px", marginBottom: "35px" }}>
+                    {server.banner_image ? (
+                      <img
+                        className="server-banner"
+                        src={server.banner_image}
+                      />
+                    ) : (
+                      <div className="server-banner"></div>
+                    )}
                     <img
                       src={server.image_url}
                       className="discovery-initial-server-name"
                     />
                   </div>
                 ) : (
-                  <div style={{height: '75px', marginBottom: '35px'}}>
-                    {server.banner_image ?
-                    <img className="server-banner" src={server.banner_image}/> :
-                    <div className="server-banner"></div>
-                    }
-                    <div className="discovery-initial-server-name">{initials(server?.name)}</div>
+                  <div style={{ height: "75px", marginBottom: "35px" }}>
+                    {server.banner_image ? (
+                      <img
+                        className="server-banner"
+                        src={server.banner_image}
+                      />
+                    ) : (
+                      <div className="server-banner"></div>
+                    )}
+                    <div className="discovery-initial-server-name">
+                      {initials(server?.name)}
+                    </div>
                   </div>
                 )}
                 <div className="server-discovery-content">
