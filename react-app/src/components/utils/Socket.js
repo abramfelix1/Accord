@@ -62,13 +62,6 @@ export function chatUpdate(payload) {
 }
 
 export function handleChatUpdates(callbacks, chid) {
-  // console.log("***LISTENING FOR CHAT UPDATES***");
-
-
-  socket.emit("chat_update", payload);
-}
-
-export function handleChatUpdates(callbacks, chid) {
 
   socket.on("chat_update_response", (data) => {
     const {
